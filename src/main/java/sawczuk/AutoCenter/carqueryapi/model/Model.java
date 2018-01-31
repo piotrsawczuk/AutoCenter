@@ -3,18 +3,10 @@ package sawczuk.AutoCenter.carqueryapi.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Model {
-    Long id;
     @JsonProperty("model_name")
-    String name;
-    Long makeId;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private String name;
+    @JsonProperty("model_make_id")
+    private String makeId;
 
     public String getName() {
         return name;
@@ -24,20 +16,11 @@ public class Model {
         this.name = name;
     }
 
-    public Long getMakeId() {
+    public String getMakeId() {
         return makeId;
     }
 
-    public void setMakeId(Long makeId) {
+    public void setMakeId(String makeId) {
         this.makeId = makeId;
-    }
-
-    @Override
-    public String toString() {
-        return "Model{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", makeId=" + makeId +
-                '}';
     }
 }

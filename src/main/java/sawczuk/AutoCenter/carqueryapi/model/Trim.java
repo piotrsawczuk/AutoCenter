@@ -3,80 +3,78 @@ package sawczuk.AutoCenter.carqueryapi.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Trim {
-    Long id;
-    Long modelId;
     @JsonProperty("model_id")
-    Long trimId;
+    private Long modelId;
+    @JsonProperty("model_make_id")
+    private String makeId;
+    @JsonProperty("make_display")
+    private String make;
+    @JsonProperty("model_name")
+    private String model;
     @JsonProperty("model_trim")
-    String name;
+    private String trim;
+    @JsonProperty("make_country")
+    private String country;
     @JsonProperty("model_year")
-    Long year;
+    private Integer year;
     @JsonProperty("model_body")
-    String body;
+    private String body;
     @JsonProperty("model_engine_position")
-    String enginePosition;
+    private String enginePosition;
     @JsonProperty("model_engine_cc")
-    Integer engineCc;
+    private Integer engineCc;
     @JsonProperty("model_engine_cyl")
-    Integer engineCyl;
+    private Integer engineCyl;
     @JsonProperty("model_engine_type")
-    String engineType;
+    private String engineType;
     @JsonProperty("model_engine_valves_per_cyl")
-    Integer engineValvesPerCyl;
+    private Integer engineValvesPerCyl;
     @JsonProperty("model_engine_power_ps")
-    Integer enginePowerPs;
+    private Integer enginePowerPs;
     @JsonProperty("model_engine_power_rpm")
-    Integer enginePowerRpm;
+    private Integer enginePowerRpm;
     @JsonProperty("model_engine_torque_nm")
-    Integer engineTorqueNm;
+    private Integer engineTorqueNm;
     @JsonProperty("model_engine_torque_rpm")
-    Integer engineTorqueRpm;
+    private Integer engineTorqueRpm;
     @JsonProperty("model_engine_bore_mm")
-    Double engineBoreMm;
+    private Double engineBoreMm;
     @JsonProperty("model_engine_stroke_mm")
-    Double engineStrokeMm;
+    private Double engineStrokeMm;
     @JsonProperty("model_engine_compression")
-    String engineCompression;
+    private String engineCompression;
     @JsonProperty("model_engine_fuel")
-    String engineFuel;
+    private String engineFuel;
     @JsonProperty("model_top_speed_kph")
-    Integer topSpeedKph;
+    private Integer topSpeedKph;
     @JsonProperty("model_0_to_100_kph")
-    Double nullTo100Kph;
+    private Double nullTo100Kph;
     @JsonProperty("model_drive")
-    String drive;
+    private String drive;
     @JsonProperty("model_transmission_type")
-    String transmissionType;
+    private String transmissionType;
     @JsonProperty("model_seats")
-    Integer seats;
+    private Integer seats;
     @JsonProperty("model_doors")
-    Integer doors;
+    private Integer doors;
     @JsonProperty("model_weight_kg")
-    Integer weightKg;
+    private Integer weightKg;
     @JsonProperty("model_length_mm")
-    Integer lengthMm;
+    private Integer lengthMm;
     @JsonProperty("model_width_mm")
-    Integer widthMm;
+    private Integer widthMm;
     @JsonProperty("model_height_mm")
-    Integer heightMm;
+    private Integer heightMm;
     @JsonProperty("model_wheelbase_mm")
-    Integer wheelbaseMm;
+    private Integer wheelbaseMm;
     @JsonProperty("model_lkm_hwy")
-    Double lPerKmHighway;
+    private Double lPerKmHighway;
     @JsonProperty("model_lkm_mixed")
-    Double lPerKmMixed;
+    private Double lPerKmMixed;
     @JsonProperty("model_lkm_city")
-    Double lPerKmCity;
+    private Double lPerKmCity;
     @JsonProperty("model_fuel_cap_l")
-    Integer fuelCapL;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private Integer fuelCapL;
 
     public Long getModelId() {
         return modelId;
@@ -86,27 +84,51 @@ public class Trim {
         this.modelId = modelId;
     }
 
-    public Long getTrimId() {
-        return trimId;
+    public String getMakeId() {
+        return makeId;
     }
 
-    public void setTrimId(Long trimId) {
-        this.trimId = trimId;
+    public void setMakeId(String makeId) {
+        this.makeId = makeId;
     }
 
-    public String getName() {
-        return name;
+    public String getMake() {
+        return make;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setMake(String make) {
+        this.make = make;
     }
 
-    public Long getYear() {
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public String getTrim() {
+        return trim;
+    }
+
+    public void setTrim(String trim) {
+        this.trim = trim;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public Integer getYear() {
         return year;
     }
 
-    public void setYear(Long year) {
+    public void setYear(Integer year) {
         this.year = year;
     }
 
@@ -342,43 +364,4 @@ public class Trim {
         this.fuelCapL = fuelCapL;
     }
 
-    @Override
-    public String toString() {
-        return "Trim{" +
-                "id=" + id +
-                ", modelId=" + modelId +
-                ", trimId=" + trimId +
-                ", name='" + name + '\'' +
-                ", year=" + year +
-                ", body='" + body + '\'' +
-                ", enginePosition='" + enginePosition + '\'' +
-                ", engineCc=" + engineCc +
-                ", engineCyl=" + engineCyl +
-                ", engineType='" + engineType + '\'' +
-                ", engineValvesPerCyl=" + engineValvesPerCyl +
-                ", enginePowerPs=" + enginePowerPs +
-                ", enginePowerRpm=" + enginePowerRpm +
-                ", engineTorqueNm=" + engineTorqueNm +
-                ", engineTorqueRpm=" + engineTorqueRpm +
-                ", engineBoreMm=" + engineBoreMm +
-                ", engineStrokeMm=" + engineStrokeMm +
-                ", engineCompression='" + engineCompression + '\'' +
-                ", engineFuel='" + engineFuel + '\'' +
-                ", topSpeedKph=" + topSpeedKph +
-                ", nullTo100Kph=" + nullTo100Kph +
-                ", drive='" + drive + '\'' +
-                ", transmissionType='" + transmissionType + '\'' +
-                ", seats=" + seats +
-                ", doors=" + doors +
-                ", weightKg=" + weightKg +
-                ", lengthMm=" + lengthMm +
-                ", widthMm=" + widthMm +
-                ", heightMm=" + heightMm +
-                ", wheelbaseMm=" + wheelbaseMm +
-                ", lPerKmHighway=" + lPerKmHighway +
-                ", lPerKmMixed=" + lPerKmMixed +
-                ", lPerKmCity=" + lPerKmCity +
-                ", fuelCapL=" + fuelCapL +
-                '}';
-    }
 }
