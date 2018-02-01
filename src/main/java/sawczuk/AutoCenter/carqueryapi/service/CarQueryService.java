@@ -1,22 +1,21 @@
 package sawczuk.AutoCenter.carqueryapi.service;
 
-import sawczuk.AutoCenter.carqueryapi.model.Make;
-import sawczuk.AutoCenter.carqueryapi.model.Model;
-import sawczuk.AutoCenter.carqueryapi.model.Trim;
-import sawczuk.AutoCenter.carqueryapi.model.Year;
+import sawczuk.AutoCenter.carqueryapi.model.*;
 
 import java.util.List;
 
 public interface CarQueryService {
-    Trim getModel(Long modelId) ;
+    Trim getModel(Long modelId);
 
-    Year getYears() ;
+    Year getYears();
 
-    List<Make> getMakes() ;
+    List<Make> getMakes();
 
-    List<Make> getMakesByYear(Integer year) ;
+    List<Make> getMakesByYear(Integer year);
 
-    List<Model> getModelsByYearAndMake(Integer year, String makeName) ;
+    List<Model> getModelsByYearAndMake(Integer year, String makeName);
 
-    List<Trim> getTrimsByYearAndMakeAndModel(Integer year, String makeName, String modelName) ;
+    List<Trim> getTrimsByYearAndMakeAndModel(Integer year, String makeName, String modelName);
+
+    List<TrimBasic> getTrimsBasicByYearAndMakeAndModel(Integer year, String makeName, String modelName);
 }

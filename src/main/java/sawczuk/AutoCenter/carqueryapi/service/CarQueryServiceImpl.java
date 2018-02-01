@@ -2,51 +2,96 @@ package sawczuk.AutoCenter.carqueryapi.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import sawczuk.AutoCenter.carqueryapi.api.CarQueryApi;
-import sawczuk.AutoCenter.carqueryapi.model.Make;
-import sawczuk.AutoCenter.carqueryapi.model.Model;
-import sawczuk.AutoCenter.carqueryapi.model.Trim;
-import sawczuk.AutoCenter.carqueryapi.model.Year;
+import sawczuk.AutoCenter.carqueryapi.model.*;
+import sawczuk.AutoCenter.exception.ErrorMessages;
+import sawczuk.AutoCenter.exception.InvalidRequestParametersException;
+import sawczuk.AutoCenter.exception.ResourceNotFoundException;
 
 import java.util.List;
 
 @Service
-public class CarQueryServiceImpl implements CarQueryService{
+public class CarQueryServiceImpl implements CarQueryService {
 
     @Autowired
     CarQueryApi carQueryApi;
 
     @Override
     public Trim getModel(Long modelId) {
-        Trim trim = carQueryApi.getModel(modelId);
-        if (trim.getModelId() != null && trim.getModelId().doubleValue() == modelId){
-            return trim;
+        if (modelId == null) {
+            throw new InvalidRequestParametersException(ErrorMessages.INVALID_REQUEST_PARAMETER);
         }
-        return null;
+        Trim trim = carQueryApi.getModel(modelId);
+        if (trim.getModelId() == null || trim.getModelId().doubleValue() != modelId) {
+            throw new ResourceNotFoundException(ErrorMessages.RESOURCE_NOT_FOUND);
+        }
+        return trim;
     }
 
     @Override
     public Year getYears() {
-        return carQueryApi.getYears();
+        Year year = carQueryApi.getYears();
+        if (year == null) {
+            throw new ResourceNotFoundException(ErrorMessages.RESOURCE_NOT_FOUND);
+        }
+        return year;
     }
 
     @Override
     public List<Make> getMakes() {
-        return carQueryApi.getMakes();
+        List<Make> makes = carQueryApi.getMakes();
+        if (makes == null || makes.isEmpty()) {
+            throw new ResourceNotFoundException(ErrorMessages.RESOURCE_NOT_FOUND);
+        }
+        return makes;
     }
 
     @Override
     public List<Make> getMakesByYear(Integer year) {
-        return carQueryApi.getMakesByYear(year);
+        if (year == null) {
+            throw new InvalidRequestParametersException(ErrorMessages.INVALID_REQUEST_PARAMETER);
+        }
+        List<Make> makes = carQueryApi.getMakesByYear(year);
+        if (makes == null || makes.isEmpty()) {
+            throw new ResourceNotFoundException(ErrorMessages.RESOURCE_NOT_FOUND);
+        }
+        return makes;
     }
 
     @Override
     public List<Model> getModelsByYearAndMake(Integer year, String makeName) {
-        return carQueryApi.getModelsByYearAndMake(year, makeName);
+        if (year == null || StringUtils.isEmpty(makeName)) {
+            throw new InvalidRequestParametersException(ErrorMessages.INVALID_REQUEST_PARAMETER);
+        }
+        List<Model> models = carQueryApi.getModelsByYearAndMake(year, makeName);
+        if (models == null || models.isEmpty()) {
+            throw new ResourceNotFoundException(ErrorMessages.RESOURCE_NOT_FOUND);
+        }
+        return models;
     }
 
     @Override
     public List<Trim> getTrimsByYearAndMakeAndModel(Integer year, String makeName, String modelName) {
-        return carQueryApi.getTrimsByYearAndMakeAndModel(year, makeName, modelName);
+        if (year == null || StringUtils.isEmpty(makeName) || StringUtils.isEmpty(modelName)) {
+            throw new InvalidRequestParametersException(ErrorMessages.INVALID_REQUEST_PARAMETER);
+        }
+        List<Trim> trims = carQueryApi.getTrimsByYearAndMakeAndModel(year, makeName, modelName);
+        if (trims == null || trims.isEmpty()) {
+            throw new ResourceNotFoundException(ErrorMessages.RESOURCE_NOT_FOUND);
+        }
+        return trims;
+    }
+
+    @Override
+    public List<TrimBasic> getTrimsBasicByYearAndMakeAndModel(Integer year, String makeName, String modelName) {
+        if (year == null || StringUtils.isEmpty(makeName) || StringUtils.isEmpty(modelName)) {
+            throw new InvalidRequestParametersException(ErrorMessages.INVALID_REQUEST_PARAMETER);
+        }
+        List<TrimBasic> trims = carQueryApi.getTrimsBasicByYearAndMakeAndModel(year, makeName, modelName);
+        if (trims == null || trims.isEmpty()) {
+            throw new ResourceNotFoundException(ErrorMessages.RESOURCE_NOT_FOUND);
+        }
+        return trims;
     }
 }

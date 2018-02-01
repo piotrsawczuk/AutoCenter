@@ -18,14 +18,17 @@ public class DBConnector {
     public void setDriverClassName(String driverClassName) {
         this.driverClassName = driverClassName;
     }
+
     @Value("${spring.datasource.url}")
     public void setUrl(String url) {
         this.url = url;
     }
+
     @Value("${spring.datasource.username}")
     public void setUsername(String username) {
         this.username = username;
     }
+
     @Value("${spring.datasource.password}")
     public void setPassword(String password) {
         this.password = password;

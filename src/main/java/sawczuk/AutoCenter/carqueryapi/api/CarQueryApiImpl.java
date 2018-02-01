@@ -57,9 +57,18 @@ public class CarQueryApiImpl implements CarQueryApi {
         parameters += "&year=" + year;
         parameters += "&make=" + makeName;
         parameters += "&model=" + modelName;
-        parameters += "&full_results=0";
         return getTrims(parameters);
     }
+
+    @Override
+    public List<TrimBasic> getTrimsBasicByYearAndMakeAndModel(Integer year, String makeName, String modelName) {
+        String parameters = "";
+        parameters += "&year=" + year;
+        parameters += "&make=" + makeName;
+        parameters += "&model=" + modelName;
+        return getTrimsBasic(parameters);
+    }
+
 
     private List<Make> getMakes(String parameters) {
         String url = "https://www.carqueryapi.com/api/0.3/?cmd=getMakes";
@@ -84,6 +93,15 @@ public class CarQueryApiImpl implements CarQueryApi {
         ResponseEntity<Trims> respEntity = restTemplate.exchange(url, HttpMethod.POST, httpEntity(), Trims.class);
         return respEntity.getBody().getTrimList();
     }
+
+    private List<TrimBasic> getTrimsBasic(String parameters) {
+        String url = "https://www.carqueryapi.com/api/0.3/?cmd=getTrims&full_results=0";
+        url += parameters;
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<TrimsBasic> respEntity = restTemplate.exchange(url, HttpMethod.POST, httpEntity(), TrimsBasic.class);
+        return respEntity.getBody().getTrimBasicList();
+    }
+
 
     private HttpEntity<String> httpEntity() {
         HttpHeaders headers = new HttpHeaders();
