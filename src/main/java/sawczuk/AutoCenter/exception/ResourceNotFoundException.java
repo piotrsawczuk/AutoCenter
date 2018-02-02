@@ -1,23 +1,32 @@
 package sawczuk.AutoCenter.exception;
 
+import org.springframework.util.StringUtils;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.IntStream;
+
 public class ResourceNotFoundException extends RuntimeException {
 
-    public ResourceNotFoundException() {
+    public ResourceNotFoundException(Class className, Object... searchParamsMap) {
+        super(ResourceNotFoundException.generateMessage(className.getSimpleName(), toMap(String.class, Object.class, searchParamsMap)));
     }
 
-    public ResourceNotFoundException(String message) {
-        super(message);
+    private static String generateMessage(String entity, Map<String, Object> searchParams) {
+        String message = StringUtils.capitalize(entity) + " was not found ";
+        if (searchParams != null && !searchParams.isEmpty())
+            message += "for parameters " + searchParams;
+        return message;
     }
 
-    public ResourceNotFoundException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public ResourceNotFoundException(Throwable cause) {
-        super(cause);
-    }
-
-    public ResourceNotFoundException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
+    private static <K, V> Map<K, V> toMap(
+            Class<K> keyType, Class<V> valueType, Object... entries) {
+        if (entries.length % 2 == 1)
+            throw new IllegalArgumentException("Invalid entries");
+        return IntStream.range(0, entries.length / 2).map(i -> i * 2)
+                .collect(HashMap::new,
+                        (m, i) -> m.put(keyType.cast(entries[i]), valueType.cast(entries[i + 1])),
+                        Map::putAll);
     }
 }
+//TODO className i parametry pobrane z metody
