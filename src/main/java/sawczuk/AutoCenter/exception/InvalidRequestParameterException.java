@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.IntStream;
 
-public class InvalidRequestParameterException extends RuntimeException {
+public class InvalidRequestParameterException extends Exception {
 
     public InvalidRequestParameterException(Object... searchParamsMap) {
         super(InvalidRequestParameterException.generateMessage(toMap(String.class, Object.class, searchParamsMap)));

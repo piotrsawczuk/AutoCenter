@@ -16,11 +16,15 @@ import java.util.List;
 @Service
 public class CarQueryServiceImpl implements CarQueryService {
 
+    private CarQueryApi carQueryApi;
+
     @Autowired
-    CarQueryApi carQueryApi;
+    public CarQueryServiceImpl(CarQueryApi carQueryApi) {
+        this.carQueryApi = carQueryApi;
+    }
 
     @Override
-    public Year getYears() {
+    public Year getYears() throws ResourceNotFoundException {
         Year year = carQueryApi.getYears();
         if (year == null) {
             throw new ResourceNotFoundException(Year.class);
@@ -29,20 +33,8 @@ public class CarQueryServiceImpl implements CarQueryService {
     }
 
     @Override
-    public List<Make> getMakes() {
-        List<Make> makes = carQueryApi.getMakes();
-        if (makes == null || makes.isEmpty()) {
-            throw new ResourceNotFoundException(Make.class);
-        }
-        return makes;
-    }
-
-    @Override
-    public List<Make> getMakesByYear(Integer year) {
-        if (year == null) {
-            throw new InvalidRequestParameterException("year", year);
-        }
-        List<Make> makes = carQueryApi.getMakesByYear(year);
+    public List<Make> getMakes(Integer year) throws ResourceNotFoundException {
+        List<Make> makes = carQueryApi.getMakes(year);
         if (makes == null || makes.isEmpty()) {
             throw new ResourceNotFoundException(Make.class, "year", year);
         }
@@ -50,23 +42,11 @@ public class CarQueryServiceImpl implements CarQueryService {
     }
 
     @Override
-    public List<Model> getModelsByMake(String make) {
+    public List<Model> getModels(String make, Integer year) throws ResourceNotFoundException, InvalidRequestParameterException {
         if (StringUtils.isEmpty(make)) {
             throw new InvalidRequestParameterException("make", make);
         }
-        List<Model> models = carQueryApi.getModelsByMake(make);
-        if (models == null || models.isEmpty()) {
-            throw new ResourceNotFoundException(Model.class, "make", make);
-        }
-        return models;
-    }
-
-    @Override
-    public List<Model> getModelsByMakeAndYear(String make, Integer year) {
-        if (year == null || StringUtils.isEmpty(make)) {
-            throw new InvalidRequestParameterException("make", make, "year", year);
-        }
-        List<Model> models = carQueryApi.getModelsByMakeAndYear(make, year);
+        List<Model> models = carQueryApi.getModels(make, year);
         if (models == null || models.isEmpty()) {
             throw new ResourceNotFoundException(Model.class, "make", make, "year", year);
         }
@@ -74,7 +54,7 @@ public class CarQueryServiceImpl implements CarQueryService {
     }
 
     @Override
-    public List<Trim> getTrims(String make, String model, Integer year) {
+    public List<Trim> getTrims(String make, String model, Integer year) throws ResourceNotFoundException {
         List<Trim> trims = carQueryApi.getTrims(make, model, year);
         if (trims == null || trims.isEmpty()) {
             throw new ResourceNotFoundException(Trim.class, "make", make, "model", model, "year", year);
@@ -84,7 +64,7 @@ public class CarQueryServiceImpl implements CarQueryService {
 
 
     @Override
-    public Trim getTrim(Long id) {
+    public Trim getTrim(Long id) throws ResourceNotFoundException, InvalidRequestParameterException {
         if (id == null) {
             throw new InvalidRequestParameterException("id", id);
         }

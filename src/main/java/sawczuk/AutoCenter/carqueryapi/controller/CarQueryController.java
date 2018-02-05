@@ -9,6 +9,8 @@ import sawczuk.AutoCenter.carqueryapi.model.Model;
 import sawczuk.AutoCenter.carqueryapi.model.Trim;
 import sawczuk.AutoCenter.carqueryapi.model.Year;
 import sawczuk.AutoCenter.carqueryapi.service.CarQueryService;
+import sawczuk.AutoCenter.exception.InvalidRequestParameterException;
+import sawczuk.AutoCenter.exception.ResourceNotFoundException;
 
 import java.util.List;
 
@@ -17,50 +19,46 @@ import java.util.List;
 @RequestMapping("/carqueryapi")
 public class CarQueryController {
 
+    private CarQueryService carQueryService;
+
     @Autowired
-    CarQueryService carQueryService;
+    public CarQueryController(CarQueryService carQueryService) {
+        this.carQueryService = carQueryService;
+    }
 
-    @RequestMapping(value = "/year", method = RequestMethod.GET)
-    public ResponseEntity<Year> getYears() {
+    @RequestMapping(value = "/years", method = RequestMethod.GET)
+    public ResponseEntity<Year> getYears() throws ResourceNotFoundException {
         Year year = carQueryService.getYears();
-        return new ResponseEntity<Year>(year, HttpStatus.OK);
+        return new ResponseEntity<>(year, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/make", method = RequestMethod.GET)
-    public ResponseEntity<List<Make>> getMakes(@RequestParam(value = "year", required = false) Integer year) {
-        List<Make> makes;
-        if (year == null)
-            makes = carQueryService.getMakes();
-        else
-            makes = carQueryService.getMakesByYear(year);
-        return new ResponseEntity<List<Make>>(makes, HttpStatus.OK);
+    @RequestMapping(value = "/makes", method = RequestMethod.GET)
+    public ResponseEntity<List<Make>> getMakes(@RequestParam(value = "year", required = false) Integer year) throws ResourceNotFoundException {
+        List<Make> makes = carQueryService.getMakes(year);
+        return new ResponseEntity<>(makes, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/model", method = RequestMethod.GET)
+    @RequestMapping(value = "/models", method = RequestMethod.GET)
     public ResponseEntity<List<Model>> getModelsByYearAndMake(
             @RequestParam(value = "make") String make,
-            @RequestParam(value = "year", required = false) Integer year) {
-        List<Model> models;
-        if (year == null)
-            models = carQueryService.getModelsByMake(make);
-        else
-            models = carQueryService.getModelsByMakeAndYear(make, year);
-        return new ResponseEntity<List<Model>>(models, HttpStatus.OK);
+            @RequestParam(value = "year", required = false) Integer year) throws ResourceNotFoundException, InvalidRequestParameterException {
+        List<Model> models = carQueryService.getModels(make, year);
+        return new ResponseEntity<>(models, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/trim", method = RequestMethod.GET)
+    @RequestMapping(value = "/trims", method = RequestMethod.GET)
     public ResponseEntity<List<Trim>> getTrimsByYearAndMakeAndModel(
             @RequestParam(value = "make", required = false) String make,
             @RequestParam(value = "model", required = false) String model,
-            @RequestParam(value = "year", required = false) Integer year) {
+            @RequestParam(value = "year", required = false) Integer year) throws ResourceNotFoundException {
         List<Trim> trims = carQueryService.getTrims(make, model, year);
-        return new ResponseEntity<List<Trim>>(trims, HttpStatus.OK);
+        return new ResponseEntity<>(trims, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/trim/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Trim> getTrim(@PathVariable("id") Long id) {
+    @RequestMapping(value = "/trims/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Trim> getTrim(@PathVariable("id") Long id) throws ResourceNotFoundException, InvalidRequestParameterException {
         Trim model = carQueryService.getTrim(id);
-        return new ResponseEntity<Trim>(model, HttpStatus.OK);
+        return new ResponseEntity<>(model, HttpStatus.OK);
     }
 
 }

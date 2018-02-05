@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +20,10 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
+import javax.persistence.EntityNotFoundException;
+import javax.validation.ConstraintViolationException;
+
+import static org.springframework.http.HttpStatus.*;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
@@ -29,21 +32,25 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     private static final Logger log = LoggerFactory.getLogger(RestExceptionHandler.class);
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    protected ResponseEntity<Object> handleResourceNotFound(
-            ResourceNotFoundException ex) {
+    protected ResponseEntity<Object> handleResourceNotFound(ResourceNotFoundException ex) {
         ApiError apiError = new ApiError(NOT_FOUND);
         apiError.setMessage(ex.getMessage());
-//        log.error(ex.getMessage(), ex);
         log.error(ex.getMessage());
         return buildResponseEntity(apiError);
     }
 
     @ExceptionHandler(InvalidRequestParameterException.class)
-    protected ResponseEntity<Object> handleInvalidRequestParameter(
-            InvalidRequestParameterException ex) {
+    protected ResponseEntity<Object> handleInvalidRequestParameter(InvalidRequestParameterException ex) {
         ApiError apiError = new ApiError(BAD_REQUEST);
         apiError.setMessage(ex.getMessage());
-//        log.error(ex.getMessage(), ex);
+        log.error(ex.getMessage());
+        return buildResponseEntity(apiError);
+    }
+
+    @ExceptionHandler(DatabaseException.class)
+    protected ResponseEntity<Object> handleDatabaseException(DatabaseException ex) {
+        ApiError apiError = new ApiError(INTERNAL_SERVER_ERROR);
+        apiError.setMessage(ex.getMessage());
         log.error(ex.getMessage());
         return buildResponseEntity(apiError);
     }
@@ -126,6 +133,20 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     /**
+     * Handles EntityNotFoundException. Created to encapsulate errors with more detail than javax.persistence.EntityNotFoundException.
+     *
+     * @param ex the EntityNotFoundException
+     * @return the ApiError object
+     */
+    @ExceptionHandler(EntityNotFoundException.class)
+    protected ResponseEntity<Object> handleEntityNotFound(
+            EntityNotFoundException ex) {
+        ApiError apiError = new ApiError(NOT_FOUND);
+        apiError.setMessage(ex.getMessage());
+        return buildResponseEntity(apiError);
+    }
+
+    /**
      * Handle HttpMessageNotReadableException. Happens when request JSON is malformed.
      *
      * @param ex      HttpMessageNotReadableException
@@ -157,28 +178,21 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponseEntity(new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, error, ex));
     }
 
-//    /**
-//     * Handle javax.persistence.EntityNotFoundException
-//     */
-//    @ExceptionHandler(javax.persistence.EntityNotFoundException.class)
-//    protected ResponseEntity<Object> handleEntityNotFound(javax.persistence.EntityNotFoundException ex) {
-//        return buildResponseEntity(new ApiError(HttpStatus.NOT_FOUND, ex));
-//    }
-//
-//    /**
-//     * Handle DataIntegrityViolationException, inspects the cause for different DB causes.
-//     *
-//     * @param ex the DataIntegrityViolationException
-//     * @return the ApiError object
-//     */
-//    @ExceptionHandler(DataIntegrityViolationException.class)
-//    protected ResponseEntity<Object> handleDataIntegrityViolation(DataIntegrityViolationException ex,
-//                                                                  WebRequest request) {
-//        if (ex.getCause() instanceof ConstraintViolationException) {
-//            return buildResponseEntity(new ApiError(HttpStatus.CONFLICT, "Database error", ex.getCause()));
-//        }
-//        return buildResponseEntity(new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, ex));
-//    }
+
+    /**
+     * Handle DataIntegrityViolationException, inspects the cause for different DB causes.
+     *
+     * @param ex the DataIntegrityViolationException
+     * @return the ApiError object
+     */
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    protected ResponseEntity<Object> handleDataIntegrityViolation(DataIntegrityViolationException ex,
+                                                                  WebRequest request) {
+        if (ex.getCause() instanceof ConstraintViolationException) {
+            return buildResponseEntity(new ApiError(HttpStatus.CONFLICT, "Database error", ex.getCause()));
+        }
+        return buildResponseEntity(new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, ex));
+    }
 
     /**
      * Handle Exception, handle generic Exception.class

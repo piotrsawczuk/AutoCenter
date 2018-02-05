@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.IntStream;
 
-public class ResourceNotFoundException extends RuntimeException {
+public class ResourceNotFoundException extends Exception {
 
     public ResourceNotFoundException(Class className, Object... searchParamsMap) {
         super(ResourceNotFoundException.generateMessage(className.getSimpleName(), toMap(String.class, Object.class, searchParamsMap)));

@@ -10,13 +10,9 @@ import java.util.List;
 public interface CarQueryApi {
     Year getYears();
 
-    List<Make> getMakes();
+    List<Make> getMakes(Integer year);
 
-    List<Make> getMakesByYear(Integer year);
-
-    List<Model> getModelsByMake(String make);
-
-    List<Model> getModelsByMakeAndYear(String make, Integer year);
+    List<Model> getModels(String make, Integer year);
 
     List<Trim> getTrims(String make, String model, Integer year);
 

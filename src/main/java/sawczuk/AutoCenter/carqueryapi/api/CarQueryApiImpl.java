@@ -14,40 +14,25 @@ public class CarQueryApiImpl implements CarQueryApi {
 
     @Override
     public Year getYears() {
-        String url = "https://www.carqueryapi.com/api/0.3/?cmd=getYears";
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<Years> respEntity = restTemplate.exchange(url, HttpMethod.GET, httpEntity(), Years.class);
-        return respEntity.getBody().getYear();
+        return getYearsExternalApi();
     }
 
     @Override
-    public List<Make> getMakes() {
-        String url = "https://www.carqueryapi.com/api/0.3/?cmd=getMakes";
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<Makes> respEntity = restTemplate.exchange(url, HttpMethod.GET, httpEntity(), Makes.class);
-        return respEntity.getBody().getMakeList();
-    }
-
-    @Override
-    public List<Make> getMakesByYear(Integer year) {
+    public List<Make> getMakes(Integer year) {
         String parameters = "";
-        parameters += "&year=" + year;
-        return getMakes(parameters);
+        if (year != null)
+            parameters += "&year=" + year;
+        return getMakesExternalApi(parameters);
     }
 
+
     @Override
-    public List<Model> getModelsByMake(String make) {
+    public List<Model> getModels(String make, Integer year) {
         String parameters = "";
         parameters += "&make=" + make;
-        return getModels(parameters);
-    }
-
-    @Override
-    public List<Model> getModelsByMakeAndYear(String make, Integer year) {
-        String parameters = "";
-        parameters += "&make=" + make;
-        parameters += "&year=" + year;
-        return getModels(parameters);
+        if (year != null)
+            parameters += "&year=" + year;
+        return getModelsExternalApi(parameters);
     }
 
     @Override
@@ -59,19 +44,23 @@ public class CarQueryApiImpl implements CarQueryApi {
             parameters += "&model=" + model;
         if (year != null)
             parameters += "&year=" + year;
-        return getTrims(parameters);
+        return getTrimsExternalApi(parameters);
     }
 
     @Override
     public Trim getTrim(Long id) {
-        String url = "https://www.carqueryapi.com/api/0.3/?cmd=getModel&model=" + id;
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<Trim[]> respEntity = restTemplate.exchange(url, HttpMethod.GET, httpEntity(), Trim[].class);
-        return respEntity.getBody()[0];
+        return getTrimExternalApi(id);
     }
 
 
-    private List<Make> getMakes(String parameters) {
+    private Year getYearsExternalApi() {
+        String url = "https://www.carqueryapi.com/api/0.3/?cmd=getYears";
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<Years> respEntity = restTemplate.exchange(url, HttpMethod.GET, httpEntity(), Years.class);
+        return respEntity.getBody().getYear();
+    }
+
+    private List<Make> getMakesExternalApi(String parameters) {
         String url = "https://www.carqueryapi.com/api/0.3/?cmd=getMakes";
         url += parameters;
         RestTemplate restTemplate = new RestTemplate();
@@ -79,7 +68,7 @@ public class CarQueryApiImpl implements CarQueryApi {
         return respEntity.getBody().getMakeList();
     }
 
-    private List<Model> getModels(String parameters) {
+    private List<Model> getModelsExternalApi(String parameters) {
         String url = "https://www.carqueryapi.com/api/0.3/?cmd=getModels";
         url += parameters;
         RestTemplate restTemplate = new RestTemplate();
@@ -87,12 +76,19 @@ public class CarQueryApiImpl implements CarQueryApi {
         return respEntity.getBody().getModelList();
     }
 
-    private List<Trim> getTrims(String parameters) {
+    private List<Trim> getTrimsExternalApi(String parameters) {
         String url = "https://www.carqueryapi.com/api/0.3/?cmd=getTrims";
         url += parameters;
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<Trims> respEntity = restTemplate.exchange(url, HttpMethod.GET, httpEntity(), Trims.class);
         return respEntity.getBody().getTrimList();
+    }
+
+    private Trim getTrimExternalApi(Long id) {
+        String url = "https://www.carqueryapi.com/api/0.3/?cmd=getModel&model=" + id;
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<Trim[]> respEntity = restTemplate.exchange(url, HttpMethod.GET, httpEntity(), Trim[].class);
+        return respEntity.getBody()[0];
     }
 
 
@@ -101,7 +97,7 @@ public class CarQueryApiImpl implements CarQueryApi {
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.add("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36");
-        HttpEntity<String> httpEntity = new HttpEntity<String>("parameters", headers);
+        HttpEntity<String> httpEntity = new HttpEntity<>("parameters", headers);
         return httpEntity;
     }
 }
