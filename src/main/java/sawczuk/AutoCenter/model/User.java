@@ -1,22 +1,37 @@
 package sawczuk.AutoCenter.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.util.Set;
+
+@Entity
+@Table(name = "app_user")
 public class User {
+    @Column(name = "id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(name = "username")
     private String username;
+    @Column(name = "password")
+    @JsonIgnore
     private String password;
-    private Long roleId;
+    @JsonIgnore
+    @Transient
+    private String passwordConfirm;
+    @Column(name = "email")
+    private String email;
+    @JsonIgnore
+    @Transient
+    private String emailConfirm;
+    @Column(name = "active")
     private Boolean active;
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 
-    public User() {
-    }
-
-    public User(Long id, String username, String password, Long roleId, Boolean active) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.roleId = roleId;
-        this.active = active;
-    }
 
     public Long getId() {
         return id;
@@ -42,12 +57,20 @@ public class User {
         this.password = password;
     }
 
-    public Long getRoleId() {
-        return roleId;
+    public String getPasswordConfirm() {
+        return passwordConfirm;
     }
 
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Boolean getActive() {
@@ -56,5 +79,21 @@ public class User {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public String getEmailConfirm() {
+        return emailConfirm;
+    }
+
+    public void setEmailConfirm(String emailConfirm) {
+        this.emailConfirm = emailConfirm;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }
