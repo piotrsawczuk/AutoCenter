@@ -47,14 +47,6 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponseEntity(apiError);
     }
 
-    @ExceptionHandler(DatabaseException.class)
-    protected ResponseEntity<Object> handleDatabaseException(DatabaseException ex) {
-        ApiError apiError = new ApiError(INTERNAL_SERVER_ERROR);
-        apiError.setMessage(ex.getMessage());
-        log.error(ex.getMessage());
-        return buildResponseEntity(apiError);
-    }
-
     /**
      * Handle MissingServletRequestParameterException. Triggered when a 'required' request parameter is missing.
      *
