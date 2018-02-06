@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -25,22 +26,20 @@ public class User {
     @Column(name = "username")
     private String username;
     @Column(name = "password")
-    @JsonIgnore
     private String password;
-    @JsonIgnore
-    @Transient
-    private String passwordConfirm;
     @Column(name = "email")
     private String email;
-    @JsonIgnore
-    @Transient
-    private String emailConfirm;
     @Column(name = "active")
     private Boolean active;
-    @JsonIgnore
     @ManyToMany
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JoinTable(name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName="id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName="id"))
     private Set<Role> roles;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private List<UserCar> userCars;
 
 
     public Long getId() {
@@ -59,20 +58,13 @@ public class User {
         this.username = username;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getPasswordConfirm() {
-        return passwordConfirm;
-    }
-
-    public void setPasswordConfirm(String passwordConfirm) {
-        this.passwordConfirm = passwordConfirm;
     }
 
     public String getEmail() {
@@ -91,19 +83,19 @@ public class User {
         this.active = active;
     }
 
-    public String getEmailConfirm() {
-        return emailConfirm;
-    }
-
-    public void setEmailConfirm(String emailConfirm) {
-        this.emailConfirm = emailConfirm;
-    }
-
     public Set<Role> getRoles() {
         return roles;
     }
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public List<UserCar> getUserCars() {
+        return userCars;
+    }
+
+    public void setUserCars(List<UserCar> userCars) {
+        this.userCars = userCars;
     }
 }

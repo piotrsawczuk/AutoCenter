@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import sawczuk.AutoCenter.model.User;
-import sawczuk.AutoCenter.model.UserDTO;
+import sawczuk.AutoCenter.model.dto.UserDTO;
 import sawczuk.AutoCenter.service.UserService;
 
 @Controller

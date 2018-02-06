@@ -1,4 +1,4 @@
-package sawczuk.AutoCenter.model;
+package sawczuk.AutoCenter.model.dto;
 
 public class UserDTO {
     private String username;

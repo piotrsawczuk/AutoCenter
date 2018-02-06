@@ -10,28 +10,28 @@ import java.util.List;
 import java.util.Map;
 
 @Entity
-@Table(name = "fuel_type")
-public class FuelType implements Serializable {
-    public enum FuelTypeEnum {
-        Petrol(1),
-        Diesel(2),
-        LPG(3);
+@Table(name = "driving_type")
+public class DrivingType implements Serializable {
+    public enum DrivingTypeEnum {
+        City(1),
+        Highway(2),
+        Mixed(3);
 
         private final int value;
         private static Map map = new HashMap<>();
 
-        FuelTypeEnum(int value) {
+        DrivingTypeEnum(int value) {
             this.value = value;
         }
 
         static {
-            for (FuelTypeEnum fuelType : FuelTypeEnum.values()) {
-                map.put(fuelType.value, fuelType);
+            for (DrivingTypeEnum drivingType : DrivingTypeEnum.values()) {
+                map.put(drivingType.value, drivingType);
             }
         }
 
-        public static FuelTypeEnum valueOf(int fuelType) {
-            return (FuelTypeEnum) map.get(fuelType);
+        public static DrivingTypeEnum valueOf(int fuelEconomyType) {
+            return (DrivingTypeEnum) map.get(fuelEconomyType);
         }
 
         public int getValue() {
@@ -41,24 +41,24 @@ public class FuelType implements Serializable {
 
     @Column(name = "id")
     @GenericGenerator(
-            name = "fuelTypeSequenceGenerator",
+            name = "drivingTypeSequenceGenerator",
             strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
             parameters = {
-                    @org.hibernate.annotations.Parameter(name = "sequence_name", value = "fuel_type_seq"),
+                    @org.hibernate.annotations.Parameter(name = "sequence_name", value = "driving_type_seq"),
                     @org.hibernate.annotations.Parameter(name = "initial_value", value = "1"),
                     @org.hibernate.annotations.Parameter(name = "increment_size", value = "1")
             }
     )
     @Id
-    @GeneratedValue(generator = "fuelTypeSequenceGenerator")
+    @GeneratedValue(generator = "drivingTypeSequenceGenerator")
     private Long id;
     @Column(name = "value")
     private int value;
-    @Column(name = "fuel_type")
-    private String fuelType;
+    @Column(name = "driving_type")
+    private String drivingType;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "fuelType")
+    @OneToMany(mappedBy = "drivingType")
     private List<FuelEconomy> fuelEconomies;
 
 
@@ -74,16 +74,16 @@ public class FuelType implements Serializable {
         return value;
     }
 
-    public void setValue(FuelTypeEnum fuelType) {
-        this.value = fuelType.getValue();
+    public void setValue(DrivingTypeEnum drivingType) {
+        this.value = drivingType.getValue();
     }
 
-    public String getFuelType() {
-        return fuelType;
+    public String getDrivingType() {
+        return drivingType;
     }
 
-    public void setFuelType(FuelTypeEnum fuelType) {
-        this.fuelType = fuelType.name();
+    public void setDrivingType(DrivingTypeEnum drivingType) {
+        this.drivingType = drivingType.name();
     }
 
     public List<FuelEconomy> getFuelEconomies() {

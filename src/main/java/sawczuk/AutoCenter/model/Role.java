@@ -25,6 +25,7 @@ public class Role implements GrantedAuthority {
     private Long id;
     @Column(name = "role_name")
     private String name;
+
     @JsonIgnore
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
@@ -54,6 +55,7 @@ public class Role implements GrantedAuthority {
         this.users = users;
     }
 
+    @JsonIgnore
     @Override
     public String getAuthority() {
         return name;
