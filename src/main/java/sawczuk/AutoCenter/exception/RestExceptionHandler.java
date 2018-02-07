@@ -47,6 +47,14 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponseEntity(apiError);
     }
 
+    @ExceptionHandler(PasswordException.class)
+    protected ResponseEntity<Object> handlePasswordException(PasswordException ex) {
+        ApiError apiError = new ApiError(BAD_REQUEST);
+        apiError.setMessage(ex.getMessage());
+        log.error(ex.getMessage());
+        return buildResponseEntity(apiError);
+    }
+
     /**
      * Handle MissingServletRequestParameterException. Triggered when a 'required' request parameter is missing.
      *
