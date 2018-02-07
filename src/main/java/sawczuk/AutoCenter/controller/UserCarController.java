@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -35,17 +36,38 @@ public class UserCarController {
     public ResponseEntity<UserCar> saveCar(@RequestBody UserCarDTO userCarDTO) {
         UserCar userCar = new UserCar();
         userCar.setCarApiId(userCarDTO.getCarApiId());
-        //
-        userCar.setUser(userService.findByUsername(userCarDTO.getUsername()));
+        //logged in user
+        userCar.setUser(userService.findByUsername("piotr"));
+        userCarService.save(userCar);
+        return new ResponseEntity<>(userCar, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/cars/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<UserCar> editCar(@PathVariable Long id, @RequestBody UserCarDTO userCarDTO) {
+        UserCar userCar = userCarService.findOne(id);
+        if (userCarDTO.getCarApiId() != null)
+            userCar.setCarApiId(userCarDTO.getCarApiId());
         userCarService.save(userCar);
         return new ResponseEntity<>(userCar, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/cars", method = RequestMethod.GET)
     public ResponseEntity<List<UserCar>> getAllCars() {
-        //
-        Long id = userService.findByUsername("piotr").getId();
-        return new ResponseEntity<>(userCarService.findAllByUserId(id), HttpStatus.OK);
+        //logged in user
+        Long userId = userService.findByUsername("piotr").getId();
+        return new ResponseEntity<>(userCarService.findAllByUserId(userId), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/cars/{id}", method = RequestMethod.GET)
+    public ResponseEntity<UserCar> getCar(@PathVariable Long id) {
+        UserCar userCar = userCarService.findOne(id);
+        return new ResponseEntity<>(userCar, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/cars/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<UserCar> deleteCar(@PathVariable Long id) {
+        userCarService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

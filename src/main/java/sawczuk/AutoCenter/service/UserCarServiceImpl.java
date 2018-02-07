@@ -11,17 +11,25 @@ import java.util.List;
 public class UserCarServiceImpl implements UserCarService {
 
     private UserCarRepository userCarRepository;
-    private UserService userService;
 
     @Autowired
-    public UserCarServiceImpl(UserCarRepository userCarRepository, UserService userService) {
+    public UserCarServiceImpl(UserCarRepository userCarRepository) {
         this.userCarRepository = userCarRepository;
-        this.userService = userService;
     }
 
     @Override
     public void save(UserCar userCar) {
         userCarRepository.save(userCar);
+    }
+
+    @Override
+    public void delete(Long id) {
+        userCarRepository.delete(id);
+    }
+
+    @Override
+    public UserCar findOne(Long id) {
+        return userCarRepository.findOne(id);
     }
 
     @Override
