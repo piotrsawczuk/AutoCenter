@@ -35,6 +35,9 @@ public class User {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<UserCar> userCars;
+    @JsonIgnore
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+    private UserDetail userDetail;
 
 
     public Long getId() {
@@ -91,5 +94,13 @@ public class User {
 
     public void setUserCars(List<UserCar> userCars) {
         this.userCars = userCars;
+    }
+
+    public UserDetail getUserDetail() {
+        return userDetail;
+    }
+
+    public void setUserDetail(UserDetail userDetail) {
+        this.userDetail = userDetail;
     }
 }

@@ -109,3 +109,16 @@ create table repair(
     cost numeric(8,2),
     constraint fk_user_car_id foreign key (user_car_id) references user_car (id)
 );
+
+create sequence user_detail_seq;
+create table user_detail(
+    id bigint not null primary key default nextval('user_detail_seq'),
+    user_id bigint,
+    firstname varchar(20),
+    surname varchar(20),
+    address varchar(60),
+    city varchar(30),
+    zip_code varchar(10),
+    phone_number varchar(15),
+    constraint fk_user_id foreign key (user_id) references app_user (id)
+);
