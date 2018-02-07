@@ -3,11 +3,15 @@ package sawczuk.AutoCenter.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import sawczuk.AutoCenter.exception.PasswordException;
 import sawczuk.AutoCenter.model.User;
+import sawczuk.AutoCenter.model.dto.UserDTO;
 import sawczuk.AutoCenter.repository.UserRepository;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -32,7 +36,47 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void update(UserDTO userDTO, User user) throws PasswordException {
+        if (!StringUtils.isEmpty(userDTO.getUsername()))
+            user.setUsername(userDTO.getUsername());
+        if (!StringUtils.isEmpty(userDTO.getEmail()))
+            user.setEmail(userDTO.getEmail());
+        if (!StringUtils.isEmpty(userDTO.getPassword()))
+            if (!StringUtils.isEmpty(userDTO.getCurrentPassword()))
+                if (passwordEncoder.matches(userDTO.getCurrentPassword(), user.getPassword()))
+                    if (!passwordEncoder.matches(userDTO.getPassword(), user.getPassword()))
+                        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+                    else
+                        throw new PasswordException("New password is same as current password.");
+                else
+                    throw new PasswordException("Current password provided is incorrect.");
+            else
+                throw new PasswordException("Current password not provided.");
+        userRepository.save(user);
+    }
+
+    @Override
+    public void delete(Long id) {
+        userRepository.delete(id);
+    }
+
+    @Override
+    public void delete(User user) {
+        userRepository.delete(user);
+    }
+
+    @Override
+    public User findOne(Long id) {
+        return userRepository.findOne(id);
+    }
+
+    @Override
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 }
