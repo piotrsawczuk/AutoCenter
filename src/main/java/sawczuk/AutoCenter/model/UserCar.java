@@ -2,7 +2,6 @@ package sawczuk.AutoCenter.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.List;
@@ -16,8 +15,8 @@ public class UserCar {
     @GeneratedValue(generator = "user_car_id_gen", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "user_car_id_gen", sequenceName = "user_car_seq", initialValue = 1, allocationSize = 1)
     private Long id;
-    @ManyToOne(fetch= FetchType.LAZY)
-    @JoinColumn(name="user_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
     @Column(name = "car_api_id")
     private Long carApiId;
@@ -29,7 +28,7 @@ public class UserCar {
     @OneToMany(mappedBy = "userCar")
     private List<Repair> repairs;
     @JsonIgnore
-    @OneToOne(cascade = CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="userCar")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userCar")
     private UserCarDetail userCarDetail;
 
 

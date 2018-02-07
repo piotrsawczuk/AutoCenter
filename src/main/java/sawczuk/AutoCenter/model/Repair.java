@@ -1,7 +1,6 @@
 package sawczuk.AutoCenter.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -15,8 +14,8 @@ public class Repair {
     @GeneratedValue(generator = "repair_id_gen", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "repair_id_gen", sequenceName = "repair_seq", initialValue = 1, allocationSize = 1)
     private Long id;
-    @ManyToOne(fetch= FetchType.LAZY)
-    @JoinColumn(name="user_car_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_car_id")
     private UserCar userCar;
     @Column(name = "date")
     private LocalDate date;

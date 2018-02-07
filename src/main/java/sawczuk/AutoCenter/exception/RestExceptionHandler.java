@@ -23,7 +23,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import javax.persistence.EntityNotFoundException;
 import javax.validation.ConstraintViolationException;
 
-import static org.springframework.http.HttpStatus.*;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice

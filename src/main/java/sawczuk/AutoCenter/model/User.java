@@ -2,7 +2,6 @@ package sawczuk.AutoCenter.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.List;
@@ -29,8 +28,8 @@ public class User {
     @JsonIgnore
     @ManyToMany()
     @JoinTable(name = "user_role",
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName="id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName="id"))
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles;
 
     @JsonIgnore
