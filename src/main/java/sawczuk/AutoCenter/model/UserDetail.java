@@ -25,9 +25,9 @@ public class UserDetail {
     @Column(name = "city")
     private String city;
     @Column(name = "zip_code")
-    private String zip_code;
+    private String zipCode;
     @Column(name = "phone_number")
-    private String phone_number;
+    private String phoneNumber;
 
     public Long getId() {
         return id;
@@ -77,19 +77,19 @@ public class UserDetail {
         this.city = city;
     }
 
-    public String getZip_code() {
-        return zip_code;
+    public String getZipCode() {
+        return zipCode;
     }
 
-    public void setZip_code(String zip_code) {
-        this.zip_code = zip_code;
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
     }
 
-    public String getPhone_number() {
-        return phone_number;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }
