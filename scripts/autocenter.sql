@@ -13,14 +13,14 @@ CREATE SCHEMA public;
 GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO public;
 
-CREATE SEQUENCE app_role_seq;
-CREATE TABLE app_role (
-  id          BIGINT NOT NULL PRIMARY KEY DEFAULT nextval('app_role_seq'),
+create sequence app_role_seq;
+create table app_role (
+    id bigint not null primary key default nextval('app_role_seq'),
     role_name varchar(50),
     constraint unique_role_name unique (role_name)
 );
-INSERT INTO app_role (role_name) VALUES ('admin');
-INSERT INTO app_role (role_name) VALUES ('user');
+insert into app_role (role_name) values ('admin');
+insert into app_role (role_name) values ('user');
 
 create sequence app_user_seq;
 create table app_user(
@@ -39,7 +39,7 @@ create table user_role(
     user_id bigint,
     role_id bigint,
     constraint fk_user_id foreign key (user_id) references app_user (id),
-  CONSTRAINT fk_role_id FOREIGN KEY (role_id) REFERENCES app_role (id)
+    constraint fk_role_id foreign key (role_id) references app_role (id)
 );
 
 create sequence driving_type_seq;
