@@ -366,7 +366,7 @@ public class Trim {
 
 }
 
-//TODO wyswietlac trim jesli pusty
+//TODO display trim as enginecc, transtype etc if empty
 //if (trim == null || trim.isEmpty()) {
 //  return engineCc + " " + transmissionType + " " + body;
 //}

@@ -76,5 +76,3 @@ public class CarQueryServiceImpl implements CarQueryService {
     }
 
 }
-
-//TODO Umiescić każde zapytanie we wspólnej metodzie przyjmującej różne parametry?

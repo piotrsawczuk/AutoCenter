@@ -29,4 +29,4 @@ public class ResourceNotFoundException extends Exception {
                         Map::putAll);
     }
 }
-//TODO className i parametry pobrane z metody
+//TODO className and parameters from method
