@@ -1,44 +1,40 @@
 package sawczuk.AutoCenter.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "app_user")
 public class User {
-    @Column(name = "id")
-    @GenericGenerator(
-            name = "userSequenceGenerator",
-            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
-            parameters = {
-                    @org.hibernate.annotations.Parameter(name = "sequence_name", value = "app_user_seq"),
-                    @org.hibernate.annotations.Parameter(name = "initial_value", value = "1"),
-                    @org.hibernate.annotations.Parameter(name = "increment_size", value = "1")
-            }
-    )
     @Id
-    @GeneratedValue(generator = "userSequenceGenerator")
+    @Column(name = "id")
+    @GeneratedValue(generator = "user_id_gen", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "user_id_gen", sequenceName = "app_user_seq", initialValue = 1, allocationSize = 1)
     private Long id;
     @Column(name = "username")
     private String username;
+    @JsonIgnore
     @Column(name = "password")
     private String password;
     @Column(name = "email")
     private String email;
     @Column(name = "active")
     private Boolean active;
-    @ManyToMany
+    @JsonIgnore
+    @ManyToMany()
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName="id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName="id"))
     private Set<Role> roles;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<UserCar> userCars;
 
 
@@ -58,7 +54,6 @@ public class User {
         this.username = username;
     }
 
-    @JsonIgnore
     public String getPassword() {
         return password;
     }

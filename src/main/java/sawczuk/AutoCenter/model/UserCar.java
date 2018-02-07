@@ -1,26 +1,20 @@
 package sawczuk.AutoCenter.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.List;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "user_car")
 public class UserCar {
-    @Column(name = "id")
-    @GenericGenerator(
-            name = "userCarSequenceGenerator",
-            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
-            parameters = {
-                    @org.hibernate.annotations.Parameter(name = "sequence_name", value = "user_car_seq"),
-                    @org.hibernate.annotations.Parameter(name = "initial_value", value = "1"),
-                    @org.hibernate.annotations.Parameter(name = "increment_size", value = "1")
-            }
-    )
     @Id
-    @GeneratedValue(generator = "userCarSequenceGenerator")
+    @Column(name = "id")
+    @GeneratedValue(generator = "user_car_id_gen", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "user_car_id_gen", sequenceName = "user_car_seq", initialValue = 1, allocationSize = 1)
     private Long id;
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="user_id")
@@ -35,8 +29,9 @@ public class UserCar {
     @OneToMany(mappedBy = "userCar")
     private List<Repair> repairs;
     @JsonIgnore
-    @OneToOne(fetch=FetchType.LAZY, mappedBy="userCar")
+    @OneToOne(cascade = CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="userCar")
     private UserCarDetail userCarDetail;
+
 
     public Long getId() {
         return id;

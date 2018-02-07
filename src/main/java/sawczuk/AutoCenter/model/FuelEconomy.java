@@ -1,25 +1,19 @@
 package sawczuk.AutoCenter.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "fuel_economy")
 public class FuelEconomy {
-    @Column(name = "id")
-    @GenericGenerator(
-            name = "fuelEconomySequenceGenerator",
-            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
-            parameters = {
-                    @org.hibernate.annotations.Parameter(name = "sequence_name", value = "fuel_economy_seq"),
-                    @org.hibernate.annotations.Parameter(name = "initial_value", value = "1"),
-                    @org.hibernate.annotations.Parameter(name = "increment_size", value = "1")
-            }
-    )
     @Id
-    @GeneratedValue(generator = "fuelEconomySequenceGenerator")
+    @Column(name = "id")
+    @GeneratedValue(generator = "fuel_economy_id_gen", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "fuel_economy_id_gen", sequenceName = "fuel_economy_seq", initialValue = 1, allocationSize = 1)
     private Long id;
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="user_car_id")
@@ -38,6 +32,7 @@ public class FuelEconomy {
     private Double fuelUsed;
     @Column(name = "consumption")
     private Double consumption;
+
 
     public Long getId() {
         return id;

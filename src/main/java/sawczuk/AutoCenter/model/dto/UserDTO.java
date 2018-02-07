@@ -3,6 +3,7 @@ package sawczuk.AutoCenter.model.dto;
 public class UserDTO {
     private String username;
     private String password;
+    private String currentPassword;
     private String email;
 
     public String getUsername() {
@@ -11,6 +12,10 @@ public class UserDTO {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getCurrentPassword() {
+        return currentPassword;
     }
 
     public String getEmail() {

@@ -1,6 +1,7 @@
 package sawczuk.AutoCenter.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "fuel_type")
 public class FuelType implements Serializable {
@@ -39,18 +41,11 @@ public class FuelType implements Serializable {
         }
     }
 
-    @Column(name = "id")
-    @GenericGenerator(
-            name = "fuelTypeSequenceGenerator",
-            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
-            parameters = {
-                    @org.hibernate.annotations.Parameter(name = "sequence_name", value = "fuel_type_seq"),
-                    @org.hibernate.annotations.Parameter(name = "initial_value", value = "1"),
-                    @org.hibernate.annotations.Parameter(name = "increment_size", value = "1")
-            }
-    )
+
     @Id
-    @GeneratedValue(generator = "fuelTypeSequenceGenerator")
+    @Column(name = "id")
+    @GeneratedValue(generator = "fuel_type_id_gen", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "fuel_type_id_gen", sequenceName = "fuel_type_seq", initialValue = 1, allocationSize = 1)
     private Long id;
     @Column(name = "value")
     private int value;
@@ -58,7 +53,7 @@ public class FuelType implements Serializable {
     private String fuelType;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "fuelType")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fuelType")
     private List<FuelEconomy> fuelEconomies;
 
 
@@ -93,5 +88,4 @@ public class FuelType implements Serializable {
     public void setFuelEconomies(List<FuelEconomy> fuelEconomies) {
         this.fuelEconomies = fuelEconomies;
     }
-
 }
