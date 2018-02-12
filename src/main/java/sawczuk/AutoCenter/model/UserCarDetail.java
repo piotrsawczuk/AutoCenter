@@ -22,7 +22,8 @@ public class UserCarDetail {
     private String licencePlateNumber;
     @Column(name = "color")
     private String color;
-    //TODO add column image url
+    @Column(name = "image_url")
+    private String imageUrl;
 
 
     public Long getId() {
@@ -63,5 +64,13 @@ public class UserCarDetail {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

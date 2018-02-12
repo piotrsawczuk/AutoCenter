@@ -79,7 +79,9 @@ create table user_car_detail(
     vin varchar(17),
     license_plate_number varchar(10),
     color varchar(30),
+    image_url varchar(2083),
     constraint fk_user_car_id foreign key (user_car_id) references user_car (id),
+    constraint unique_user_car_id unique (user_car_id),
     constraint unique_vin unique (vin),
     constraint unique_license_plate_number unique (license_plate_number)
 );
