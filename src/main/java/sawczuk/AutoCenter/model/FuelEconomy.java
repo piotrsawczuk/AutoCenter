@@ -1,5 +1,6 @@
 package sawczuk.AutoCenter.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -17,6 +18,7 @@ public class FuelEconomy {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_car_id")
     private UserCar userCar;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(name = "date")
     private LocalDate date;
     @ManyToOne(fetch = FetchType.LAZY)
