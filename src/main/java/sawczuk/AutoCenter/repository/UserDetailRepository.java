@@ -6,5 +6,5 @@ import sawczuk.AutoCenter.model.UserDetail;
 public interface UserDetailRepository extends CrudRepository<UserDetail, Long> {
     UserDetail findOneByUserId(Long userId);
 
-    UserDetail findOneByUserUsername(String username);
+    UserDetail findOneByUserUsernameIgnoreCase(String username);
 }

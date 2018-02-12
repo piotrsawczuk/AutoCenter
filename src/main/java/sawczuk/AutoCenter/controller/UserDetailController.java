@@ -43,7 +43,7 @@ public class UserDetailController {
         userDetail.setZipCode(userDetailDTO.getZipCode());
         userDetail.setPhoneNumber(userDetailDTO.getPhoneNumber());
         //logged in user
-        userDetail.setUser(userService.findByUsername("piotr"));
+        userDetail.setUser(userService.findByUsernameIgnoreCase("piotr"));
         userDetailService.save(userDetail);
         return new ResponseEntity<>(userDetail, HttpStatus.CREATED);
     }
@@ -51,7 +51,7 @@ public class UserDetailController {
     @RequestMapping(value = "/user-details", method = RequestMethod.PUT)
     public ResponseEntity<UserDetail> editUserDetail(@RequestBody UserDetailDTO userDetailDTO) {
         //logged in user
-        UserDetail userDetail = userDetailService.findOneByUserUsername("piotr");
+        UserDetail userDetail = userDetailService.findOneByUserUsernameIgnoreCase("piotr");
         if (!StringUtils.isEmpty(userDetailDTO.getFirstname()))
             userDetail.setFirstname(userDetailDTO.getFirstname());
         if (!StringUtils.isEmpty(userDetailDTO.getSurname()))
@@ -71,7 +71,7 @@ public class UserDetailController {
     @RequestMapping(value = "/user-details", method = RequestMethod.GET)
     public ResponseEntity<UserDetail> getUserDetail() {
         //
-        Long userId = userService.findByUsername("piotr").getId();
+        Long userId = userService.findByUsernameIgnoreCase("piotr").getId();
         return new ResponseEntity<>(userDetailService.findOneByUserId(userId), HttpStatus.OK);
     }
 

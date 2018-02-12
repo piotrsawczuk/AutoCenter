@@ -7,5 +7,5 @@ public interface UserDetailService {
 
     UserDetail findOneByUserId(Long userId);
 
-    UserDetail findOneByUserUsername(String username);
+    UserDetail findOneByUserUsernameIgnoreCase(String username);
 }

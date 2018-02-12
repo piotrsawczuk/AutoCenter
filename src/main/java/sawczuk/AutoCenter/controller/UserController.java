@@ -41,7 +41,7 @@ public class UserController {
     @RequestMapping(value = "/users", method = RequestMethod.PUT)
     public ResponseEntity<User> updateAccount(@RequestBody UserDTO userDTO) throws PasswordException {
         //logged in user
-        User user = userService.findByUsername("piotr");
+        User user = userService.findByUsernameIgnoreCase("piotr");
         userService.update(userDTO, user);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }

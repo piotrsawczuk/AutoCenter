@@ -27,7 +27,7 @@ public class UserDetailServiceImpl implements UserDetailService {
     }
 
     @Override
-    public UserDetail findOneByUserUsername(String username) {
-        return userDetailRepository.findOneByUserUsername(username);
+    public UserDetail findOneByUserUsernameIgnoreCase(String username) {
+        return userDetailRepository.findOneByUserUsernameIgnoreCase(username);
     }
 }

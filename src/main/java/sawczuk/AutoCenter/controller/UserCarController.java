@@ -37,7 +37,7 @@ public class UserCarController {
         UserCar userCar = new UserCar();
         userCar.setCarApiId(userCarDTO.getCarApiId());
         //logged in user
-        userCar.setUser(userService.findByUsername("piotr"));
+        userCar.setUser(userService.findByUsernameIgnoreCase("piotr"));
         userCarService.save(userCar);
         return new ResponseEntity<>(userCar, HttpStatus.CREATED);
     }
@@ -54,7 +54,7 @@ public class UserCarController {
     @RequestMapping(value = "/cars", method = RequestMethod.GET)
     public ResponseEntity<List<UserCar>> getAllCars() {
         //logged in user
-        Long userId = userService.findByUsername("piotr").getId();
+        Long userId = userService.findByUsernameIgnoreCase("piotr").getId();
         return new ResponseEntity<>(userCarService.findAllByUserId(userId), HttpStatus.OK);
     }
 
