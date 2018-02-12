@@ -1,6 +1,8 @@
 package sawczuk.AutoCenter.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import sawczuk.AutoCenter.util.DoubleUtils;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -17,6 +19,7 @@ public class Repair {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_car_id")
     private UserCar userCar;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(name = "date")
     private LocalDate date;
     @Column(name = "mileage")
@@ -75,6 +78,6 @@ public class Repair {
     }
 
     public void setCost(Double cost) {
-        this.cost = cost;
+        this.cost = DoubleUtils.truncateDouble(cost);
     }
 }
