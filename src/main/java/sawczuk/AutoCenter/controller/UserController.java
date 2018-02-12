@@ -34,7 +34,7 @@ public class UserController {
         user.setEmail(userDTO.getEmail());
         user.setPassword(userDTO.getPassword());
         userService.save(user);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
     //any role
@@ -43,7 +43,7 @@ public class UserController {
         //logged in user
         User user = userService.findByUsername("piotr");
         userService.update(userDTO, user);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
     // admin only
@@ -62,7 +62,7 @@ public class UserController {
     @RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<User> deleteAccount(@PathVariable Long id) {
         userService.delete(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }

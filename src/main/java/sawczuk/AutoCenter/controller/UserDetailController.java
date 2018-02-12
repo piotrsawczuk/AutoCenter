@@ -8,6 +8,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import sawczuk.AutoCenter.exception.ResourceNotFoundException;
 import sawczuk.AutoCenter.model.UserDetail;
 import sawczuk.AutoCenter.model.dto.UserDetailDTO;
 import sawczuk.AutoCenter.service.UserDetailService;
@@ -44,13 +45,13 @@ public class UserDetailController {
         //logged in user
         userDetail.setUser(userService.findByUsername("piotr"));
         userDetailService.save(userDetail);
-        return new ResponseEntity<>(userDetail, HttpStatus.OK);
+        return new ResponseEntity<>(userDetail, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/user-details", method = RequestMethod.PUT)
     public ResponseEntity<UserDetail> editUserDetail(@RequestBody UserDetailDTO userDetailDTO) {
         //logged in user
-        UserDetail userDetail = userDetailService.findOneByUserUsername("jacek");
+        UserDetail userDetail = userDetailService.findOneByUserUsername("piotr");
         if (!StringUtils.isEmpty(userDetailDTO.getFirstname()))
             userDetail.setFirstname(userDetailDTO.getFirstname());
         if (!StringUtils.isEmpty(userDetailDTO.getSurname()))
@@ -64,7 +65,7 @@ public class UserDetailController {
         if (!StringUtils.isEmpty(userDetailDTO.getPhoneNumber()))
             userDetail.setPhoneNumber(userDetailDTO.getPhoneNumber());
         userDetailService.save(userDetail);
-        return new ResponseEntity<>(userDetail, HttpStatus.OK);
+        return new ResponseEntity<>(userDetail, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/user-details", method = RequestMethod.GET)

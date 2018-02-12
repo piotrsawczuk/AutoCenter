@@ -39,7 +39,7 @@ public class UserCarController {
         //logged in user
         userCar.setUser(userService.findByUsername("piotr"));
         userCarService.save(userCar);
-        return new ResponseEntity<>(userCar, HttpStatus.OK);
+        return new ResponseEntity<>(userCar, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/cars/{id}", method = RequestMethod.PUT)
@@ -48,7 +48,7 @@ public class UserCarController {
         if (userCarDTO.getCarApiId() != null)
             userCar.setCarApiId(userCarDTO.getCarApiId());
         userCarService.save(userCar);
-        return new ResponseEntity<>(userCar, HttpStatus.OK);
+        return new ResponseEntity<>(userCar, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/cars", method = RequestMethod.GET)
@@ -67,7 +67,7 @@ public class UserCarController {
     @RequestMapping(value = "/cars/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<UserCar> deleteCar(@PathVariable Long id) {
         userCarService.delete(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }
