@@ -8,7 +8,7 @@ import sawczuk.AutoCenter.repository.UserCarDetailRepository;
 @Service
 public class UserCarDetailServiceImpl implements UserCarDetailService {
 
-    UserCarDetailRepository userCarDetailRepository;
+    private UserCarDetailRepository userCarDetailRepository;
 
     @Autowired
     public UserCarDetailServiceImpl(UserCarDetailRepository userCarDetailRepository) {

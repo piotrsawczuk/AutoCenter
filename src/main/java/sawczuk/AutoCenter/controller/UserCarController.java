@@ -60,8 +60,7 @@ public class UserCarController {
 
     @RequestMapping(value = "/cars/{id}", method = RequestMethod.GET)
     public ResponseEntity<UserCar> getCar(@PathVariable Long id) {
-        UserCar userCar = userCarService.findOne(id);
-        return new ResponseEntity<>(userCar, HttpStatus.OK);
+        return new ResponseEntity<>(userCarService.findOne(id), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/cars/{id}", method = RequestMethod.DELETE)
