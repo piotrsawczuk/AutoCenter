@@ -32,6 +32,9 @@ public class FuelEconomy {
     @Column(name = "consumption")
     private Double consumption;
 
+    public FuelEconomy() {
+        this.date = LocalDate.now();
+    }
 
     public Long getId() {
         return id;

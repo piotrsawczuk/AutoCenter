@@ -26,6 +26,9 @@ public class Repair {
     @Column(name = "cost")
     private Double cost;
 
+    public Repair() {
+        this.date = LocalDate.now();
+    }
 
     public Long getId() {
         return id;

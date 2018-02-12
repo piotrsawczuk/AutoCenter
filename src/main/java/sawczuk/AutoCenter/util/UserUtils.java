@@ -3,12 +3,12 @@ package sawczuk.AutoCenter.util;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class UserUtil {
+public class UserUtils {
 
-    private UserUtil() {
+    private UserUtils() {
     }
 
-    public String findLoggedInUsername() {
+    public static String findLoggedInUsername() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
             return ((UserDetails) principal).getUsername();
