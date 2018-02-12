@@ -1,4 +1,4 @@
-package sawczuk.AutoCenter.service;
+package sawczuk.AutoCenter.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -8,6 +8,8 @@ import sawczuk.AutoCenter.exception.PasswordException;
 import sawczuk.AutoCenter.model.User;
 import sawczuk.AutoCenter.model.dto.UserDTO;
 import sawczuk.AutoCenter.repository.UserRepository;
+import sawczuk.AutoCenter.service.RoleService;
+import sawczuk.AutoCenter.service.UserService;
 
 import java.util.Arrays;
 import java.util.HashSet;

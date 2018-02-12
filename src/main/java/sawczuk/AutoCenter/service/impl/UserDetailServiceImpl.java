@@ -1,9 +1,10 @@
-package sawczuk.AutoCenter.service;
+package sawczuk.AutoCenter.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sawczuk.AutoCenter.model.UserDetail;
 import sawczuk.AutoCenter.repository.UserDetailRepository;
+import sawczuk.AutoCenter.service.UserDetailService;
 
 @Service
 public class UserDetailServiceImpl implements UserDetailService {

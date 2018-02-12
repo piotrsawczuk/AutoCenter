@@ -1,9 +1,10 @@
-package sawczuk.AutoCenter.service;
+package sawczuk.AutoCenter.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sawczuk.AutoCenter.model.UserCar;
 import sawczuk.AutoCenter.repository.UserCarRepository;
+import sawczuk.AutoCenter.service.UserCarService;
 
 import java.util.List;
 
