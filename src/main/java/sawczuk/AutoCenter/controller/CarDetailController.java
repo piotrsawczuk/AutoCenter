@@ -13,6 +13,7 @@ import sawczuk.AutoCenter.model.CarDetail;
 import sawczuk.AutoCenter.model.dto.CarDetailDTO;
 import sawczuk.AutoCenter.service.CarDetailService;
 import sawczuk.AutoCenter.service.CarService;
+import sawczuk.AutoCenter.util.VinChecker;
 
 @Controller
 @RequestMapping("cars/{carId}")
@@ -30,7 +31,8 @@ public class CarDetailController {
     @RequestMapping(value = "/details", method = RequestMethod.POST)
     public ResponseEntity<CarDetail> saveUserCarDetail(@PathVariable("carId") Long carId, @RequestBody CarDetailDTO carDetailDTO) {
         CarDetail carDetail = new CarDetail();
-        carDetail.setVin(carDetailDTO.getVin());
+//        if (VinChecker.validate(carDetailDTO.getVin()))
+            carDetail.setVin(carDetailDTO.getVin());
         carDetail.setLicencePlateNumber(carDetailDTO.getLicencePlateNumber());
         carDetail.setColor(carDetailDTO.getColor());
         carDetail.setImageUrl(carDetailDTO.getImageUrl());
@@ -43,7 +45,8 @@ public class CarDetailController {
     public ResponseEntity<CarDetail> editUserCarDetail(@PathVariable("carId") Long carId, @RequestBody CarDetailDTO carDetailDTO) {
         CarDetail carDetail = carDetailService.findOneByCarId(carId);
         if (!StringUtils.isEmpty(carDetailDTO.getVin()))
-            carDetail.setVin(carDetailDTO.getVin());
+//            if (VinChecker.validate(carDetailDTO.getVin()))
+                carDetail.setVin(carDetailDTO.getVin());
         if (!StringUtils.isEmpty(carDetailDTO.getLicencePlateNumber()))
             carDetail.setLicencePlateNumber(carDetailDTO.getLicencePlateNumber());
         if (!StringUtils.isEmpty(carDetailDTO.getColor()))
@@ -58,5 +61,5 @@ public class CarDetailController {
     public ResponseEntity<CarDetail> getUserCarDetail(@PathVariable("carId") Long carId) {
         return new ResponseEntity<>(carDetailService.findOneByCarId(carId), HttpStatus.OK);
     }
-
 }
+//TODO uncomment after tests
