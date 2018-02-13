@@ -139,5 +139,6 @@ create table user_detail(
     city varchar(30),
     zip_code varchar(10),
     phone_number varchar(15),
-    constraint fk_user_id foreign key (user_id) references app_user (id)
+    constraint fk_user_id foreign key (user_id) references app_user (id),
+    constraint unique_user_id unique (user_id)
 );
