@@ -11,5 +11,5 @@ public interface RepairService {
 
     Repair findOne(Long id);
 
-    List<Repair> findAllByUserCarId(Long carId);
+    List<Repair> findAllByCarId(Long carId);
 }

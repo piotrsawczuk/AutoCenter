@@ -1,6 +1,6 @@
 package sawczuk.AutoCenter.model.dto;
 
-public class UserCarDetailDTO {
+public class CarDetailDTO {
     private String vin;
     private String licencePlateNumber;
     private String color;

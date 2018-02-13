@@ -12,21 +12,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import sawczuk.AutoCenter.model.Repair;
 import sawczuk.AutoCenter.model.dto.RepairDTO;
 import sawczuk.AutoCenter.service.RepairService;
-import sawczuk.AutoCenter.service.UserCarService;
+import sawczuk.AutoCenter.service.CarService;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Controller
 public class RepairController {
 
     private RepairService repairService;
-    private UserCarService userCarService;
+    private CarService carService;
 
     @Autowired
-    public RepairController(RepairService repairService, UserCarService userCarService) {
+    public RepairController(RepairService repairService, CarService carService) {
         this.repairService = repairService;
-        this.userCarService = userCarService;
+        this.carService = carService;
     }
 
     @RequestMapping(value = "cars/{carId}/repairs", method = RequestMethod.POST)
@@ -34,7 +33,7 @@ public class RepairController {
         Repair repair = new Repair();
         if (repairDTO.getDate() != null)
             repair.setDate(repairDTO.getDate());
-        repair.setUserCar(userCarService.findOne(carId));
+        repair.setCar(carService.findOne(carId));
         repair.setMileage(repairDTO.getMileage());
         repair.setDescription(repairDTO.getDescription());
         repair.setCost(repairDTO.getCost());
@@ -64,7 +63,7 @@ public class RepairController {
 
     @RequestMapping(value = "cars/{carId}/repairs", method = RequestMethod.GET)
     public ResponseEntity<List<Repair>> getAllRepairs(@PathVariable(value = "carId") Long carId) {
-        return new ResponseEntity<>(repairService.findAllByUserCarId(carId), HttpStatus.OK);
+        return new ResponseEntity<>(repairService.findAllByCarId(carId), HttpStatus.OK);
     }
 
     @RequestMapping(value = "repairs/{id}", method = RequestMethod.DELETE)

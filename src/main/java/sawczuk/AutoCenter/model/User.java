@@ -33,8 +33,8 @@ public class User {
     private Set<Role> roles;
 
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<UserCar> userCars;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Car> cars;
     @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
     private UserDetail userDetail;
@@ -88,12 +88,12 @@ public class User {
         this.roles = roles;
     }
 
-    public List<UserCar> getUserCars() {
-        return userCars;
+    public List<Car> getCars() {
+        return cars;
     }
 
-    public void setUserCars(List<UserCar> userCars) {
-        this.userCars = userCars;
+    public void setCars(List<Car> cars) {
+        this.cars = cars;
     }
 
     public UserDetail getUserDetail() {

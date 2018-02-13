@@ -17,7 +17,7 @@ public class FuelEconomy {
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_car_id")
-    private UserCar userCar;
+    private Car car;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(name = "date")
     private LocalDate date;
@@ -46,12 +46,12 @@ public class FuelEconomy {
         this.id = id;
     }
 
-    public UserCar getUserCar() {
-        return userCar;
+    public Car getCar() {
+        return car;
     }
 
-    public void setUserCar(UserCar userCar) {
-        this.userCar = userCar;
+    public void setCar(Car car) {
+        this.car = car;
     }
 
     public LocalDate getDate() {

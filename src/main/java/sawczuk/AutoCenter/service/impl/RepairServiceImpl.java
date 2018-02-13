@@ -34,7 +34,7 @@ public class RepairServiceImpl implements RepairService {
     }
 
     @Override
-    public List<Repair> findAllByUserCarId(Long carId) {
-        return repairRepository.findAllByUserCarId(carId);
+    public List<Repair> findAllByCarId(Long carId) {
+        return repairRepository.findAllByCarIdOrderByDateDesc(carId);
     }
 }

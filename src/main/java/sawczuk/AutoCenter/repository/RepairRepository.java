@@ -6,5 +6,5 @@ import sawczuk.AutoCenter.model.Repair;
 import java.util.List;
 
 public interface RepairRepository extends CrudRepository<Repair, Long> {
-    List<Repair> findAllByUserCarId(Long carId);
+    List<Repair> findAllByCarIdOrderByDateDesc(Long carId);
 }

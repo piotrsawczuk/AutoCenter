@@ -52,7 +52,7 @@ public class FuelType implements Serializable {
     private String fuelType;
 
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fuelType")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "fuelType")
     private List<FuelEconomy> fuelEconomies;
 
 

@@ -9,7 +9,7 @@ import java.util.List;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "user_car")
-public class UserCar {
+public class Car {
     @Id
     @Column(name = "id")
     @GeneratedValue(generator = "user_car_id_gen", strategy = GenerationType.SEQUENCE)
@@ -22,14 +22,14 @@ public class UserCar {
     private Long carApiId;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "userCar")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "car")
     private List<FuelEconomy> fuelEconomies;
     @JsonIgnore
-    @OneToMany(mappedBy = "userCar")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "car")
     private List<Repair> repairs;
     @JsonIgnore
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userCar")
-    private UserCarDetail userCarDetail;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "car")
+    private CarDetail carDetail;
 
 
     public Long getId() {
@@ -72,11 +72,11 @@ public class UserCar {
         this.repairs = repairs;
     }
 
-    public UserCarDetail getUserCarDetail() {
-        return userCarDetail;
+    public CarDetail getCarDetail() {
+        return carDetail;
     }
 
-    public void setUserCarDetail(UserCarDetail userCarDetail) {
-        this.userCarDetail = userCarDetail;
+    public void setCarDetail(CarDetail carDetail) {
+        this.carDetail = carDetail;
     }
 }

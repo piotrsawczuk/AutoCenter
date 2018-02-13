@@ -7,7 +7,7 @@ import javax.persistence.*;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "user_car_detail")
-public class UserCarDetail {
+public class CarDetail {
     @Id
     @Column(name = "id")
     @GeneratedValue(generator = "user_car_detail_id_gen", strategy = GenerationType.SEQUENCE)
@@ -15,7 +15,7 @@ public class UserCarDetail {
     private Long id;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_car_id")
-    private UserCar userCar;
+    private Car car;
     @Column(name = "vin")
     private String vin;
     @Column(name = "license_plate_number")
@@ -34,12 +34,12 @@ public class UserCarDetail {
         this.id = id;
     }
 
-    public UserCar getUserCar() {
-        return userCar;
+    public Car getCar() {
+        return car;
     }
 
-    public void setUserCar(UserCar userCar) {
-        this.userCar = userCar;
+    public void setCar(Car car) {
+        this.car = car;
     }
 
     public String getVin() {
