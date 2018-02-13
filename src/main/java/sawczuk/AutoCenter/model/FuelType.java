@@ -47,7 +47,7 @@ public class FuelType implements Serializable {
     @SequenceGenerator(name = "fuel_type_id_gen", sequenceName = "fuel_type_seq", initialValue = 1, allocationSize = 1)
     private Long id;
     @Column(name = "value")
-    private int value;
+    private Integer value;
     @Column(name = "fuel_type")
     private String fuelType;
 
@@ -64,7 +64,7 @@ public class FuelType implements Serializable {
         this.id = id;
     }
 
-    public int getValue() {
+    public Integer getValue() {
         return value;
     }
 

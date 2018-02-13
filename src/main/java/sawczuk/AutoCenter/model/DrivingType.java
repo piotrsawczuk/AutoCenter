@@ -47,7 +47,7 @@ public class DrivingType implements Serializable {
     @SequenceGenerator(name = "driving_type_id_gen", sequenceName = "driving_type_seq", initialValue = 1, allocationSize = 1)
     private Long id;
     @Column(name = "value")
-    private int value;
+    private Integer value;
     @Column(name = "driving_type")
     private String drivingType;
 
@@ -64,7 +64,7 @@ public class DrivingType implements Serializable {
         this.id = id;
     }
 
-    public int getValue() {
+    public Integer getValue() {
         return value;
     }
 
