@@ -47,7 +47,8 @@ create table driving_type(
     id bigint not null primary key default nextval('driving_type_seq'),
     value bigint,
     driving_type varchar(10),
-    constraint unique_driving_value unique (value)
+    constraint unique_driving_value unique (value),
+    constraint unique_driving_type unique (driving_type)
 );
 insert into driving_type (value, driving_type) values (1, 'City');
 insert into driving_type (value, driving_type) values (2, 'Highway');
@@ -58,11 +59,23 @@ create table fuel_type(
     id bigint not null primary key default nextval('fuel_type_seq'),
     value bigint,
     fuel_type varchar(10),
-    constraint unique_fuel_value unique (value)
+    constraint unique_fuel_value unique (value),
+    constraint unique_fuel_type unique (fuel_type)
 );
 insert into fuel_type (value, fuel_type) values (1, 'Petrol');
 insert into fuel_type (value, fuel_type) values (2, 'Diesel');
 insert into fuel_type (value, fuel_type) values (3, 'LPG');
+
+create sequence exploitation_type_seq;
+create table exploitation_type(
+    id bigint not null primary key default nextval('exploitation_type_seq'),
+    value bigint,
+    exploitation_type varchar(15),
+    constraint unique_exploitation_value unique (value),
+    constraint unique_exploitation_type unique (exploitation_type)
+);
+insert into exploitation_type (value, exploitation_type) values (1, 'Maintenance');
+insert into exploitation_type (value, exploitation_type) values (2, 'Repair');
 
 create sequence user_car_seq;
 create table user_car(
@@ -93,9 +106,11 @@ create table fuel_economy(
     date date,
     driving_type bigint,
     fuel_type bigint,
-    distance numeric(7, 2),
-    fuel_used numeric(6, 2),
+    distance_driven numeric(7, 2),
+    fuel_amount_filled numeric(5, 2),
+    price_per_litre numeric(4,2),
     consumption numeric(7, 2),
+    fill_up_cost numeric(7, 2),
     constraint fk_user_car_id foreign key (user_car_id) references user_car (id),
     constraint fk_fuel_type foreign key (fuel_type) references fuel_type (value),
     constraint fk_driving_type foreign key (driving_type) references driving_type (value)
@@ -108,8 +123,10 @@ create table repair(
     date date,
     mileage bigint,
     description text,
+    exploitation_type bigint,
     cost numeric(8,2),
-    constraint fk_user_car_id foreign key (user_car_id) references user_car (id)
+    constraint fk_user_car_id foreign key (user_car_id) references user_car (id),
+    constraint fk_exploitation_type foreign key (exploitation_type) references exploitation_type (value)
 );
 
 create sequence user_detail_seq;

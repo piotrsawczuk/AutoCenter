@@ -27,12 +27,16 @@ public class FuelEconomy {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fuel_type")
     private FuelType fuelType;
-    @Column(name = "distance")
-    private Double distance;
-    @Column(name = "fuel_used")
-    private Double fuelUsed;
+    @Column(name = "distance_driven")
+    private Double distanceDriven;
+    @Column(name = "fuel_amount_filled")
+    private Double fuelAmountFilled;
+    @Column(name = "price_per_litre")
+    private Double pricePerLitre;
     @Column(name = "consumption")
     private Double consumption;
+    @Column(name = "fill_up_cost")
+    private Double fillUpCost;
 
     public FuelEconomy() {
         this.date = LocalDate.now();
@@ -78,20 +82,28 @@ public class FuelEconomy {
         this.fuelType = fuelType;
     }
 
-    public Double getDistance() {
-        return distance;
+    public Double getDistanceDriven() {
+        return distanceDriven;
     }
 
-    public void setDistance(Double distance) {
-        this.distance = distance;
+    public void setDistanceDriven(Double distanceDriven) {
+        this.distanceDriven = distanceDriven;
     }
 
-    public Double getFuelUsed() {
-        return fuelUsed;
+    public Double getFuelAmountFilled() {
+        return fuelAmountFilled;
     }
 
-    public void setFuelUsed(Double fuelUsed) {
-        this.fuelUsed = fuelUsed;
+    public void setFuelAmountFilled(Double fuelAmountFilled) {
+        this.fuelAmountFilled = fuelAmountFilled;
+    }
+
+    public Double getPricePerLitre() {
+        return pricePerLitre;
+    }
+
+    public void setPricePerLitre(Double pricePerLitre) {
+        this.pricePerLitre = pricePerLitre;
     }
 
     public Double getConsumption() {
@@ -100,5 +112,13 @@ public class FuelEconomy {
 
     public void setConsumption(Double consumption) {
         this.consumption = consumption;
+    }
+
+    public Double getFillUpCost() {
+        return fillUpCost;
+    }
+
+    public void setFillUpCost(Double fillUpCost) {
+        this.fillUpCost = fillUpCost;
     }
 }
