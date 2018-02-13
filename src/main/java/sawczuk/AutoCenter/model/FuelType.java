@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,35 +11,7 @@ import java.util.Map;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "fuel_type")
-public class FuelType implements Serializable {
-    public enum FuelTypeEnum {
-        Petrol(1),
-        Diesel(2),
-        LPG(3);
-
-        private final int value;
-        private static Map map = new HashMap<>();
-
-        FuelTypeEnum(int value) {
-            this.value = value;
-        }
-
-        static {
-            for (FuelTypeEnum fuelType : FuelTypeEnum.values()) {
-                map.put(fuelType.value, fuelType);
-            }
-        }
-
-        public static FuelTypeEnum valueOf(int fuelType) {
-            return (FuelTypeEnum) map.get(fuelType);
-        }
-
-        public int getValue() {
-            return value;
-        }
-    }
-
-
+public class FuelType {
     @Id
     @Column(name = "id")
     @GeneratedValue(generator = "fuel_type_id_gen", strategy = GenerationType.SEQUENCE)
@@ -53,7 +24,7 @@ public class FuelType implements Serializable {
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "fuelType")
-    private List<FuelEconomy> fuelEconomies;
+    private List<FuelEconomy> fuelEconomyList;
 
 
     public Long getId() {
@@ -80,11 +51,39 @@ public class FuelType implements Serializable {
         this.fuelType = fuelType.name();
     }
 
-    public List<FuelEconomy> getFuelEconomies() {
-        return fuelEconomies;
+    public List<FuelEconomy> getFuelEconomyList() {
+        return fuelEconomyList;
     }
 
-    public void setFuelEconomies(List<FuelEconomy> fuelEconomies) {
-        this.fuelEconomies = fuelEconomies;
+    public void setFuelEconomyList(List<FuelEconomy> fuelEconomyList) {
+        this.fuelEconomyList = fuelEconomyList;
+    }
+
+
+    public enum FuelTypeEnum {
+        Petrol(1),
+        Diesel(2),
+        LPG(3);
+
+        private final int value;
+        private static Map map = new HashMap<>();
+
+        FuelTypeEnum(int value) {
+            this.value = value;
+        }
+
+        static {
+            for (FuelTypeEnum fuelType : FuelTypeEnum.values()) {
+                map.put(fuelType.value, fuelType);
+            }
+        }
+
+        public static FuelTypeEnum valueOf(int fuelType) {
+            return (FuelTypeEnum) map.get(fuelType);
+        }
+
+        public int getValue() {
+            return value;
+        }
     }
 }

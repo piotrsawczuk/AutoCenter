@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,35 +11,7 @@ import java.util.Map;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "driving_type")
-public class DrivingType implements Serializable {
-    public enum DrivingTypeEnum {
-        City(1),
-        Highway(2),
-        Mixed(3);
-
-        private final int value;
-        private static Map map = new HashMap<>();
-
-        DrivingTypeEnum(int value) {
-            this.value = value;
-        }
-
-        static {
-            for (DrivingTypeEnum drivingType : DrivingTypeEnum.values()) {
-                map.put(drivingType.value, drivingType);
-            }
-        }
-
-        public static DrivingTypeEnum valueOf(int fuelEconomyType) {
-            return (DrivingTypeEnum) map.get(fuelEconomyType);
-        }
-
-        public int getValue() {
-            return value;
-        }
-    }
-
-
+public class DrivingType {
     @Id
     @Column(name = "id")
     @GeneratedValue(generator = "driving_type_id_gen", strategy = GenerationType.SEQUENCE)
@@ -53,7 +24,7 @@ public class DrivingType implements Serializable {
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "drivingType")
-    private List<FuelEconomy> fuelEconomies;
+    private List<FuelEconomy> fuelEconomyList;
 
 
     public Long getId() {
@@ -80,11 +51,39 @@ public class DrivingType implements Serializable {
         this.drivingType = drivingType.name();
     }
 
-    public List<FuelEconomy> getFuelEconomies() {
-        return fuelEconomies;
+    public List<FuelEconomy> getFuelEconomyList() {
+        return fuelEconomyList;
     }
 
-    public void setFuelEconomies(List<FuelEconomy> fuelEconomies) {
-        this.fuelEconomies = fuelEconomies;
+    public void setFuelEconomyList(List<FuelEconomy> fuelEconomyList) {
+        this.fuelEconomyList = fuelEconomyList;
+    }
+
+
+    public enum DrivingTypeEnum {
+        City(1),
+        Highway(2),
+        Mixed(3);
+
+        private final int value;
+        private static Map map = new HashMap<>();
+
+        DrivingTypeEnum(int value) {
+            this.value = value;
+        }
+
+        static {
+            for (DrivingTypeEnum drivingType : DrivingTypeEnum.values()) {
+                map.put(drivingType.value, drivingType);
+            }
+        }
+
+        public static DrivingTypeEnum valueOf(int drivingType) {
+            return (DrivingTypeEnum) map.get(drivingType);
+        }
+
+        public int getValue() {
+            return value;
+        }
     }
 }
