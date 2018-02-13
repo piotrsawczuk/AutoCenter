@@ -16,18 +16,9 @@ public class FuelEconomy {
     @GeneratedValue(generator = "fuel_economy_id_gen", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "fuel_economy_id_gen", sequenceName = "fuel_economy_seq", initialValue = 1, allocationSize = 1)
     private Long id;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_car_id")
-    private Car car;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(name = "date")
     private LocalDate date;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "driving_type")
-    private DrivingType drivingType;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fuel_type")
-    private FuelType fuelType;
     @Column(name = "distance_driven")
     private Double distanceDriven;
     @Column(name = "fuel_amount_filled")
@@ -38,6 +29,15 @@ public class FuelEconomy {
     private Double consumption;
     @Column(name = "fill_up_cost")
     private Double fillUpCost;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "driving_type")
+    private DrivingType drivingType;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fuel_type")
+    private FuelType fuelType;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_car_id")
+    private Car car;
 
     public FuelEconomy() {
         this.date = LocalDate.now();

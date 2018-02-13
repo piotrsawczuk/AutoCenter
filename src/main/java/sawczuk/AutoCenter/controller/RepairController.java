@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import sawczuk.AutoCenter.model.Repair;
 import sawczuk.AutoCenter.model.dto.RepairDTO;
 import sawczuk.AutoCenter.service.CarService;
+import sawczuk.AutoCenter.service.ExploitationTypeService;
 import sawczuk.AutoCenter.service.RepairService;
 
 import java.util.List;
@@ -21,11 +22,13 @@ public class RepairController {
 
     private RepairService repairService;
     private CarService carService;
+    private ExploitationTypeService exploitationTypeService;
 
     @Autowired
-    public RepairController(RepairService repairService, CarService carService) {
+    public RepairController(RepairService repairService, CarService carService, ExploitationTypeService exploitationTypeService) {
         this.repairService = repairService;
         this.carService = carService;
+        this.exploitationTypeService = exploitationTypeService;
     }
 
     @RequestMapping(value = "cars/{carId}/repairs", method = RequestMethod.POST)
@@ -36,6 +39,7 @@ public class RepairController {
         repair.setCar(carService.findOne(carId));
         repair.setMileage(repairDTO.getMileage());
         repair.setDescription(repairDTO.getDescription());
+        repair.setExploitationType(exploitationTypeService.findOneByValue(repairDTO.getExploitationType()));
         repair.setCost(repairDTO.getCost());
         repairService.save(repair);
         return new ResponseEntity<>(repair, HttpStatus.CREATED);
@@ -50,6 +54,8 @@ public class RepairController {
             repair.setMileage(repairDTO.getMileage());
         if (!StringUtils.isEmpty(repairDTO.getDescription()))
             repair.setDescription(repairDTO.getDescription());
+        if (repairDTO.getExploitationType() != null)
+            repair.setExploitationType(exploitationTypeService.findOneByValue(repairDTO.getExploitationType()));
         if (repairDTO.getCost() != null)
             repair.setCost(repairDTO.getCost());
         repairService.save(repair);

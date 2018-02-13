@@ -15,11 +15,11 @@ public class Car {
     @GeneratedValue(generator = "user_car_id_gen", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "user_car_id_gen", sequenceName = "user_car_seq", initialValue = 1, allocationSize = 1)
     private Long id;
+    @Column(name = "car_api_id")
+    private Long carApiId;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
-    @Column(name = "car_api_id")
-    private Long carApiId;
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "car")

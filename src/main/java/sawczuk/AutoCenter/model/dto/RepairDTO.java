@@ -7,6 +7,7 @@ public class RepairDTO {
     private Integer mileage;
     private String description;
     private Double cost;
+    private Integer exploitationType;
 
     public LocalDate getDate() {
         return date;
@@ -22,5 +23,9 @@ public class RepairDTO {
 
     public Double getCost() {
         return cost;
+    }
+
+    public Integer getExploitationType() {
+        return exploitationType;
     }
 }

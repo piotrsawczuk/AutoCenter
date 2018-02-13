@@ -13,9 +13,6 @@ public class CarDetail {
     @GeneratedValue(generator = "user_car_detail_id_gen", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "user_car_detail_id_gen", sequenceName = "user_car_detail_seq", initialValue = 1, allocationSize = 1)
     private Long id;
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_car_id")
-    private Car car;
     @Column(name = "vin")
     private String vin;
     @Column(name = "license_plate_number")
@@ -24,6 +21,9 @@ public class CarDetail {
     private String color;
     @Column(name = "image_url")
     private String imageUrl;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_car_id")
+    private Car car;
 
 
     public Long getId() {

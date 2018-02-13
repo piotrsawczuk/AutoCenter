@@ -16,9 +16,6 @@ public class Repair {
     @GeneratedValue(generator = "repair_id_gen", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "repair_id_gen", sequenceName = "repair_seq", initialValue = 1, allocationSize = 1)
     private Long id;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_car_id")
-    private Car car;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(name = "date")
     private LocalDate date;
@@ -26,11 +23,14 @@ public class Repair {
     private Integer mileage;
     @Column(name = "description")
     private String description;
+    @Column(name = "cost")
+    private Double cost;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "exploitation_type")
     private ExploitationType exploitationType;
-    @Column(name = "cost")
-    private Double cost;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_car_id")
+    private Car car;
 
     public Repair() {
         this.date = LocalDate.now();
@@ -74,6 +74,14 @@ public class Repair {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public ExploitationType getExploitationType() {
+        return exploitationType;
+    }
+
+    public void setExploitationType(ExploitationType exploitationType) {
+        this.exploitationType = exploitationType;
     }
 
     public Double getCost() {

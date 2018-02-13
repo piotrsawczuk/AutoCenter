@@ -13,9 +13,6 @@ public class UserDetail {
     @GeneratedValue(generator = "user_detail_id_gen", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "user_detail_id_gen", sequenceName = "user_detail_seq", initialValue = 1, allocationSize = 1)
     private Long id;
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
     @Column(name = "firstname")
     private String firstname;
     @Column(name = "surname")
@@ -28,6 +25,9 @@ public class UserDetail {
     private String zipCode;
     @Column(name = "phone_number")
     private String phoneNumber;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Long getId() {
         return id;
