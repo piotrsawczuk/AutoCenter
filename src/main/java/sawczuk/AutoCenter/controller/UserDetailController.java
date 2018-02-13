@@ -8,13 +8,10 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import sawczuk.AutoCenter.exception.ResourceNotFoundException;
 import sawczuk.AutoCenter.model.UserDetail;
 import sawczuk.AutoCenter.model.dto.UserDetailDTO;
 import sawczuk.AutoCenter.service.UserDetailService;
 import sawczuk.AutoCenter.service.UserService;
-
-import java.util.List;
 
 @Controller
 public class UserDetailController {

@@ -13,7 +13,6 @@ import sawczuk.AutoCenter.model.CarDetail;
 import sawczuk.AutoCenter.model.dto.CarDetailDTO;
 import sawczuk.AutoCenter.service.CarDetailService;
 import sawczuk.AutoCenter.service.CarService;
-import sawczuk.AutoCenter.util.VinChecker;
 
 @Controller
 @RequestMapping("cars/{carId}")

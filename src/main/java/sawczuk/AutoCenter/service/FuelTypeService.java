@@ -1,7 +1,6 @@
 package sawczuk.AutoCenter.service;
 
 import sawczuk.AutoCenter.model.FuelType;
-import sawczuk.AutoCenter.repository.FuelTypeRepository;
 
 import java.util.List;
 

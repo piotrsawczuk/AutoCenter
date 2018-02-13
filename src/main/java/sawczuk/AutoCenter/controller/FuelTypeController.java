@@ -8,10 +8,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import sawczuk.AutoCenter.model.FuelType;
 import sawczuk.AutoCenter.service.FuelTypeService;
-
-import java.util.List;
 
 @Controller
 public class FuelTypeController {
