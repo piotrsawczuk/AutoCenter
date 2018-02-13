@@ -26,6 +26,9 @@ public class Repair {
     private Integer mileage;
     @Column(name = "description")
     private String description;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "exploitation_type")
+    private ExploitationType exploitationType;
     @Column(name = "cost")
     private Double cost;
 
