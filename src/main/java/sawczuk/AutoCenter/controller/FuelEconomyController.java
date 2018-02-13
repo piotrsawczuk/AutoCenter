@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,10 +44,29 @@ public class FuelEconomyController {
         fuelEconomy.setFuelType(fuelTypeService.findOneByValue(fuelEconomyDTO.getFuelType()));
         fuelEconomy.setDistanceDriven(fuelEconomyDTO.getDistanceDriven());
         fuelEconomy.setFuelAmountFilled(fuelEconomyDTO.getFuelAmountFilled());
+        fuelEconomy.setPricePerLitre(fuelEconomyDTO.getPricePerLitre());
         fuelEconomyService.save(fuelEconomy);
         return new ResponseEntity<>(fuelEconomy, HttpStatus.CREATED);
     }
-
+    
+    @RequestMapping(value = "fuel-economy/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<FuelEconomy> editFuelEconomy(@PathVariable(value = "id") Long id, @RequestBody FuelEconomyDTO fuelEconomyDTO) {
+        FuelEconomy fuelEconomy = fuelEconomyService.findOne(id);
+        if (fuelEconomyDTO.getDate() != null)
+            fuelEconomy.setDate(fuelEconomyDTO.getDate());
+        if (fuelEconomyDTO.getDrivingType() != null)
+            fuelEconomy.setDrivingType(drivingTypeService.findOneByValue(fuelEconomyDTO.getDrivingType()));
+        if (fuelEconomyDTO.getFuelType() != null)
+            fuelEconomy.setFuelType(fuelTypeService.findOneByValue(fuelEconomyDTO.getFuelType()));
+        if (fuelEconomyDTO.getDistanceDriven() != null)
+            fuelEconomy.setDistanceDriven(fuelEconomyDTO.getDistanceDriven());
+        if (fuelEconomyDTO.getFuelAmountFilled() != null)
+            fuelEconomy.setFuelAmountFilled(fuelEconomyDTO.getFuelAmountFilled());
+        if (fuelEconomyDTO.getPricePerLitre() != null)
+            fuelEconomy.setPricePerLitre(fuelEconomyDTO.getPricePerLitre());
+        fuelEconomyService.save(fuelEconomy);
+        return new ResponseEntity<>(fuelEconomy, HttpStatus.CREATED);
+    }
 
     @RequestMapping(value = "fuel-economy/{id}", method = RequestMethod.GET)
     public ResponseEntity<FuelEconomy> getFuelEconomy(@PathVariable(value = "id") Long id) {
