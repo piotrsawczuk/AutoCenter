@@ -19,11 +19,21 @@ public class DoubleUtils {
                     .setScale(2, RoundingMode.HALF_UP)
                     .doubleValue();
         }
-        return 0d;
+        return null;
     }
 
-    public static Double calculateFuelEconomy(Double distance, Double fuelUsed) {
-        return truncateDouble(fuelUsed * 100 / distance);
+    public static Double calculateFillUpCost(Double pricePerLitre, Double fuelAmountFilled) {
+        if (pricePerLitre != null && fuelAmountFilled != null)
+            return truncateDouble(fuelAmountFilled * pricePerLitre);
+        else
+            return null;
+    }
+
+    public static Double calculateFuelEconomy(Double distanceDriven, Double fuelAmountFilled) {
+        if (distanceDriven != null && fuelAmountFilled != null)
+            return truncateDouble(fuelAmountFilled * 100 / distanceDriven);
+        else
+            return null;
     }
 
     public static Double fuelEconomyAverage(List<FuelEconomy> fuelEconomyList) {
@@ -35,11 +45,11 @@ public class DoubleUtils {
                 divide++;
             }
             if (divide <= 0) {
-                return 0d;
+                return null;
             }
             return truncateDouble(sum / divide);
         } else {
-            return 0d;
+            return null;
         }
     }
 
@@ -54,11 +64,11 @@ public class DoubleUtils {
                 }
             }
             if (divide <= 0) {
-                return 0d;
+                return null;
             }
             return truncateDouble(sum / divide);
         } else {
-            return 0d;
+            return null;
         }
     }
 
@@ -73,11 +83,11 @@ public class DoubleUtils {
                 }
             }
             if (divide <= 0) {
-                return 0d;
+                return null;
             }
             return truncateDouble(sum / divide);
         } else {
-            return 0d;
+            return null;
         }
     }
 
@@ -92,11 +102,11 @@ public class DoubleUtils {
                 }
             }
             if (divide <= 0) {
-                return 0d;
+                return null;
             }
             return truncateDouble(sum / divide);
         } else {
-            return 0d;
+            return null;
         }
     }
 
