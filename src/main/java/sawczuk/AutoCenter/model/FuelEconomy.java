@@ -2,6 +2,7 @@ package sawczuk.AutoCenter.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import sawczuk.AutoCenter.util.DoubleUtils;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -87,7 +88,7 @@ public class FuelEconomy {
     }
 
     public void setDistanceDriven(Double distanceDriven) {
-        this.distanceDriven = distanceDriven;
+        this.distanceDriven = DoubleUtils.truncateDouble(distanceDriven);
     }
 
     public Double getFuelAmountFilled() {
@@ -95,7 +96,7 @@ public class FuelEconomy {
     }
 
     public void setFuelAmountFilled(Double fuelAmountFilled) {
-        this.fuelAmountFilled = fuelAmountFilled;
+        this.fuelAmountFilled = DoubleUtils.truncateDouble(fuelAmountFilled);
     }
 
     public Double getPricePerLitre() {
@@ -103,7 +104,7 @@ public class FuelEconomy {
     }
 
     public void setPricePerLitre(Double pricePerLitre) {
-        this.pricePerLitre = pricePerLitre;
+        this.pricePerLitre = DoubleUtils.truncateDouble(pricePerLitre);
     }
 
     public Double getConsumption() {
@@ -111,7 +112,7 @@ public class FuelEconomy {
     }
 
     public void setConsumption(Double consumption) {
-        this.consumption = consumption;
+        this.consumption = DoubleUtils.truncateDouble(consumption);
     }
 
     public Double getFillUpCost() {
@@ -119,6 +120,6 @@ public class FuelEconomy {
     }
 
     public void setFillUpCost(Double fillUpCost) {
-        this.fillUpCost = fillUpCost;
+        this.fillUpCost = DoubleUtils.truncateDouble(fillUpCost);
     }
 }
