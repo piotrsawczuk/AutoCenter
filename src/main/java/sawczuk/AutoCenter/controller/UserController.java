@@ -3,6 +3,7 @@ package sawczuk.AutoCenter.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +14,7 @@ import sawczuk.AutoCenter.exception.PasswordException;
 import sawczuk.AutoCenter.model.User;
 import sawczuk.AutoCenter.model.dto.UserDTO;
 import sawczuk.AutoCenter.service.UserService;
+import sawczuk.AutoCenter.util.UserUtils;
 
 import java.util.List;
 
@@ -26,7 +28,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    //no auth
+    @PreAuthorize("permitAll()")
     @RequestMapping(value = "/users", method = RequestMethod.POST)
     public ResponseEntity<User> createNewAccount(@RequestBody UserDTO userDTO) {
         User user = new User();
@@ -37,28 +39,27 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
-    //any role
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/users", method = RequestMethod.PUT)
     public ResponseEntity<User> updateAccount(@RequestBody UserDTO userDTO) throws PasswordException {
-        //logged in user
-        User user = userService.findByUsernameIgnoreCase("piotr");
+        User user = userService.findByUsernameIgnoreCase(UserUtils.findLoggedInUsername());
         userService.update(userDTO, user);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
-    // admin only
+    @PreAuthorize("hasAuthority('admin')")
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public ResponseEntity<List<User>> findAllAccounts() {
         return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
     }
 
-    // admin only
+    @PreAuthorize("hasAuthority('admin')")
     @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
     public ResponseEntity<User> findAccountById(@PathVariable Long id) {
         return new ResponseEntity<>(userService.findOne(id), HttpStatus.OK);
     }
 
-    // admin only
+    @PreAuthorize("hasAuthority('admin')")
     @RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<User> deleteAccount(@PathVariable Long id) {
         userService.delete(id);
@@ -66,4 +67,3 @@ public class UserController {
     }
 
 }
-//TODO change userService for UserUtil.findLoggedInUsername

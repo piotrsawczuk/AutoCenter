@@ -3,6 +3,7 @@ package sawczuk.AutoCenter.carqueryapi.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import sawczuk.AutoCenter.carqueryapi.model.Make;
 import sawczuk.AutoCenter.carqueryapi.model.Model;
@@ -26,18 +27,21 @@ public class CarQueryController {
         this.carQueryService = carQueryService;
     }
 
+    @PreAuthorize("permitAll()")
     @RequestMapping(value = "/years", method = RequestMethod.GET)
     public ResponseEntity<Year> getYears() throws ResourceNotFoundException {
         Year year = carQueryService.getYears();
         return new ResponseEntity<>(year, HttpStatus.OK);
     }
 
+    @PreAuthorize("permitAll()")
     @RequestMapping(value = "/makes", method = RequestMethod.GET)
     public ResponseEntity<List<Make>> getMakes(@RequestParam(value = "year", required = false) Integer year) throws ResourceNotFoundException {
         List<Make> makes = carQueryService.getMakes(year);
         return new ResponseEntity<>(makes, HttpStatus.OK);
     }
 
+    @PreAuthorize("permitAll()")
     @RequestMapping(value = "/models", method = RequestMethod.GET)
     public ResponseEntity<List<Model>> getModelsByYearAndMake(
             @RequestParam(value = "make") String make,
@@ -46,6 +50,7 @@ public class CarQueryController {
         return new ResponseEntity<>(models, HttpStatus.OK);
     }
 
+    @PreAuthorize("permitAll()")
     @RequestMapping(value = "/trims", method = RequestMethod.GET)
     public ResponseEntity<List<Trim>> getTrimsByYearAndMakeAndModel(
             @RequestParam(value = "make", required = false) String make,
@@ -55,6 +60,7 @@ public class CarQueryController {
         return new ResponseEntity<>(trims, HttpStatus.OK);
     }
 
+    @PreAuthorize("permitAll()")
     @RequestMapping(value = "/trims/{id}", method = RequestMethod.GET)
     public ResponseEntity<Trim> getTrim(@PathVariable("id") Long id) throws ResourceNotFoundException, InvalidRequestParameterException {
         Trim model = carQueryService.getTrim(id);

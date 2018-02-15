@@ -3,6 +3,7 @@ package sawczuk.AutoCenter.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,11 +28,12 @@ public class CarDetailController {
         this.carService = carService;
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/details", method = RequestMethod.POST)
     public ResponseEntity<CarDetail> saveUserCarDetail(@PathVariable("carId") Long carId, @RequestBody CarDetailDTO carDetailDTO) {
         CarDetail carDetail = new CarDetail();
 //        if (VinChecker.validate(carDetailDTO.getVin()))
-            carDetail.setVin(carDetailDTO.getVin());
+        carDetail.setVin(carDetailDTO.getVin());
         carDetail.setLicencePlateNumber(carDetailDTO.getLicencePlateNumber());
         carDetail.setColor(carDetailDTO.getColor());
         carDetail.setImageUrl(carDetailDTO.getImageUrl());
@@ -40,12 +42,13 @@ public class CarDetailController {
         return new ResponseEntity<>(carDetail, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/details", method = RequestMethod.PUT)
     public ResponseEntity<CarDetail> editUserCarDetail(@PathVariable("carId") Long carId, @RequestBody CarDetailDTO carDetailDTO) {
         CarDetail carDetail = carDetailService.findOneByCarId(carId);
         if (!StringUtils.isEmpty(carDetailDTO.getVin()))
 //            if (VinChecker.validate(carDetailDTO.getVin()))
-                carDetail.setVin(carDetailDTO.getVin());
+            carDetail.setVin(carDetailDTO.getVin());
         if (!StringUtils.isEmpty(carDetailDTO.getLicencePlateNumber()))
             carDetail.setLicencePlateNumber(carDetailDTO.getLicencePlateNumber());
         if (!StringUtils.isEmpty(carDetailDTO.getColor()))
@@ -56,6 +59,7 @@ public class CarDetailController {
         return new ResponseEntity<>(carDetail, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/details", method = RequestMethod.GET)
     public ResponseEntity<CarDetail> getUserCarDetail(@PathVariable("carId") Long carId) {
         return new ResponseEntity<>(carDetailService.findOneByCarId(carId), HttpStatus.OK);

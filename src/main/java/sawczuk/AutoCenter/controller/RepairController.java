@@ -3,6 +3,7 @@ package sawczuk.AutoCenter.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +32,7 @@ public class RepairController {
         this.exploitationTypeService = exploitationTypeService;
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "cars/{carId}/repairs", method = RequestMethod.POST)
     public ResponseEntity<Repair> saveRepair(@PathVariable(value = "carId") Long carId, @RequestBody RepairDTO repairDTO) {
         Repair repair = new Repair();
@@ -45,6 +47,7 @@ public class RepairController {
         return new ResponseEntity<>(repair, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "repairs/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Repair> editRepair(@PathVariable(value = "id") Long id, @RequestBody RepairDTO repairDTO) {
         Repair repair = repairService.findOne(id);
@@ -62,20 +65,22 @@ public class RepairController {
         return new ResponseEntity<>(repair, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "repairs/{id}", method = RequestMethod.GET)
     public ResponseEntity<Repair> getRepair(@PathVariable(value = "id") Long id) {
         return new ResponseEntity<>(repairService.findOne(id), HttpStatus.OK);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "cars/{carId}/repairs", method = RequestMethod.GET)
     public ResponseEntity<List<Repair>> getAllRepairs(@PathVariable(value = "carId") Long carId) {
         return new ResponseEntity<>(repairService.findAllByCarId(carId), HttpStatus.OK);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "repairs/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Repair> deleteRepair(@PathVariable(value = "id") Long id) {
         repairService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
-//TODO protection against null pointers. Check if object exists in database.

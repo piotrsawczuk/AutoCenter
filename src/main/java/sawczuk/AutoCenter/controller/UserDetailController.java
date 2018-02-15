@@ -3,6 +3,7 @@ package sawczuk.AutoCenter.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,6 +13,7 @@ import sawczuk.AutoCenter.model.UserDetail;
 import sawczuk.AutoCenter.model.dto.UserDetailDTO;
 import sawczuk.AutoCenter.service.UserDetailService;
 import sawczuk.AutoCenter.service.UserService;
+import sawczuk.AutoCenter.util.UserUtils;
 
 @Controller
 public class UserDetailController {
@@ -19,17 +21,13 @@ public class UserDetailController {
     private UserDetailService userDetailService;
     private UserService userService;
 
-//    @Autowired
-//    public UserDetailController(UserDetailService userDetailService) {
-//        this.userDetailService = userDetailService;
-//    }
-
     @Autowired
     public UserDetailController(UserDetailService userDetailService, UserService userService) {
         this.userDetailService = userDetailService;
         this.userService = userService;
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/user-details", method = RequestMethod.POST)
     public ResponseEntity<UserDetail> saveUserDetail(@RequestBody UserDetailDTO userDetailDTO) {
         UserDetail userDetail = new UserDetail();
@@ -39,16 +37,15 @@ public class UserDetailController {
         userDetail.setCity(userDetailDTO.getCity());
         userDetail.setZipCode(userDetailDTO.getZipCode());
         userDetail.setPhoneNumber(userDetailDTO.getPhoneNumber());
-        //logged in user
-        userDetail.setUser(userService.findByUsernameIgnoreCase("piotr"));
+        userDetail.setUser(userService.findByUsernameIgnoreCase(UserUtils.findLoggedInUsername()));
         userDetailService.save(userDetail);
         return new ResponseEntity<>(userDetail, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/user-details", method = RequestMethod.PUT)
     public ResponseEntity<UserDetail> editUserDetail(@RequestBody UserDetailDTO userDetailDTO) {
-        //logged in user
-        UserDetail userDetail = userDetailService.findOneByUserUsernameIgnoreCase("piotr");
+        UserDetail userDetail = userDetailService.findOneByUserUsernameIgnoreCase(UserUtils.findLoggedInUsername());
         if (!StringUtils.isEmpty(userDetailDTO.getFirstname()))
             userDetail.setFirstname(userDetailDTO.getFirstname());
         if (!StringUtils.isEmpty(userDetailDTO.getSurname()))
@@ -65,12 +62,11 @@ public class UserDetailController {
         return new ResponseEntity<>(userDetail, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/user-details", method = RequestMethod.GET)
     public ResponseEntity<UserDetail> getUserDetail() {
-        //
-        Long userId = userService.findByUsernameIgnoreCase("piotr").getId();
+        Long userId = userService.findByUsernameIgnoreCase(UserUtils.findLoggedInUsername()).getId();
         return new ResponseEntity<>(userDetailService.findOneByUserId(userId), HttpStatus.OK);
     }
 
 }
-//TODO change userService for UserUtil.findLoggedInUsername

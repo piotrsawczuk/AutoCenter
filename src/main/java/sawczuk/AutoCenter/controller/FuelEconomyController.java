@@ -3,8 +3,8 @@ package sawczuk.AutoCenter.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +34,7 @@ public class FuelEconomyController {
         this.fuelTypeService = fuelTypeService;
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "cars/{carId}/fuel-economy", method = RequestMethod.POST)
     public ResponseEntity<FuelEconomy> saveFuelEconomy(@PathVariable(value = "carId") Long carId, @RequestBody FuelEconomyDTO fuelEconomyDTO) {
         FuelEconomy fuelEconomy = new FuelEconomy();
@@ -48,7 +49,8 @@ public class FuelEconomyController {
         fuelEconomyService.save(fuelEconomy);
         return new ResponseEntity<>(fuelEconomy, HttpStatus.CREATED);
     }
-    
+
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "fuel-economy/{id}", method = RequestMethod.PUT)
     public ResponseEntity<FuelEconomy> editFuelEconomy(@PathVariable(value = "id") Long id, @RequestBody FuelEconomyDTO fuelEconomyDTO) {
         FuelEconomy fuelEconomy = fuelEconomyService.findOne(id);
@@ -68,16 +70,19 @@ public class FuelEconomyController {
         return new ResponseEntity<>(fuelEconomy, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "fuel-economy/{id}", method = RequestMethod.GET)
     public ResponseEntity<FuelEconomy> getFuelEconomy(@PathVariable(value = "id") Long id) {
         return new ResponseEntity<>(fuelEconomyService.findOne(id), HttpStatus.OK);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "cars/{carId}/fuel-economy", method = RequestMethod.GET)
     public ResponseEntity<List<FuelEconomy>> getAllFuelEconomy(@PathVariable(value = "carId") Long carId) {
         return new ResponseEntity<>(fuelEconomyService.findAllByCarId(carId), HttpStatus.OK);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "fuel-economy/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<FuelEconomy> deleteFuelEconomy(@PathVariable(value = "id") Long id) {
         fuelEconomyService.delete(id);

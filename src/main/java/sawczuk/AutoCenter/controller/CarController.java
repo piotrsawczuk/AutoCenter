@@ -3,6 +3,7 @@ package sawczuk.AutoCenter.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,6 +13,7 @@ import sawczuk.AutoCenter.model.Car;
 import sawczuk.AutoCenter.model.dto.CarDTO;
 import sawczuk.AutoCenter.service.CarService;
 import sawczuk.AutoCenter.service.UserService;
+import sawczuk.AutoCenter.util.UserUtils;
 
 import java.util.List;
 
@@ -21,27 +23,23 @@ public class CarController {
     private CarService carService;
     private UserService userService;
 
-//    @Autowired
-//    public CarController(CarService carService) {
-//        this.carService = carService;
-//    }
-
     @Autowired
     public CarController(CarService carService, UserService userService) {
         this.carService = carService;
         this.userService = userService;
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/cars", method = RequestMethod.POST)
     public ResponseEntity<Car> saveCar(@RequestBody CarDTO carDTO) {
         Car car = new Car();
         car.setCarApiId(carDTO.getCarApiId());
-        //logged in user
-        car.setUser(userService.findByUsernameIgnoreCase("piotr"));
+        car.setUser(userService.findByUsernameIgnoreCase(UserUtils.findLoggedInUsername()));
         carService.save(car);
         return new ResponseEntity<>(car, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/cars/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Car> editCar(@PathVariable Long id, @RequestBody CarDTO carDTO) {
         Car car = carService.findOne(id);
@@ -51,18 +49,20 @@ public class CarController {
         return new ResponseEntity<>(car, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/cars", method = RequestMethod.GET)
     public ResponseEntity<List<Car>> getAllCars() {
-        //logged in user
-        Long userId = userService.findByUsernameIgnoreCase("piotr").getId();
+        Long userId = userService.findByUsernameIgnoreCase(UserUtils.findLoggedInUsername()).getId();
         return new ResponseEntity<>(carService.findAllByUserId(userId), HttpStatus.OK);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/cars/{id}", method = RequestMethod.GET)
     public ResponseEntity<Car> getCar(@PathVariable Long id) {
         return new ResponseEntity<>(carService.findOne(id), HttpStatus.OK);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/cars/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Car> deleteCar(@PathVariable Long id) {
         carService.delete(id);
@@ -70,4 +70,3 @@ public class CarController {
     }
 
 }
-//TODO change userService for UserUtil.findLoggedInUsername
