@@ -17,7 +17,7 @@ public class VinChecker {
     }
 
     public static boolean validate(String vin) {
-        if(vin.length()!=17) return false;
+        if (vin.length() != 17) return false;
         return getCheckDigit(vin) == vin.charAt(8);
     }
 }
