@@ -2,7 +2,7 @@ package sawczuk.AutoCenter.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import sawczuk.AutoCenter.util.DoubleUtils;
+import sawczuk.AutoCenter.util.NumberUtils;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -89,6 +89,6 @@ public class Repair {
     }
 
     public void setCost(Double cost) {
-        this.cost = DoubleUtils.truncateDouble(cost);
+        this.cost = NumberUtils.truncateDouble(cost);
     }
 }
