@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import sawczuk.AutoCenter.model.FuelEconomy;
 import sawczuk.AutoCenter.repository.FuelEconomyRepository;
 import sawczuk.AutoCenter.service.FuelEconomyService;
-import sawczuk.AutoCenter.util.DoubleUtils;
+import sawczuk.AutoCenter.util.NumberUtils;
 
 import java.util.List;
 
@@ -21,8 +21,8 @@ public class FuelEconomyServiceImpl implements FuelEconomyService {
 
     @Override
     public void save(FuelEconomy fuelEconomy) {
-        fuelEconomy.setConsumption(DoubleUtils.calculateFuelEconomy(fuelEconomy.getDistanceDriven(), fuelEconomy.getFuelAmountFilled()));
-        fuelEconomy.setFillUpCost(DoubleUtils.calculateFillUpCost(fuelEconomy.getPricePerLitre(), fuelEconomy.getFuelAmountFilled()));
+        fuelEconomy.setConsumption(NumberUtils.calculateFuelEconomy(fuelEconomy.getDistanceDriven(), fuelEconomy.getFuelAmountFilled()));
+        fuelEconomy.setFillUpCost(NumberUtils.calculateFillUpCost(fuelEconomy.getPricePerLitre(), fuelEconomy.getFuelAmountFilled()));
         fuelEconomyRepository.save(fuelEconomy);
     }
 
