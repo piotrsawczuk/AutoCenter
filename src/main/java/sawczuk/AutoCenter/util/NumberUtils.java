@@ -7,9 +7,9 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
 
-public class DoubleUtils {
+public class NumberUtils {
 
-    private DoubleUtils() {
+    private NumberUtils() {
     }
 
     public static Double truncateDouble(Double number) {
@@ -18,6 +18,25 @@ public class DoubleUtils {
             return BigDecimal.valueOf(toBeTruncated)
                     .setScale(2, RoundingMode.HALF_UP)
                     .doubleValue();
+        }
+        return null;
+    }
+
+    public static Double truncateEngineCc(Integer engineCc) {
+        if (engineCc != null) {
+            Double toBeTruncated = engineCc.doubleValue();
+            return BigDecimal.valueOf(toBeTruncated / 1000)
+                    .setScale(1, RoundingMode.HALF_UP)
+                    .doubleValue();
+        }
+        return null;
+    }
+
+    public static Integer psToHpConverter(Integer ps) {
+        if (ps != null) {
+            Integer toBeTruncated = ps;
+            return BigDecimal.valueOf(ps * 0.98592325737265)
+                    .intValue();
         }
         return null;
     }

@@ -1,6 +1,8 @@
 package sawczuk.AutoCenter.carqueryapi.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.util.StringUtils;
+import sawczuk.AutoCenter.util.NumberUtils;
 
 public class Trim {
     @JsonProperty("model_id")
@@ -109,7 +111,18 @@ public class Trim {
     }
 
     public String getTrim() {
-        return trim;
+        if (StringUtils.isEmpty(trim)) {
+            String trimName = "";
+            trimName = trimName.concat(NumberUtils.truncateEngineCc(engineCc).toString() + "L");
+            if (body != null)
+                trimName = trimName.concat(" " + body);
+            if (enginePowerPs != null)
+                trimName = trimName.concat(", " + NumberUtils.psToHpConverter(enginePowerPs) + "HP");
+            if (transmissionType != null)
+                trimName = trimName.concat(", " + transmissionType + " transmission");
+            return trimName;
+        } else
+            return trim;
     }
 
     public void setTrim(String trim) {
@@ -363,10 +376,4 @@ public class Trim {
     public void setFuelCapL(Integer fuelCapL) {
         this.fuelCapL = fuelCapL;
     }
-
 }
-
-//TODO display trim as enginecc, transtype etc if empty
-//if (trim == null || trim.isEmpty()) {
-//  return engineCc + " " + transmissionType + " " + body;
-//}

@@ -1,2 +1,1 @@
-TODO Whole project: protection against null pointers. Check if object exists in database.
-TODO Exceptions: className and parameters from method
+TODO Add CORS Filter
