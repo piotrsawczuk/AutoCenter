@@ -1,7 +1,7 @@
 package sawczuk.AutoCenter.exception;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver;
 import org.hibernate.validator.internal.engine.path.PathImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
@@ -15,12 +15,24 @@ import java.util.Set;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiError {
+    private Integer code;
     private HttpStatus status;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime timestamp;
+    private String exception;
     private String message;
     private String debugMessage;
+    private String path;
     private List<ApiSubError> subErrors;
+
+
+    public void setCode(Integer code) {
+        this.code = code;
+    }
+
+    public Integer getCode() {
+        return code;
+    }
 
     public HttpStatus getStatus() {
         return status;
@@ -28,6 +40,7 @@ public class ApiError {
 
     public void setStatus(HttpStatus status) {
         this.status = status;
+        this.code = status.value();
     }
 
     public LocalDateTime getTimestamp() {
@@ -36,6 +49,14 @@ public class ApiError {
 
     public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public String getException() {
+        return exception;
+    }
+
+    public void setException(String exception) {
+        this.exception = exception;
     }
 
     public String getMessage() {
@@ -54,6 +75,14 @@ public class ApiError {
         this.debugMessage = debugMessage;
     }
 
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
     public List<ApiSubError> getSubErrors() {
         return subErrors;
     }
@@ -69,21 +98,46 @@ public class ApiError {
 
     public ApiError(HttpStatus status) {
         this();
+        this.code = status.value();
         this.status = status;
     }
 
     public ApiError(HttpStatus status, Throwable ex) {
         this();
+        this.code = status.value();
         this.status = status;
+        this.exception = ex.getClass().getName();
         this.message = "Unexpected error";
         this.debugMessage = ex.getLocalizedMessage();
     }
 
+    public ApiError(HttpStatus status, Throwable ex, String path) {
+        this();
+        this.code = status.value();
+        this.status = status;
+        this.exception = ex.getClass().getName();
+        this.message = "Unexpected error";
+        this.debugMessage = ex.getLocalizedMessage();
+        this.path = path;
+    }
+
     public ApiError(HttpStatus status, String message, Throwable ex) {
         this();
+        this.code = status.value();
         this.status = status;
+        this.exception = ex.getClass().getName();
         this.message = message;
-        this.debugMessage = ex.getLocalizedMessage();
+        this.debugMessage = ex.getLocalizedMessage().equals(message) ? null : ex.getLocalizedMessage();
+    }
+
+    public ApiError(HttpStatus status, String message, Throwable ex, String path) {
+        this();
+        this.code = status.value();
+        this.status = status;
+        this.exception = ex.getClass().getName();
+        this.message = message;
+        this.debugMessage = ex.getLocalizedMessage().equals(message) ? null : ex.getLocalizedMessage();
+        this.path = path;
     }
 
     private void addSubError(ApiSubError subError) {
@@ -194,7 +248,8 @@ public class ApiError {
             this.rejectedValue = rejectedValue;
             this.message = message;
         }
-        //Needed?
+
+          //Needed?
 //        @Override
 //        public boolean equals(Object o) {
 //            if (this == o) return true;

@@ -29,7 +29,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         User user = userRepository.findByUsernameIgnoreCase(username);
 
         if (user == null) {
-            throw new UsernameNotFoundException(String.format("The username %username doesn't exist", username));
+            throw new UsernameNotFoundException(String.format("The username %s doesn't exist", username));
         }
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();

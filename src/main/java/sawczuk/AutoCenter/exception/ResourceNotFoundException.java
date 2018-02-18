@@ -8,14 +8,14 @@ import java.util.stream.IntStream;
 
 public class ResourceNotFoundException extends Exception {
 
-    public ResourceNotFoundException(Class className, Object... searchParamsMap) {
-        super(ResourceNotFoundException.generateMessage(className.getSimpleName(), toMap(String.class, Object.class, searchParamsMap)));
+    public ResourceNotFoundException(String entity, Object... searchParamsMap) {
+        super(ResourceNotFoundException.generateMessage(entity, toMap(String.class, Object.class, searchParamsMap)));
     }
 
     private static String generateMessage(String entity, Map<String, Object> searchParams) {
-        String message = StringUtils.capitalize(entity) + " was not found ";
+        String message = StringUtils.capitalize(entity) + " was not found";
         if (searchParams != null && !searchParams.isEmpty())
-            message += "for parameters " + searchParams;
+            message += " for parameters " + searchParams;
         return message;
     }
 
