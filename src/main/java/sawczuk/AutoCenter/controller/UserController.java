@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import sawczuk.AutoCenter.exception.InvalidRequestParameterException;
 import sawczuk.AutoCenter.exception.PasswordException;
+import sawczuk.AutoCenter.exception.ResourceNotFoundException;
 import sawczuk.AutoCenter.model.User;
 import sawczuk.AutoCenter.model.dto.UserDTO;
 import sawczuk.AutoCenter.service.UserService;
@@ -41,8 +43,11 @@ public class UserController {
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/users", method = RequestMethod.PUT)
-    public ResponseEntity<User> updateAccount(@RequestBody UserDTO userDTO) throws PasswordException {
+    public ResponseEntity<User> updateAccount(@RequestBody UserDTO userDTO) throws PasswordException, ResourceNotFoundException{
         User user = userService.findByUsernameIgnoreCase(UserUtils.findLoggedInUsername());
+        if (user == null) {
+            throw new ResourceNotFoundException("User", "username", UserUtils.findLoggedInUsername());
+        }
         userService.update(userDTO, user);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
@@ -55,13 +60,19 @@ public class UserController {
 
     @PreAuthorize("hasAuthority('admin')")
     @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
-    public ResponseEntity<User> findAccountById(@PathVariable Long id) {
+    public ResponseEntity<User> findAccountById(@PathVariable Long id) throws InvalidRequestParameterException {
+        if (id == null) {
+            throw new InvalidRequestParameterException("id", id);
+        }
         return new ResponseEntity<>(userService.findOne(id), HttpStatus.OK);
     }
 
     @PreAuthorize("hasAuthority('admin')")
     @RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<User> deleteAccount(@PathVariable Long id) {
+    public ResponseEntity<User> deleteAccount(@PathVariable Long id) throws InvalidRequestParameterException {
+        if (id == null) {
+            throw new InvalidRequestParameterException("id", id);
+        }
         userService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

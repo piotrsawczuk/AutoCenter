@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import sawczuk.AutoCenter.exception.InvalidRequestParameterException;
+import sawczuk.AutoCenter.exception.ResourceNotFoundException;
+import sawczuk.AutoCenter.model.Car;
 import sawczuk.AutoCenter.model.Repair;
 import sawczuk.AutoCenter.model.dto.RepairDTO;
 import sawczuk.AutoCenter.service.CarService;
@@ -34,11 +37,18 @@ public class RepairController {
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "cars/{carId}/repairs", method = RequestMethod.POST)
-    public ResponseEntity<Repair> saveRepair(@PathVariable(value = "carId") Long carId, @RequestBody RepairDTO repairDTO) {
+    public ResponseEntity<Repair> saveRepair(@PathVariable(value = "carId") Long carId, @RequestBody RepairDTO repairDTO) throws InvalidRequestParameterException, ResourceNotFoundException {
+        if (carId == null) {
+            throw new InvalidRequestParameterException("carId", carId);
+        }
+        Car car = carService.findOne(carId);
+        if (car == null) {
+            throw new ResourceNotFoundException("Car", "carId", carId);
+        }
         Repair repair = new Repair();
         if (repairDTO.getDate() != null)
             repair.setDate(repairDTO.getDate());
-        repair.setCar(carService.findOne(carId));
+        repair.setCar(car);
         repair.setMileage(repairDTO.getMileage());
         repair.setDescription(repairDTO.getDescription());
         repair.setExploitationType(exploitationTypeService.findOneByValue(repairDTO.getExploitationType()));
@@ -49,8 +59,14 @@ public class RepairController {
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "repairs/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Repair> editRepair(@PathVariable(value = "id") Long id, @RequestBody RepairDTO repairDTO) {
+    public ResponseEntity<Repair> editRepair(@PathVariable(value = "id") Long id, @RequestBody RepairDTO repairDTO) throws InvalidRequestParameterException, ResourceNotFoundException {
+        if (id == null) {
+            throw new InvalidRequestParameterException("id", id);
+        }
         Repair repair = repairService.findOne(id);
+        if (repair == null) {
+            throw new ResourceNotFoundException("Repair", "id", id);
+        }
         if (repairDTO.getDate() != null)
             repair.setDate(repairDTO.getDate());
         if (repairDTO.getMileage() != null)
@@ -67,19 +83,28 @@ public class RepairController {
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "repairs/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Repair> getRepair(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<Repair> getRepair(@PathVariable(value = "id") Long id) throws InvalidRequestParameterException {
+        if (id == null) {
+            throw new InvalidRequestParameterException("id", id);
+        }
         return new ResponseEntity<>(repairService.findOne(id), HttpStatus.OK);
     }
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "cars/{carId}/repairs", method = RequestMethod.GET)
-    public ResponseEntity<List<Repair>> getAllRepairs(@PathVariable(value = "carId") Long carId) {
+    public ResponseEntity<List<Repair>> getAllRepairs(@PathVariable(value = "carId") Long carId) throws InvalidRequestParameterException {
+        if (carId == null) {
+            throw new InvalidRequestParameterException("carId", carId);
+        }
         return new ResponseEntity<>(repairService.findAllByCarId(carId), HttpStatus.OK);
     }
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "repairs/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Repair> deleteRepair(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<Repair> deleteRepair(@PathVariable(value = "id") Long id) throws InvalidRequestParameterException {
+        if (id == null) {
+            throw new InvalidRequestParameterException("id", id);
+        }
         repairService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

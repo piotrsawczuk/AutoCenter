@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import sawczuk.AutoCenter.exception.InvalidRequestParameterException;
+import sawczuk.AutoCenter.exception.ResourceNotFoundException;
+import sawczuk.AutoCenter.model.Car;
 import sawczuk.AutoCenter.model.FuelEconomy;
 import sawczuk.AutoCenter.model.dto.FuelEconomyDTO;
 import sawczuk.AutoCenter.service.CarService;
@@ -36,11 +39,19 @@ public class FuelEconomyController {
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "cars/{carId}/fuel-economy", method = RequestMethod.POST)
-    public ResponseEntity<FuelEconomy> saveFuelEconomy(@PathVariable(value = "carId") Long carId, @RequestBody FuelEconomyDTO fuelEconomyDTO) {
+    public ResponseEntity<FuelEconomy> saveFuelEconomy(@PathVariable(value = "carId") Long carId, @RequestBody FuelEconomyDTO fuelEconomyDTO) throws InvalidRequestParameterException, ResourceNotFoundException {
+        if (carId == null) {
+            throw new InvalidRequestParameterException("carId", carId);
+        }
+        Car car = carService.findOne(carId);
+        if (car == null) {
+            throw new ResourceNotFoundException("Car", "carId", carId);
+        }
+
         FuelEconomy fuelEconomy = new FuelEconomy();
         if (fuelEconomyDTO.getDate() != null)
             fuelEconomy.setDate(fuelEconomyDTO.getDate());
-        fuelEconomy.setCar(carService.findOne(carId));
+        fuelEconomy.setCar(car);
         fuelEconomy.setDrivingType(drivingTypeService.findOneByValue(fuelEconomyDTO.getDrivingType()));
         fuelEconomy.setFuelType(fuelTypeService.findOneByValue(fuelEconomyDTO.getFuelType()));
         fuelEconomy.setDistanceDriven(fuelEconomyDTO.getDistanceDriven());
@@ -52,8 +63,15 @@ public class FuelEconomyController {
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "fuel-economy/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<FuelEconomy> editFuelEconomy(@PathVariable(value = "id") Long id, @RequestBody FuelEconomyDTO fuelEconomyDTO) {
+    public ResponseEntity<FuelEconomy> editFuelEconomy(@PathVariable(value = "id") Long id, @RequestBody FuelEconomyDTO fuelEconomyDTO) throws InvalidRequestParameterException, ResourceNotFoundException {
+        if (id == null) {
+            throw new InvalidRequestParameterException("id", id);
+        }
         FuelEconomy fuelEconomy = fuelEconomyService.findOne(id);
+        if (fuelEconomy == null) {
+            throw new ResourceNotFoundException("Fuel economy", "id", id);
+        }
+
         if (fuelEconomyDTO.getDate() != null)
             fuelEconomy.setDate(fuelEconomyDTO.getDate());
         if (fuelEconomyDTO.getDrivingType() != null)
@@ -72,19 +90,28 @@ public class FuelEconomyController {
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "fuel-economy/{id}", method = RequestMethod.GET)
-    public ResponseEntity<FuelEconomy> getFuelEconomy(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<FuelEconomy> getFuelEconomy(@PathVariable(value = "id") Long id) throws InvalidRequestParameterException {
+        if (id == null) {
+            throw new InvalidRequestParameterException("id", id);
+        }
         return new ResponseEntity<>(fuelEconomyService.findOne(id), HttpStatus.OK);
     }
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "cars/{carId}/fuel-economy", method = RequestMethod.GET)
-    public ResponseEntity<List<FuelEconomy>> getAllFuelEconomy(@PathVariable(value = "carId") Long carId) {
+    public ResponseEntity<List<FuelEconomy>> getAllFuelEconomy(@PathVariable(value = "carId") Long carId) throws InvalidRequestParameterException {
+        if (carId == null) {
+            throw new InvalidRequestParameterException("carId", carId);
+        }
         return new ResponseEntity<>(fuelEconomyService.findAllByCarId(carId), HttpStatus.OK);
     }
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "fuel-economy/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<FuelEconomy> deleteFuelEconomy(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<FuelEconomy> deleteFuelEconomy(@PathVariable(value = "id") Long id) throws InvalidRequestParameterException {
+        if (id == null) {
+            throw new InvalidRequestParameterException("id", id);
+        }
         fuelEconomyService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

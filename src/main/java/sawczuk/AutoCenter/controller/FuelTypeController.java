@@ -9,6 +9,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import sawczuk.AutoCenter.exception.ResourceNotFoundException;
 import sawczuk.AutoCenter.service.FuelTypeService;
 
 @Controller
@@ -24,7 +25,7 @@ public class FuelTypeController {
     @PreAuthorize("hasAuthority('admin')")
     @RequestMapping(value = "/fuel-types", method = RequestMethod.GET)
     public ResponseEntity<?> getFuelType(@RequestParam(value = "value", required = false) Integer value,
-                                         @RequestParam(value = "fuel_type", required = false) String fuelType) {
+                                         @RequestParam(value = "fuel_type", required = false) String fuelType) throws ResourceNotFoundException {
         if (value != null)
             return new ResponseEntity<>(fuelTypeService.findOneByValue(value), HttpStatus.OK);
         else if (!StringUtils.isEmpty(fuelType))

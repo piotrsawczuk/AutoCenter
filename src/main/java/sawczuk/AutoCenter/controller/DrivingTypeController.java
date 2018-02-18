@@ -9,6 +9,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import sawczuk.AutoCenter.exception.ResourceNotFoundException;
 import sawczuk.AutoCenter.service.DrivingTypeService;
 
 @Controller
@@ -24,7 +25,7 @@ public class DrivingTypeController {
     @PreAuthorize("hasAuthority('admin')")
     @RequestMapping(value = "/driving-types", method = RequestMethod.GET)
     public ResponseEntity<?> getDrivingType(@RequestParam(value = "value", required = false) Integer value,
-                                            @RequestParam(value = "driving_type", required = false) String drivingType) {
+                                            @RequestParam(value = "driving_type", required = false) String drivingType) throws ResourceNotFoundException {
         if (value != null)
             return new ResponseEntity<>(drivingTypeService.findOneByValue(value), HttpStatus.OK);
         else if (!StringUtils.isEmpty(drivingType))

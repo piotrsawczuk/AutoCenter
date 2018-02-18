@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import sawczuk.AutoCenter.exception.InvalidRequestParameterException;
+import sawczuk.AutoCenter.exception.ResourceNotFoundException;
+import sawczuk.AutoCenter.model.Car;
 import sawczuk.AutoCenter.model.CarDetail;
 import sawczuk.AutoCenter.model.dto.CarDetailDTO;
 import sawczuk.AutoCenter.service.CarDetailService;
@@ -30,22 +33,35 @@ public class CarDetailController {
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/details", method = RequestMethod.POST)
-    public ResponseEntity<CarDetail> saveUserCarDetail(@PathVariable("carId") Long carId, @RequestBody CarDetailDTO carDetailDTO) {
+    public ResponseEntity<CarDetail> saveCarDetail(@PathVariable("carId") Long carId, @RequestBody CarDetailDTO carDetailDTO) throws InvalidRequestParameterException, ResourceNotFoundException {
+        if (carId == null) {
+            throw new InvalidRequestParameterException("carId", carId);
+        }
+        Car car = carService.findOne(carId);
+        if (carId == null) {
+            throw new ResourceNotFoundException("Car", "carId", carId);
+        }
         CarDetail carDetail = new CarDetail();
 //        if (VinChecker.validate(carDetailDTO.getVin()))
         carDetail.setVin(carDetailDTO.getVin());
         carDetail.setLicencePlateNumber(carDetailDTO.getLicencePlateNumber());
         carDetail.setColor(carDetailDTO.getColor());
         carDetail.setImageUrl(carDetailDTO.getImageUrl());
-        carDetail.setCar(carService.findOne(carId));
+        carDetail.setCar(car);
         carDetailService.save(carDetail);
         return new ResponseEntity<>(carDetail, HttpStatus.CREATED);
     }
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/details", method = RequestMethod.PUT)
-    public ResponseEntity<CarDetail> editUserCarDetail(@PathVariable("carId") Long carId, @RequestBody CarDetailDTO carDetailDTO) {
+    public ResponseEntity<CarDetail> editCarDetail(@PathVariable("carId") Long carId, @RequestBody CarDetailDTO carDetailDTO) throws InvalidRequestParameterException, ResourceNotFoundException {
+        if (carId == null) {
+            throw new InvalidRequestParameterException("carId", carId);
+        }
         CarDetail carDetail = carDetailService.findOneByCarId(carId);
+        if (carDetail == null) {
+            throw new ResourceNotFoundException("Car detail", "carId", carId);
+        }
         if (!StringUtils.isEmpty(carDetailDTO.getVin()))
 //            if (VinChecker.validate(carDetailDTO.getVin()))
             carDetail.setVin(carDetailDTO.getVin());
@@ -61,7 +77,10 @@ public class CarDetailController {
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/details", method = RequestMethod.GET)
-    public ResponseEntity<CarDetail> getUserCarDetail(@PathVariable("carId") Long carId) {
+    public ResponseEntity<CarDetail> getCarDetail(@PathVariable("carId") Long carId) throws InvalidRequestParameterException {
+        if (carId == null) {
+            throw new InvalidRequestParameterException("carId", carId);
+        }
         return new ResponseEntity<>(carDetailService.findOneByCarId(carId), HttpStatus.OK);
     }
 }
