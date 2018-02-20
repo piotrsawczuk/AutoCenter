@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,8 +19,11 @@ public class DrivingType {
     @GeneratedValue(generator = "driving_type_id_gen", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "driving_type_id_gen", sequenceName = "driving_type_seq", initialValue = 1, allocationSize = 1)
     private Long id;
+    @NotNull
+    @Min(value = 0, message = "The value must be positive")
     @Column(name = "value")
     private Integer value;
+    @NotNull
     @Column(name = "driving_type")
     private String drivingType;
 

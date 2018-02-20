@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -16,6 +17,7 @@ public class Role implements GrantedAuthority {
     @GeneratedValue(generator = "role_id_gen", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "role_id_gen", sequenceName = "app_role_seq", initialValue = 1, allocationSize = 1)
     private Long id;
+    @NotNull
     @Column(name = "role_name")
     private String name;
 

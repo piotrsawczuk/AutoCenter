@@ -3,6 +3,7 @@ package sawczuk.AutoCenter.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
@@ -21,8 +22,10 @@ public class UserDetail {
     private String address;
     @Column(name = "city")
     private String city;
+    @Pattern(regexp = "[a-zA-Z0-9 -]+", message = "Provided zip code is incorrect")
     @Column(name = "zip_code")
     private String zipCode;
+    @Pattern(regexp = "[+]?[0-9 -]+", message = "Provided phone number is incorrect")
     @Column(name = "phone_number")
     private String phoneNumber;
     @OneToOne(fetch = FetchType.LAZY)

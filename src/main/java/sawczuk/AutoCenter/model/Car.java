@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -15,6 +16,7 @@ public class Car {
     @GeneratedValue(generator = "user_car_id_gen", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "user_car_id_gen", sequenceName = "user_car_seq", initialValue = 1, allocationSize = 1)
     private Long id;
+    @NotNull
     @Column(name = "car_api_id")
     private Long carApiId;
     @ManyToOne(fetch = FetchType.LAZY)

@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import sawczuk.AutoCenter.util.NumberUtils;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -16,13 +18,17 @@ public class FuelEconomy {
     @GeneratedValue(generator = "fuel_economy_id_gen", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "fuel_economy_id_gen", sequenceName = "fuel_economy_seq", initialValue = 1, allocationSize = 1)
     private Long id;
+    @NotNull
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(name = "date")
     private LocalDate date;
+    @DecimalMin(value = "0.0", message = "The value must be positive")
     @Column(name = "distance_driven")
     private Double distanceDriven;
+    @DecimalMin(value = "0.0", message = "The value must be positive")
     @Column(name = "fuel_amount_filled")
     private Double fuelAmountFilled;
+    @DecimalMin(value = "0.0", message = "The value must be positive")
     @Column(name = "price_per_litre")
     private Double pricePerLitre;
     @Column(name = "consumption")

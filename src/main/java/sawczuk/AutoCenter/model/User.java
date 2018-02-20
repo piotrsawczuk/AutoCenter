@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.Set;
 
@@ -16,11 +19,17 @@ public class User {
     @GeneratedValue(generator = "user_id_gen", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "user_id_gen", sequenceName = "app_user_seq", initialValue = 1, allocationSize = 1)
     private Long id;
+    @NotNull
+    @Size(min = 2, message = "Username must be at least 2 characters long")
     @Column(name = "username")
     private String username;
+    @NotNull
+//    @Size(min = 8, message = "Password must be at least 2 characters long")
     @JsonIgnore
     @Column(name = "password")
     private String password;
+    @NotNull
+    @Pattern(regexp=".+@.+\\..+", message = "Invalid email address")
     @Column(name = "email")
     private String email;
     @Column(name = "active")
@@ -104,3 +113,4 @@ public class User {
         this.userDetail = userDetail;
     }
 }
+// TODO uncomment password length check
