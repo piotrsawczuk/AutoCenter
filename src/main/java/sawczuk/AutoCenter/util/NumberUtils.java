@@ -42,14 +42,14 @@ public class NumberUtils {
     }
 
     public static Double calculateFillUpCost(Double pricePerLitre, Double fuelAmountFilled) {
-        if (pricePerLitre != null && fuelAmountFilled != null)
+        if (pricePerLitre != null && pricePerLitre > 0 && fuelAmountFilled != null && fuelAmountFilled > 0)
             return truncateDouble(fuelAmountFilled * pricePerLitre);
         else
             return null;
     }
 
     public static Double calculateFuelEconomy(Double distanceDriven, Double fuelAmountFilled) {
-        if (distanceDriven != null && fuelAmountFilled != null)
+        if (distanceDriven != null && distanceDriven > 0 && fuelAmountFilled != null && fuelAmountFilled > 0)
             return truncateDouble(fuelAmountFilled * 100 / distanceDriven);
         else
             return null;
