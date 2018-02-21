@@ -24,8 +24,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Value("${security.jwt.client-secret}")
     private String clientSecret;
 
-    @Value("${security.jwt.grant-type}")
-    private String grantType;
+    @Value("${security.jwt.grant-type-password}")
+    private String grantTypePassword;
+
+    @Value("${security.jwt.grant-type-refresh-token}")
+    private String grantTypeRefreshToken;
 
     @Value("${security.jwt.scope-read}")
     private String scopeRead;
@@ -35,6 +38,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Value("${security.jwt.resource-ids}")
     private String resourceIds;
+
+    @Value("${security.jwt.expire-time}")
+    private int expireTime;
 
     @Autowired
     private TokenStore tokenStore;
@@ -51,9 +57,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .inMemory()
                 .withClient(clientId)
                 .secret(clientSecret)
-                .authorizedGrantTypes(grantType)
+                .authorizedGrantTypes(grantTypePassword)
                 .scopes(scopeRead, scopeWrite)
-                .resourceIds(resourceIds);
+                .resourceIds(resourceIds)
+                .accessTokenValiditySeconds(expireTime);
     }
 
     @Override
