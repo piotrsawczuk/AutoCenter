@@ -31,7 +31,7 @@ public class UserController {
     }
 
     @PreAuthorize("permitAll()")
-    @RequestMapping(value = "/users", method = RequestMethod.POST)
+    @RequestMapping(value = {"/users", "/register"}, method = RequestMethod.POST)
     public ResponseEntity<User> createNewAccount(@RequestBody UserDTO userDTO) {
         User user = new User();
         user.setUsername(userDTO.getUsername());
