@@ -95,10 +95,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             WebRequest request) {
         ServletWebRequest servletWebRequest = (ServletWebRequest) request;
         String path = servletWebRequest.getRequest().getServletPath();
-        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getRootCause().getMessage(), ex, path);
-        if (ex.getRootCause() instanceof ConstraintViolationException)
-            apiError.addValidationErrors(((ConstraintViolationException) ex.getRootCause()).getConstraintViolations());
-        return buildResponseEntity(apiError);
+        if (ex.getCause() != null && ex.getCause().getCause() instanceof ConstraintViolationException) {
+            ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, "Validation error", ex.getCause().getCause(), path);
+            apiError.addValidationErrors(((ConstraintViolationException) ex.getCause().getCause()).getConstraintViolations());
+            return buildResponseEntity(apiError);
+        } else
+            return buildResponseEntity(new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, ex, path));
     }
 
     /**
@@ -128,8 +130,13 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             WebRequest request) {
         ServletWebRequest servletWebRequest = (ServletWebRequest) request;
         String path = servletWebRequest.getRequest().getServletPath();
-        if (ex.getCause() instanceof ConstraintViolationException) {
-            return buildResponseEntity(new ApiError(HttpStatus.CONFLICT, "Database error", ex.getCause(), path));
+        if (ex.getCause() instanceof org.hibernate.exception.ConstraintViolationException) {
+            return buildResponseEntity(
+                    new ApiError(
+                            HttpStatus.CONFLICT,
+                            ((org.hibernate.exception.ConstraintViolationException) ex.getCause()).getSQLException().getMessage(),
+                            ex.getCause(),
+                            path));
         }
         return buildResponseEntity(new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, ex, path));
     }
