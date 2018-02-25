@@ -1,5 +1,6 @@
 package sawczuk.AutoCenter.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import sawczuk.AutoCenter.util.NumberUtils;
@@ -33,6 +34,7 @@ public class Repair {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "exploitation_type")
     private ExploitationType exploitationType;
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_car_id")
     private Car car;

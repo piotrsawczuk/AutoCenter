@@ -1,6 +1,6 @@
 package sawczuk.AutoCenter.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -27,7 +27,7 @@ public class DrivingType {
     @Column(name = "driving_type")
     private String drivingType;
 
-    @JsonIgnore
+    @JsonBackReference
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "drivingType")
     private List<FuelEconomy> fuelEconomyList;
 

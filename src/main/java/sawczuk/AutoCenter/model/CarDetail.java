@@ -1,5 +1,6 @@
 package sawczuk.AutoCenter.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -24,6 +25,7 @@ public class CarDetail {
     private String color;
     @Column(name = "image_url")
     private String imageUrl;
+    @JsonBackReference
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_car_id")
     private Car car;

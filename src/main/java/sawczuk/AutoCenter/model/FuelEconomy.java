@@ -1,5 +1,6 @@
 package sawczuk.AutoCenter.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import sawczuk.AutoCenter.util.NumberUtils;
@@ -41,6 +42,7 @@ public class FuelEconomy {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fuel_type")
     private FuelType fuelType;
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_car_id")
     private Car car;

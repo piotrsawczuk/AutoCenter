@@ -1,6 +1,6 @@
 package sawczuk.AutoCenter.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -19,17 +19,18 @@ public class Car {
     @NotNull
     @Column(name = "car_api_id")
     private Long carApiId;
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @JsonIgnore
+    @JsonBackReference
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "car")
     private List<FuelEconomy> fuelEconomies;
-    @JsonIgnore
+    @JsonBackReference
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "car")
     private List<Repair> repairs;
-    @JsonIgnore
+    @JsonBackReference
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "car")
     private CarDetail carDetail;
 

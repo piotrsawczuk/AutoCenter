@@ -1,5 +1,6 @@
 package sawczuk.AutoCenter.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -28,6 +29,7 @@ public class UserDetail {
     @Pattern(regexp = "[+]?[0-9 -]+", message = "Provided phone number is incorrect")
     @Column(name = "phone_number")
     private String phoneNumber;
+    @JsonBackReference
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
