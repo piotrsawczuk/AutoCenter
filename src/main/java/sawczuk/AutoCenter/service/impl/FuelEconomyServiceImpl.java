@@ -3,6 +3,7 @@ package sawczuk.AutoCenter.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sawczuk.AutoCenter.model.FuelEconomy;
+import sawczuk.AutoCenter.model.FuelEconomyAverage;
 import sawczuk.AutoCenter.repository.FuelEconomyRepository;
 import sawczuk.AutoCenter.service.FuelEconomyService;
 import sawczuk.AutoCenter.util.NumberUtils;
@@ -39,5 +40,14 @@ public class FuelEconomyServiceImpl implements FuelEconomyService {
     @Override
     public List<FuelEconomy> findAllByCarId(Long carId) {
         return fuelEconomyRepository.findAllByCarIdOrderByDateDesc(carId);
+    }
+
+    @Override
+    public List<FuelEconomyAverage> fuelEconomyAveragesByCarApiId(Long carApiId) {
+        List<FuelEconomyAverage> fuelEconomyAverageList = fuelEconomyRepository.fuelEconomyAveragesByCarApiId(carApiId);
+        for (FuelEconomyAverage fuelEconomyAverage : fuelEconomyAverageList) {
+            fuelEconomyAverage.setEconomyAverage(NumberUtils.truncateDouble(fuelEconomyAverage.getEconomyAverage()));
+        }
+        return fuelEconomyAverageList;
     }
 }

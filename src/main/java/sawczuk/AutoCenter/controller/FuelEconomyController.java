@@ -5,14 +5,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import sawczuk.AutoCenter.exception.InvalidRequestParameterException;
 import sawczuk.AutoCenter.exception.ResourceNotFoundException;
 import sawczuk.AutoCenter.model.Car;
 import sawczuk.AutoCenter.model.FuelEconomy;
+import sawczuk.AutoCenter.model.FuelEconomyAverage;
 import sawczuk.AutoCenter.model.dto.FuelEconomyDTO;
 import sawczuk.AutoCenter.service.CarService;
 import sawczuk.AutoCenter.service.DrivingTypeService;
@@ -114,5 +112,14 @@ public class FuelEconomyController {
         }
         fuelEconomyService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PreAuthorize("permitAll()")
+    @RequestMapping(value = "fuel-economy/avg", method = RequestMethod.GET)
+    public ResponseEntity<List<FuelEconomyAverage>> fuelEconomyAveragesByCarApiId(@RequestParam(value = "carApiId") Long carApiId) throws InvalidRequestParameterException {
+        if (carApiId == null) {
+            throw new InvalidRequestParameterException("carApiId", carApiId);
+        }
+        return new ResponseEntity<>(fuelEconomyService.fuelEconomyAveragesByCarApiId(carApiId), HttpStatus.OK);
     }
 }
