@@ -10,6 +10,10 @@ import java.util.List;
 
 public interface FuelEconomyRepository extends CrudRepository<FuelEconomy, Long> {
 
+    void deleteByIdAndCarId(Long id, Long carId);
+
+    FuelEconomy findByIdAndCarId(Long id, Long carId);
+
     List<FuelEconomy> findAllByCarIdOrderByDateDesc(Long carId);
 
     @Query("SELECT new sawczuk.AutoCenter.model.FuelEconomyAverage(d.value, f.value, AVG(e.consumption)) " +

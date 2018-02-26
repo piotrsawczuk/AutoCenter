@@ -28,14 +28,24 @@ public class FuelEconomyServiceImpl implements FuelEconomyService {
     }
 
     @Override
-    public void delete(Long id) {
-        fuelEconomyRepository.delete(id);
+    public void deleteByIdAndCarId(Long id, Long carId) {
+        fuelEconomyRepository.deleteByIdAndCarId(id, carId);
     }
 
     @Override
-    public FuelEconomy findOne(Long id) {
-        return fuelEconomyRepository.findOne(id);
+    public FuelEconomy findByIdAndCarId(Long id, Long carId) {
+        return fuelEconomyRepository.findByIdAndCarId(id, carId);
     }
+
+//    @Override
+//    public void delete(Long id) {
+//        fuelEconomyRepository.delete(id);
+//    }
+//
+//    @Override
+//    public FuelEconomy findOne(Long id) {
+//        return fuelEconomyRepository.findOne(id);
+//    }
 
     @Override
     public List<FuelEconomy> findAllByCarId(Long carId) {

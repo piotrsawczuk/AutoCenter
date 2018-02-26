@@ -37,7 +37,8 @@ public class FuelEconomyController {
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "cars/{carId}/fuel-economy", method = RequestMethod.POST)
-    public ResponseEntity<FuelEconomy> saveFuelEconomy(@PathVariable(value = "carId") Long carId, @RequestBody FuelEconomyDTO fuelEconomyDTO) throws InvalidRequestParameterException, ResourceNotFoundException {
+    public ResponseEntity<FuelEconomy> saveFuelEconomy(@PathVariable(value = "carId") Long carId,
+                                                       @RequestBody FuelEconomyDTO fuelEconomyDTO) throws InvalidRequestParameterException, ResourceNotFoundException {
         if (carId == null) {
             throw new InvalidRequestParameterException("carId", carId);
         }
@@ -60,14 +61,16 @@ public class FuelEconomyController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = "fuel-economy/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<FuelEconomy> editFuelEconomy(@PathVariable(value = "id") Long id, @RequestBody FuelEconomyDTO fuelEconomyDTO) throws InvalidRequestParameterException, ResourceNotFoundException {
+    @RequestMapping(value = "cars/{carId}/fuel-economy/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<FuelEconomy> editFuelEconomy(@PathVariable(value = "id") Long id,
+                                                       @PathVariable(value = "carId") Long carId,
+                                                       @RequestBody FuelEconomyDTO fuelEconomyDTO) throws InvalidRequestParameterException, ResourceNotFoundException {
         if (id == null) {
-            throw new InvalidRequestParameterException("id", id);
+            throw new InvalidRequestParameterException("id", id, "carId", carId);
         }
-        FuelEconomy fuelEconomy = fuelEconomyService.findOne(id);
+        FuelEconomy fuelEconomy = fuelEconomyService.findByIdAndCarId(id, carId);
         if (fuelEconomy == null) {
-            throw new ResourceNotFoundException("Fuel economy", "id", id);
+            throw new ResourceNotFoundException("Fuel economy", "id", id, "carId", carId);
         }
 
         if (fuelEconomyDTO.getDate() != null)
@@ -87,12 +90,13 @@ public class FuelEconomyController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = "fuel-economy/{id}", method = RequestMethod.GET)
-    public ResponseEntity<FuelEconomy> getFuelEconomy(@PathVariable(value = "id") Long id) throws InvalidRequestParameterException {
+    @RequestMapping(value = "cars/{carId}/fuel-economy/{id}", method = RequestMethod.GET)
+    public ResponseEntity<FuelEconomy> getFuelEconomy(@PathVariable(value = "id") Long id,
+                                                      @PathVariable(value = "carId") Long carId) throws InvalidRequestParameterException {
         if (id == null) {
-            throw new InvalidRequestParameterException("id", id);
+            throw new InvalidRequestParameterException("id", id, "carId", carId);
         }
-        return new ResponseEntity<>(fuelEconomyService.findOne(id), HttpStatus.OK);
+        return new ResponseEntity<>(fuelEconomyService.findByIdAndCarId(id, carId), HttpStatus.OK);
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -105,12 +109,13 @@ public class FuelEconomyController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = "fuel-economy/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<FuelEconomy> deleteFuelEconomy(@PathVariable(value = "id") Long id) throws InvalidRequestParameterException {
+    @RequestMapping(value = "cars/{carId}/fuel-economy/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<FuelEconomy> deleteFuelEconomy(@PathVariable(value = "id") Long id,
+                                                         @PathVariable(value = "carId") Long carId) throws InvalidRequestParameterException {
         if (id == null) {
-            throw new InvalidRequestParameterException("id", id);
+            throw new InvalidRequestParameterException("id", id, "carId", carId);
         }
-        fuelEconomyService.delete(id);
+        fuelEconomyService.deleteByIdAndCarId(id, carId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

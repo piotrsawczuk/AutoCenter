@@ -9,9 +9,13 @@ import java.util.List;
 public interface FuelEconomyService {
     void save(FuelEconomy fuelEconomy);
 
-    void delete(Long id);
+//    void delete(Long id);
+//
+//    FuelEconomy findOne(Long id);
 
-    FuelEconomy findOne(Long id);
+    void deleteByIdAndCarId(Long id, Long carId);
+
+    FuelEconomy findByIdAndCarId(Long id, Long carId);
 
     List<FuelEconomy> findAllByCarId(Long carId);
 
