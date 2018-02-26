@@ -6,14 +6,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import sawczuk.AutoCenter.exception.InvalidRequestParameterException;
 import sawczuk.AutoCenter.exception.ResourceNotFoundException;
 import sawczuk.AutoCenter.model.Car;
 import sawczuk.AutoCenter.model.Repair;
+import sawczuk.AutoCenter.model.RepairTotalCost;
 import sawczuk.AutoCenter.model.dto.RepairDTO;
 import sawczuk.AutoCenter.service.CarService;
 import sawczuk.AutoCenter.service.ExploitationTypeService;
@@ -107,5 +105,20 @@ public class RepairController {
         }
         repairService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(value = "cars/{carId}/repairs/total-cost", method = RequestMethod.GET)
+    public ResponseEntity<List<RepairTotalCost>> repairsTotalCostByCarId(@PathVariable(value = "carId") Long carId) throws InvalidRequestParameterException {
+        if (carId == null) {
+            throw new InvalidRequestParameterException("carId", carId);
+        }
+        return new ResponseEntity<>(repairService.repairsTotalCostByCarId(carId), HttpStatus.OK);
+    }
+
+    @PreAuthorize("permitAll()")
+    @RequestMapping(value = "repairs/total-cost", method = RequestMethod.GET)
+    public ResponseEntity<List<RepairTotalCost>> repairsTotalCostByCarApiId(@RequestParam(value = "carApiId") Long carApiId) {
+        return new ResponseEntity<>(repairService.repairsTotalCostByCarApiId(carApiId), HttpStatus.OK);
     }
 }

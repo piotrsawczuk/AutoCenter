@@ -3,6 +3,7 @@ package sawczuk.AutoCenter.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sawczuk.AutoCenter.model.Repair;
+import sawczuk.AutoCenter.model.RepairTotalCost;
 import sawczuk.AutoCenter.repository.RepairRepository;
 import sawczuk.AutoCenter.service.RepairService;
 
@@ -36,5 +37,15 @@ public class RepairServiceImpl implements RepairService {
     @Override
     public List<Repair> findAllByCarId(Long carId) {
         return repairRepository.findAllByCarIdOrderByDateDesc(carId);
+    }
+
+    @Override
+    public List<RepairTotalCost> repairsTotalCostByCarId(Long carId) {
+        return repairRepository.repairsTotalCostByCarId(carId);
+    }
+
+    @Override
+    public List<RepairTotalCost> repairsTotalCostByCarApiId(Long carApiId) {
+        return repairRepository.repairsTotalCostByCarApiId(carApiId);
     }
 }
