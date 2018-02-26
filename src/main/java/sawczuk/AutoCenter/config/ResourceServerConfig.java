@@ -33,6 +33,9 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/register").permitAll()
+                .antMatchers("/car-query-api/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/fuel-economy/avg").permitAll()
+                .antMatchers(HttpMethod.GET, "/repairs/total-cost").permitAll()
                 .antMatchers("/**").authenticated();
     }
 }

@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/carqueryapi")
+@RequestMapping("/car-query-api")
 public class CarQueryController {
 
     private CarQueryService carQueryService;
