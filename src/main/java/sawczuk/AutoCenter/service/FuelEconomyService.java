@@ -15,5 +15,7 @@ public interface FuelEconomyService {
 
     List<FuelEconomy> findAllByCarId(Long carId);
 
+    List<FuelEconomyAverage> fuelEconomyAveragesByCarId(@Param("carId") Long carId);
+
     List<FuelEconomyAverage> fuelEconomyAveragesByCarApiId(@Param("carApiId") Long carApiId);
 }

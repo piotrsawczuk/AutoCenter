@@ -43,11 +43,13 @@ public class FuelEconomyServiceImpl implements FuelEconomyService {
     }
 
     @Override
-    public List<FuelEconomyAverage> fuelEconomyAveragesByCarApiId(Long carApiId) {
-        List<FuelEconomyAverage> fuelEconomyAverageList = fuelEconomyRepository.fuelEconomyAveragesByCarApiId(carApiId);
-        for (FuelEconomyAverage fuelEconomyAverage : fuelEconomyAverageList) {
-            fuelEconomyAverage.setEconomyAverage(NumberUtils.truncateDouble(fuelEconomyAverage.getEconomyAverage()));
-        }
-        return fuelEconomyAverageList;
+    public List<FuelEconomyAverage> fuelEconomyAveragesByCarId(Long carId) {
+        return fuelEconomyRepository.fuelEconomyAveragesByCarId(carId);
     }
+
+    @Override
+    public List<FuelEconomyAverage> fuelEconomyAveragesByCarApiId(Long carApiId) {
+        return fuelEconomyRepository.fuelEconomyAveragesByCarApiId(carApiId);
+    }
+
 }

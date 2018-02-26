@@ -114,12 +114,18 @@ public class FuelEconomyController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(value = "cars/{carId}/fuel-economy/avg", method = RequestMethod.GET)
+    public ResponseEntity<List<FuelEconomyAverage>> fuelEconomyAveragesByCarId(@PathVariable(value = "carId") Long carId) throws InvalidRequestParameterException {
+        if (carId == null) {
+            throw new InvalidRequestParameterException("carId", carId);
+        }
+        return new ResponseEntity<>(fuelEconomyService.fuelEconomyAveragesByCarId(carId), HttpStatus.OK);
+    }
+
     @PreAuthorize("permitAll()")
     @RequestMapping(value = "fuel-economy/avg", method = RequestMethod.GET)
-    public ResponseEntity<List<FuelEconomyAverage>> fuelEconomyAveragesByCarApiId(@RequestParam(value = "carApiId") Long carApiId) throws InvalidRequestParameterException {
-        if (carApiId == null) {
-            throw new InvalidRequestParameterException("carApiId", carApiId);
-        }
+    public ResponseEntity<List<FuelEconomyAverage>> fuelEconomyAveragesByCarApiId(@RequestParam(value = "carApiId") Long carApiId) {
         return new ResponseEntity<>(fuelEconomyService.fuelEconomyAveragesByCarApiId(carApiId), HttpStatus.OK);
     }
 }

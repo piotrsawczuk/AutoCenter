@@ -1,5 +1,7 @@
 package sawczuk.AutoCenter.model;
 
+import sawczuk.AutoCenter.util.NumberUtils;
+
 public class FuelEconomyAverage {
     Integer drivingTypeValue;
     Integer fuelTypeValue;
@@ -13,14 +15,6 @@ public class FuelEconomyAverage {
         this.drivingTypeValue = drivingTypeValue;
     }
 
-    public Double getEconomyAverage() {
-        return economyAverage;
-    }
-
-    public void setEconomyAverage(Double economyAverage) {
-        this.economyAverage = economyAverage;
-    }
-
     public Integer getFuelTypeValue() {
         return fuelTypeValue;
     }
@@ -29,12 +23,21 @@ public class FuelEconomyAverage {
         this.fuelTypeValue = fuelTypeValue;
     }
 
+    public Double getEconomyAverage() {
+        return NumberUtils.truncateDouble(economyAverage);
+    }
+
+    public void setEconomyAverage(Double economyAverage) {
+        this.economyAverage = NumberUtils.truncateDouble(economyAverage);
+    }
+
+
     public FuelEconomyAverage() {
     }
 
     public FuelEconomyAverage(Integer drivingTypeValue, Integer fuelTypeValue, Double economyAverage) {
         this.drivingTypeValue = drivingTypeValue;
         this.fuelTypeValue = fuelTypeValue;
-        this.economyAverage = economyAverage;
+        this.economyAverage = NumberUtils.truncateDouble(economyAverage);
     }
 }
