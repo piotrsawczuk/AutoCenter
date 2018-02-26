@@ -1,1 +1,0 @@
-TODO Add controller or service to calculate avg costs by carApiId (from car where carApiId) and same for current userCar
