@@ -25,13 +25,13 @@ public class RepairServiceImpl implements RepairService {
     }
 
     @Override
-    public void delete(Long id) {
-        repairRepository.delete(id);
+    public void deleteByIdAndCarId(Long id, Long carId) {
+        repairRepository.deleteByIdAndCarId(id, carId);
     }
 
     @Override
-    public Repair findOne(Long id) {
-        return repairRepository.findOne(id);
+    public Repair findByIdAndCarId(Long id, Long carId) {
+        return repairRepository.findByIdAndCarId(id, carId);
     }
 
     @Override

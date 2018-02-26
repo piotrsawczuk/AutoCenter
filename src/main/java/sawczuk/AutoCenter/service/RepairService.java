@@ -8,9 +8,9 @@ import java.util.List;
 public interface RepairService {
     void save(Repair repair);
 
-    void delete(Long id);
+    void deleteByIdAndCarId(Long id, Long carId);
 
-    Repair findOne(Long id);
+    Repair findByIdAndCarId(Long id, Long carId);
 
     List<Repair> findAllByCarId(Long carId);
 

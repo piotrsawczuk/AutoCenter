@@ -35,7 +35,8 @@ public class RepairController {
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "cars/{carId}/repairs", method = RequestMethod.POST)
-    public ResponseEntity<Repair> saveRepair(@PathVariable(value = "carId") Long carId, @RequestBody RepairDTO repairDTO) throws InvalidRequestParameterException, ResourceNotFoundException {
+    public ResponseEntity<Repair> saveRepair(@PathVariable(value = "carId") Long carId,
+                                             @RequestBody RepairDTO repairDTO) throws InvalidRequestParameterException, ResourceNotFoundException {
         if (carId == null) {
             throw new InvalidRequestParameterException("carId", carId);
         }
@@ -56,14 +57,16 @@ public class RepairController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = "repairs/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Repair> editRepair(@PathVariable(value = "id") Long id, @RequestBody RepairDTO repairDTO) throws InvalidRequestParameterException, ResourceNotFoundException {
+    @RequestMapping(value = "cars/{carId}/repairs/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Repair> editRepair(@PathVariable(value = "id") Long id,
+                                             @PathVariable(value = "carId") Long carId,
+                                             @RequestBody RepairDTO repairDTO) throws InvalidRequestParameterException, ResourceNotFoundException {
         if (id == null) {
-            throw new InvalidRequestParameterException("id", id);
+            throw new InvalidRequestParameterException("id", id, "carId", carId);
         }
-        Repair repair = repairService.findOne(id);
+        Repair repair = repairService.findByIdAndCarId(id, carId);
         if (repair == null) {
-            throw new ResourceNotFoundException("Repair", "id", id);
+            throw new ResourceNotFoundException("Repair", "id", id, "carId", carId);
         }
         if (repairDTO.getDate() != null)
             repair.setDate(repairDTO.getDate());
@@ -80,12 +83,13 @@ public class RepairController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = "repairs/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Repair> getRepair(@PathVariable(value = "id") Long id) throws InvalidRequestParameterException {
+    @RequestMapping(value = "cars/{carId}/repairs/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Repair> getRepair(@PathVariable(value = "id") Long id,
+                                            @PathVariable(value = "carId") Long carId) throws InvalidRequestParameterException {
         if (id == null) {
-            throw new InvalidRequestParameterException("id", id);
+            throw new InvalidRequestParameterException("id", id, "carId", carId);
         }
-        return new ResponseEntity<>(repairService.findOne(id), HttpStatus.OK);
+        return new ResponseEntity<>(repairService.findByIdAndCarId(id, carId), HttpStatus.OK);
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -98,12 +102,13 @@ public class RepairController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = "repairs/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Repair> deleteRepair(@PathVariable(value = "id") Long id) throws InvalidRequestParameterException {
+    @RequestMapping(value = "cars/{carId}/repairs/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Repair> deleteRepair(@PathVariable(value = "id") Long id,
+                                               @PathVariable(value = "carId") Long carId) throws InvalidRequestParameterException {
         if (id == null) {
-            throw new InvalidRequestParameterException("id", id);
+            throw new InvalidRequestParameterException("id", id, "carId", carId);
         }
-        repairService.delete(id);
+        repairService.deleteByIdAndCarId(id, carId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

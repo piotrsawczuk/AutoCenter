@@ -9,6 +9,11 @@ import sawczuk.AutoCenter.model.RepairTotalCost;
 import java.util.List;
 
 public interface RepairRepository extends CrudRepository<Repair, Long> {
+
+    void deleteByIdAndCarId(Long id, Long carId);
+
+    Repair findByIdAndCarId(Long id, Long carId);
+
     List<Repair> findAllByCarIdOrderByDateDesc(Long carId);
 
     @Query("SELECT new sawczuk.AutoCenter.model.RepairTotalCost(e.value, SUM(r.cost)) " +

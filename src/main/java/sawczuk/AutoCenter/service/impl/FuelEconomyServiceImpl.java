@@ -37,16 +37,6 @@ public class FuelEconomyServiceImpl implements FuelEconomyService {
         return fuelEconomyRepository.findByIdAndCarId(id, carId);
     }
 
-//    @Override
-//    public void delete(Long id) {
-//        fuelEconomyRepository.delete(id);
-//    }
-//
-//    @Override
-//    public FuelEconomy findOne(Long id) {
-//        return fuelEconomyRepository.findOne(id);
-//    }
-
     @Override
     public List<FuelEconomy> findAllByCarId(Long carId) {
         return fuelEconomyRepository.findAllByCarIdOrderByDateDesc(carId);
