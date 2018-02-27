@@ -76,6 +76,7 @@ create table exploitation_type(
 );
 insert into exploitation_type (value, exploitation_type) values (1, 'Maintenance');
 insert into exploitation_type (value, exploitation_type) values (2, 'Repair');
+insert into exploitation_type (value, exploitation_type) values (3, 'Tuning');
 
 create sequence user_car_seq;
 create table user_car(
