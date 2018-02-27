@@ -1,6 +1,8 @@
 package sawczuk.AutoCenter.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -32,7 +34,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void save(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(new HashSet<>(Arrays.asList(roleService.findByNameIgnoreCase("user"))));
+        if (user.isRoleAdmin())
+            user.setRoles(new HashSet<>(Arrays.asList(roleService.findByNameIgnoreCase("user"), roleService.findByNameIgnoreCase("admin"))));
+        else
+            user.setRoles(new HashSet<>(Arrays.asList(roleService.findByNameIgnoreCase("user"))));
         user.setActive(true);
         userRepository.save(user);
     }
@@ -80,5 +85,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findAll() {
         return userRepository.findAll();
+    }
+
+    @Override
+    public Page<User> findAll(Pageable pageable) {
+        return userRepository.findAll(pageable);
     }
 }

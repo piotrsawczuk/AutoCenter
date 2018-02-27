@@ -1,6 +1,8 @@
 package sawczuk.AutoCenter.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import sawczuk.AutoCenter.model.Repair;
 import sawczuk.AutoCenter.model.RepairTotalCost;
@@ -37,6 +39,11 @@ public class RepairServiceImpl implements RepairService {
     @Override
     public List<Repair> findAllByCarId(Long carId) {
         return repairRepository.findAllByCarIdOrderByDateDesc(carId);
+    }
+
+    @Override
+    public Page<Repair> findAllByCarId(Long carId, Pageable pageable) {
+        return repairRepository.findAllByCarId(carId, pageable);
     }
 
     @Override

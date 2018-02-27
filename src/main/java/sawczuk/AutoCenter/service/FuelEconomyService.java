@@ -1,6 +1,7 @@
 package sawczuk.AutoCenter.service;
 
-import org.springframework.data.repository.query.Param;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import sawczuk.AutoCenter.model.FuelEconomy;
 import sawczuk.AutoCenter.model.FuelEconomyAverage;
 
@@ -15,7 +16,9 @@ public interface FuelEconomyService {
 
     List<FuelEconomy> findAllByCarId(Long carId);
 
-    List<FuelEconomyAverage> fuelEconomyAveragesByCarId(@Param("carId") Long carId);
+    Page<FuelEconomy> findAllByCarId(Long carId, Pageable pageable);
 
-    List<FuelEconomyAverage> fuelEconomyAveragesByCarApiId(@Param("carApiId") Long carApiId);
+    List<FuelEconomyAverage> fuelEconomyAveragesByCarId(Long carId);
+
+    List<FuelEconomyAverage> fuelEconomyAveragesByCarApiId(Long carApiId);
 }

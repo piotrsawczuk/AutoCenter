@@ -1,6 +1,9 @@
 package sawczuk.AutoCenter.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,10 +21,10 @@ import sawczuk.AutoCenter.service.CarService;
 import sawczuk.AutoCenter.service.UserService;
 import sawczuk.AutoCenter.util.UserUtils;
 
-import java.util.List;
-
 @Controller
 public class CarController {
+    private static final int DEFAULT_PAGE_NUMBER = 0;
+    private static final int DEFAULT_PAGE_SIZE = 10;
 
     private CarService carService;
     private UserService userService;
@@ -64,12 +67,14 @@ public class CarController {
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/cars", method = RequestMethod.GET)
-    public ResponseEntity<List<Car>> getAllCars() throws ResourceNotFoundException {
+    public ResponseEntity<Page<Car>> getAllCars(
+            @PageableDefault(page = DEFAULT_PAGE_NUMBER, size = DEFAULT_PAGE_SIZE)
+            Pageable pageable) throws ResourceNotFoundException {
         Long userId = userService.findByUsernameIgnoreCase(UserUtils.findLoggedInUsername()).getId();
         if (userId == null) {
             throw new ResourceNotFoundException("User ID", "username", UserUtils.findLoggedInUsername());
         }
-        return new ResponseEntity<>(carService.findAllByUserId(userId), HttpStatus.OK);
+        return new ResponseEntity<>(carService.findAllByUserId(userId, pageable), HttpStatus.OK);
     }
 
     @PreAuthorize("isAuthenticated()")

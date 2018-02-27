@@ -1,6 +1,11 @@
 package sawczuk.AutoCenter.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,10 +23,10 @@ import sawczuk.AutoCenter.model.dto.UserDTO;
 import sawczuk.AutoCenter.service.UserService;
 import sawczuk.AutoCenter.util.UserUtils;
 
-import java.util.List;
-
 @Controller
 public class UserController {
+    private static final int DEFAULT_PAGE_NUMBER = 0;
+    private static final int DEFAULT_PAGE_SIZE = 20;
 
     private UserService userService;
 
@@ -31,12 +36,24 @@ public class UserController {
     }
 
     @PreAuthorize("permitAll()")
-    @RequestMapping(value = {"/users", "/register"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/register"}, method = RequestMethod.POST)
     public ResponseEntity<User> createNewAccount(@RequestBody UserDTO userDTO) {
         User user = new User();
         user.setUsername(userDTO.getUsername());
         user.setEmail(userDTO.getEmail());
         user.setPassword(userDTO.getPassword());
+        userService.save(user);
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
+    }
+
+    @PreAuthorize("hasAuthority('admin')")
+    @RequestMapping(value = {"/users"}, method = RequestMethod.POST)
+    public ResponseEntity<User> createNewAdminAccount(@RequestBody UserDTO userDTO) {
+        User user = new User();
+        user.setUsername(userDTO.getUsername());
+        user.setEmail(userDTO.getEmail());
+        user.setPassword(userDTO.getPassword());
+        user.setRoleAdmin(true);
         userService.save(user);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
@@ -54,8 +71,11 @@ public class UserController {
 
     @PreAuthorize("hasAuthority('admin')")
     @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public ResponseEntity<List<User>> findAllAccounts() {
-        return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
+    public ResponseEntity<Page<User>> findAllAccounts(
+            @PageableDefault(page = DEFAULT_PAGE_NUMBER, size = DEFAULT_PAGE_SIZE)
+            @SortDefault(sort = "username", direction = Sort.Direction.ASC)
+            Pageable pageable) {
+        return new ResponseEntity<>(userService.findAll(pageable), HttpStatus.OK);
     }
 
     @PreAuthorize("hasAuthority('admin')")

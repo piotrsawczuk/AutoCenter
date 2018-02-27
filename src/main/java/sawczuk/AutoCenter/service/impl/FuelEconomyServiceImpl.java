@@ -1,6 +1,8 @@
 package sawczuk.AutoCenter.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import sawczuk.AutoCenter.model.FuelEconomy;
 import sawczuk.AutoCenter.model.FuelEconomyAverage;
@@ -40,6 +42,11 @@ public class FuelEconomyServiceImpl implements FuelEconomyService {
     @Override
     public List<FuelEconomy> findAllByCarId(Long carId) {
         return fuelEconomyRepository.findAllByCarIdOrderByDateDesc(carId);
+    }
+
+    @Override
+    public Page<FuelEconomy> findAllByCarId(Long carId, Pageable pageable) {
+        return fuelEconomyRepository.findAllByCarId(carId, pageable);
     }
 
     @Override

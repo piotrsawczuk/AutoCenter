@@ -1,20 +1,24 @@
 package sawczuk.AutoCenter.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import sawczuk.AutoCenter.model.FuelEconomy;
 import sawczuk.AutoCenter.model.FuelEconomyAverage;
 
 import java.util.List;
 
-public interface FuelEconomyRepository extends CrudRepository<FuelEconomy, Long> {
+public interface FuelEconomyRepository extends PagingAndSortingRepository<FuelEconomy, Long> {
 
     void deleteByIdAndCarId(Long id, Long carId);
 
     FuelEconomy findByIdAndCarId(Long id, Long carId);
 
     List<FuelEconomy> findAllByCarIdOrderByDateDesc(Long carId);
+
+    Page<FuelEconomy> findAllByCarId(Long carId, Pageable pageable);
 
     @Query("SELECT new sawczuk.AutoCenter.model.FuelEconomyAverage(d.value, f.value, AVG(e.consumption)) " +
             "FROM FuelEconomy e " +

@@ -1,6 +1,11 @@
 package sawczuk.AutoCenter.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,6 +26,8 @@ import java.util.List;
 
 @Controller
 public class RepairController {
+    private static final int DEFAULT_PAGE_NUMBER = 0;
+    private static final int DEFAULT_PAGE_SIZE = 20;
 
     private RepairService repairService;
     private CarService carService;
@@ -94,11 +101,18 @@ public class RepairController {
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "cars/{carId}/repairs", method = RequestMethod.GET)
-    public ResponseEntity<List<Repair>> getAllRepairs(@PathVariable(value = "carId") Long carId) throws InvalidRequestParameterException {
+    public ResponseEntity<Page<Repair>> getAllRepairs(
+            @PathVariable(value = "carId") Long carId,
+            @PageableDefault(page = DEFAULT_PAGE_NUMBER, size = DEFAULT_PAGE_SIZE)
+            @SortDefault.SortDefaults({
+                    @SortDefault(sort = "date", direction = Sort.Direction.DESC),
+                    @SortDefault(sort = "id", direction = Sort.Direction.DESC)
+            })
+            Pageable pageable) throws InvalidRequestParameterException {
         if (carId == null) {
             throw new InvalidRequestParameterException("carId", carId);
         }
-        return new ResponseEntity<>(repairService.findAllByCarId(carId), HttpStatus.OK);
+        return new ResponseEntity<>(repairService.findAllByCarId(carId, pageable), HttpStatus.OK);
     }
 
     @PreAuthorize("isAuthenticated()")

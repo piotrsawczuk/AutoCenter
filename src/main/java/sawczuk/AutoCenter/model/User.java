@@ -49,6 +49,10 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
     private UserDetail userDetail;
 
+    @JsonIgnore
+    @Transient
+    private boolean roleAdmin;
+
 
     public Long getId() {
         return id;
@@ -112,6 +116,14 @@ public class User {
 
     public void setUserDetail(UserDetail userDetail) {
         this.userDetail = userDetail;
+    }
+
+    public boolean isRoleAdmin() {
+        return roleAdmin;
+    }
+
+    public void setRoleAdmin(boolean roleAdmin) {
+        this.roleAdmin = roleAdmin;
     }
 }
 // TODO uncomment password length check
