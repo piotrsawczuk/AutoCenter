@@ -1,11 +1,7 @@
 package sawczuk.AutoCenter.util;
 
-import sawczuk.AutoCenter.model.DrivingType;
-import sawczuk.AutoCenter.model.FuelEconomy;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.List;
 
 public class NumberUtils {
 
