@@ -22,7 +22,7 @@ public class DrivingTypeController {
         this.drivingTypeService = drivingTypeService;
     }
 
-    @PreAuthorize("hasAuthority('admin')")
+    @PreAuthorize("permitAll()")
     @RequestMapping(value = "/driving-types", method = RequestMethod.GET)
     public ResponseEntity<?> getDrivingType(@RequestParam(value = "value", required = false) Integer value,
                                             @RequestParam(value = "driving_type", required = false) String drivingType) throws ResourceNotFoundException {

@@ -22,7 +22,7 @@ public class FuelTypeController {
         this.fuelTypeService = fuelTypeService;
     }
 
-    @PreAuthorize("hasAuthority('admin')")
+    @PreAuthorize("permitAll()")
     @RequestMapping(value = "/fuel-types", method = RequestMethod.GET)
     public ResponseEntity<?> getFuelType(@RequestParam(value = "value", required = false) Integer value,
                                          @RequestParam(value = "fuel_type", required = false) String fuelType) throws ResourceNotFoundException {
