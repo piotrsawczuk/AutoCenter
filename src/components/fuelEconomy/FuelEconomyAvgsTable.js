@@ -4,7 +4,7 @@ import { Table } from 'semantic-ui-react';
 import { findAll as findAllDrivingTypes} from '../../actions/drivingTypes';
 import { findAll as findAllFuelTypes} from '../../actions/fuelTypes';
 
-class FuelEconomyAvgTable extends Component {
+class FuelEconomyAvgsTable extends Component {
 
     componentDidMount = () => {
         this.props.findAllDrivingTypes();
@@ -78,4 +78,4 @@ export default connect(mapStateToProps,
         findAllDrivingTypes,
         findAllFuelTypes
     }
-) (FuelEconomyAvgTable);
+) (FuelEconomyAvgsTable);

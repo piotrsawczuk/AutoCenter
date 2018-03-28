@@ -5,7 +5,7 @@ import MakeSelection from '../components/car/MakeSelection';
 import ModelSelection from '../components/car/ModelSelection';
 import TrimSelection from '../components/car/TrimSelection';
 import CarDataTable from '../components/car/CarDataTable';
-import FuelEconomyAvgTable from '../components/fuelEconomy/FuelEconomyAvgTable';
+import FuelEconomyAvgsTable from '../components/fuelEconomy/FuelEconomyAvgsTable';
 import RepairsTotalCostsTable from '../components/repair/RepairsTotalCostsTable';
 import { findOne as findYears } from '../actions/years';
 import { findAll as findAllMakes } from '../actions/makes';
@@ -90,7 +90,7 @@ class MainPage extends Component {
                     <TrimSelection trims = {this.props.trims} isDisabled = {this.state.disabledTrims} onChange = {this.onChangeTrimSelection}/>
                 </div>
                 <div>
-                    {this.state.visibleTables && <FuelEconomyAvgTable fuelEconomyAvgs = {this.props.fuelEconomyAvgs} />}
+                    {this.state.visibleTables && <FuelEconomyAvgsTable fuelEconomyAvgs = {this.props.fuelEconomyAvgs} />}
                 </div>
                 <div>
                     {this.state.visibleTables && <RepairsTotalCostsTable repairsTotalCosts = {this.props.repairsTotalCosts} />}
