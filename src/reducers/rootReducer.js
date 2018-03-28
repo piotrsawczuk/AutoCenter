@@ -9,6 +9,7 @@ import drivingTypesReducer from './drivingTypesReducer';
 import fuelTypesReducer from './fuelTypesReducer';
 import exploitationTypesReducer from './exploitationTypesReducer';
 import fuelEconomyAvgsReducer from './fuelEconomyAvgsReducer';
+import repairsTotalCostsReducer from './repairsTotalCostsReducer';
 
 export default combineReducers({
     authReducer,
@@ -20,5 +21,6 @@ export default combineReducers({
     drivingTypesReducer,
     fuelTypesReducer,
     exploitationTypesReducer,
-    fuelEconomyAvgsReducer
+    fuelEconomyAvgsReducer,
+    repairsTotalCostsReducer
 });

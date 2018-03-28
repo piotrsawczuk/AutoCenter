@@ -6,12 +6,15 @@ import ModelSelection from '../components/car/ModelSelection';
 import TrimSelection from '../components/car/TrimSelection';
 import CarDataTable from '../components/car/CarDataTable';
 import FuelEconomyAvgTable from '../components/fuelEconomy/FuelEconomyAvgTable';
+import RepairsTotalCostsTable from '../components/repair/RepairsTotalCostsTable';
 import { findOne as findYears } from '../actions/years';
 import { findAll as findAllMakes } from '../actions/makes';
 import { findAll as findAllModels } from '../actions/models';
 import { findAll as findAllTrims} from '../actions/trims';
 import { findOne as findTrim} from '../actions/trim';
 import { findAll as findFuelEconomyAvgs} from '../actions/fuelEconomyAvgs';
+import { findAll as findRepairsTotalCosts} from '../actions/repairsTotalCosts';
+
 
 class MainPage extends Component {
     state = {
@@ -68,6 +71,7 @@ class MainPage extends Component {
         if (trim.value) {
             this.props.findTrim(trim.value);
             this.props.findFuelEconomyAvgs(trim.value);
+            this.props.findRepairsTotalCosts(trim.value);
             this.setState(
                 { 
                     visibleTables: true
@@ -89,6 +93,9 @@ class MainPage extends Component {
                     {this.state.visibleTables && <FuelEconomyAvgTable fuelEconomyAvgs = {this.props.fuelEconomyAvgs} />}
                 </div>
                 <div>
+                    {this.state.visibleTables && <RepairsTotalCostsTable repairsTotalCosts = {this.props.repairsTotalCosts} />}
+                </div>
+                <div>
                     {this.state.visibleTables && <CarDataTable trim = {this.props.trim} />}
                 </div>
             </div>
@@ -98,12 +105,13 @@ class MainPage extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        years : state.yearsReducer.years,
-        makes : state.makesReducer.makes,
-        models : state.modelsReducer.models,
-        trims : state.trimsReducer.trims,
-        trim : state.trimReducer.trim,
-        fuelEconomyAvgs : state.fuelEconomyAvgsReducer.fuelEconomyAvgs
+        years: state.yearsReducer.years,
+        makes: state.makesReducer.makes,
+        models: state.modelsReducer.models,
+        trims: state.trimsReducer.trims,
+        trim: state.trimReducer.trim,
+        fuelEconomyAvgs: state.fuelEconomyAvgsReducer.fuelEconomyAvgs,
+        repairsTotalCosts: state.repairsTotalCostsReducer.repairsTotalCosts
     }
 }
 
@@ -114,6 +122,7 @@ export default connect(mapStateToProps,
         findAllModels,
         findAllTrims,
         findTrim,
-        findFuelEconomyAvgs
+        findFuelEconomyAvgs,
+        findRepairsTotalCosts
     }
 ) (MainPage);
