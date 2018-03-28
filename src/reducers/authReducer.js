@@ -1,18 +1,42 @@
-import { SET_TOKEN, SET_ERROR } from "../actions/authorization";
+import { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, SET_ERROR } from "../actions/authentication";
 
-const authReducer = (state = { token : {}, status : 0 }, action = {}) => {
+const authReducer = (
+
+    state = {
+        token: localStorage.getItem('token'),
+        errorMessage: '',
+        isAuthenticated: localStorage.getItem('token') ? true : false,
+        status: 0
+    }
+    , action = {}) => {
     switch (action.type) {
 
-        case SET_TOKEN : 
+        case LOGIN_SUCCESS :
             return {
                 ...state,
-                token : action.token
+                isAuthenticated: true,
+                token: action.token
+            };
+
+        case LOGIN_FAILURE :
+            return {
+                ...state,
+                isAuthenticated: false,
+                errorMessage: action.message
+            };
+
+        case LOGOUT_SUCCESS :
+            return {
+                ...state,
+                token: localStorage.getItem('token'),
+                isAuthenticated: false
             };
 
         case SET_ERROR :
             return {
                 ...state,
-                error : action.error
+                isAuthenticated: false,
+                error: action.error
             };
 
         default : return state;

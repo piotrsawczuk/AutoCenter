@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import LoginForm from '../components/login/LoginForm';
-import { login } from '../actions/authorization';
+import { login } from '../actions/authentication';
 
 class LoginPage extends Component {
     onSubmit = (data) => {
         this.props.login(data);
+        this.props.history.push('/');
     }
 
     render() {
         return (
             <div>
                 <LoginForm onSubmit = {this.onSubmit.bind(this)} />
-                {console.log(this.props.token)}
             </div>
         );
     }

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import MainPage from './containers/MainPage';
 import Navbar from './components/Navbar';
+import MainPage from './containers/MainPage';
 import LoginPage from './containers/LoginPage';
+import LogoutPage from './containers/LogoutPage';
 
 class App extends Component {
   render() {
@@ -13,6 +14,7 @@ class App extends Component {
           <Switch>
             <Route exact path = '/' component = {MainPage}/>
             <Route exact path = '/login' component = {LoginPage}/>
+            <Route exact path = '/logout' component = {LogoutPage}/>
           </Switch>
         </div>
       </div>
