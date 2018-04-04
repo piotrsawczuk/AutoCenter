@@ -25,7 +25,6 @@ class SignUpPage extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        token : state.authReducer.token,
         isAuthenticated : state.authReducer.isAuthenticated
     }
 }

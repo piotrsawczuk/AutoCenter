@@ -29,7 +29,6 @@ class UserCarsPage extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        token: state.authReducer.token,
         isAuthenticated: state.authReducer.isAuthenticated,
         userCars: state.userCarsReducer.userCars
     }
