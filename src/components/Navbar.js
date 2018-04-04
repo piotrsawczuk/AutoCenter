@@ -8,12 +8,14 @@ class Navbar extends Component {
         return (
             <Menu color={'blue'} inverted style = {{ borderRadius : 0 }}>
                 <Menu.Menu position='left'>
+                {/* <img alt={'image'} src={require('../img/menu-img.png')}/>  */}
                     <Menu.Item as = {NavLink} to = '/'>Home</Menu.Item>
                 </Menu.Menu>
                 <Menu.Menu position='right'>
+                    {this.props.isAuthenticated && <Menu.Item as = {NavLink} to = '/cars'>My cars</Menu.Item>}
+                    {this.props.isAuthenticated && <Menu.Item as = {NavLink} to = '/logout'>Logout</Menu.Item>}
                     {!this.props.isAuthenticated && <Menu.Item as = {NavLink} to = '/register'>Sign up</Menu.Item>}
                     {!this.props.isAuthenticated && <Menu.Item as = {NavLink} to = '/login'>Log in</Menu.Item>}
-                    {this.props.isAuthenticated && <Menu.Item as = {NavLink} to = '/logout'>Logout</Menu.Item>}
                 </Menu.Menu>
             </Menu>
         );

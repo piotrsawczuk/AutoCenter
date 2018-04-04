@@ -28,7 +28,8 @@ class MainPage extends Component {
     }
 
     componentDidMount = () => {
-        this.props.findYears();
+        //TODO uncomment
+        // this.props.findYears();
     }
 
     onChangeYearSelection = (e, year) => {
@@ -83,19 +84,31 @@ class MainPage extends Component {
     render() {
         return (
             <div>
-                <div>
-                    <YearSelection minYear = {this.props.years.min_year} maxYear = {this.props.years.max_year} onChange = {this.onChangeYearSelection} />
-                    <MakeSelection makes = {this.props.makes} isDisabled = {this.state.disabledMakes} onChange = {this.onChangeMakeSelection} />
-                    <ModelSelection models = {this.props.models} isDisabled = {this.state.disabledModels} onChange = {this.onChangeModelSelection}/>
-                    <TrimSelection trims = {this.props.trims} isDisabled = {this.state.disabledTrims} onChange = {this.onChangeTrimSelection}/>
+                <div style={{marginBottom: '50px'}}>
+                    <h3>Select car</h3>
+                    <div style={{marginBottom: '10px'}}>
+                        <YearSelection minYear = {this.props.years.min_year} maxYear = {this.props.years.max_year} onChange = {this.onChangeYearSelection} />
+                    </div>
+                    <div style={{marginBottom: '10px'}}>
+                        <MakeSelection makes = {this.props.makes} isDisabled = {this.state.disabledMakes} onChange = {this.onChangeMakeSelection} />
+                    </div>
+                    <div style={{marginBottom: '10px'}}>
+                        <ModelSelection models = {this.props.models} isDisabled = {this.state.disabledModels} onChange = {this.onChangeModelSelection}/>
+                    </div>
+                    <div style={{marginBottom: '10px'}}>
+                        <TrimSelection trims = {this.props.trims} isDisabled = {this.state.disabledTrims} onChange = {this.onChangeTrimSelection}/>
+                    </div>
                 </div>
-                <div>
-                    {this.state.visibleTables && <FuelEconomyAvgsTable fuelEconomyAvgs = {this.props.fuelEconomyAvgs} />}
+                <div style={{marginBottom: '50px'}}>
+                    {this.state.visibleTables &&  <h3>Fuel economy average</h3>}
+                    {this.state.visibleTables &&  <FuelEconomyAvgsTable fuelEconomyAvgs = {this.props.fuelEconomyAvgs} />}
                 </div>
-                <div>
+                <div style={{marginBottom: '50px'}}>
+                    {this.state.visibleTables && <h3>Total repairs cost</h3>}
                     {this.state.visibleTables && <RepairsTotalCostsTable repairsTotalCosts = {this.props.repairsTotalCosts} />}
                 </div>
-                <div>
+                <div style={{marginBottom: '50px'}}>
+                    {this.state.visibleTables && <h3>Car data</h3>}
                     {this.state.visibleTables && <CarDataTable trim = {this.props.trim} />}
                 </div>
             </div>

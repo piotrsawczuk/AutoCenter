@@ -18,7 +18,7 @@ class LoginPage extends Component {
                 </div>
             :
                 <div>
-                    <Redirect to='/'/>
+                    <Redirect to='/cars'/>
                 </div>
         );
     }
