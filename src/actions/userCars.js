@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const url = 'http://localhost:8080/cars';
-const PAGE_SIZE = 5;
+const PAGE_SIZE = 4;
 
 const setUserCars = (userCars) => {
     return {
@@ -31,4 +31,24 @@ export const findAll = (page) => {
             dispatch(setError(error.response.data))
         });
     }
-};
+}
+
+export const save = (userCar) => {
+    return dispatch => {
+        axios.post(url, userCar, { headers: {
+            'Authorization': localStorage.getItem('token')
+        }}).catch(error => {
+            dispatch(setError(error.response.data.error))
+        }); 
+    }
+}
+
+export const deleteCar = (id) => {
+    return dispatch => {
+        axios.delete(`${url}/${id}`, { headers: {
+            'Authorization': localStorage.getItem('token')
+        }}).catch(error => {
+            dispatch(setError(error.response.data.error))
+        }); 
+    }
+}

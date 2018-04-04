@@ -6,6 +6,7 @@ import LoginPage from './containers/LoginPage';
 import LogoutPage from './containers/LogoutPage';
 import SignUpPage from './containers/SignUpPage';
 import UserCarsPage from './containers/UserCarsPage';
+import AddUserCarPage from './containers/AddUserCarPage';
 
 class App extends Component {
   render() {
@@ -16,6 +17,7 @@ class App extends Component {
           <Switch>
             <Route exact path = '/' component = {MainPage}/>
             <Route exact path = '/cars' component = {UserCarsPage}/>
+            <Route exact path = '/addCar' component = {AddUserCarPage}/>
             <Route exact path = '/login' component = {LoginPage}/>
             <Route exact path = '/register' component = {SignUpPage}/>
             <Route exact path = '/logout' component = {LogoutPage}/>
