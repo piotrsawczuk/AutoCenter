@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const url = 'http://localhost:8080/login';
+const loginUrl = 'http://localhost:8080/login';
+const registerUrl = 'http://localhost:8080/register';
 
 const TOKEN_AUTH_USERNAME = 'autocenterjwtclientid';
 const TOKEN_AUTH_PASSWORD = 'XY7kmzoNzl100';
@@ -44,7 +45,7 @@ export const login = (data) => {
     return async (dispatch) => {
         try {
             const body = `username=${encodeURIComponent(data.username)}&password=${encodeURIComponent(data.password)}&grant_type=password`;
-            const response = await axios.post(url, body, { headers: {
+            const response = await axios.post(loginUrl, body, { headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'Authorization': 'Basic ' + btoa(TOKEN_AUTH_USERNAME + ':' + TOKEN_AUTH_PASSWORD)
             } });
@@ -55,6 +56,16 @@ export const login = (data) => {
         }
     }
 };
+
+export const register = (data) => {
+    return dispatch => {
+        axios.post(registerUrl, data).then(response => {
+            dispatch(login(data));
+        }).catch(error => {
+            dispatch(setError(error.response.data))
+        })
+    }
+}
 
 export const logout = () => {
     return dispatch => {

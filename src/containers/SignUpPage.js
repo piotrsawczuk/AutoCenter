@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
-import LoginForm from '../components/auth/LoginForm';
-import { login } from '../actions/authentication';
+import SignUpForm from '../components/auth/SignUpForm';
+import { register } from '../actions/authentication';
 
-class LoginPage extends Component {
+class SignUpPage extends Component {
     onSubmit = (data) => {
-        this.props.login(data);
-
+        this.props.register(data);
     }
 
     render() {
         return (
             !this.props.isAuthenticated ?
                 <div>
-                    <LoginForm onSubmit = {this.onSubmit.bind(this)} />
+                    <SignUpForm onSubmit = {this.onSubmit.bind(this)} />
                 </div>
             :
                 <div>
@@ -31,4 +30,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {login}) (LoginPage);
+export default connect(mapStateToProps, {register}) (SignUpPage);

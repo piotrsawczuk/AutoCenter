@@ -11,7 +11,7 @@ class Navbar extends Component {
                     <Menu.Item as = {NavLink} to = '/'>Home</Menu.Item>
                 </Menu.Menu>
                 <Menu.Menu position='right'>
-                    {!this.props.isAuthenticated && <Menu.Item as = {NavLink} to = '/signup'>Sign up</Menu.Item>}
+                    {!this.props.isAuthenticated && <Menu.Item as = {NavLink} to = '/register'>Sign up</Menu.Item>}
                     {!this.props.isAuthenticated && <Menu.Item as = {NavLink} to = '/login'>Log in</Menu.Item>}
                     {this.props.isAuthenticated && <Menu.Item as = {NavLink} to = '/logout'>Logout</Menu.Item>}
                 </Menu.Menu>
