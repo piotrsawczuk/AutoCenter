@@ -44,6 +44,7 @@ public class CarController {
         }
         Car car = new Car();
         car.setCarApiId(carDTO.getCarApiId());
+        car.setCarName(carDTO.getCarName());
         car.setUser(user);
         carService.save(car);
         return new ResponseEntity<>(car, HttpStatus.CREATED);
@@ -59,8 +60,10 @@ public class CarController {
         if (car == null) {
             throw new ResourceNotFoundException("Car", "id", id);
         }
-        if (carDTO.getCarApiId() != null)
+        if (carDTO.getCarApiId() != null && carDTO.getCarName() != null) {
             car.setCarApiId(carDTO.getCarApiId());
+            car.setCarName(carDTO.getCarName());
+        }
         carService.save(car);
         return new ResponseEntity<>(car, HttpStatus.CREATED);
     }

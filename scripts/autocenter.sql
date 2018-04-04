@@ -83,6 +83,7 @@ create table user_car(
     id bigint not null primary key default nextval('user_car_seq'),
     user_id bigint,
     car_api_id bigint,
+    car_name varchar(100),
     constraint fk_user_id foreign key (user_id) references app_user (id)
 );
 

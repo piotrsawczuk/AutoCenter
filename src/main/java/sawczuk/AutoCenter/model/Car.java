@@ -19,6 +19,9 @@ public class Car {
     @NotNull
     @Column(name = "car_api_id")
     private Long carApiId;
+    @NotNull
+    @Column(name = "car_name")
+    private String carName;
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -57,6 +60,14 @@ public class Car {
 
     public void setCarApiId(Long carApiId) {
         this.carApiId = carApiId;
+    }
+
+    public String getCarName() {
+        return carName;
+    }
+
+    public void setCarName(String carName) {
+        this.carName = carName;
     }
 
     public List<FuelEconomy> getFuelEconomies() {
