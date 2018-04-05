@@ -10,10 +10,10 @@ import RepairsTotalCostsTable from '../components/repair/RepairsTotalCostsTable'
 import { findOne as findYears } from '../actions/years';
 import { findAll as findAllMakes } from '../actions/makes';
 import { findAll as findAllModels } from '../actions/models';
-import { findAll as findAllTrims} from '../actions/trims';
-import { findOne as findTrim} from '../actions/trim';
-import { findAll as findFuelEconomyAvgs} from '../actions/fuelEconomyAvgs';
-import { findAll as findRepairsTotalCosts} from '../actions/repairsTotalCosts';
+import { findAll as findAllTrims } from '../actions/trims';
+import { findOne as findTrim } from '../actions/trim';
+import { findAll as findFuelEconomyAvgs } from '../actions/fuelEconomyAvgs';
+import { findAll as findRepairsTotalCosts } from '../actions/repairsTotalCosts';
 
 
 class MainPage extends Component {
@@ -28,7 +28,6 @@ class MainPage extends Component {
     }
 
     componentDidMount = () => {
-        //TODO uncomment
         // this.props.findYears();
     }
 

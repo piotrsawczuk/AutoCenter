@@ -7,7 +7,6 @@ import { login } from '../actions/authentication';
 class LoginPage extends Component {
     onSubmit = (data) => {
         this.props.login(data);
-
     }
 
     render() {

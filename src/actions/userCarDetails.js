@@ -30,3 +30,13 @@ export const findOne = (carId) => {
         });
     }
 };
+
+export const save = (carId, data) => {
+    return dispatch => {
+        axios.post(`${url}/${carId}/details`, data, { headers: {
+            'Authorization': localStorage.getItem('token')
+        }}).catch(error => {
+            dispatch(setError(error.response.data))
+        });
+    }
+};

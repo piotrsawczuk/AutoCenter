@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
-import { Button, Grid, Image } from 'semantic-ui-react';
+import { Button, Grid, Image, Table } from 'semantic-ui-react';
 import axios from 'axios';
-import { deleteCar} from '../../actions/userCars';
+import { deleteCar } from '../../actions/userCars';
+import { findOne as findTrim } from '../../actions/trim';
+import CarDataTable from '../car/CarDataTable';
 
 class UserCar extends Component {
-    state = { isDeleted: false }
+    state = 
+    { 
+        isDeleted: false,
+        visibleDataTable: false
+    }
     
     componentDidMount = () => {
-        this.loadUserCarDetails(this.props.userCar.id)
+       this.loadUserCarDetails(this.props.userCar.id);
     }
 
     loadUserCarDetails = (carId) => {
@@ -31,6 +37,24 @@ class UserCar extends Component {
         );
     }
 
+    showCarData = () => {
+        if (this.state.visibleDataTable) {
+            this.setState(
+                { 
+                    visibleDataTable: false
+                }
+            );
+        } else {
+            this.props.findTrim(this.props.userCar.carApiId);
+            this.setState(
+                { 
+                    visibleDataTable: true
+                }
+            );
+        }
+    }
+
+
     render () {
         return (
             !this.state.isDeleted ?
@@ -41,27 +65,48 @@ class UserCar extends Component {
                         : 
                             <Image style={{borderRadius: '4px'}} className='ui medium image' src={require('../../assets/images/image.png')}/>}
                     </Grid.Column>
-                    <Grid.Column width={10}>
-                        <div style={{marginRight: '20%'}}>
-                            <h3>{this.props.userCar.carName}</h3>
-                            <div>
-                                {this.state.userCarDetails && 'VIN: ' + this.state.userCarDetails.vin}
-                                <br></br>
-                                {this.state.userCarDetails && 'License plate: ' + this.state.userCarDetails.licencePlateNumber}
-                                <br></br>
-                                {this.state.userCarDetails && 'Color: ' + this.state.userCarDetails.color}
-                            </div>
-                        </div>
+                    <Grid.Column width={9}>
+                        <Table color = {'blue'} key = {'blue'}>
+                            <Table.Header>
+                                <Table.Row>
+                                    <Table.HeaderCell colSpan='2'>{this.props.userCar.carName}</Table.HeaderCell>
+                                </Table.Row>
+                            </Table.Header>
+                            <Table.Body>
+                                {
+                                    this.state.userCarDetails && this.state.userCarDetails.vin &&
+                                    <Table.Row>
+                                        <Table.Cell>VIN</Table.Cell>
+                                        <Table.Cell textAlign='right'>{this.state.userCarDetails.vin}</Table.Cell>
+                                    </Table.Row>
+                                }
+                                {
+                                    this.state.userCarDetails && this.state.userCarDetails.licencePlateNumber &&
+                                    <Table.Row>
+                                        <Table.Cell>Model</Table.Cell>
+                                        <Table.Cell textAlign='right'>{this.state.userCarDetails.licencePlateNumber}</Table.Cell>
+                                    </Table.Row>
+                                }
+                                {
+                                    this.state.userCarDetails && this.state.userCarDetails.color &&
+                                    <Table.Row>
+                                        <Table.Cell>Trim</Table.Cell>
+                                        <Table.Cell textAlign='right'>{this.state.userCarDetails.color}</Table.Cell>
+                                    </Table.Row>
+                                }
+                            </Table.Body>
+                        </Table>
                     </Grid.Column>
-                    <Grid.Column width={2}>
-                        <Button.Group primary vertical={true} floated={'right'} size='mini'>
-                            <Button>Show more info</Button>
+                    <Grid.Column width={3}>
+                        <Button.Group primary vertical={true} size='mini'  floated={'right'} compact={false}>
+                            <Button onClick={() => this.showCarData()}>{this.state.visibleDataTable && this.props.trim && this.props.trim.model_id === this.props.userCar.carApiId ? 'Hide car data' : 'Show car data'}</Button>
                             <Button>Fuel economy</Button>
                             <Button>Repairs</Button>
                             <Button>Edit car</Button>
-                            <Button onClick={this.deleteCar}>Delete car</Button>
+                            <Button onClick={() => this.deleteCar()}>Delete car</Button>
                         </Button.Group>
                     </Grid.Column>
+                    {this.state.visibleDataTable && this.props.trim && this.props.trim.model_id === this.props.userCar.carApiId && <CarDataTable trim = {this.props.trim}/>}
                 </Grid.Row>
             :
                 <div>
@@ -74,8 +119,9 @@ class UserCar extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        userCars: state.userCarsReducer.userCars
+        userCars: state.userCarsReducer.userCars,
+        trim: state.trimReducer.trim
     }
 }
 
-export default connect(mapStateToProps, { deleteCar }) (UserCar);
+export default connect(mapStateToProps, { deleteCar, findTrim }) (UserCar);

@@ -14,9 +14,17 @@ class SignUpForm extends Component {
     validate = (data) => {
         const errors = {};
         if (data.username.trim() === '') errors.username = 'Username cannot be empty';
+            else
+                if (data.username.trim().length < 2) errors.username = 'Username must be at least 2 characters long';
         if (data.email.trim() === '') errors.email = 'Email cannot be empty';
+            else
+                if (!data.email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) errors.email = 'Email is not valid';
         if (data.password.trim() === '') errors.password = 'Password cannot be empty';
+            else
+                if (data.password.trim().length < 6) errors.password = 'Password must be at least 6 characters long';
         if (data.passwordConfirm.trim() === '') errors.passwordConfirm = 'Password confirm cannot be empty';
+            else
+                if (data.passwordConfirm.trim().length < 6) errors.passwordConfirm = 'Password confirm must be at least 6 characters long';
         if (data.passwordConfirm.trim() !== data.password.trim()) errors.passwordConfirm = 'Password confirm is not same as password';
         this.setState({errors});
         return Object.keys(errors).length === 0;
