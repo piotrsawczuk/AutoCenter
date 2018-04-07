@@ -54,6 +54,13 @@ class UserCar extends Component {
         }
     }
 
+    checkIfValueExists = (value) => {
+        if (value)
+            return value;
+        else
+            return '-';
+    }
+
 
     render () {
         return (
@@ -73,27 +80,18 @@ class UserCar extends Component {
                                 </Table.Row>
                             </Table.Header>
                             <Table.Body>
-                                {
-                                    this.state.userCarDetails && this.state.userCarDetails.vin &&
-                                    <Table.Row>
-                                        <Table.Cell>VIN</Table.Cell>
-                                        <Table.Cell textAlign='right'>{this.state.userCarDetails.vin}</Table.Cell>
-                                    </Table.Row>
-                                }
-                                {
-                                    this.state.userCarDetails && this.state.userCarDetails.licencePlateNumber &&
-                                    <Table.Row>
-                                        <Table.Cell>Model</Table.Cell>
-                                        <Table.Cell textAlign='right'>{this.state.userCarDetails.licencePlateNumber}</Table.Cell>
-                                    </Table.Row>
-                                }
-                                {
-                                    this.state.userCarDetails && this.state.userCarDetails.color &&
-                                    <Table.Row>
-                                        <Table.Cell>Trim</Table.Cell>
-                                        <Table.Cell textAlign='right'>{this.state.userCarDetails.color}</Table.Cell>
-                                    </Table.Row>
-                                }
+                                <Table.Row>
+                                    <Table.Cell>VIN</Table.Cell>
+                                    <Table.Cell textAlign='right'>{this.state.userCarDetails ? this.checkIfValueExists(this.state.userCarDetails.vin) : '-'}</Table.Cell>
+                                </Table.Row>
+                                <Table.Row>
+                                    <Table.Cell>Licence plate number</Table.Cell>
+                                    <Table.Cell textAlign='right'>{this.state.userCarDetails ? this.checkIfValueExists(this.state.userCarDetails.licencePlateNumber) : '-'}</Table.Cell>
+                                </Table.Row>
+                                <Table.Row>
+                                    <Table.Cell>Color</Table.Cell>
+                                    <Table.Cell textAlign='right'>{this.state.userCarDetails ? this.checkIfValueExists(this.state.userCarDetails.color) : '-'}</Table.Cell>
+                                </Table.Row>
                             </Table.Body>
                         </Table>
                     </Grid.Column>
@@ -102,7 +100,7 @@ class UserCar extends Component {
                             <Button onClick={() => this.showCarData()}>{this.state.visibleDataTable && this.props.trim && this.props.trim.model_id === this.props.userCar.carApiId ? 'Hide car data' : 'Show car data'}</Button>
                             <Button>Fuel economy</Button>
                             <Button>Repairs</Button>
-                            <Button>Edit car</Button>
+                            {/* <Button>Edit car</Button> */}
                             <Button onClick={() => this.deleteCar()}>Delete car</Button>
                         </Button.Group>
                     </Grid.Column>

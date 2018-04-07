@@ -16,7 +16,7 @@ class UserCarDetailsForm extends Component {
         if (data.vin.trim() === '') errors.vin = 'VIN cannot be empty';
             else
                 if (!data.vin.match(/[a-zA-Z0-9]{17}/)) errors.vin = 'VIN is not valid. VIN must be 17 characters long and contain only digits and letters';
-        if (data.licencePlateNumber.trim() === '') errors.vin = 'Licence plate number cannot be empty';
+        if (data.licencePlateNumber.trim() === '') errors.licencePlateNumber = 'Licence plate number cannot be empty';
             else
                 if (!data.licencePlateNumber.match(/^[a-zA-Z0-9 ]*$/)) errors.licencePlateNumber = 'Licence plate number is not valid';
         this.setState({errors});
