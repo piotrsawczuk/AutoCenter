@@ -7,9 +7,6 @@ import FuelEconomyForm from '../components/fuelEconomy/FuelEconomyForm';
 import { save as addFuelEconomy } from '../actions/fuelEconomy';
 
 class AddFuelEconomyPage extends Component {
-    state = {
-        isFuelEconomyAdded: false
-    }
 
     onSubmit = (data) => {
         this.props.addFuelEconomy(this.props.match.params.carId, data);
