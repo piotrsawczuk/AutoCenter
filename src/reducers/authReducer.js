@@ -35,7 +35,6 @@ const authReducer = (
         case SET_ERROR :
             return {
                 ...state,
-                isAuthenticated: false,
                 error: action.error
             };
 

@@ -15,13 +15,13 @@ class UserCarsPage extends Component {
 
     render() {
         return (
-            this.props.isAuthenticated ?
+            !this.props.isAuthenticated ?
                 <div>
-                    <UserCarsGrid userCars = {this.props.userCars} onPageChange = {this.handlePaginationChange}/>
+                    <Redirect to='/'/>
                 </div>
             :
                 <div>
-                    <Redirect to='/'/>
+                    <UserCarsGrid userCars = {this.props.userCars} onPageChange = {this.handlePaginationChange}/>
                 </div>
         );
     }

@@ -61,7 +61,7 @@ class UserCarDetailsForm extends Component {
                     <label>Car image URL</label>
                     <input placeholder = 'Car image URL' name = 'imageUrl' value = {this.state.imageUrl} onChange = {this.onChange} />
                 </Form.Field>
-                <Button className="ui large primary left floated button">Add details</Button>
+                <Button size={'large'} floated={'left'} primary >Add details</Button>
             </Form>
         );
     }

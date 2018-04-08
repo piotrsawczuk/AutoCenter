@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
+import { Grid } from 'semantic-ui-react'
 import SignUpForm from '../components/auth/SignUpForm';
 import { register } from '../actions/authentication';
 
@@ -11,13 +12,17 @@ class SignUpPage extends Component {
 
     render() {
         return (
-            !this.props.isAuthenticated ?
+            this.props.isAuthenticated ?
                 <div>
-                    <SignUpForm onSubmit = {this.onSubmit.bind(this)} />
+                    <Redirect to='/'/>
                 </div>
             :
                 <div>
-                    <Redirect to='/'/>
+                    <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
+                        <Grid.Column style={{ maxWidth: 450 }}>
+                            <SignUpForm onSubmit = {this.onSubmit.bind(this)} />
+                        </Grid.Column>
+                    </Grid>
                 </div>
         );
     }
