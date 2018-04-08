@@ -13,7 +13,7 @@ class UserCarsGrid extends Component {
                     {this.props.userCars && this.props.userCars.content && this.props.userCars.content.map(userCar => (<UserCar key = {userCar.id} userCar = {userCar} />))}
                     <Grid.Row>
                         <Grid.Column width={16}>
-                            <Link className="ui large primary left floated button" to="/addCar">Add car</Link>
+                            <Link className="ui large primary left floated button" to="/cars/add">Add car</Link>
                             <div style = {{float:'right'}}>
                                 {this.props.userCars && <PaginationComponent pagination = {this.props.userCars} onPageChange = {this.props.onPageChange}/>}
                             </div>

@@ -11,6 +11,8 @@ import FuelEconomyPage from './containers/FuelEconomyPage';
 import AddFuelEconomyPage from './containers/AddFuelEconomyPage';
 import RepairsPage from './containers/RepairsPage';
 import AddRepairPage from './containers/AddRepairPage';
+import UserDetailsPage from './containers/UserDetailsPage';
+import EditUserDetailsPage from './containers/EditUserDetailsPage';
 
 class App extends Component {
   render() {
@@ -21,11 +23,13 @@ class App extends Component {
           <Switch>
             <Route exact path = '/' component = {MainPage}/>
             <Route exact path = '/cars' component = {UserCarsPage}/>
+            <Route exact path = '/cars/add' component = {AddUserCarPage}/>
             <Route exact path = '/cars/:carId/fuelEconomy' component = {FuelEconomyPage}/>
             <Route exact path = '/cars/:carId/addFuelEconomy' component = {AddFuelEconomyPage}/>
             <Route exact path = '/cars/:carId/repairs' component = {RepairsPage}/>
             <Route exact path = '/cars/:carId/addRepair' component = {AddRepairPage}/>
-            <Route exact path = '/addCar' component = {AddUserCarPage}/>
+            <Route exact path = '/accountDetails' component = {UserDetailsPage}/>
+            <Route exact path = '/accountDetails/edit' component = {EditUserDetailsPage}/>
             <Route exact path = '/login' component = {LoginPage}/>
             <Route exact path = '/register' component = {SignUpPage}/>
             <Route exact path = '/logout' component = {LogoutPage}/>
