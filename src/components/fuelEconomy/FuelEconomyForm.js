@@ -108,12 +108,12 @@ class FuelEconomyForm extends Component {
                     { !!errors.date && <InlineError text={errors.date} /> }
                 </Form.Field>
                 <Form.Field>
-                    <label>Distance driven</label>
+                    <label>Distance driven [km]</label>
                     <input placeholder = 'Distance driven' name='distanceDriven' value = {this.state.distanceDriven} onChange = {this.onChange} />
                     { !!errors.distanceDriven && <InlineError text={errors.distanceDriven} /> }
                 </Form.Field>
                 <Form.Field>
-                    <label>Fuel amount filled</label>
+                    <label>Fuel amount filled [l]</label>
                     <input placeholder = 'Fuel amount filled' name='fuelAmountFilled' value = {this.state.fuelAmountFilled} onChange = {this.onChange} />
                     { !!errors.fuelAmountFilled && <InlineError text={errors.fuelAmountFilled} /> }
                 </Form.Field>
