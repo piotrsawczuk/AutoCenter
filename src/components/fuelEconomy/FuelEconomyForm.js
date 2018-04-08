@@ -39,7 +39,7 @@ class FuelEconomyForm extends Component {
             else if (!data.distanceDriven.match(/^[+]?\d+(\.\d+)?$/)) errors.distanceDriven = 'Distance driven must be number above 0';
         if (data.fuelAmountFilled.trim() === '') errors.fuelAmountFilled = 'Fuel amount filled cannot be empty';
             else if (!data.fuelAmountFilled.match(/^[+]?\d+(\.\d+)?$/)) errors.fuelAmountFilled = 'Fuel amount filled must be number above 0';
-        if (data.pricePerLitre.trim() !== '' && data.pricePerLitre.trim() !== '' && !data.pricePerLitre.match(/^[+]?\d+(\.\d+)?$/)) errors.pricePerLitre = 'Price per litre must be number above 0';
+        if (data.pricePerLitre.trim() !== '' && !data.pricePerLitre.match(/^[+]?\d+(\.\d+)?$/)) errors.pricePerLitre = 'Price per litre must be number above 0';
         this.setState({errors});
         return Object.keys(errors).length === 0;
     }
