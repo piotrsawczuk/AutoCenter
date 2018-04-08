@@ -13,6 +13,7 @@ import RepairsPage from './containers/RepairsPage';
 import AddRepairPage from './containers/AddRepairPage';
 import UserDetailsPage from './containers/UserDetailsPage';
 import EditUserDetailsPage from './containers/EditUserDetailsPage';
+import PasswordEmailChangePage from './containers/PasswordEmailChangePage';
 
 class App extends Component {
 
@@ -31,6 +32,7 @@ class App extends Component {
             <Route exact path = '/cars/:carId/addRepair' component = {AddRepairPage}/>
             <Route exact path = '/accountDetails' component = {UserDetailsPage}/>
             <Route exact path = '/accountDetails/edit' component = {EditUserDetailsPage}/>
+            <Route exact path = '/accountDetails/changePasswordEmail' component = {PasswordEmailChangePage}/>
             <Route exact path = '/login' component = {LoginPage}/>
             <Route exact path = '/register' component = {SignUpPage}/>
             <Route exact path = '/logout' component = {LogoutPage}/>

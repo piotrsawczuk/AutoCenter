@@ -21,10 +21,10 @@ class UserDetailsPage extends Component {
                 <div>
                     <div style={{marginBottom: '10px', display: 'inline-block'}}>
                         <Link className="ui large primary left floated button" to="/accountDetails/edit">Edit account details</Link>
-                        {/* <Link className="ui large primary left floated button" to="/accountDetails/changePassword">Change password</Link> */}
+                        <Link className="ui large primary left floated button" to="/accountDetails/changePasswordEmail">Change password / email</Link>
                     </div>
                     <div>
-                    <UserDetailsTable userDetails = {this.props.userDetails}/>
+                        <UserDetailsTable userDetails = {this.props.userDetails}/>
                     </div>
                 </div>
         );
