@@ -3,21 +3,21 @@ import axios from 'axios';
 const url = 'http://localhost:8080/cars';
 const PAGE_SIZE = 10;
 
-const setfuelEconomyList = (fuelEconomyList) => {
+const setFuelEconomyList = (fuelEconomyList) => {
     return {
         type: SET_FUEL_ECONOMY_LIST,
         fuelEconomyList
     }
 }
 
-const setfuelEconomyAvgs = (fuelEconomyAvgs) => {
+const setFuelEconomyAvgs = (fuelEconomyAvgs) => {
     return {
         type: SET_FUEL_ECONOMY_AVGS,
         fuelEconomyAvgs
     }
 }
 
-const addfuelEconomy = (fuelEconomy) => {
+const addFuelEconomy = (fuelEconomy) => {
     return {
         type: ADD_FUEL_ECONOMY,
         fuelEconomy
@@ -42,7 +42,7 @@ export const findAll = (carId, page) => {
         axios.get(`${url}/${carId}/fuel-economy?page=${page-1}&size=${PAGE_SIZE}`, { headers: {
             'Authorization': localStorage.getItem('token')
         } }).then(response => {
-            dispatch(setfuelEconomyList(response.data));
+            dispatch(setFuelEconomyList(response.data));
         }).catch(error => {
             dispatch(setError(error.response.data))
         });
@@ -54,7 +54,7 @@ export const findAllAvgs = (carId) => {
         axios.get(`${url}/${carId}/fuel-economy/avg`, { headers: {
             'Authorization': localStorage.getItem('token')
         } }).then(response => {
-            dispatch(setfuelEconomyAvgs(response.data));
+            dispatch(setFuelEconomyAvgs(response.data));
         }).catch(error => {
             dispatch(setError(error.response.data))
         });
@@ -66,7 +66,7 @@ export const save = (carId, fuelEconomy) => {
         axios.post(`${url}/${carId}/fuel-economy`, fuelEconomy, { headers: {
             'Authorization': localStorage.getItem('token')
         }}).then(response => {
-            dispatch(addfuelEconomy(response.data));
+            dispatch(addFuelEconomy(response.data));
         }).catch(error => {
             dispatch(setError(error.response.data.error))
         }); 
