@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
-import { Link } from 'react-router-dom';
-import { Breadcrumb, Button, Message } from 'semantic-ui-react';
+import { Button, Message } from 'semantic-ui-react';
 import YearSelection from '../components/car/YearSelection';
 import MakeSelection from '../components/car/MakeSelection';
 import ModelSelection from '../components/car/ModelSelection';
@@ -108,25 +107,11 @@ class AddUserCarPage extends Component {
 
     render() {
         return (
-            !this.props.isAuthenticated ?
-                <div>
-                    <Redirect to='/'/>
-                </div>
-            :
-                this.state.redirectToCarsPage ?
+            this.props.isAuthenticated ?
+                !this.state.redirectToCarsPage ?
                     <div>
-                        <Redirect to='/cars'/>
-                    </div>
-                :
-                    <div>
-                        <div style={{marginBottom: '30px'}}>
-                            <Breadcrumb size='big'>
-                                <Breadcrumb.Section><Link to="/cars">Back to cars</Link></Breadcrumb.Section>
-                                <Breadcrumb.Divider icon='right chevron' />
-                                <Breadcrumb.Section active>Add car</Breadcrumb.Section>
-                            </Breadcrumb>
-                        </div>
                         <div>
+                            <h3>Add car</h3>
                             <div style={{marginBottom: '10px'}}>
                                 <YearSelection minYear = {this.props.years.min_year} maxYear = {this.props.years.max_year} onChange = {this.onChangeYearSelection} />
                             </div>
@@ -150,6 +135,14 @@ class AddUserCarPage extends Component {
                             </div>
                         </div>
                     </div>
+                :
+                    <div>
+                        <Redirect to='/cars'/>
+                    </div>
+            :
+                <div>
+                    <Redirect to='/'/>
+                </div>
         );
     }
 }

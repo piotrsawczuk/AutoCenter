@@ -25,7 +25,7 @@ class RepairsTotalCostsTable extends Component {
             && this.props.exploitationTypes.length > 0
         ) {
             return (
-                <Table celled compact fixed definition>
+                <Table celled compact definition>
                     <Table.Header>
                         <Table.Row>
                             <Table.HeaderCell />
@@ -36,7 +36,7 @@ class RepairsTotalCostsTable extends Component {
                     </Table.Header>
                     <Table.Body>
                         <Table.Row>
-                            <Table.Cell>Total cost</Table.Cell>
+                            <Table.Cell collapsing>Total cost</Table.Cell>
                             <Table.Cell>{this.getRepairsTotalCostValue(this.props.repairsTotalCosts, this.props.exploitationTypes[0].value)}</Table.Cell>
                             <Table.Cell>{this.getRepairsTotalCostValue(this.props.repairsTotalCosts, this.props.exploitationTypes[1].value)}</Table.Cell>
                             <Table.Cell>{this.getRepairsTotalCostValue(this.props.repairsTotalCosts, this.props.exploitationTypes[2].value)}</Table.Cell>

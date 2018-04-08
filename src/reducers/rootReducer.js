@@ -12,7 +12,6 @@ import fuelEconomyAvgsReducer from './fuelEconomyAvgsReducer';
 import repairsTotalCostsReducer from './repairsTotalCostsReducer';
 import userCarsReducer from './userCarsReducer';
 import userCarDetailsReducer from './userCarDetailsReducer';
-import fuelEconomyReducer from './fuelEconomyReducer';
 
 export default combineReducers({
     authReducer,
@@ -27,6 +26,5 @@ export default combineReducers({
     fuelEconomyAvgsReducer,
     repairsTotalCostsReducer,
     userCarsReducer,
-    userCarDetailsReducer,
-    fuelEconomyReducer
+    userCarDetailsReducer
 });

@@ -15,7 +15,7 @@ class UserCarsGrid extends Component {
                         <Grid.Column width={16}>
                             <Link className="ui large primary left floated button" to="/addCar">Add car</Link>
                             <div style = {{float:'right'}}>
-                                {this.props.userCars && <PaginationComponent pagination = {this.props.userCars} onPageChange = {this.props.onPageChange}/>}
+                                {this.props.userCars && this.props.userCars.totalPages ? <PaginationComponent pagination = {this.props.userCars} onPageChange = {this.props.onPageChange}/> : <div></div>}
                             </div>
                         </Grid.Column>
                     </Grid.Row>
@@ -25,4 +25,4 @@ class UserCarsGrid extends Component {
     }
 }
 
-export default UserCarsGrid;
+export default  UserCarsGrid;

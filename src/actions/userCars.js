@@ -10,13 +10,6 @@ const setUserCars = (userCars) => {
     }
 }
 
-const setUserCar = (userCar) => {
-    return {
-        type: SET_USER_CAR,
-        userCar
-    }
-}
-
 const addUserCar = (userCar) => {
     return {
         type: ADD_USER_CAR,
@@ -32,7 +25,6 @@ const setError = (error) => {
 }
 
 export const SET_USER_CARS = 'SET_USER_CARS';
-export const SET_USER_CAR = 'SET_USER_CAR';
 export const ADD_USER_CAR = 'ADD_USER_CAR';
 export const SET_ERROR = 'SET_ERROR';
 
@@ -43,18 +35,6 @@ export const findAll = (page) => {
             'Authorization': localStorage.getItem('token')
         } }).then(response => {
             dispatch(setUserCars(response.data));
-        }).catch(error => {
-            dispatch(setError(error.response.data))
-        });
-    }
-}
-
-export const findOne = (id) => {
-    return dispatch => {
-        axios.get(`${url}/${id}`, { headers: {
-            'Authorization': localStorage.getItem('token')
-        } }).then(response => {
-            dispatch(setUserCar(response.data));
         }).catch(error => {
             dispatch(setError(error.response.data))
         });

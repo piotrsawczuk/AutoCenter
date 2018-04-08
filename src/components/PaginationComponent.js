@@ -26,7 +26,7 @@ export default class PaginationComponent extends Component {
             onPageChange={this.props.onPageChange}
             size='small'
             siblingRange={siblingRange}
-            totalPages={this.props.pagination.totalPages>0 ? this.props.pagination.totalPages : 1}
+            totalPages={this.props.pagination.totalPages}
             ellipsisItem={showEllipsis ? undefined : null}
             firstItem={showFirstAndLastNav ? undefined : null}
             lastItem={showFirstAndLastNav ? undefined : null}
