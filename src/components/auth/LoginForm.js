@@ -36,16 +36,16 @@ class LoginForm extends Component {
         return (
             <Form onSubmit = {this.onSubmit}>
                 <Form.Field>
-                    <label>Username</label>
+                    <label style={{textAlign: 'left'}}>Username</label>
                     <input placeholder = 'Username' name='username' value = {this.state.username} onChange = {this.onChange} />
                     { !!errors.username && <InlineError text={errors.username} /> }
                 </Form.Field>
                 <Form.Field>
-                    <label>Password</label>
+                    <label style={{textAlign: 'left'}}>Password</label>
                     <input placeholder = 'Password' type = 'password' name = 'password' value = {this.state.password} onChange = {this.onChange} />
                     { !!errors.password && <InlineError text={errors.password} /> }
                 </Form.Field>
-                <Button>Log in</Button>
+                <Button primary>Log in</Button>
             </Form>
         );
     }

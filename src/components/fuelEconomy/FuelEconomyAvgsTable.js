@@ -29,7 +29,7 @@ class FuelEconomyAvgsTable extends Component {
             && this.props.drivingTypes.length > 0
         ) {
             return (
-                <Table celled compact definition>
+                <Table celled compact fixed definition>
                     <Table.Header>
                         <Table.Row>
                             <Table.HeaderCell />
@@ -40,19 +40,19 @@ class FuelEconomyAvgsTable extends Component {
                     </Table.Header>
                     <Table.Body>
                         <Table.Row>
-                            <Table.Cell collapsing>{this.props.fuelTypes[0].fuelType}</Table.Cell>
+                            <Table.Cell>{this.props.fuelTypes[0].fuelType}</Table.Cell>
                             <Table.Cell>{this.getFuelEconomyAvgValue(this.props.fuelEconomyAvgs, this.props.drivingTypes[0].value, this.props.fuelTypes[0].value)}</Table.Cell>
                             <Table.Cell>{this.getFuelEconomyAvgValue(this.props.fuelEconomyAvgs, this.props.drivingTypes[1].value, this.props.fuelTypes[0].value)}</Table.Cell>
                             <Table.Cell>{this.getFuelEconomyAvgValue(this.props.fuelEconomyAvgs, this.props.drivingTypes[2].value, this.props.fuelTypes[0].value)}</Table.Cell>
                         </Table.Row>
                         <Table.Row>
-                            <Table.Cell collapsing>{this.props.fuelTypes[1].fuelType}</Table.Cell>
+                            <Table.Cell>{this.props.fuelTypes[1].fuelType}</Table.Cell>
                             <Table.Cell>{this.getFuelEconomyAvgValue(this.props.fuelEconomyAvgs, this.props.drivingTypes[0].value, this.props.fuelTypes[1].value)}</Table.Cell>
                             <Table.Cell>{this.getFuelEconomyAvgValue(this.props.fuelEconomyAvgs, this.props.drivingTypes[1].value, this.props.fuelTypes[1].value)}</Table.Cell>
                             <Table.Cell>{this.getFuelEconomyAvgValue(this.props.fuelEconomyAvgs, this.props.drivingTypes[2].value, this.props.fuelTypes[1].value)}</Table.Cell>
                         </Table.Row>
                         <Table.Row>
-                            <Table.Cell collapsing>{this.props.fuelTypes[2].fuelType}</Table.Cell>
+                            <Table.Cell>{this.props.fuelTypes[2].fuelType}</Table.Cell>
                             <Table.Cell>{this.getFuelEconomyAvgValue(this.props.fuelEconomyAvgs, this.props.drivingTypes[0].value, this.props.fuelTypes[2].value)}</Table.Cell>
                             <Table.Cell>{this.getFuelEconomyAvgValue(this.props.fuelEconomyAvgs, this.props.drivingTypes[1].value, this.props.fuelTypes[2].value)}</Table.Cell>
                             <Table.Cell>{this.getFuelEconomyAvgValue(this.props.fuelEconomyAvgs, this.props.drivingTypes[2].value, this.props.fuelTypes[2].value)}</Table.Cell>
