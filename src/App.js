@@ -9,6 +9,8 @@ import UserCarsPage from './containers/UserCarsPage';
 import AddUserCarPage from './containers/AddUserCarPage';
 import FuelEconomyPage from './containers/FuelEconomyPage';
 import AddFuelEconomyPage from './containers/AddFuelEconomyPage';
+import RepairsPage from './containers/RepairsPage';
+import AddRepairPage from './containers/AddRepairPage';
 
 class App extends Component {
   render() {
@@ -21,6 +23,8 @@ class App extends Component {
             <Route exact path = '/cars' component = {UserCarsPage}/>
             <Route exact path = '/cars/:carId/fuelEconomy' component = {FuelEconomyPage}/>
             <Route exact path = '/cars/:carId/addFuelEconomy' component = {AddFuelEconomyPage}/>
+            <Route exact path = '/cars/:carId/repairs' component = {RepairsPage}/>
+            <Route exact path = '/cars/:carId/addRepair' component = {AddRepairPage}/>
             <Route exact path = '/addCar' component = {AddUserCarPage}/>
             <Route exact path = '/login' component = {LoginPage}/>
             <Route exact path = '/register' component = {SignUpPage}/>
