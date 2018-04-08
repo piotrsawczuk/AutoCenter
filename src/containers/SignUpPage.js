@@ -6,6 +6,7 @@ import SignUpForm from '../components/auth/SignUpForm';
 import { register } from '../actions/authentication';
 
 class SignUpPage extends Component {
+    
     onSubmit = (data) => {
         this.props.register(data);
     }
@@ -30,8 +31,8 @@ class SignUpPage extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        isAuthenticated : state.authReducer.isAuthenticated
+        isAuthenticated: state.authReducer.isAuthenticated
     }
 }
 
-export default connect(mapStateToProps, {register}) (SignUpPage);
+export default connect(mapStateToProps, { register }) (SignUpPage);

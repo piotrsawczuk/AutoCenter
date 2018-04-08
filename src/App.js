@@ -15,6 +15,7 @@ import UserDetailsPage from './containers/UserDetailsPage';
 import EditUserDetailsPage from './containers/EditUserDetailsPage';
 
 class App extends Component {
+
   render() {
     return (
       <div>
@@ -38,6 +39,7 @@ class App extends Component {
       </div>
     );
   }
+  
 }
 
 export default App;

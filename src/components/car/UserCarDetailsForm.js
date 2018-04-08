@@ -3,12 +3,13 @@ import { Form, Button } from 'semantic-ui-react';
 import InlineError from '../InlineError';
 
 class UserCarDetailsForm extends Component {
+
     state = {
-        vin : '',
-        licencePlateNumber : '',
-        color : '',
-        imageUrl : '',
-        errors : {}
+        vin: '',
+        licencePlateNumber: '',
+        color: '',
+        imageUrl: '',
+        errors: {}
     };
 
     validate = (data) => {
@@ -19,7 +20,7 @@ class UserCarDetailsForm extends Component {
         if (data.licencePlateNumber.trim() === '') errors.licencePlateNumber = 'Licence plate number cannot be empty';
             else
                 if (!data.licencePlateNumber.match(/^[a-zA-Z0-9 ]*$/)) errors.licencePlateNumber = 'Licence plate number is not valid';
-        this.setState({errors});
+        this.setState({ errors });
         return Object.keys(errors).length === 0;
     }
 

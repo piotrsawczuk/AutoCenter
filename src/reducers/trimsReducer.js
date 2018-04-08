@@ -1,18 +1,18 @@
 import { SET_TRIMS, SET_ERROR } from "../actions/trims";
 
-const trimsReducer = (state = { trims : [], status : 0 }, action = {}) => {
+const trimsReducer = (state = { trims: [], status: 0 }, action = {}) => {
     switch (action.type) {
 
         case SET_TRIMS : 
             return {
                 ...state,
-                trims : action.trims
+                trims: action.trims
             };
 
         case SET_ERROR :
             return {
                 ...state,
-                error : action.error
+                error: action.error
             };
 
         default : return state;

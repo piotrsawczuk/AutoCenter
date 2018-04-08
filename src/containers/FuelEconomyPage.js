@@ -9,6 +9,7 @@ import { findAll as findFuelEconomyList, findAllAvgs as findFuelEconomyAvgs } fr
 import { findOne as findUserCar } from '../actions/userCars';
 
 class FuelEconomyPage extends Component {
+    
     componentDidMount = () => {
         this.props.findUserCar(this.props.match.params.carId);
         this.props.findFuelEconomyAvgs(this.props.match.params.carId);

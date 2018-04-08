@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { logout } from '../actions/authentication';
 
 class LogoutPage extends Component {
+    
     static propTypes = {
         dispatch: PropTypes.func.isRequired
     };
@@ -18,4 +19,4 @@ class LogoutPage extends Component {
     }
 }
 
-export default connect()(LogoutPage);
+export default connect() (LogoutPage);

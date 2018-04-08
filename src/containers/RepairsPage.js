@@ -9,6 +9,7 @@ import { findAll as findRepairs, findTotalCosts as findRepairsTotalCosts } from 
 import { findOne as findUserCar } from '../actions/userCars';
 
 class RepairsPage extends Component {
+    
     componentDidMount = () => {
         this.props.findUserCar(this.props.match.params.carId);
         this.props.findRepairsTotalCosts(this.props.match.params.carId);

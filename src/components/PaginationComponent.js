@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Pagination } from 'semantic-ui-react';
 
 export default class PaginationComponent extends Component {
+  
   state = {
     boundaryRange: 1,
     siblingRange: 1,

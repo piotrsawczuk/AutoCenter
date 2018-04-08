@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { Button, Table } from 'semantic-ui-react';
 
 class CarDataTable extends Component {
+
     state = {
         showMoreData: false
     }
 
     onClickMoreData = () => {
-        this.setState({showMoreData: !this.state.showMoreData});
+        this.setState({ showMoreData: !this.state.showMoreData });
     }
 
     checkIfValueExists = (value) => {

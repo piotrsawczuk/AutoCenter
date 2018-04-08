@@ -4,11 +4,11 @@ import { NavLink } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
 
 class Navbar extends Component {
+
     render() {
         return (
             <Menu stackable color={'blue'} inverted style = {{ borderRadius : 0 }}>
                 <Menu.Menu position='left'>
-                {/* <img alt={'image'} src={require('../img/menu-img.png')}/>  */}
                     <Menu.Item as = {NavLink} to = '/'>Home</Menu.Item>
                 </Menu.Menu>
                 <Menu.Menu position='right'>
@@ -25,8 +25,8 @@ class Navbar extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        isAuthenticated : state.authReducer.isAuthenticated
+        isAuthenticated: state.authReducer.isAuthenticated
     }
 }
 
-export default connect(mapStateToProps)(Navbar);
+export default connect(mapStateToProps) (Navbar);

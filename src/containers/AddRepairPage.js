@@ -7,6 +7,7 @@ import RepairForm from '../components/repair/RepairForm';
 import { save as addRepair } from '../actions/repairs';
 
 class AddRepairPage extends Component {
+    
     state = {
         isRepairAdded: false
     }
@@ -46,8 +47,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps,
-    {
-        addRepair
-    }
-) (AddRepairPage);
+export default connect(mapStateToProps, { addRepair }) (AddRepairPage);

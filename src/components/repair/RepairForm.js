@@ -10,6 +10,7 @@ import '../../assets/styles/datepicker.css';
 import { findAll as findAllExploitationTypes} from '../../actions/exploitationTypes';
 
 class RepairForm extends Component {
+    
     componentDidMount = () => {
         this.props.findAllExploitationTypes();
     }
@@ -18,10 +19,10 @@ class RepairForm extends Component {
         exploitationType: '',
         date: moment().format('YYYY-MM-DD'),
         fieldDate: moment(),
-        mileage : '',
-        cost : '',
-        description : '',
-        errors : {}
+        mileage: '',
+        cost: '',
+        description: '',
+        errors: {}
     };
     
     validate = (data) => {
@@ -112,12 +113,8 @@ class RepairForm extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        exploitationTypes : state.exploitationTypesReducer.exploitationTypes
+        exploitationTypes: state.exploitationTypesReducer.exploitationTypes
     }
 }
 
-export default connect(mapStateToProps,
-    {
-        findAllExploitationTypes
-    }
-) (RepairForm);
+export default connect(mapStateToProps, { findAllExploitationTypes }) (RepairForm);

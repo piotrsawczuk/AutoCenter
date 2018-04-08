@@ -4,9 +4,9 @@ import { Dropdown } from 'semantic-ui-react';
 const fillOptionList = (makes) => {
   return makes.map(make => {
     return {
-        key : make.make_id,
-        value : make.make_id,
-        text : make.make_display
+        key: make.make_id,
+        value: make.make_id,
+        text: make.make_display
       }
   });
 }

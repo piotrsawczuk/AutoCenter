@@ -4,9 +4,9 @@ import { Dropdown } from 'semantic-ui-react';
 const fillOptionList = (trims) => {
   return trims.map(trim => {
     return {
-        key : trim.model_id,
-        value : trim.model_id,
-        text : trim.model_trim
+        key: trim.model_id,
+        value: trim.model_id,
+        text: trim.model_trim
       }
   });
 }

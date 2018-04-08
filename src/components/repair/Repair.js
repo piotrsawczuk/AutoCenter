@@ -5,18 +5,14 @@ import { Button, Table } from 'semantic-ui-react';
 import { deleteRepair } from '../../actions/repairs';
 
 class Repair extends Component {
-    state = 
-    { 
+
+    state = { 
         isDeleted: false
     }
     
     deleteRepair = () => {
         this.props.deleteRepair(this.props.userCar.id, this.props.repair.id);
-        this.setState(
-            { 
-                isDeleted: true
-            }
-        );
+        this.setState({ isDeleted: true });
     }
 
     checkIfValueExists = (value) => {

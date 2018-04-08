@@ -4,9 +4,9 @@ import { Dropdown } from 'semantic-ui-react';
 const fillOptionList = (fuelTypes) => {
   return fuelTypes.map(fuelType => {
     return {
-        key : fuelType.id,
-        value : fuelType.value,
-        text : fuelType.fuelType
+        key: fuelType.id,
+        value: fuelType.value,
+        text: fuelType.fuelType
       }
   });
 }

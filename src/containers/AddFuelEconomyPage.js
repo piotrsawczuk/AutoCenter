@@ -43,8 +43,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps,
-    {
-        addFuelEconomy
-    }
-) (AddFuelEconomyPage);
+export default connect(mapStateToProps, { addFuelEconomy }) (AddFuelEconomyPage);

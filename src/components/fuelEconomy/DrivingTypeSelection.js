@@ -4,9 +4,9 @@ import { Dropdown } from 'semantic-ui-react';
 const fillOptionList = (drivingTypes) => {
   return drivingTypes.map(drivingType => {
     return {
-        key : drivingType.id,
-        value : drivingType.value,
-        text : drivingType.drivingType
+        key: drivingType.id,
+        value: drivingType.value,
+        text: drivingType.drivingType
       }
   });
 }

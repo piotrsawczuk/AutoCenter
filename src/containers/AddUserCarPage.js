@@ -18,6 +18,7 @@ import { save as addUserCarDetails} from '../actions/userCarDetails';
 
 
 class AddUserCarPage extends Component {
+    
     state = {
         disabledMakes: true,
         disabledModels: true,
@@ -73,11 +74,7 @@ class AddUserCarPage extends Component {
     onChangeTrimSelection = (e, trim) => {
         if (trim.value) {
             this.props.findTrim(trim.value);
-            this.setState(
-                { 
-                    visibleButton: true
-                }
-            );
+            this.setState({ visibleButton: true });
         }
     }
 
@@ -88,21 +85,13 @@ class AddUserCarPage extends Component {
                 carName: `${this.props.trim.model_year} ${this.props.trim.make_display} ${this.props.trim.model_name} ${this.props.trim.model_trim}`
             }
         )
-        this.setState(
-            { 
-                isCarAdded: true
-            }
-        );
+        this.setState({ isCarAdded: true });
     }
 
     addCarDetails = (data) => {
         if (this.props.userCar) {
             this.props.addUserCarDetails(this.props.userCar.id, data);
-            this.setState(
-                {
-                    redirectToCarsPage: true
-                }
-            );
+            this.setState({ redirectToCarsPage: true });
         }
     }
 

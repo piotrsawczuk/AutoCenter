@@ -1,7 +1,6 @@
 import { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, SET_ERROR } from "../actions/authentication";
 
 const authReducer = (
-
     state = {
         token: localStorage.getItem('token'),
         errorMessage: '',

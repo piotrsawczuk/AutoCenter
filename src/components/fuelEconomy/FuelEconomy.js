@@ -5,18 +5,14 @@ import { Button, Table } from 'semantic-ui-react';
 import { deleteFuelEconomy } from '../../actions/fuelEconomy';
 
 class FuelEconomy extends Component {
-    state = 
-    { 
+    
+    state = { 
         isDeleted: false
     }
     
     deleteReport = () => {
         this.props.deleteFuelEconomy(this.props.userCar.id, this.props.fuelEconomy.id);
-        this.setState(
-            { 
-                isDeleted: true
-            }
-        );
+        this.setState({ isDeleted: true });
     }
 
     checkIfValueExists = (value) => {

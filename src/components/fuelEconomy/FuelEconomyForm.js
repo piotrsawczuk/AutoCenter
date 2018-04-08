@@ -12,6 +12,7 @@ import { findAll as findAllDrivingTypes} from '../../actions/drivingTypes';
 import { findAll as findAllFuelTypes} from '../../actions/fuelTypes';
 
 class FuelEconomyForm extends Component {
+    
     componentDidMount = () => {
         this.props.findAllDrivingTypes();
         this.props.findAllFuelTypes();
@@ -22,10 +23,10 @@ class FuelEconomyForm extends Component {
         drivingType: '',
         date: moment().format('YYYY-MM-DD'),
         fieldDate: moment(),
-        distanceDriven : '',
-        fuelAmountFilled : '',
-        pricePerLitre : '',
-        errors : {}
+        distanceDriven: '',
+        fuelAmountFilled: '',
+        pricePerLitre: '',
+        errors: {}
     };
     
     validate = (data) => {
@@ -130,14 +131,9 @@ class FuelEconomyForm extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        fuelTypes : state.fuelTypesReducer.fuelTypes,
-        drivingTypes : state.drivingTypesReducer.drivingTypes
+        fuelTypes: state.fuelTypesReducer.fuelTypes,
+        drivingTypes: state.drivingTypesReducer.drivingTypes
     }
 }
 
-export default connect(mapStateToProps,
-    {
-        findAllDrivingTypes,
-        findAllFuelTypes
-    }
-) (FuelEconomyForm);
+export default connect(mapStateToProps, { findAllDrivingTypes, findAllFuelTypes }) (FuelEconomyForm);

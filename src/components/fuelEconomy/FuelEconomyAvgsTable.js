@@ -68,14 +68,9 @@ class FuelEconomyAvgsTable extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        fuelTypes : state.fuelTypesReducer.fuelTypes,
-        drivingTypes : state.drivingTypesReducer.drivingTypes
+        fuelTypes: state.fuelTypesReducer.fuelTypes,
+        drivingTypes: state.drivingTypesReducer.drivingTypes
     }
 }
 
-export default connect(mapStateToProps,
-    {
-        findAllDrivingTypes,
-        findAllFuelTypes
-    }
-) (FuelEconomyAvgsTable);
+export default connect(mapStateToProps, { findAllDrivingTypes, findAllFuelTypes }) (FuelEconomyAvgsTable);

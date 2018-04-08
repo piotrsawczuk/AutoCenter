@@ -17,6 +17,7 @@ import { findAll as findRepairsTotalCosts } from '../actions/repairsTotalCosts';
 
 
 class MainPage extends Component {
+    
     state = {
         disabledMakes: true,
         disabledModels: true,
@@ -72,11 +73,7 @@ class MainPage extends Component {
             this.props.findTrim(trim.value);
             this.props.findFuelEconomyAvgs(trim.value);
             this.props.findRepairsTotalCosts(trim.value);
-            this.setState(
-                { 
-                    visibleTables: true
-                }
-            );
+            this.setState({ visibleTables: true });
         }
     }
 

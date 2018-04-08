@@ -5,6 +5,7 @@ import PaginationComponent from '../PaginationComponent';
 import FuelEconomy from './FuelEconomy';
 
 class FuelEconomyTable extends Component {
+    
     render() {
         return (
             <div>

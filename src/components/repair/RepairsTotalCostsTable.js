@@ -52,12 +52,8 @@ class RepairsTotalCostsTable extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        exploitationTypes : state.exploitationTypesReducer.exploitationTypes
+        exploitationTypes: state.exploitationTypesReducer.exploitationTypes
     }
 }
 
-export default connect(mapStateToProps,
-    {
-        findAllExploitationTypes
-    }
-) (RepairsTotalCostsTable);
+export default connect(mapStateToProps, { findAllExploitationTypes }) (RepairsTotalCostsTable);

@@ -6,6 +6,7 @@ import LoginForm from '../components/auth/LoginForm';
 import { login } from '../actions/authentication';
 
 class LoginPage extends Component {
+    
     onSubmit = (data) => {
         this.props.login(data);
     }
@@ -30,8 +31,8 @@ class LoginPage extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        isAuthenticated : state.authReducer.isAuthenticated
+        isAuthenticated: state.authReducer.isAuthenticated
     }
 }
 
-export default connect(mapStateToProps, {login}) (LoginPage);
+export default connect(mapStateToProps, { login }) (LoginPage);

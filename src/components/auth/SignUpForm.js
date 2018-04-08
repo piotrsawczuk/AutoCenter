@@ -3,12 +3,13 @@ import { Form, Button } from 'semantic-ui-react';
 import InlineError from '../InlineError';
 
 class SignUpForm extends Component {
+    
     state = {
-        username : '',
-        email : '',
-        password : '',
-        passwordConfirm : '',
-        errors : {}
+        username: '',
+        email: '',
+        password: '',
+        passwordConfirm: '',
+        errors: {}
     };
 
     validate = (data) => {

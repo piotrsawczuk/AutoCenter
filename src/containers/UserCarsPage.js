@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
-import { findAll as findAllCars } from '../actions/userCars';
 import UserCarsGrid from '../components/car/UserCarsGrid';
+import { findAll as findAllCars } from '../actions/userCars';
 
 class UserCarsPage extends Component {
+    
     componentDidMount = () => {
         this.props.findAllCars();
     }
@@ -34,4 +35,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {findAllCars}) (UserCarsPage);
+export default connect(mapStateToProps, { findAllCars }) (UserCarsPage);

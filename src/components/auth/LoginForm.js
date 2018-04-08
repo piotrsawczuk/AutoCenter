@@ -3,10 +3,11 @@ import { Form, Button } from 'semantic-ui-react';
 import InlineError from '../InlineError';
 
 class LoginForm extends Component {
+    
     state = {
-        username : '',
-        password : '',
-        errors : {}
+        username: '',
+        password: '',
+        errors: {}
     };
 
     validate = (data) => {

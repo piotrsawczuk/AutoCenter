@@ -3,14 +3,15 @@ import { Form, Button } from 'semantic-ui-react';
 import InlineError from '../InlineError';
 
 class UserDetailsForm extends Component {
+
     state = {
         firstname: '',
-        surname : '',
-        address : '',
-        city : '',
-        zipCode : '',
-        phoneNumber : '',
-        errors : {}
+        surname: '',
+        address: '',
+        city: '',
+        zipCode: '',
+        phoneNumber: '',
+        errors: {}
     };
 
     componentDidMount = () => {

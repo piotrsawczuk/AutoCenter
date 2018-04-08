@@ -9,8 +9,8 @@ import { findOne as findTrim } from '../../actions/trim';
 import CarDataTable from '../car/CarDataTable';
 
 class UserCar extends Component {
-    state = 
-    { 
+
+    state = { 
         isDeleted: false,
         visibleDataTable: false
     }
@@ -31,27 +31,15 @@ class UserCar extends Component {
 
     deleteCar = () => {
         this.props.deleteCar(this.props.userCar.id);
-        this.setState(
-            { 
-                isDeleted: true
-            }
-        );
+        this.setState({ isDeleted: true });
     }
 
     showCarData = () => {
         if (this.state.visibleDataTable) {
-            this.setState(
-                { 
-                    visibleDataTable: false
-                }
-            );
+            this.setState({ visibleDataTable: false });
         } else {
             this.props.findTrim(this.props.userCar.carApiId);
-            this.setState(
-                { 
-                    visibleDataTable: true
-                }
-            );
+            this.setState({ visibleDataTable: true });
         }
     }
 
@@ -61,7 +49,6 @@ class UserCar extends Component {
         else
             return '-';
     }
-
 
     render () {
         return (
@@ -123,7 +110,6 @@ class UserCar extends Component {
                     </Grid.Row>
         );
     }
-    
 };
 
 const mapStateToProps = (state) => {

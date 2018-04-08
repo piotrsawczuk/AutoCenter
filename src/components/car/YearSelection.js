@@ -6,9 +6,9 @@ function fillOptionList(minYear, maxYear) {
   for (let i = maxYear; i >= minYear; i--) {
     years.push(
       {
-        key : i,
-        value : i,
-        text : i
+        key: i,
+        value: i,
+        text: i
       }
     );
   }

@@ -5,6 +5,7 @@ import PaginationComponent from '../PaginationComponent';
 import Repair from './Repair';
 
 class RepairsTable extends Component {
+    
     render() {
         return (
             <div>

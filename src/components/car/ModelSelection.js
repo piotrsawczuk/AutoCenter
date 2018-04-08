@@ -4,9 +4,9 @@ import { Dropdown } from 'semantic-ui-react';
 const fillOptionList = (models) => {
   return models.map(model => {
     return {
-        key : model.model_name,
-        value : model.model_name,
-        text : model.model_name
+        key: model.model_name,
+        value: model.model_name,
+        text: model.model_name
       }
   });
 }

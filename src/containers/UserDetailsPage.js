@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router';
-import { Button } from 'semantic-ui-react';
 import UserDetailsTable from '../components/user/UserDetailsTable';
 import { findOne as findUserDetails } from '../actions/userDetails';
 
 class UserDetailsPage extends Component {
+    
     componentDidMount = () => {
         this.props.findUserDetails();
     }
@@ -38,4 +38,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {findUserDetails}) (UserDetailsPage);
+export default connect(mapStateToProps, { findUserDetails }) (UserDetailsPage);
