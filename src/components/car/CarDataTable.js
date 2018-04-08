@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Table } from 'semantic-ui-react';
 
-class CarValueTable extends Component {
+class CarDataTable extends Component {
     state = {
         showMoreData: false
     }
@@ -166,4 +166,4 @@ class CarValueTable extends Component {
     }
 }
 
-export default CarValueTable;
+export default CarDataTable;
