@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 import sawczuk.AutoCenter.model.Repair;
 import sawczuk.AutoCenter.model.RepairTotalCost;
 
@@ -12,6 +13,7 @@ import java.util.List;
 
 public interface RepairRepository extends PagingAndSortingRepository<Repair, Long> {
 
+    @Transactional
     void deleteByIdAndCarId(Long id, Long carId);
 
     Repair findByIdAndCarId(Long id, Long carId);

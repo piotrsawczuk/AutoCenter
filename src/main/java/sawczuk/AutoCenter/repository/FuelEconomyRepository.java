@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 import sawczuk.AutoCenter.model.FuelEconomy;
 import sawczuk.AutoCenter.model.FuelEconomyAverage;
 
@@ -12,6 +13,7 @@ import java.util.List;
 
 public interface FuelEconomyRepository extends PagingAndSortingRepository<FuelEconomy, Long> {
 
+    @Transactional
     void deleteByIdAndCarId(Long id, Long carId);
 
     FuelEconomy findByIdAndCarId(Long id, Long carId);

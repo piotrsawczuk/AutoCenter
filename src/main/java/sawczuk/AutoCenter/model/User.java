@@ -25,7 +25,7 @@ public class User {
     @Column(name = "username")
     private String username;
     @NotNull
-//    @Size(min = 8, message = "Password must be at least 2 characters long")
+    @Size(min = 6, message = "Password must be at least 6 characters long")
     @JsonIgnore
     @Column(name = "password")
     private String password;
@@ -126,4 +126,3 @@ public class User {
         this.roleAdmin = roleAdmin;
     }
 }
-// TODO uncomment password length check
