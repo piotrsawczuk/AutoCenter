@@ -18,13 +18,11 @@ class LoginPage extends Component {
                     <Redirect to='/cars'/>
                 </div>
             :
-                <div>
-                    <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
-                        <Grid.Column style={{ maxWidth: 450 }}>
-                            <LoginForm onSubmit = {this.onSubmit.bind(this)} />
-                        </Grid.Column>
-                    </Grid>
-                </div>
+                <Grid centered={true} style={{ height: '100%' }} verticalAlign='middle'>
+                    <Grid.Column style={{ maxWidth: 450 }}>
+                        <LoginForm onSubmit = {this.onSubmit.bind(this)} />
+                    </Grid.Column>
+                </Grid>
         );
     }
 }

@@ -23,7 +23,7 @@ class SignUpForm extends Component {
         if (data.passwordConfirm.trim() === '') errors.passwordConfirm = 'Password confirm cannot be empty';
             else if (data.passwordConfirm.trim().length < 6) errors.passwordConfirm = 'Password confirm must be at least 6 characters long';
         if (data.passwordConfirm.trim() !== data.password.trim()) errors.passwordConfirm = 'Password confirm is not same as password';
-        this.setState({errors});
+        this.setState({ errors });
         return Object.keys(errors).length === 0;
     }
 

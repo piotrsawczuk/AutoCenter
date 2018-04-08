@@ -18,13 +18,11 @@ class SignUpPage extends Component {
                     <Redirect to='/'/>
                 </div>
             :
-                <div>
-                    <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
-                        <Grid.Column style={{ maxWidth: 450 }}>
-                            <SignUpForm onSubmit = {this.onSubmit.bind(this)} />
-                        </Grid.Column>
-                    </Grid>
-                </div>
+                <Grid centered={true} style={{ height: '100%' }} verticalAlign='middle'>
+                    <Grid.Column style={{ maxWidth: 450 }}>
+                        <SignUpForm onSubmit = {this.onSubmit.bind(this)} />
+                    </Grid.Column>
+                </Grid>
         );
     }
 }
