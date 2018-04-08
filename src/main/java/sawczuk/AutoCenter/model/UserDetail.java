@@ -23,10 +23,10 @@ public class UserDetail {
     private String address;
     @Column(name = "city")
     private String city;
-    @Pattern(regexp = "[a-zA-Z0-9 -]+", message = "Provided zip code is incorrect")
+    @Pattern(regexp = "([a-zA-Z0-9 -]+)?", message = "Provided zip code is incorrect")
     @Column(name = "zip_code")
     private String zipCode;
-    @Pattern(regexp = "[+]?[0-9 -]+", message = "Provided phone number is incorrect")
+    @Pattern(regexp = "([+]?[0-9 -]+)?", message = "Provided phone number is incorrect")
     @Column(name = "phone_number")
     private String phoneNumber;
     @JsonBackReference

@@ -55,18 +55,12 @@ public class UserDetailController {
         if (userDetail == null) {
             throw new ResourceNotFoundException("User detail", "username", UserUtils.findLoggedInUsername());
         }
-        if (!StringUtils.isEmpty(userDetailDTO.getFirstname()))
-            userDetail.setFirstname(userDetailDTO.getFirstname());
-        if (!StringUtils.isEmpty(userDetailDTO.getSurname()))
-            userDetail.setSurname(userDetailDTO.getSurname());
-        if (!StringUtils.isEmpty(userDetailDTO.getAddress()))
-            userDetail.setAddress(userDetailDTO.getAddress());
-        if (!StringUtils.isEmpty(userDetailDTO.getCity()))
-            userDetail.setCity(userDetailDTO.getCity());
-        if (!StringUtils.isEmpty(userDetailDTO.getZipCode()))
-            userDetail.setZipCode(userDetailDTO.getZipCode());
-        if (!StringUtils.isEmpty(userDetailDTO.getPhoneNumber()))
-            userDetail.setPhoneNumber(userDetailDTO.getPhoneNumber());
+        userDetail.setFirstname(userDetailDTO.getFirstname());
+        userDetail.setSurname(userDetailDTO.getSurname());
+        userDetail.setAddress(userDetailDTO.getAddress());
+        userDetail.setCity(userDetailDTO.getCity());
+        userDetail.setZipCode(userDetailDTO.getZipCode());
+        userDetail.setPhoneNumber(userDetailDTO.getPhoneNumber());
         userDetailService.save(userDetail);
         return new ResponseEntity<>(userDetail, HttpStatus.CREATED);
     }
