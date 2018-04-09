@@ -12,14 +12,26 @@ class UserCarDetailsForm extends Component {
         errors: {}
     };
 
+    componentDidMount = () => {
+        if (this.props.userCarDetails) {
+            const userCarDetails = this.props.userCarDetails;
+            this.setState(
+                {
+                    vin: userCarDetails.vin ? userCarDetails.vin : '',
+                    licencePlateNumber : userCarDetails.licencePlateNumber ? userCarDetails.licencePlateNumber : '',
+                    color : userCarDetails.color ? userCarDetails.color : '',
+                    imageUrl : userCarDetails.imageUrl ? userCarDetails.imageUrl : ''
+                }
+            );
+        }
+    }
+
     validate = (data) => {
         const errors = {};
         if (data.vin.trim() === '') errors.vin = 'VIN cannot be empty';
-            else
-                if (!data.vin.match(/[a-zA-Z0-9]{17}/)) errors.vin = 'VIN is not valid. VIN must be 17 characters long and contain only digits and letters';
+            else if (!data.vin.match(/[a-zA-Z0-9]{17}/)) errors.vin = 'VIN is not valid. VIN must be 17 characters long and contain only digits and letters';
         if (data.licencePlateNumber.trim() === '') errors.licencePlateNumber = 'Licence plate number cannot be empty';
-            else
-                if (!data.licencePlateNumber.match(/^[a-zA-Z0-9 ]*$/)) errors.licencePlateNumber = 'Licence plate number is not valid';
+            else if (!data.licencePlateNumber.match(/^[a-zA-Z0-9 ]*$/)) errors.licencePlateNumber = 'Licence plate number is not valid';
         this.setState({ errors });
         return Object.keys(errors).length === 0;
     }
@@ -62,7 +74,7 @@ class UserCarDetailsForm extends Component {
                     <label>Car image URL</label>
                     <input placeholder = 'Car image URL' name = 'imageUrl' value = {this.state.imageUrl} onChange = {this.onChange} />
                 </Form.Field>
-                <Button size={'large'} floated={'left'} primary >Add details</Button>
+                <Button size={'large'} floated={'left'} primary>{this.props.userCarDetails ? 'Edit details' : 'Add details'}</Button>
             </Form>
         );
     }

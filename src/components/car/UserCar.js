@@ -102,7 +102,7 @@ class UserCar extends Component {
                                 <Button onClick={() => this.showCarData()}>{this.state.visibleDataTable && this.props.trim && this.props.trim.model_id === this.props.userCar.carApiId ? 'Hide car data' : 'Show car data'}</Button>
                                 <Link className="ui large primary left floated button" to={`/cars/${this.props.userCar.id}/fuelEconomy`}>Fuel economy</Link>
                                 <Link className="ui large primary left floated button" to={`/cars/${this.props.userCar.id}/repairs`}>Repairs</Link>
-                                {/* <Button>Edit car</Button> */}
+                                <Link className="ui large primary left floated button" to={`/cars/${this.props.userCar.id}/edit`}>Edit car</Link>
                                 <Button onClick={() => this.deleteCar()}>Delete car</Button>
                             </Button.Group>
                         </Grid.Column>

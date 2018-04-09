@@ -14,6 +14,7 @@ import AddRepairPage from './containers/AddRepairPage';
 import UserDetailsPage from './containers/UserDetailsPage';
 import EditUserDetailsPage from './containers/EditUserDetailsPage';
 import PasswordEmailChangePage from './containers/PasswordEmailChangePage';
+import EditUserCarDetailsPage from './containers/EditUserCarDetailsPage';
 
 class App extends Component {
 
@@ -26,6 +27,7 @@ class App extends Component {
             <Route exact path = '/' component = {MainPage}/>
             <Route exact path = '/cars' component = {UserCarsPage}/>
             <Route exact path = '/cars/add' component = {AddUserCarPage}/>
+            <Route exact path = '/cars/:carId/edit' component = {EditUserCarDetailsPage}/>
             <Route exact path = '/cars/:carId/fuelEconomy' component = {FuelEconomyPage}/>
             <Route exact path = '/cars/:carId/fuelEconomy/add' component = {AddFuelEconomyPage}/>
             <Route exact path = '/cars/:carId/repairs' component = {RepairsPage}/>

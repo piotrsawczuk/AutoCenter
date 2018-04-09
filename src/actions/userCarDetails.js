@@ -40,3 +40,13 @@ export const save = (carId, data) => {
         });
     }
 };
+
+export const edit = (carId, data) => {
+    return dispatch => {
+        axios.put(`${url}/${carId}/details`, data, { headers: {
+            'Authorization': localStorage.getItem('token')
+        }}).catch(error => {
+            dispatch(setError(error.response.data))
+        });
+    }
+};
