@@ -24,10 +24,10 @@ class FuelEconomyTable extends Component {
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        {this.props.fuelEconomyList && this.props.fuelEconomyList.content && this.props.fuelEconomyList.content.map(fuelEconomy => (<FuelEconomy key = {fuelEconomy.id} fuelEconomy = {fuelEconomy} />))}
+                        {this.props.fuelEconomyList && this.props.fuelEconomyList.content && this.props.fuelEconomyList.content.map(fuelEconomy => (<FuelEconomy key = {fuelEconomy.id} fuelEconomy = {fuelEconomy} page = {this.props.fuelEconomyList.number}/>))}
                     </Table.Body>
                 </Table>
-                <Link className="ui large primary left floated button" to={`/cars/${this.props.carId}/addFuelEconomy`}>Add fuel consumption report</Link>
+                <Link className="ui large primary left floated button" to={`/cars/${this.props.carId}/fuelEconomy/add`}>Add fuel consumption report</Link>
                 <div style = {{float:'right'}}>
                     {this.props.fuelEconomyList && <PaginationComponent pagination = {this.props.fuelEconomyList} onPageChange = {this.props.onPageChange}/>}
                 </div>

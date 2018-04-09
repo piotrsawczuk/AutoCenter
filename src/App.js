@@ -27,9 +27,9 @@ class App extends Component {
             <Route exact path = '/cars' component = {UserCarsPage}/>
             <Route exact path = '/cars/add' component = {AddUserCarPage}/>
             <Route exact path = '/cars/:carId/fuelEconomy' component = {FuelEconomyPage}/>
-            <Route exact path = '/cars/:carId/addFuelEconomy' component = {AddFuelEconomyPage}/>
+            <Route exact path = '/cars/:carId/fuelEconomy/add' component = {AddFuelEconomyPage}/>
             <Route exact path = '/cars/:carId/repairs' component = {RepairsPage}/>
-            <Route exact path = '/cars/:carId/addRepair' component = {AddRepairPage}/>
+            <Route exact path = '/cars/:carId/repairs/add' component = {AddRepairPage}/>
             <Route exact path = '/accountDetails' component = {UserDetailsPage}/>
             <Route exact path = '/accountDetails/edit' component = {EditUserDetailsPage}/>
             <Route exact path = '/accountDetails/changePasswordEmail' component = {PasswordEmailChangePage}/>

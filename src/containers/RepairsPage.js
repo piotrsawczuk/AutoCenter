@@ -16,8 +16,11 @@ class RepairsPage extends Component {
         this.props.findRepairs(this.props.match.params.carId);
     }
 
-    componentDidUpdate = () => {
-        this.props.findRepairsTotalCosts(this.props.match.params.carId);
+    shouldComponentUpdate = (nextProps, nextState) => {
+        if (nextProps.repairsTotalCosts !== this.props.repairsTotalCosts || nextProps.repairs !== this.props.repairs)
+            return true;
+        else
+            return false;
     }
 
     handlePaginationChange = (e, page) => {

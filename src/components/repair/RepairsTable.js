@@ -21,10 +21,10 @@ class RepairsTable extends Component {
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        {this.props.repairs && this.props.repairs.content && this.props.repairs.content.map(repair => (<Repair key = {repair.id} repair = {repair} />))}
+                        {this.props.repairs && this.props.repairs.content && this.props.repairs.content.map(repair => (<Repair key = {repair.id} repair = {repair} page = {this.props.repairs.number}/>))}
                     </Table.Body>
                 </Table>
-                <Link className="ui large primary left floated button" to={`/cars/${this.props.carId}/addRepair`}>Add repair</Link>
+                <Link className="ui large primary left floated button" to={`/cars/${this.props.carId}/repairs/add`}>Add repair</Link>
                 <div style = {{float:'right'}}>
                     {this.props.repairs && <PaginationComponent pagination = {this.props.repairs} onPageChange = {this.props.onPageChange}/>}
                 </div>

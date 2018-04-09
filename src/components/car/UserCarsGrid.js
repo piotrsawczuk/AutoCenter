@@ -11,7 +11,7 @@ class UserCarsGrid extends Component {
             <div>
                 <h2>My cars</h2>
                 <Grid>
-                    {this.props.userCars && this.props.userCars.content && this.props.userCars.content.map(userCar => (<UserCar key = {userCar.id} userCar = {userCar} />))}
+                    {this.props.userCars && this.props.userCars.content && this.props.userCars.content.map(userCar => (<UserCar key = {userCar.id} userCar = {userCar} page = {this.props.userCars.number}/>))}
                     <Grid.Row>
                         <Grid.Column width={16}>
                             <Link className="ui large primary left floated button" to="/cars/add">Add car</Link>

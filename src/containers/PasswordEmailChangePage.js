@@ -31,10 +31,10 @@ class PasswordEmailChangePage extends Component {
                     </div>
                     <div>
                         <Grid columns={2} centered={true} style={{ height: '100%' }} verticalAlign='top'>
-                            <Grid.Column style={{ maxWidth: 450 }}>
+                            <Grid.Column>
                                 <PasswordChangeForm onSubmit = {this.onSubmit.bind(this)} />
                             </Grid.Column>
-                            <Grid.Column style={{ maxWidth: 450 }}>
+                            <Grid.Column>
                                 <EmailChangeForm onSubmit = {this.onSubmit.bind(this)} />
                             </Grid.Column>
                         </Grid>

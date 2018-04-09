@@ -11,7 +11,7 @@ class FuelEconomy extends Component {
     }
     
     deleteReport = () => {
-        this.props.deleteFuelEconomy(this.props.userCar.id, this.props.fuelEconomy.id);
+        this.props.deleteFuelEconomy(this.props.userCar.id, this.props.fuelEconomy.id, this.props.page);
         this.setState({ isDeleted: true });
     }
 

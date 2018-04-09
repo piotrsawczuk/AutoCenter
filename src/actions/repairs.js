@@ -42,6 +42,8 @@ export const findAll = (carId, page) => {
         axios.get(`${url}/${carId}/repairs?page=${page-1}&size=${PAGE_SIZE}`, { headers: {
             'Authorization': localStorage.getItem('token')
         } }).then(response => {
+            if (response.data.numberOfElements < 1 && page > 1)
+                dispatch(findAll(carId, page-1));
             dispatch(setRepairs(response.data));
         }).catch(error => {
             dispatch(setError(error.response.data))
@@ -67,17 +69,22 @@ export const save = (carId, repair) => {
             'Authorization': localStorage.getItem('token')
         }}).then(response => {
             dispatch(addRepair(response.data));
+            dispatch(findTotalCosts(carId));
+            dispatch(findAll(carId));
         }).catch(error => {
             dispatch(setError(error.response.data.error))
         }); 
     }
 }
 
-export const deleteRepair = (carId, id) => {
+export const deleteRepair = (carId, id, page) => {
     return dispatch => {
         axios.delete(`${url}/${carId}/repairs/${id}`, { headers: {
             'Authorization': localStorage.getItem('token')
-        }}).catch(error => {
+        }}).then(response => {
+            dispatch(findTotalCosts(carId));
+            dispatch(findAll(carId, page+1));
+        }).catch(error => {
             dispatch(setError(error.response.data.error))
         }); 
     }

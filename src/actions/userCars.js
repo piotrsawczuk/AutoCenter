@@ -42,6 +42,8 @@ export const findAll = (page) => {
         axios.get(`${url}?page=${page-1}&size=${PAGE_SIZE}`, { headers: {
             'Authorization': localStorage.getItem('token')
         } }).then(response => {
+            if (response.data.numberOfElements < 1 && page > 1)
+                dispatch(findAll(page-1));
             dispatch(setUserCars(response.data));
         }).catch(error => {
             dispatch(setError(error.response.data))
@@ -67,17 +69,20 @@ export const save = (userCar) => {
             'Authorization': localStorage.getItem('token')
         }}).then(response => {
             dispatch(addUserCar(response.data));
+            dispatch(findAll());
         }).catch(error => {
             dispatch(setError(error.response.data.error))
         }); 
     }
 }
 
-export const deleteCar = (id) => {
+export const deleteCar = (id, page) => {
     return dispatch => {
         axios.delete(`${url}/${id}`, { headers: {
             'Authorization': localStorage.getItem('token')
-        }}).catch(error => {
+        }}).then(response => {
+            dispatch(findAll(page+1));
+        }).catch(error => {
             dispatch(setError(error.response.data.error))
         }); 
     }

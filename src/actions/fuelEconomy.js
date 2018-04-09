@@ -42,6 +42,8 @@ export const findAll = (carId, page) => {
         axios.get(`${url}/${carId}/fuel-economy?page=${page-1}&size=${PAGE_SIZE}`, { headers: {
             'Authorization': localStorage.getItem('token')
         } }).then(response => {
+            if (response.data.numberOfElements < 1 && page > 1)
+                dispatch(findAll(carId, page-1));
             dispatch(setFuelEconomyList(response.data));
         }).catch(error => {
             dispatch(setError(error.response.data))
@@ -67,17 +69,22 @@ export const save = (carId, fuelEconomy) => {
             'Authorization': localStorage.getItem('token')
         }}).then(response => {
             dispatch(addFuelEconomy(response.data));
+            dispatch(findAllAvgs(carId));
+            dispatch(findAll(carId));
         }).catch(error => {
             dispatch(setError(error.response.data.error))
         }); 
     }
 }
 
-export const deleteFuelEconomy = (carId, id) => {
+export const deleteFuelEconomy = (carId, id, page) => {
     return dispatch => {
         axios.delete(`${url}/${carId}/fuel-economy/${id}`, { headers: {
             'Authorization': localStorage.getItem('token')
-        }}).catch(error => {
+        }}).then(response => {
+            dispatch(findAllAvgs(carId));
+            dispatch(findAll(carId, page+1));
+        }).catch(error => {
             dispatch(setError(error.response.data.error))
         }); 
     }

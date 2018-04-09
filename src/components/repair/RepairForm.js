@@ -30,10 +30,8 @@ class RepairForm extends Component {
         if (data.exploitationType.trim() === '') errors.exploitationType = 'Choose exploitation type';
             else if (!data.exploitationType.match(/^[+]?\d+$/)) errors.exploitationType = 'Error occured';
         if (data.date.trim() === '') errors.date = 'Select date';
-        if (data.mileage.trim() === '') errors.mileage = 'Mileage cannot be empty';
-            else if (!data.mileage.match(/^[+]?\d+$/)) errors.mileage = 'Mileage must be number above 0';
-        if (data.cost.trim() === '') errors.cost = 'Cost cannot be empty';
-            else if (!data.cost.match(/^[+]?\d+(\.\d+)?$/)) errors.cost = 'Cost must be number above 0';
+        if (data.mileage.trim() !== '' && !data.mileage.match(/^[+]?\d+$/)) errors.mileage = 'Mileage must be number above 0';
+        if (data.cost.trim() !== '' && !data.cost.match(/^[+]?\d+(\.\d+)?$/)) errors.cost = 'Cost must be number above 0';
         this.setState({errors});
         return Object.keys(errors).length === 0;
     }

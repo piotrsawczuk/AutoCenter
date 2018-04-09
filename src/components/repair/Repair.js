@@ -11,7 +11,7 @@ class Repair extends Component {
     }
     
     deleteRepair = () => {
-        this.props.deleteRepair(this.props.userCar.id, this.props.repair.id);
+        this.props.deleteRepair(this.props.userCar.id, this.props.repair.id, this.props.page);
         this.setState({ isDeleted: true });
     }
 

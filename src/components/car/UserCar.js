@@ -30,7 +30,7 @@ class UserCar extends Component {
     }
 
     deleteCar = () => {
-        this.props.deleteCar(this.props.userCar.id);
+        this.props.deleteCar(this.props.userCar.id, this.props.page);
         this.setState({ isDeleted: true });
     }
 
