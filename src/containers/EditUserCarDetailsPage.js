@@ -6,25 +6,11 @@ import { Breadcrumb } from 'semantic-ui-react';
 import UserCarDetailsForm from '../components/car/UserCarDetailsForm';
 import { edit as editUserCarDetails } from '../actions/userCarDetails';
 import { findOne as findUserCar } from '../actions/userCars';
-import axios from 'axios';
 
 class EditUserCarDetailsPage extends Component {
 
-    state = {}
-
     componentDidMount = () => {
-        this.loadUserCarDetails(this.props.match.params.carId);
         this.props.findUserCar(this.props.match.params.carId);
-    }
- 
-    loadUserCarDetails = (carId) => {
-        const url = 'http://localhost:8080/cars';
-        axios.get(`${url}/${carId}/details`, { headers: {
-            'Authorization': localStorage.getItem('token')
-        } }).then(res => {
-            const userCarDetails = res.data;
-            this.setState({ userCarDetails });
-        });
     }
 
     onSubmit = (data) => {
@@ -47,9 +33,8 @@ class EditUserCarDetailsPage extends Component {
                             <Breadcrumb.Section active>{this.props.userCar.carName}</Breadcrumb.Section>
                         </Breadcrumb>
                     </div>
-                    {this.state.userCarDetails && <div>
-                        <UserCarDetailsForm userCarDetails = {this.state.userCarDetails} onSubmit = {this.onSubmit.bind(this)} />
-                    </div>}
+                    {/* {this.props.userCar && <UserCarDetailsForm userCarDetails = {this.props.userCar.carDetail} onSubmit = {this.onSubmit.bind(this)} />} */}
+                    <UserCarDetailsForm onSubmit = {this.onSubmit.bind(this)} />
                 </div>
         );
     }

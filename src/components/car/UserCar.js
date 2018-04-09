@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 import { Button, Grid, Image, Table } from 'semantic-ui-react';
-import axios from 'axios';
 import { deleteCar } from '../../actions/userCars';
 import { findOne as findTrim } from '../../actions/trim';
 import CarDataTable from '../car/CarDataTable';
@@ -13,20 +12,6 @@ class UserCar extends Component {
     state = { 
         isDeleted: false,
         visibleDataTable: false
-    }
-    
-    componentDidMount = () => {
-       this.loadUserCarDetails(this.props.userCar.id);
-    }
-
-    loadUserCarDetails = (carId) => {
-        const url = 'http://localhost:8080/cars';
-        axios.get(`${url}/${carId}/details`, { headers: {
-            'Authorization': localStorage.getItem('token')
-        } }).then(res => {
-            const userCarDetails = res.data;
-            this.setState({ userCarDetails });
-        });
     }
 
     deleteCar = () => {
@@ -69,8 +54,8 @@ class UserCar extends Component {
                 :
                     <Grid.Row columns={3}>
                         <Grid.Column width={4}>
-                            {this.state.userCarDetails && this.state.userCarDetails.imageUrl ? 
-                                <Image style={{borderRadius: '4px'}} className='ui medium image' src={this.state.userCarDetails.imageUrl}/> 
+                            {this.props.userCar.carDetail && this.props.userCar.carDetail.imageUrl ?
+                                <Image style={{borderRadius: '4px'}} className='ui medium image' src={this.props.userCar.carDetail.imageUrl}/>
                             : 
                                 <Image style={{borderRadius: '4px'}} className='ui medium image' src={require('../../assets/images/image.png')}/>}
                         </Grid.Column>
@@ -84,15 +69,15 @@ class UserCar extends Component {
                                 <Table.Body>
                                     <Table.Row>
                                         <Table.Cell>VIN</Table.Cell>
-                                        <Table.Cell textAlign='right'>{this.state.userCarDetails ? this.checkIfValueExists(this.state.userCarDetails.vin) : '-'}</Table.Cell>
+                                        <Table.Cell textAlign='right'>{this.props.userCar.carDetail ? this.checkIfValueExists(this.props.userCar.carDetail.vin) : '-'}</Table.Cell>
                                     </Table.Row>
                                     <Table.Row>
                                         <Table.Cell>Licence plate number</Table.Cell>
-                                        <Table.Cell textAlign='right'>{this.state.userCarDetails ? this.checkIfValueExists(this.state.userCarDetails.licencePlateNumber) : '-'}</Table.Cell>
+                                        <Table.Cell textAlign='right'>{this.props.userCar.carDetail ? this.checkIfValueExists(this.props.userCar.carDetail.licencePlateNumber) : '-'}</Table.Cell>
                                     </Table.Row>
                                     <Table.Row>
                                         <Table.Cell>Color</Table.Cell>
-                                        <Table.Cell textAlign='right'>{this.state.userCarDetails ? this.checkIfValueExists(this.state.userCarDetails.color) : '-'}</Table.Cell>
+                                        <Table.Cell textAlign='right'>{this.props.userCar.carDetail ? this.checkIfValueExists(this.props.userCar.carDetail.color) : '-'}</Table.Cell>
                                     </Table.Row>
                                 </Table.Body>
                             </Table>
