@@ -15,7 +15,7 @@ class UserDetailsTable extends Component {
             <Table color = {'blue'} key = {'blue'}>
                 <Table.Header>
                     <Table.Row>
-                        <Table.HeaderCell colSpan='2'>Your details</Table.HeaderCell>
+                        <Table.HeaderCell colSpan='2'>Account details</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
