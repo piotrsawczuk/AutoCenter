@@ -33,7 +33,7 @@ public class Car {
     @JsonBackReference
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "car")
     private List<Repair> repairs;
-    @JsonBackReference
+//    @JsonBackReference
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "car")
     private CarDetail carDetail;
 
