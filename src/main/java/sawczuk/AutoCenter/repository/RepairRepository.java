@@ -35,6 +35,6 @@ public interface RepairRepository extends PagingAndSortingRepository<Repair, Lon
             "JOIN r.car c " +
             "JOIN r.exploitationType e " +
             "WHERE c.carApiId = :carApiId " +
-            "GROUP BY e.value")
+            "GROUP BY e.value, c.user")
     List<RepairTotalCost> repairsTotalCostByCarApiId(@Param("carApiId") Long carApiId);
 }

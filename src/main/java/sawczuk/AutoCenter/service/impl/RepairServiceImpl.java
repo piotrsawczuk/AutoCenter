@@ -10,6 +10,8 @@ import sawczuk.AutoCenter.repository.RepairRepository;
 import sawczuk.AutoCenter.service.RepairService;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class RepairServiceImpl implements RepairService {
@@ -53,6 +55,11 @@ public class RepairServiceImpl implements RepairService {
 
     @Override
     public List<RepairTotalCost> repairsTotalCostByCarApiId(Long carApiId) {
-        return repairRepository.repairsTotalCostByCarApiId(carApiId);
+        Map<Integer, Double> avgsGroupedByExploitationType = repairRepository.repairsTotalCostByCarApiId(carApiId).stream()
+                .collect(Collectors.groupingBy(RepairTotalCost::getExploitationTypeValue, Collectors.averagingDouble(RepairTotalCost::getTotalCost)));
+        List<RepairTotalCost> avgTotalCosts = avgsGroupedByExploitationType.entrySet().stream()
+                .map(entry -> new RepairTotalCost(entry.getKey(), entry.getValue()))
+                .collect(Collectors.toList());
+        return avgTotalCosts;
     }
 }
