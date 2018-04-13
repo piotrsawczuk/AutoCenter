@@ -19,7 +19,7 @@ public class CarDetail {
     @Column(name = "vin")
     private String vin;
     @Pattern(regexp = "[a-zA-Z0-9 ]+", message = "Provided license plate number is incorrect")
-    @Column(name = "license_plate_number")
+    @Column(name = "licence_plate_number")
     private String licencePlateNumber;
     @Column(name = "color")
     private String color;
