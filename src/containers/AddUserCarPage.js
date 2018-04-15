@@ -32,7 +32,7 @@ class AddUserCarPage extends Component {
     }
 
     componentDidMount = () => {
-        // this.props.findYears();
+        this.props.findYears();
     }
 
     onChangeYearSelection = (e, year) => {

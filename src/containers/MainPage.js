@@ -29,7 +29,7 @@ class MainPage extends Component {
     }
 
     componentDidMount = () => {
-        // this.props.findYears();
+        this.props.findYears();
     }
 
     onChangeYearSelection = (e, year) => {
