@@ -103,7 +103,7 @@ class RepairForm extends Component {
                     <label>Description</label>
                     <input placeholder = 'Description' name='description' value = {this.state.description} onChange = {this.onChange} />
                 </Form.Field>
-                <Button size={'large'} floated={'left'} primary >Add report</Button>
+                <Button size={'large'} floated={'left'} primary >Add repair</Button>
             </Form>
         );
     }

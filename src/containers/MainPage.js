@@ -100,7 +100,7 @@ class MainPage extends Component {
                     {this.state.visibleTables &&  <FuelEconomyAvgsTable fuelEconomyAvgs = {this.props.fuelEconomyAvgs} />}
                 </div>
                 <div style={{marginBottom: '50px'}}>
-                    {this.state.visibleTables && <h3>Total repairs cost</h3>}
+                    {this.state.visibleTables && <h3>Total average repairs cost</h3>}
                     {this.state.visibleTables && <RepairsTotalCostsTable repairsTotalCosts = {this.props.repairsTotalCosts} />}
                 </div>
                 <div style={{marginBottom: '50px'}}>
