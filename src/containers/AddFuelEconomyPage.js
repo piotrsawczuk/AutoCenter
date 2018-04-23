@@ -39,7 +39,7 @@ class AddFuelEconomyPage extends Component {
 const mapStateToProps = (state) => {
     return {
         isAuthenticated: state.authReducer.isAuthenticated,
-        fuelEconomy: state.userCarsReducer.fuelEconomy
+        fuelEconomy: state.fuelEconomyReducer.fuelEconomy
     }
 }
 

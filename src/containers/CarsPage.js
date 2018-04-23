@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
-import UserCarsGrid from '../components/car/UserCarsGrid';
-import { findAll as findAllCars } from '../actions/userCars';
+import CarsGrid from '../components/car/CarsGrid';
+import { findAll as findAllCars } from '../actions/cars';
 
-class UserCarsPage extends Component {
+class CarsPage extends Component {
     
     componentDidMount = () => {
         this.props.findAllCars();
     }
 
     shouldComponentUpdate = (nextProps, nextState) => {
-        if (nextProps.userCars !== this.props.userCars)
+        if (nextProps.cars !== this.props.cars)
             return true;
         else
             return false;
@@ -29,7 +29,7 @@ class UserCarsPage extends Component {
                 </div>
             :
                 <div>
-                    <UserCarsGrid userCars = {this.props.userCars} onPageChange = {this.handlePaginationChange}/>
+                    <CarsGrid cars = {this.props.cars} onPageChange = {this.handlePaginationChange}/>
                 </div>
         );
     }
@@ -38,8 +38,8 @@ class UserCarsPage extends Component {
 const mapStateToProps = (state) => {
     return {
         isAuthenticated: state.authReducer.isAuthenticated,
-        userCars: state.userCarsReducer.userCars
+        cars: state.carsReducer.cars
     }
 }
 
-export default connect(mapStateToProps, { findAllCars }) (UserCarsPage);
+export default connect(mapStateToProps, { findAllCars }) (CarsPage);

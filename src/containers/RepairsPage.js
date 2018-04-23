@@ -6,7 +6,7 @@ import { Breadcrumb } from 'semantic-ui-react';
 import RepairsTable from '../components/repair/RepairsTable';
 import RepairsTotalCostsTable from '../components/repair/RepairsTotalCostsTable';
 import { findAll as findRepairs, findTotalCosts as findRepairsTotalCosts } from '../actions/repairs';
-import { findOne as findUserCar } from '../actions/userCars';
+import { findOne as findUserCar } from '../actions/cars';
 
 class RepairsPage extends Component {
     
@@ -39,7 +39,7 @@ class RepairsPage extends Component {
                         <Breadcrumb size='big'>
                             <Breadcrumb.Section><Link to="/cars">Back to cars</Link></Breadcrumb.Section>
                             <Breadcrumb.Divider icon='right chevron' />
-                            <Breadcrumb.Section active>{this.props.userCar.carName}</Breadcrumb.Section>
+                            <Breadcrumb.Section active>{this.props.car.carName}</Breadcrumb.Section>
                         </Breadcrumb>
                     </div>
                     <h3>Repairs total costs</h3>
@@ -56,7 +56,7 @@ const mapStateToProps = (state) => {
         isAuthenticated: state.authReducer.isAuthenticated,
         repairs: state.repairsReducer.repairs,
         repairsTotalCosts: state.repairsReducer.repairsTotalCosts,
-        userCar: state.userCarsReducer.userCar
+        car: state.carsReducer.car
     }
 }
 

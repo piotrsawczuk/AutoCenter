@@ -63,6 +63,17 @@ export const findAllAvgs = (carId) => {
     }
 }
 
+export const findAllAvgsByCarApiId = (modelId) => {
+    return dispatch => {
+        axios.get(`${API_URL}/fuel-economy/avg?carApiId=${modelId}`)
+        .then(response => {
+            dispatch(setFuelEconomyAvgs(response.data));
+        }).catch(error => {
+            dispatch(setError(error.response.data))
+        })
+    }
+};
+
 export const save = (carId, fuelEconomy) => {
     return dispatch => {
         axios.post(`${API_URL}/cars/${carId}/fuel-economy`, fuelEconomy, { headers: {

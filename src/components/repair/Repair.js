@@ -11,7 +11,7 @@ class Repair extends Component {
     }
     
     deleteRepair = () => {
-        this.props.deleteRepair(this.props.userCar.id, this.props.repair.id, this.props.page);
+        this.props.deleteRepair(this.props.car.id, this.props.repair.id, this.props.page);
         this.setState({ isDeleted: true });
     }
 
@@ -26,7 +26,7 @@ class Repair extends Component {
         return (
             this.state.isDeleted ?
                 <Table.Row>
-                    <Redirect to={`/cars/${this.props.userCar.id}/repairs`}/>
+                    <Redirect to={`/cars/${this.props.car.id}/repairs`}/>
                 </Table.Row>
             :
                 <Table.Row>
@@ -49,7 +49,7 @@ class Repair extends Component {
 const mapStateToProps = (state) => {
     return {
         repairs: state.repairsReducer.repairs,
-        userCar: state.userCarsReducer.userCar
+        car: state.carsReducer.car
     }
 }
 

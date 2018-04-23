@@ -3,24 +3,24 @@ import { API_URL } from '../utils/Properties';
 
 const PAGE_SIZE = 4;
 
-const setUserCars = (userCars) => {
+const setCars = (cars) => {
     return {
-        type: SET_USER_CARS,
-        userCars
+        type: SET_CARS,
+        cars
     }
 }
 
-const setUserCar = (userCar) => {
+const setCar = (car) => {
     return {
-        type: SET_USER_CAR,
-        userCar
+        type: SET_CAR,
+        car
     }
 }
 
-const addUserCar = (userCar) => {
+const addCar = (car) => {
     return {
-        type: ADD_USER_CAR,
-        userCar
+        type: ADD_CAR,
+        car
     }
 }
 
@@ -31,9 +31,9 @@ const setError = (error) => {
     }
 }
 
-export const SET_USER_CARS = 'SET_USER_CARS';
-export const SET_USER_CAR = 'SET_USER_CAR';
-export const ADD_USER_CAR = 'ADD_USER_CAR';
+export const SET_CARS = 'SET_CARS';
+export const SET_CAR = 'SET_CAR';
+export const ADD_CAR = 'ADD_CAR';
 export const SET_ERROR = 'SET_ERROR';
 
 export const findAll = (page) => {
@@ -44,7 +44,7 @@ export const findAll = (page) => {
         } }).then(response => {
             if (response.data.numberOfElements < 1 && page > 1)
                 dispatch(findAll(page-1));
-            dispatch(setUserCars(response.data));
+            dispatch(setCars(response.data));
         }).catch(error => {
             dispatch(setError(error.response.data))
         });
@@ -56,19 +56,19 @@ export const findOne = (id) => {
         axios.get(`${API_URL}/cars/${id}`, { headers: {
             'Authorization': localStorage.getItem('token')
         } }).then(response => {
-            dispatch(setUserCar(response.data));
+            dispatch(setCar(response.data));
         }).catch(error => {
             dispatch(setError(error.response.data))
         });
     }
 }
 
-export const save = (userCar) => {
+export const save = (car) => {
     return dispatch => {
-        axios.post(`${API_URL}/cars`, userCar, { headers: {
+        axios.post(`${API_URL}/cars`, car, { headers: {
             'Authorization': localStorage.getItem('token')
         }}).then(response => {
-            dispatch(addUserCar(response.data));
+            dispatch(addCar(response.data));
             dispatch(findAll());
         }).catch(error => {
             dispatch(setError(error.response.data.error))

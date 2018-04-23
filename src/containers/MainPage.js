@@ -12,8 +12,8 @@ import { findAll as findAllMakes } from '../actions/makes';
 import { findAll as findAllModels } from '../actions/models';
 import { findAll as findAllTrims } from '../actions/trims';
 import { findOne as findTrim } from '../actions/trim';
-import { findAll as findFuelEconomyAvgs } from '../actions/fuelEconomyAvgs';
-import { findAll as findRepairsTotalCosts } from '../actions/repairsTotalCosts';
+import { findAllAvgsByCarApiId as findFuelEconomyAvgs } from '../actions/fuelEconomy';
+import { findTotalCostsByCarApiId as findRepairsTotalCosts } from '../actions/repairs';
 
 
 class MainPage extends Component {
@@ -119,8 +119,8 @@ const mapStateToProps = (state) => {
         models: state.modelsReducer.models,
         trims: state.trimsReducer.trims,
         trim: state.trimReducer.trim,
-        fuelEconomyAvgs: state.fuelEconomyAvgsReducer.fuelEconomyAvgs,
-        repairsTotalCosts: state.repairsTotalCostsReducer.repairsTotalCosts
+        fuelEconomyAvgs: state.fuelEconomyReducer.fuelEconomyAvgs,
+        repairsTotalCosts: state.repairsReducer.repairsTotalCosts
     }
 }
 

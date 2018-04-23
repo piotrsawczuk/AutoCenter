@@ -43,7 +43,7 @@ class AddRepairPage extends Component {
 const mapStateToProps = (state) => {
     return {
         isAuthenticated: state.authReducer.isAuthenticated,
-        repair: state.userCarsReducer.repair
+        repair: state.repairsReducer.repair
     }
 }
 

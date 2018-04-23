@@ -8,9 +8,7 @@ import trimReducer from './trimReducer';
 import drivingTypesReducer from './drivingTypesReducer';
 import fuelTypesReducer from './fuelTypesReducer';
 import exploitationTypesReducer from './exploitationTypesReducer';
-import fuelEconomyAvgsReducer from './fuelEconomyAvgsReducer';
-import repairsTotalCostsReducer from './repairsTotalCostsReducer';
-import userCarsReducer from './userCarsReducer';
+import carsReducer from './carsReducer';
 import fuelEconomyReducer from './fuelEconomyReducer';
 import repairsReducer from './repairsReducer';
 import userDetailsReducer from './userDetailsReducer';
@@ -26,9 +24,7 @@ export default combineReducers({
     drivingTypesReducer,
     fuelTypesReducer,
     exploitationTypesReducer,
-    fuelEconomyAvgsReducer,
-    repairsTotalCostsReducer,
-    userCarsReducer,
+    carsReducer,
     fuelEconomyReducer,
     repairsReducer,
     userDetailsReducer,

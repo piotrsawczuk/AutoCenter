@@ -63,6 +63,17 @@ export const findTotalCosts = (carId) => {
     }
 }
 
+export const findTotalCostsByCarApiId = (modelId) => {
+    return dispatch => {
+        axios.get(`${API_URL}/repairs/total-cost?carApiId=${modelId}`)
+        .then(response => {
+            dispatch(setRepairsTotalCosts(response.data));
+        }).catch(error => {
+            dispatch(setError(error.response.data))
+        })
+    }
+};
+
 export const save = (carId, repair) => {
     return dispatch => {
         axios.post(`${API_URL}/cars/${carId}/repairs`, repair, { headers: {

@@ -3,27 +3,30 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 import { Button, Grid, Image, Table } from 'semantic-ui-react';
-import { deleteCar } from '../../actions/userCars';
+import { deleteCar } from '../../actions/cars';
 import { findOne as findTrim } from '../../actions/trim';
-import { findOne as getCarDetails } from '../../services/UserCarDetailsService';
+import { findOne as getCarDetails } from '../../services/CarDetailsService';
 import CarDataTable from '../car/CarDataTable';
 
-class UserCar extends Component {
+class Car extends Component {
 
     state = { 
         isDeleted: false,
         visibleDataTable: false
     }
 
-    componentWillMount = () => {
-        const carId = this.props.userCar.id;
-        getCarDetails(carId)
-            .then(carDetails => this.setState({carDetails}))
-            .catch(error => this.setState({error}));
+    componentWillMount = async () => {
+        try {
+            const carId = this.props.car.id;
+            const carDetails = await getCarDetails(carId);
+            this.setState({carDetails});
+        } catch (error) {
+            this.setState({error});
+        }
     }
 
     deleteCar = () => {
-        this.props.deleteCar(this.props.userCar.id, this.props.page);
+        this.props.deleteCar(this.props.car.id, this.props.page);
         this.setState({ isDeleted: true });
     }
 
@@ -31,7 +34,7 @@ class UserCar extends Component {
         if (this.state.visibleDataTable) {
             this.setState({ visibleDataTable: false });
         } else {
-            this.props.findTrim(this.props.userCar.carApiId);
+            this.props.findTrim(this.props.car.carApiId);
             this.setState({ visibleDataTable: true });
         }
     }
@@ -52,12 +55,12 @@ class UserCar extends Component {
             :
                 this.state.redirectToFuelEconomy ?
                     <div>
-                        <Redirect to={`/cars/${this.props.userCar.id}/fuel-economy`}/>
+                        <Redirect to={`/cars/${this.props.car.id}/fuel-economy`}/>
                     </div>
                 :
                 this.state.redirectToRepairs ?
                     <div>
-                        <Redirect to={`/cars/${this.props.userCar.id}/repairs`}/>
+                        <Redirect to={`/cars/${this.props.car.id}/repairs`}/>
                     </div>
                 :
                     <Grid.Row columns={3}>
@@ -67,11 +70,11 @@ class UserCar extends Component {
                             : 
                                 <Image style={{borderRadius: '4px'}} className='ui medium image' src={require('../../assets/images/image.png')}/>}
                         </Grid.Column>
-                        <Grid.Column width={9}>
+                        <Grid.Column width={8}>
                             <Table color = {'blue'} key = {'blue'}>
                                 <Table.Header>
                                     <Table.Row>
-                                        <Table.HeaderCell colSpan='2'>{this.props.userCar.carName}</Table.HeaderCell>
+                                        <Table.HeaderCell colSpan='2'>{this.props.car.carName}</Table.HeaderCell>
                                     </Table.Row>
                                 </Table.Header>
                                 <Table.Body>
@@ -90,16 +93,16 @@ class UserCar extends Component {
                                 </Table.Body>
                             </Table>
                         </Grid.Column>
-                        <Grid.Column width={3}>
-                            <Button.Group primary vertical={true} size='mini'  floated={'right'} compact={false}>
-                                <Button onClick={() => this.showCarData()}>{this.state.visibleDataTable && this.props.trim && this.props.trim.model_id === this.props.userCar.carApiId ? 'Hide car data' : 'Show car data'}</Button>
-                                <Link className="ui large primary left floated button" to={`/cars/${this.props.userCar.id}/fuelEconomy`}>Fuel economy</Link>
-                                <Link className="ui large primary left floated button" to={`/cars/${this.props.userCar.id}/repairs`}>Repairs</Link>
-                                <Link className="ui large primary left floated button" to={`/cars/${this.props.userCar.id}/edit`}>Edit car</Link>
-                                <Button onClick={() => this.deleteCar()}>Delete car</Button>
+                        <Grid.Column width={4}>
+                            <Button.Group vertical compact floated={'right'}>
+                                <Button className="ui large primary left floated button" onClick={() => this.showCarData()}>{this.state.visibleDataTable && this.props.trim && this.props.trim.model_id === this.props.car.carApiId ? 'Hide car data' : 'Show car data'}</Button>
+                                <Link className="ui large primary left floated button" to={`/cars/${this.props.car.id}/fuelEconomy`}>Fuel economy</Link>
+                                <Link className="ui large primary left floated button" to={`/cars/${this.props.car.id}/repairs`}>Repairs</Link>
+                                <Link className="ui large primary left floated button" to={`/cars/${this.props.car.id}/edit`}>Edit car</Link>
+                                <Button className="ui large primary left floated button" onClick={() => this.deleteCar()}>Delete car</Button>
                             </Button.Group>
                         </Grid.Column>
-                        {this.state.visibleDataTable && this.props.trim && this.props.trim.model_id === this.props.userCar.carApiId && <CarDataTable trim = {this.props.trim}/>}
+                        {this.state.visibleDataTable && this.props.trim && this.props.trim.model_id === this.props.car.carApiId && <CarDataTable trim = {this.props.trim}/>}
                     </Grid.Row>
         );
     }
@@ -107,9 +110,8 @@ class UserCar extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        userCars: state.userCarsReducer.userCars,
         trim: state.trimReducer.trim
     }
 }
 
-export default connect(mapStateToProps, { deleteCar, findTrim }) (UserCar);
+export default connect(mapStateToProps, { deleteCar, findTrim }) (Car);

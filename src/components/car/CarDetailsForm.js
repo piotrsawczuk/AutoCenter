@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Form, Button } from 'semantic-ui-react';
 import InlineError from '../InlineError';
 
-class UserCarDetailsForm extends Component {
+class CarDetailsForm extends Component {
 
     state = {
         vin: '',
@@ -13,14 +13,14 @@ class UserCarDetailsForm extends Component {
     };
 
     componentDidUpdate = (prevProps, prevState) => {
-        if (this.props.userCarDetails !== prevProps.userCarDetails) {
-            const userCarDetails = this.props.userCarDetails;
+        if (this.props.carDetails !== prevProps.carDetails) {
+            const carDetails = this.props.carDetails;
             this.setState(
                 {
-                    vin: userCarDetails.vin ? userCarDetails.vin : '',
-                    licencePlateNumber : userCarDetails.licencePlateNumber ? userCarDetails.licencePlateNumber : '',
-                    color : userCarDetails.color ? userCarDetails.color : '',
-                    imageUrl : userCarDetails.imageUrl ? userCarDetails.imageUrl : ''
+                    vin: carDetails.vin ? carDetails.vin : '',
+                    licencePlateNumber : carDetails.licencePlateNumber ? carDetails.licencePlateNumber : '',
+                    color : carDetails.color ? carDetails.color : '',
+                    imageUrl : carDetails.imageUrl ? carDetails.imageUrl : ''
                 }
             );
         }
@@ -71,10 +71,10 @@ class UserCarDetailsForm extends Component {
                     <label>Car image URL</label>
                     <input placeholder = 'Car image URL' name = 'imageUrl' value = {this.state.imageUrl} onChange = {this.onChange} />
                 </Form.Field>
-                <Button size={'large'} floated={'left'} primary>{this.props.userCarDetails ? 'Edit details' : 'Add details'}</Button>
+                <Button size={'large'} floated={'left'} primary>{this.props.carDetails ? 'Edit details' : 'Add details'}</Button>
             </Form>
         );
     }
 }
 
-export default UserCarDetailsForm;
+export default CarDetailsForm;

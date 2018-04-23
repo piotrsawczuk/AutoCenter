@@ -11,7 +11,7 @@ class FuelEconomy extends Component {
     }
     
     deleteReport = () => {
-        this.props.deleteFuelEconomy(this.props.userCar.id, this.props.fuelEconomy.id, this.props.page);
+        this.props.deleteFuelEconomy(this.props.car.id, this.props.fuelEconomy.id, this.props.page);
         this.setState({ isDeleted: true });
     }
 
@@ -26,7 +26,7 @@ class FuelEconomy extends Component {
         return (
             this.state.isDeleted ?
                 <Table.Row>
-                    <Redirect to={`/cars/${this.props.userCar.id}/fuelEconomy`}/>
+                    <Redirect to={`/cars/${this.props.car.id}/fuelEconomy`}/>
                 </Table.Row>
             :
                 <Table.Row>
@@ -52,7 +52,7 @@ class FuelEconomy extends Component {
 const mapStateToProps = (state) => {
     return {
         fuelEconomyList: state.fuelEconomyReducer.fuelEconomyList,
-        userCar: state.userCarsReducer.userCar
+        car: state.carsReducer.car
     }
 }
 

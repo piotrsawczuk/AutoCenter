@@ -7,17 +7,17 @@ import YearSelection from '../components/car/YearSelection';
 import MakeSelection from '../components/car/MakeSelection';
 import ModelSelection from '../components/car/ModelSelection';
 import TrimSelection from '../components/car/TrimSelection';
-import UserCarDetailsForm from '../components/car/UserCarDetailsForm';
+import CarDetailsForm from '../components/car/CarDetailsForm';
 import { findOne as findYears } from '../actions/years';
 import { findAll as findAllMakes } from '../actions/makes';
 import { findAll as findAllModels } from '../actions/models';
 import { findAll as findAllTrims} from '../actions/trims';
 import { findOne as findTrim} from '../actions/trim';
-import { save as addUserCar} from '../actions/userCars';
-import { save as addCarDetails } from '../services/UserCarDetailsService';
+import { save as addUserCar} from '../actions/cars';
+import { save as addCarDetails } from '../services/CarDetailsService';
 
 
-class AddUserCarPage extends Component {
+class AddCarPage extends Component {
     
     state = {
         disabledMakes: true,
@@ -90,8 +90,8 @@ class AddUserCarPage extends Component {
     }
 
     addCarDetails = (data) => {
-        if (this.props.userCar) {
-            addCarDetails(this.props.userCar.id, data)
+        if (this.props.car) {
+            addCarDetails(this.props.car.id, data)
                 .then(addedCarDetails => {
                     if (addedCarDetails) this.setState({redirectToCarsPage: true})
                 })
@@ -141,7 +141,7 @@ class AddUserCarPage extends Component {
                                 {this.state.isCarAdded && <Message success={true} header="Success!" content='Your car was successfully added'/> }
                             </div>
                             <div style={{marginBottom: '70px'}}>
-                                {this.state.isCarAdded &&<UserCarDetailsForm onSubmit = {this.addCarDetails.bind(this)} /> }
+                                {this.state.isCarAdded &&<CarDetailsForm onSubmit = {this.addCarDetails.bind(this)} /> }
                             </div>
                             <div>
                                 {this.state.error.message && <Message error header="Error!" content={this.state.error.message}/> }
@@ -160,7 +160,7 @@ const mapStateToProps = (state) => {
         models: state.modelsReducer.models,
         trims: state.trimsReducer.trims,
         trim: state.trimReducer.trim,
-        userCar: state.userCarsReducer.userCar
+        car: state.carsReducer.car
     }
 }
 
@@ -173,4 +173,4 @@ export default connect(mapStateToProps,
         findTrim,
         addUserCar
     }
-) (AddUserCarPage);
+) (AddCarPage);

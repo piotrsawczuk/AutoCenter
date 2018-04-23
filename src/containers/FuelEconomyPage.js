@@ -6,7 +6,7 @@ import { Breadcrumb } from 'semantic-ui-react';
 import FuelEconomyTable from '../components/fuelEconomy/FuelEconomyTable';
 import FuelEconomyAvgsTable from '../components/fuelEconomy/FuelEconomyAvgsTable';
 import { findAll as findFuelEconomyList, findAllAvgs as findFuelEconomyAvgs } from '../actions/fuelEconomy';
-import { findOne as findUserCar } from '../actions/userCars';
+import { findOne as findUserCar } from '../actions/cars';
 
 class FuelEconomyPage extends Component {
     
@@ -39,7 +39,7 @@ class FuelEconomyPage extends Component {
                         <Breadcrumb size='big'>
                             <Breadcrumb.Section><Link to="/cars">Back to cars</Link></Breadcrumb.Section>
                             <Breadcrumb.Divider icon='right chevron' />
-                            <Breadcrumb.Section active>{this.props.userCar.carName}</Breadcrumb.Section>
+                            <Breadcrumb.Section active>{this.props.car.carName}</Breadcrumb.Section>
                         </Breadcrumb>
                     </div>
                     <h3>Fuel consumption average</h3>
@@ -56,7 +56,7 @@ const mapStateToProps = (state) => {
         isAuthenticated: state.authReducer.isAuthenticated,
         fuelEconomyList: state.fuelEconomyReducer.fuelEconomyList,
         fuelEconomyAvgs: state.fuelEconomyReducer.fuelEconomyAvgs,
-        userCar: state.userCarsReducer.userCar
+        car: state.carsReducer.car
     }
 }
 
