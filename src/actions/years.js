@@ -1,6 +1,5 @@
 import axios from 'axios';
-
-const url = 'http://localhost:8080/car-query-api/years';
+import { API_URL } from '../utils/Properties';
 
 const setYears = (years) => {
     return {
@@ -21,7 +20,7 @@ export const SET_ERROR = 'SET_ERROR';
 
 export const findOne = () => {
     return dispatch => {
-        axios.get(url).then(response => {
+        axios.get(`${API_URL}/car-query-api/years`).then(response => {
             dispatch(setYears(response.data));
         }).catch(error => {
             dispatch(setError(error.response.data))

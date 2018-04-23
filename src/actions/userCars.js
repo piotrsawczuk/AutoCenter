@@ -1,6 +1,6 @@
 import axios from 'axios';
+import { API_URL } from '../utils/Properties';
 
-const url = 'http://localhost:8080/cars';
 const PAGE_SIZE = 4;
 
 const setUserCars = (userCars) => {
@@ -39,7 +39,7 @@ export const SET_ERROR = 'SET_ERROR';
 export const findAll = (page) => {
     if (!page) page = 1;
     return dispatch => {
-        axios.get(`${url}?page=${page-1}&size=${PAGE_SIZE}`, { headers: {
+        axios.get(`${API_URL}/cars?page=${page-1}&size=${PAGE_SIZE}`, { headers: {
             'Authorization': localStorage.getItem('token')
         } }).then(response => {
             if (response.data.numberOfElements < 1 && page > 1)
@@ -53,7 +53,7 @@ export const findAll = (page) => {
 
 export const findOne = (id) => {
     return dispatch => {
-        axios.get(`${url}/${id}`, { headers: {
+        axios.get(`${API_URL}/cars/${id}`, { headers: {
             'Authorization': localStorage.getItem('token')
         } }).then(response => {
             dispatch(setUserCar(response.data));
@@ -65,7 +65,7 @@ export const findOne = (id) => {
 
 export const save = (userCar) => {
     return dispatch => {
-        axios.post(url, userCar, { headers: {
+        axios.post(`${API_URL}/cars`, userCar, { headers: {
             'Authorization': localStorage.getItem('token')
         }}).then(response => {
             dispatch(addUserCar(response.data));
@@ -78,7 +78,7 @@ export const save = (userCar) => {
 
 export const deleteCar = (id, page) => {
     return dispatch => {
-        axios.delete(`${url}/${id}`, { headers: {
+        axios.delete(`${API_URL}/cars/${id}`, { headers: {
             'Authorization': localStorage.getItem('token')
         }}).then(response => {
             dispatch(findAll(page+1));

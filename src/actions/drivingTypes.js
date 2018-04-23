@@ -1,6 +1,5 @@
 import axios from 'axios';
-
-const url = 'http://localhost:8080/driving-types';
+import { API_URL } from '../utils/Properties';
 
 const setDrivingTypes = (drivingTypes) => {
     return {
@@ -21,7 +20,7 @@ export const SET_ERROR = 'SET_ERROR';
 
 export const findAll = () => {
     return dispatch => {
-        axios.get(url).then(response => {
+        axios.get(`${API_URL}/driving-types`).then(response => {
             dispatch(setDrivingTypes(response.data));
         }).catch(error => {
             dispatch(setError(error.response.data))

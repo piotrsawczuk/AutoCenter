@@ -1,6 +1,5 @@
 import axios from 'axios';
-
-const url = 'http://localhost:8080/car-query-api/makes';
+import { API_URL } from '../utils/Properties';
 
 const setMakes = (makes) => {
     return {
@@ -21,7 +20,7 @@ export const SET_ERROR = 'SET_ERROR';
 
 export const findAll = (year) => {
     return dispatch => {
-        axios.get(`${url}?year=${year}`).then(response => {
+        axios.get(`${API_URL}/car-query-api/makes?year=${year}`).then(response => {
             dispatch(setMakes(response.data));
         }).catch(error => {
             dispatch(setError(error.response.data))

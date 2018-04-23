@@ -1,6 +1,5 @@
 import axios from 'axios';
-
-const url = 'http://localhost:8080/car-query-api/trims/';
+import { API_URL } from '../utils/Properties';
 
 const setTrims = (trim) => {
     return {
@@ -21,7 +20,7 @@ export const SET_ERROR = 'SET_ERROR';
 
 export const findOne = (modelId) => {
     return dispatch => {
-        axios.get(`${url}${modelId}`).then(response => {
+        axios.get(`${API_URL}/car-query-api/trims/${modelId}`).then(response => {
             dispatch(setTrims(response.data));
         }).catch(error => {
             dispatch(setError(error.response.data))

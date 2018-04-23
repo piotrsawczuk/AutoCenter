@@ -1,6 +1,5 @@
 import axios from 'axios';
-
-const url = 'http://localhost:8080/user-details';
+import { API_URL } from '../utils/Properties';
 
 const setUserDetails = (userDetails) => {
     return {
@@ -21,7 +20,7 @@ export const SET_ERROR = 'SET_ERROR';
 
 export const findOne = () => {
     return dispatch => {
-        axios.get(url, { headers: {
+        axios.get(`${API_URL}/user-details`, { headers: {
             'Authorization': localStorage.getItem('token')
         } }).then(response => {
             dispatch(setUserDetails(response.data));
@@ -33,7 +32,7 @@ export const findOne = () => {
 
 export const save = (data) => {
     return dispatch => {
-        axios.post(url, data, { headers: {
+        axios.post(`${API_URL}/user-details`, data, { headers: {
             'Authorization': localStorage.getItem('token')
         } }).then(response => {
             dispatch(setUserDetails(response.data));
@@ -45,7 +44,7 @@ export const save = (data) => {
 
 export const edit = (data) => {
     return dispatch => {
-        axios.put(url, data, { headers: {
+        axios.put(`${API_URL}/user-details`, data, { headers: {
             'Authorization': localStorage.getItem('token')
         } }).then(response => {
             dispatch(setUserDetails(response.data));

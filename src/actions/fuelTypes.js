@@ -1,6 +1,5 @@
 import axios from 'axios';
-
-const url = 'http://localhost:8080/fuel-types';
+import { API_URL } from '../utils/Properties';
 
 const setFuelTypes = (fuelTypes) => {
     return {
@@ -21,7 +20,7 @@ export const SET_ERROR = 'SET_ERROR';
 
 export const findAll = () => {
     return dispatch => {
-        axios.get(url).then(response => {
+        axios.get(`${API_URL}/fuel-types`).then(response => {
             dispatch(setFuelTypes(response.data));
         }).catch(error => {
             dispatch(setError(error.response.data))

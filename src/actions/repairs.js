@@ -1,6 +1,6 @@
 import axios from 'axios';
+import { API_URL } from '../utils/Properties';
 
-const url = 'http://localhost:8080/cars';
 const PAGE_SIZE = 10;
 
 const setRepairs = (repairs) => {
@@ -39,7 +39,7 @@ export const SET_ERROR = 'SET_ERROR';
 export const findAll = (carId, page) => {
     if (!page) page = 1;
     return dispatch => {
-        axios.get(`${url}/${carId}/repairs?page=${page-1}&size=${PAGE_SIZE}`, { headers: {
+        axios.get(`${API_URL}/cars/${carId}/repairs?page=${page-1}&size=${PAGE_SIZE}`, { headers: {
             'Authorization': localStorage.getItem('token')
         } }).then(response => {
             if (response.data.numberOfElements < 1 && page > 1)
@@ -53,7 +53,7 @@ export const findAll = (carId, page) => {
 
 export const findTotalCosts = (carId) => {
     return dispatch => {
-        axios.get(`${url}/${carId}/repairs/total-cost`, { headers: {
+        axios.get(`${API_URL}/cars/${carId}/repairs/total-cost`, { headers: {
             'Authorization': localStorage.getItem('token')
         } }).then(response => {
             dispatch(setRepairsTotalCosts(response.data));
@@ -65,7 +65,7 @@ export const findTotalCosts = (carId) => {
 
 export const save = (carId, repair) => {
     return dispatch => {
-        axios.post(`${url}/${carId}/repairs`, repair, { headers: {
+        axios.post(`${API_URL}/cars/${carId}/repairs`, repair, { headers: {
             'Authorization': localStorage.getItem('token')
         }}).then(response => {
             dispatch(addRepair(response.data));
@@ -79,7 +79,7 @@ export const save = (carId, repair) => {
 
 export const deleteRepair = (carId, id, page) => {
     return dispatch => {
-        axios.delete(`${url}/${carId}/repairs/${id}`, { headers: {
+        axios.delete(`${API_URL}/cars/${carId}/repairs/${id}`, { headers: {
             'Authorization': localStorage.getItem('token')
         }}).then(response => {
             dispatch(findTotalCosts(carId));

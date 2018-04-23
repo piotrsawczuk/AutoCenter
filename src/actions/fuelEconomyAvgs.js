@@ -1,6 +1,5 @@
 import axios from 'axios';
-
-const url = 'http://localhost:8080/fuel-economy/avg';
+import { API_URL } from '../utils/Properties';
 
 const setFuelEconomyAvgs = (fuelEconomyAvgs) => {
     return {
@@ -21,7 +20,7 @@ export const SET_ERROR = 'SET_ERROR';
 
 export const findAll = (modelId) => {
     return dispatch => {
-        axios.get(`${url}?carApiId=${modelId}`).then(response => {
+        axios.get(`${API_URL}/fuel-economy/avg?carApiId=${modelId}`).then(response => {
             dispatch(setFuelEconomyAvgs(response.data));
         }).catch(error => {
             dispatch(setError(error.response.data))

@@ -1,6 +1,5 @@
 import axios from 'axios';
-
-const url = 'http://localhost:8080/users';
+import { API_URL } from '../utils/Properties';
 
 const setError = (error) => {
     return {
@@ -13,7 +12,7 @@ export const SET_ERROR = 'SET_ERROR';
 
 export const edit = (data) => {
     return dispatch => {
-        axios.put(url, data, { headers: {
+        axios.put(`${API_URL}/users`, data, { headers: {
             'Authorization': localStorage.getItem('token')
         }}).catch(error => {
             dispatch(setError(error.response.data))

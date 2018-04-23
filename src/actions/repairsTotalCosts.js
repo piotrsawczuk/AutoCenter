@@ -1,6 +1,5 @@
 import axios from 'axios';
-
-const url = 'http://localhost:8080/repairs/total-cost';
+import { API_URL } from '../utils/Properties';
 
 const setRepairsTotalCosts = (repairsTotalCosts) => {
     return {
@@ -21,7 +20,7 @@ export const SET_ERROR = 'SET_ERROR';
 
 export const findAll = (modelId) => {
     return dispatch => {
-        axios.get(`${url}?carApiId=${modelId}`).then(response => {
+        axios.get(`${API_URL}/repairs/total-cost?carApiId=${modelId}`).then(response => {
             dispatch(setRepairsTotalCosts(response.data));
         }).catch(error => {
             dispatch(setError(error.response.data))
