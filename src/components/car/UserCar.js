@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { Button, Grid, Image, Table } from 'semantic-ui-react';
 import { deleteCar } from '../../actions/userCars';
 import { findOne as findTrim } from '../../actions/trim';
+import { findOne as getCarDetails } from '../../services/UserCarDetailsService';
 import CarDataTable from '../car/CarDataTable';
 
 class UserCar extends Component {
@@ -12,6 +13,13 @@ class UserCar extends Component {
     state = { 
         isDeleted: false,
         visibleDataTable: false
+    }
+
+    componentWillMount = () => {
+        const carId = this.props.userCar.id;
+        getCarDetails(carId)
+            .then(carDetails => this.setState({carDetails}))
+            .catch(error => this.setState({error}));
     }
 
     deleteCar = () => {
@@ -54,8 +62,8 @@ class UserCar extends Component {
                 :
                     <Grid.Row columns={3}>
                         <Grid.Column width={4}>
-                            {this.props.userCar.carDetail && this.props.userCar.carDetail.imageUrl ?
-                                <Image style={{borderRadius: '4px'}} className='ui medium image' src={this.props.userCar.carDetail.imageUrl}/>
+                            {this.state.carDetails && this.state.carDetails.imageUrl ?
+                                <Image style={{borderRadius: '4px'}} className='ui medium image' src={this.state.carDetails.imageUrl}/>
                             : 
                                 <Image style={{borderRadius: '4px'}} className='ui medium image' src={require('../../assets/images/image.png')}/>}
                         </Grid.Column>
@@ -69,15 +77,15 @@ class UserCar extends Component {
                                 <Table.Body>
                                     <Table.Row>
                                         <Table.Cell>VIN</Table.Cell>
-                                        <Table.Cell textAlign='right'>{this.props.userCar.carDetail ? this.checkIfValueExists(this.props.userCar.carDetail.vin) : '-'}</Table.Cell>
+                                        <Table.Cell textAlign='right'>{this.state.carDetails ? this.checkIfValueExists(this.state.carDetails.vin) : '-'}</Table.Cell>
                                     </Table.Row>
                                     <Table.Row>
                                         <Table.Cell>Licence plate number</Table.Cell>
-                                        <Table.Cell textAlign='right'>{this.props.userCar.carDetail ? this.checkIfValueExists(this.props.userCar.carDetail.licencePlateNumber) : '-'}</Table.Cell>
+                                        <Table.Cell textAlign='right'>{this.state.carDetails ? this.checkIfValueExists(this.state.carDetails.licencePlateNumber) : '-'}</Table.Cell>
                                     </Table.Row>
                                     <Table.Row>
                                         <Table.Cell>Color</Table.Cell>
-                                        <Table.Cell textAlign='right'>{this.props.userCar.carDetail ? this.checkIfValueExists(this.props.userCar.carDetail.color) : '-'}</Table.Cell>
+                                        <Table.Cell textAlign='right'>{this.state.carDetails ? this.checkIfValueExists(this.state.carDetails.color) : '-'}</Table.Cell>
                                     </Table.Row>
                                 </Table.Body>
                             </Table>

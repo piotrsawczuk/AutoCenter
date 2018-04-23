@@ -12,8 +12,8 @@ class UserCarDetailsForm extends Component {
         errors: {}
     };
 
-    componentDidMount = () => {
-        if (this.props.userCarDetails) {
+    componentDidUpdate = (prevProps, prevState) => {
+        if (this.props.userCarDetails !== prevProps.userCarDetails) {
             const userCarDetails = this.props.userCarDetails;
             this.setState(
                 {
@@ -28,10 +28,8 @@ class UserCarDetailsForm extends Component {
 
     validate = (data) => {
         const errors = {};
-        if (data.vin.trim() === '') errors.vin = 'VIN cannot be empty';
-            else if (!data.vin.match(/[a-zA-Z0-9]{17}/)) errors.vin = 'VIN is not valid. VIN must be 17 characters long and contain only digits and letters';
-        if (data.licencePlateNumber.trim() === '') errors.licencePlateNumber = 'Licence plate number cannot be empty';
-            else if (!data.licencePlateNumber.match(/^[a-zA-Z0-9 ]*$/)) errors.licencePlateNumber = 'Licence plate number is not valid';
+		if (data.vin.trim() !== '' && !data.vin.match(/^[a-zA-Z0-9]{17}$/)) errors.vin = 'VIN is not valid. VIN must be 17 characters long and contain only digits and letters';
+        if (data.licencePlateNumber.trim() !== '' && !data.licencePlateNumber.match(/^[a-zA-Z0-9 ]*$/)) errors.licencePlateNumber = 'Licence plate number is not valid';
         this.setState({ errors });
         return Object.keys(errors).length === 0;
     }
@@ -53,7 +51,6 @@ class UserCarDetailsForm extends Component {
 
     render() {
         const { errors } = this.state;
-
         return (
             <Form onSubmit = {this.onSubmit} >
                 <Form.Field>
@@ -62,8 +59,8 @@ class UserCarDetailsForm extends Component {
                     { !!errors.vin && <InlineError text={errors.vin} /> }
                 </Form.Field>
                 <Form.Field>
-                    <label>License plate number</label>
-                    <input placeholder = 'License plate number' name='licencePlateNumber' value = {this.state.licencePlateNumber} onChange = {this.onChange} />
+                    <label>Licence plate number</label>
+                    <input placeholder = 'Licence plate number' name='licencePlateNumber' value = {this.state.licencePlateNumber} onChange = {this.onChange} />
                     { !!errors.licencePlateNumber && <InlineError text={errors.licencePlateNumber} /> }
                 </Form.Field>
                 <Form.Field>

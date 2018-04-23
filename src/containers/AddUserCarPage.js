@@ -14,7 +14,7 @@ import { findAll as findAllModels } from '../actions/models';
 import { findAll as findAllTrims} from '../actions/trims';
 import { findOne as findTrim} from '../actions/trim';
 import { save as addUserCar} from '../actions/userCars';
-import { save as addUserCarDetails} from '../actions/userCarDetails';
+import { save as addCarDetails } from '../services/UserCarDetailsService';
 
 
 class AddUserCarPage extends Component {
@@ -28,7 +28,8 @@ class AddUserCarPage extends Component {
         currentMake: '',
         currentModel: '',
         isCarAdded: false,
-        redirectToCarsPage: false
+        redirectToCarsPage: false,
+        error: {}
     }
 
     componentDidMount = () => {
@@ -90,8 +91,13 @@ class AddUserCarPage extends Component {
 
     addCarDetails = (data) => {
         if (this.props.userCar) {
-            this.props.addUserCarDetails(this.props.userCar.id, data);
-            this.setState({ redirectToCarsPage: true });
+            addCarDetails(this.props.userCar.id, data)
+                .then(addedCarDetails => {
+                    if (addedCarDetails) this.setState({redirectToCarsPage: true})
+                })
+                .catch(error => {
+                    this.setState({error})
+                });
         }
     }
 
@@ -137,6 +143,9 @@ class AddUserCarPage extends Component {
                             <div style={{marginBottom: '70px'}}>
                                 {this.state.isCarAdded &&<UserCarDetailsForm onSubmit = {this.addCarDetails.bind(this)} /> }
                             </div>
+                            <div>
+                                {this.state.error.message && <Message error header="Error!" content={this.state.error.message}/> }
+                            </div>
                         </div>
                     </div>
         );
@@ -162,7 +171,6 @@ export default connect(mapStateToProps,
         findAllModels,
         findAllTrims,
         findTrim,
-        addUserCar,
-        addUserCarDetails
+        addUserCar
     }
 ) (AddUserCarPage);
