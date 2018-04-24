@@ -3,29 +3,27 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 import { Message, Breadcrumb } from 'semantic-ui-react';
-import CarDetailsForm from '../components/car/CarDetailsForm';
+import CarDetailForm from '../components/car/CarDetailForm';
 import { findOne as getCar } from '../services/CarsService';
-import { findOne as getCarDetails, edit as editCarDetails, save as addCarDetails } from '../services/CarDetailsService';
+import { edit as editCarDetail, save as addCarDetail } from '../services/CarDetailService';
 
-class EditCarDetailsPage extends Component {
+class EditCarDetailPage extends Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            carDetails: {},
             car: {},
             error: {},
-            carDetailsChanged: false
+            carDetailChanged: false
         }
     }
 
     componentWillMount = async () => {
         try {
             const carId = this.props.match.params.carId;
-            const carDetails = await getCarDetails(carId);
             const car = await getCar(carId);
-            this.setState({car, carDetails});
+            this.setState({car});
         } catch (error) {
             this.setState({error});
         }
@@ -34,14 +32,14 @@ class EditCarDetailsPage extends Component {
     onSubmit = async (data) => {
         try {
             const carId = this.props.match.params.carId;
-            const editedCar =  await editCarDetails(carId, data);
-            this.setState({carDetailsChanged: editedCar ? true : false });
+            const editedCar = await editCarDetail(carId, data);
+            this.setState({carDetailChanged: editedCar ? true : false });
         } catch (error) {
             if (error.code === 404) {
                 try {
                     const carId = this.props.match.params.carId;
-                    const editedCar = await addCarDetails(carId, data);
-                    this.setState({carDetailsChanged: editedCar ? true : false });
+                    const editedCar = await addCarDetail(carId, data);
+                    this.setState({carDetailChanged: editedCar ? true : false });
                 } catch (error) {
                     this.setState({error});
                 }
@@ -57,7 +55,7 @@ class EditCarDetailsPage extends Component {
                     <Redirect to='/'/>
                 </div>
                 :
-                    this.state.carDetailsChanged ?
+                    this.state.carDetailChanged ?
                         <div>
                             <Redirect to='/cars'/>
                         </div>
@@ -71,7 +69,7 @@ class EditCarDetailsPage extends Component {
                                 </Breadcrumb>
                             </div>
                             <div style={{marginBottom: '65px'}}>
-                                <CarDetailsForm carDetails = {this.state.carDetails} onSubmit = {this.onSubmit} />
+                                <CarDetailForm carDetail = {this.state.car.carDetail} onSubmit = {this.onSubmit} />
                             </div>
                             <div>
                                 {this.state.error.message && <Message error header="Error!" content={this.state.error.message}/> }
@@ -87,4 +85,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps) (EditCarDetailsPage);
+export default connect(mapStateToProps) (EditCarDetailPage);

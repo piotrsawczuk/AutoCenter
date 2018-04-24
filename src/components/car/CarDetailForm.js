@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Form, Button } from 'semantic-ui-react';
 import InlineError from '../InlineError';
 
-class CarDetailsForm extends Component {
+class CarDetailForm extends Component {
 
     state = {
         vin: '',
@@ -12,9 +12,11 @@ class CarDetailsForm extends Component {
         errors: {}
     };
 
-    componentWillReceiveProps = ({ carDetails = {} }) => {
-        if (!!Object.keys(carDetails).length) {
-            this.setState({...carDetails});
+    componentWillReceiveProps = ({ carDetail = {} }) => {
+        if (carDetail) {
+            if (!!Object.keys(carDetail).length) {
+                this.setState({...carDetail});
+            }
         }
     }
 
@@ -63,10 +65,10 @@ class CarDetailsForm extends Component {
                     <label>Car image URL</label>
                     <input placeholder = 'Car image URL' name = 'imageUrl' value = {this.state.imageUrl} onChange = {this.onChange} />
                 </Form.Field>
-                <Button size={'large'} floated={'left'} primary>{this.props.carDetails ? 'Edit details' : 'Add details'}</Button>
+                <Button size={'large'} floated={'left'} primary>{this.props.carDetail ? 'Edit details' : 'Add details'}</Button>
             </Form>
         );
     }
 }
 
-export default CarDetailsForm;
+export default CarDetailForm;

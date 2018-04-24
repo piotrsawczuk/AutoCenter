@@ -7,14 +7,14 @@ import YearSelection from '../components/car/YearSelection';
 import MakeSelection from '../components/car/MakeSelection';
 import ModelSelection from '../components/car/ModelSelection';
 import TrimSelection from '../components/car/TrimSelection';
-import CarDetailsForm from '../components/car/CarDetailsForm';
+import CarDetailForm from '../components/car/CarDetailForm';
 import { findOne as findYears } from '../actions/years';
 import { findAll as findAllMakes } from '../actions/makes';
 import { findAll as findAllModels } from '../actions/models';
 import { findAll as findAllTrims} from '../actions/trims';
 import { findOne as findTrim} from '../actions/trim';
 import { save as addUserCar} from '../actions/cars';
-import { save as addCarDetails } from '../services/CarDetailsService';
+import { save as addCarDetail } from '../services/CarDetailService';
 
 
 class AddCarPage extends Component {
@@ -89,11 +89,11 @@ class AddCarPage extends Component {
         this.setState({ isCarAdded: true });
     }
 
-    addCarDetails = (data) => {
+    addCarDetail = (data) => {
         if (this.props.car) {
-            addCarDetails(this.props.car.id, data)
-                .then(addedCarDetails => {
-                    if (addedCarDetails) this.setState({redirectToCarsPage: true})
+            addCarDetail(this.props.car.id, data)
+                .then(addedCarDetail => {
+                    if (addedCarDetail) this.setState({redirectToCarsPage: true})
                 })
                 .catch(error => {
                     this.setState({error})
@@ -141,7 +141,7 @@ class AddCarPage extends Component {
                                 {this.state.isCarAdded && <Message success={true} header="Success!" content='Your car was successfully added'/> }
                             </div>
                             <div style={{marginBottom: '70px'}}>
-                                {this.state.isCarAdded && <CarDetailsForm onSubmit = {this.addCarDetails.bind(this)} /> }
+                                {this.state.isCarAdded && <CarDetailForm onSubmit = {this.addCarDetail.bind(this)} /> }
                             </div>
                             <div>
                                 {this.state.error.message && <Message error header="Error!" content={this.state.error.message}/> }
