@@ -10,13 +10,6 @@ class CarsPage extends Component {
         this.props.findAllCars();
     }
 
-    shouldComponentUpdate = (nextProps, nextState) => {
-        if (nextProps.cars !== this.props.cars)
-            return true;
-        else
-            return false;
-    }
-
     handlePaginationChange = (e, page) => {
         this.props.findAllCars(page.activePage);
     }

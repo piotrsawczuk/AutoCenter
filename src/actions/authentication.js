@@ -1,8 +1,6 @@
 import axios from 'axios';
 import { API_URL, TOKEN_AUTH_USERNAME, TOKEN_AUTH_PASSWORD } from '../utils/Properties';
 
-
-
 const receiveLogin = (token) => {
     return {
         type: LOGIN_SUCCESS,
