@@ -59,7 +59,7 @@ export const register = (data) => {
         axios.post(`${API_URL}/register`, data).then(response => {
             dispatch(login(data));
         }).catch(error => {
-            dispatch(setError(error.response.data))
+            dispatch(setError(error.response.data));
         })
     }
 }

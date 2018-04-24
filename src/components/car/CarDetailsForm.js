@@ -12,17 +12,9 @@ class CarDetailsForm extends Component {
         errors: {}
     };
 
-    componentDidUpdate = (prevProps, prevState) => {
-        if (this.props.carDetails !== prevProps.carDetails) {
-            const carDetails = this.props.carDetails;
-            this.setState(
-                {
-                    vin: carDetails.vin ? carDetails.vin : '',
-                    licencePlateNumber : carDetails.licencePlateNumber ? carDetails.licencePlateNumber : '',
-                    color : carDetails.color ? carDetails.color : '',
-                    imageUrl : carDetails.imageUrl ? carDetails.imageUrl : ''
-                }
-            );
+    componentWillReceiveProps = ({ carDetails = {} }) => {
+        if (!!Object.keys(carDetails).length) {
+            this.setState({...carDetails});
         }
     }
 

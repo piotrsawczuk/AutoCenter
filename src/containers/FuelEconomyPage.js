@@ -16,13 +16,6 @@ class FuelEconomyPage extends Component {
         this.props.findFuelEconomyList(this.props.match.params.carId);
     }
 
-    shouldComponentUpdate = (nextProps, nextState) => {
-        if (nextProps.fuelEconomyAvgs !== this.props.fuelEconomyAvgs || nextProps.fuelEconomyList !== this.props.fuelEconomyList)
-            return true;
-        else
-            return false;
-    }
-
     handlePaginationChange = (e, page) => {
         this.props.findFuelEconomyList(this.props.match.params.carId, page.activePage);
     }

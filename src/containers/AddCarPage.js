@@ -135,13 +135,13 @@ class AddCarPage extends Component {
                                 <TrimSelection trims = {this.props.trims} isDisabled = {this.state.disabledTrims} onChange = {this.onChangeTrimSelection}/>
                             </div>
                             <div style={{marginBottom: '70px'}}>
-                                {this.state.visibleButton &&  <Button className="ui large primary left floated button" disabled={this.state.isCarAdded} onClick={() => this.addCar()}>Add car</Button>  }
+                                {this.state.visibleButton && <Button className="ui large primary left floated button" disabled={this.state.isCarAdded} onClick={() => this.addCar()}>Add car</Button>  }
                             </div>
                             <div style={{marginBottom: '50px'}}>
                                 {this.state.isCarAdded && <Message success={true} header="Success!" content='Your car was successfully added'/> }
                             </div>
                             <div style={{marginBottom: '70px'}}>
-                                {this.state.isCarAdded &&<CarDetailsForm onSubmit = {this.addCarDetails.bind(this)} /> }
+                                {this.state.isCarAdded && <CarDetailsForm onSubmit = {this.addCarDetails.bind(this)} /> }
                             </div>
                             <div>
                                 {this.state.error.message && <Message error header="Error!" content={this.state.error.message}/> }

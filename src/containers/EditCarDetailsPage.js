@@ -71,7 +71,7 @@ class EditCarDetailsPage extends Component {
                                 </Breadcrumb>
                             </div>
                             <div style={{marginBottom: '65px'}}>
-                                <CarDetailsForm carDetails = {this.state.carDetails} onSubmit = {this.onSubmit.bind(this)} />
+                                <CarDetailsForm carDetails = {this.state.carDetails} onSubmit = {this.onSubmit} />
                             </div>
                             <div>
                                 {this.state.error.message && <Message error header="Error!" content={this.state.error.message}/> }
