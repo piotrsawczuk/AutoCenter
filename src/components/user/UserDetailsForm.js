@@ -15,18 +15,9 @@ class UserDetailsForm extends Component {
     };
 
     componentDidMount = () => {
-        if (this.props.userDetails) {
-            const userDetails = this.props.userDetails;
-            this.setState(
-                {
-                    firstname: userDetails.firstname ? userDetails.firstname : '',
-                    surname : userDetails.surname ? userDetails.surname : '',
-                    address : userDetails.address ? userDetails.address : '',
-                    city : userDetails.city ? userDetails.city : '',
-                    zipCode : userDetails.zipCode ? userDetails.zipCode : '',
-                    phoneNumber : userDetails.phoneNumber ? userDetails.phoneNumber : '',
-                }
-            );
+        const { userDetails } = this.props;
+        if (userDetails) {
+            this.setState({...userDetails});
         }
     }
     
@@ -57,7 +48,6 @@ class UserDetailsForm extends Component {
 
     render() {
         const { errors } = this.state;
-
         return (
             <Form onSubmit = {this.onSubmit} >
                 <Form.Field>
