@@ -1,7 +1,5 @@
 import axios from 'axios';
-import { API_URL } from '../utils/Properties';
-
-const PAGE_SIZE = 10;
+import { API_URL, REPAIRS_PAGE_SIZE as PAGE_SIZE } from '../utils/Properties';
 
 const setRepairs = (repairs) => {
     return {

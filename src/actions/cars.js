@@ -1,7 +1,5 @@
 import axios from 'axios';
-import { API_URL } from '../utils/Properties';
-
-const PAGE_SIZE = 4;
+import { API_URL, CARS_PAGE_SIZE as PAGE_SIZE } from '../utils/Properties';
 
 const setCars = (cars) => {
     return {

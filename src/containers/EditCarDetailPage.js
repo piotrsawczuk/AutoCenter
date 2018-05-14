@@ -4,7 +4,7 @@ import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 import { Message, Breadcrumb } from 'semantic-ui-react';
 import CarDetailForm from '../components/car/CarDetailForm';
-import { findOne as getCar } from '../services/CarsService';
+import { findOne as getCar } from '../services/CarService';
 import { edit as editCarDetail, save as addCarDetail } from '../services/CarDetailService';
 
 class EditCarDetailPage extends Component {
