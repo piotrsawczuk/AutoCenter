@@ -1,11 +1,9 @@
-import { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, SET_ERROR } from "../actions/authentication";
+import { LOGIN_SUCCESS, LOGOUT_SUCCESS } from "../actions/authentication";
 
 const authReducer = (
     state = {
         token: localStorage.getItem('token'),
-        errorMessage: '',
-        isAuthenticated: localStorage.getItem('token') ? true : false,
-        status: 0
+        isAuthenticated: localStorage.getItem('token') ? true : false
     }
     , action = {}) => {
     switch (action.type) {
@@ -17,24 +15,11 @@ const authReducer = (
                 token: action.token
             };
 
-        case LOGIN_FAILURE :
-            return {
-                ...state,
-                isAuthenticated: false,
-                errorMessage: action.message
-            };
-
         case LOGOUT_SUCCESS :
             return {
                 ...state,
-                token: localStorage.getItem('token'),
-                isAuthenticated: false
-            };
-
-        case SET_ERROR :
-            return {
-                ...state,
-                error: action.error
+                isAuthenticated: false,
+                token: {}
             };
 
         default : return state;

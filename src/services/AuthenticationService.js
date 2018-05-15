@@ -10,7 +10,7 @@ export const login = (data) => new Promise((resolve, reject) => {
         localStorage.setItem('token', `Bearer ${response.data.access_token}`);
         resolve(response.data.access_token);
     }).catch(error => {
-        reject(error.response.data.error_description);
+        reject(error.response.data);
     });
 });
 
@@ -24,8 +24,8 @@ export const register = (data) => new Promise((resolve, reject) => {
 });
 
 export const logout = () => new Promise((resolve, reject) => {
-    localStorage.removeItem('token')
-    .then(resolve(true))
+    localStorage.removeItem('token');
+    resolve(true)
     .catch(error => {
         reject(error);
     });

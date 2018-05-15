@@ -1,7 +1,8 @@
 import { Component } from 'react';
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
-import { logout } from '../actions/authentication';
+import { logout } from '../services/AuthenticationService';
+import { removeToken } from '../actions/authentication';
 
 class LogoutPage extends Component {
     
@@ -9,9 +10,16 @@ class LogoutPage extends Component {
         dispatch: PropTypes.func.isRequired
     };
 
-    componentWillMount() {
-        this.props.dispatch(logout());
-        this.props.history.push('/');
+    componentWillMount = async () => {
+        try {
+            const isLoggedOut = await logout();
+            if (isLoggedOut === true) {
+                await this.props.dispatch(removeToken());
+                this.props.history.push('/');
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     render() {
