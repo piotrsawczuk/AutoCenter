@@ -24,6 +24,10 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.ConstraintViolationException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
@@ -36,7 +40,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             ResourceNotFoundException ex,
             WebRequest request) {
         ServletWebRequest servletWebRequest = (ServletWebRequest) request;
-        String path = servletWebRequest.getRequest().getServletPath();
+        String path = servletWebRequest.getRequest().getContextPath() + servletWebRequest.getRequest().getServletPath();
         log.error(ex.getMessage());
         return buildResponseEntity(new ApiError(HttpStatus.NOT_FOUND, ex.getMessage(), ex, path));
     }
@@ -46,7 +50,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             InvalidRequestParameterException ex,
             WebRequest request) {
         ServletWebRequest servletWebRequest = (ServletWebRequest) request;
-        String path = servletWebRequest.getRequest().getServletPath();
+        String path = servletWebRequest.getRequest().getContextPath() + servletWebRequest.getRequest().getServletPath();
         log.error(ex.getMessage());
         return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, ex.getMessage(), ex, path));
     }
@@ -56,7 +60,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             PasswordException ex,
             WebRequest request) {
         ServletWebRequest servletWebRequest = (ServletWebRequest) request;
-        String path = servletWebRequest.getRequest().getServletPath();
+        String path = servletWebRequest.getRequest().getContextPath() + servletWebRequest.getRequest().getServletPath();
         log.error(ex.getMessage());
         return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, ex.getMessage(), ex, path));
     }
@@ -66,7 +70,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             EmptyResultDataAccessException ex,
             WebRequest request) {
         ServletWebRequest servletWebRequest = (ServletWebRequest) request;
-        String path = servletWebRequest.getRequest().getServletPath();
+        String path = servletWebRequest.getRequest().getContextPath() + servletWebRequest.getRequest().getServletPath();
         log.error(ex.getMessage());
         return buildResponseEntity(new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex, path));
     }
@@ -82,7 +86,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             ConstraintViolationException ex,
             WebRequest request) {
         ServletWebRequest servletWebRequest = (ServletWebRequest) request;
-        String path = servletWebRequest.getRequest().getServletPath();
+        String path = servletWebRequest.getRequest().getContextPath() + servletWebRequest.getRequest().getServletPath();
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex, path);
         apiError.setMessage("Validation error");
         apiError.addValidationErrors(ex.getConstraintViolations());
@@ -94,7 +98,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             TransactionSystemException ex,
             WebRequest request) {
         ServletWebRequest servletWebRequest = (ServletWebRequest) request;
-        String path = servletWebRequest.getRequest().getServletPath();
+        String path = servletWebRequest.getRequest().getContextPath() + servletWebRequest.getRequest().getServletPath();
         if (ex.getCause() != null && ex.getCause().getCause() instanceof ConstraintViolationException) {
             ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, "Validation error", ex.getCause().getCause(), path);
             apiError.addValidationErrors(((ConstraintViolationException) ex.getCause().getCause()).getConstraintViolations());
@@ -114,7 +118,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             EntityNotFoundException ex,
             WebRequest request) {
         ServletWebRequest servletWebRequest = (ServletWebRequest) request;
-        String path = servletWebRequest.getRequest().getServletPath();
+        String path = servletWebRequest.getRequest().getContextPath() + servletWebRequest.getRequest().getServletPath();
         return buildResponseEntity(new ApiError(HttpStatus.NOT_FOUND, ex.getMessage(), ex, path));
     }
 
@@ -129,16 +133,37 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             DataIntegrityViolationException ex,
             WebRequest request) {
         ServletWebRequest servletWebRequest = (ServletWebRequest) request;
-        String path = servletWebRequest.getRequest().getServletPath();
+        String path = servletWebRequest.getRequest().getContextPath() + servletWebRequest.getRequest().getServletPath();
         if (ex.getCause() instanceof org.hibernate.exception.ConstraintViolationException) {
             return buildResponseEntity(
                     new ApiError(
                             HttpStatus.CONFLICT,
-                            ((org.hibernate.exception.ConstraintViolationException) ex.getCause()).getSQLException().getMessage(),
+                            databaseErrorBuilder(ex),
                             ex.getCause(),
                             path));
         }
         return buildResponseEntity(new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, ex, path));
+    }
+
+    private String databaseErrorBuilder(DataIntegrityViolationException ex) {
+        String databaseError = ((org.hibernate.exception.ConstraintViolationException) ex.getCause()).getSQLException().getMessage();
+        Matcher matcher = Pattern.compile("\\(([^)]+)\\)").matcher(databaseError);
+
+        List<String> messageParts = new ArrayList<>();
+        while (matcher.find()) {
+            messageParts.add(matcher.group(1));
+        }
+
+        StringBuilder messageBuilder = new StringBuilder();
+        if (messageParts.size() == 2) {
+            messageBuilder.append(messageParts.get(0).substring(0, 1).toUpperCase()).append(messageParts.get(0).substring(1));
+            messageBuilder.append(" ");
+            messageBuilder.append(messageParts.get(1));
+            messageBuilder.append(" already exists.");
+        } else {
+            messageBuilder.append("Conflict. Value already exists.");
+        }
+        return messageBuilder.toString();
     }
 
     /**
@@ -152,7 +177,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             MethodArgumentTypeMismatchException ex,
             WebRequest request) {
         ServletWebRequest servletWebRequest = (ServletWebRequest) request;
-        String path = servletWebRequest.getRequest().getServletPath();
+        String path = servletWebRequest.getRequest().getContextPath() + servletWebRequest.getRequest().getServletPath();
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex, path);
         apiError.setMessage(String.format(
                 "The parameter '%s' of value '%s' could not be converted to type '%s'",
@@ -179,7 +204,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             HttpStatus status,
             WebRequest request) {
         ServletWebRequest servletWebRequest = (ServletWebRequest) request;
-        String path = servletWebRequest.getRequest().getServletPath();
+        String path = servletWebRequest.getRequest().getContextPath() + servletWebRequest.getRequest().getServletPath();
         String error = ex.getParameterName() + " parameter is missing";
         return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, error, ex, path));
     }
@@ -200,7 +225,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             HttpStatus status,
             WebRequest request) {
         ServletWebRequest servletWebRequest = (ServletWebRequest) request;
-        String path = servletWebRequest.getRequest().getServletPath();
+        String path = servletWebRequest.getRequest().getContextPath() + servletWebRequest.getRequest().getServletPath();
         StringBuilder builder = new StringBuilder();
         builder.append(ex.getContentType());
         builder.append(" media type is not supported. Supported media types are ");
@@ -228,7 +253,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             HttpStatus status,
             WebRequest request) {
         ServletWebRequest servletWebRequest = (ServletWebRequest) request;
-        String path = servletWebRequest.getRequest().getServletPath();
+        String path = servletWebRequest.getRequest().getContextPath() + servletWebRequest.getRequest().getServletPath();
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex, path);
         apiError.setMessage("Validation error");
         apiError.addValidationErrors(ex.getBindingResult().getFieldErrors());
@@ -252,7 +277,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             HttpStatus status,
             WebRequest request) {
         ServletWebRequest servletWebRequest = (ServletWebRequest) request;
-        String path = servletWebRequest.getRequest().getServletPath();
+        String path = servletWebRequest.getRequest().getContextPath() + servletWebRequest.getRequest().getServletPath();
         log.info("{} to {}", servletWebRequest.getHttpMethod(), path);
         String error = "Malformed JSON request";
         return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, error, ex, path));
@@ -274,7 +299,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             HttpStatus status,
             WebRequest request) {
         ServletWebRequest servletWebRequest = (ServletWebRequest) request;
-        String path = servletWebRequest.getRequest().getServletPath();
+        String path = servletWebRequest.getRequest().getContextPath() + servletWebRequest.getRequest().getServletPath();
         String error = "Error writing JSON output";
         return buildResponseEntity(new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, error, ex, path));
     }
