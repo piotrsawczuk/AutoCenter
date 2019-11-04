@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Form, Button } from 'semantic-ui-react';
 import InlineError from '../InlineError';
 
-class PasswordChangeForm extends Component {
+class EmailChangeForm extends Component {
     
     state = {
         email: '',
@@ -45,4 +45,4 @@ class PasswordChangeForm extends Component {
     }
 }
 
-export default PasswordChangeForm;
+export default EmailChangeForm;
