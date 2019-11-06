@@ -6,7 +6,7 @@
     <groupId>sawczuk</groupId>
     <artifactId>AutoCenter</artifactId>
     <version>0.0.1</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <name>AutoCenter</name>
 
@@ -76,6 +76,11 @@
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
             <version>2.9.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>3.8.0</version>
         </dependency>
     </dependencies>
 

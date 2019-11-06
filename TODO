@@ -1,0 +1,21 @@
+TODO List as not using Jira:
+Backend:
+  Improvements:
+    - Upgrade to Java 11+
+	- Upgrade to Spring Boot 2.0+
+	- Change application.properties to yaml
+	- Add sql script to changelog that creates dummy data
+	- Use lombok and remove boilerplate code
+	- Add swagger to application
+	- Add at least unit tests (Spock)
+	- Use multiple profiles (application.yml)
+  Features:
+	- Change mechanism of authorization to work with refresh token
+	- Improve error handling
+	- Use passay for password validator
+	- Use Self-Signed certificate
+
+Frontend:
+  - Add routing params in frontend application
+  - Start using React Hooks
+  - Use library which is using Observables (RxJS)

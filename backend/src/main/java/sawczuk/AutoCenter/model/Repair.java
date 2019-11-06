@@ -29,7 +29,7 @@ public class Repair {
     @Column(name = "description")
     private String description;
     @DecimalMin(value = "0.0", message = "The value must be positive")
-    @Column(name = "cost")
+    @Column(name = "cost", columnDefinition = "NUMERIC(8,2)")
     private Double cost;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "exploitation_type")

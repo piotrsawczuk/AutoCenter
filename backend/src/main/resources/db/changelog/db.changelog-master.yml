@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: Piotr Sawczuk
+      changes:
+        sqlFile:
+          path: init_autocenter_scheme.sql
+          relativeToChangelogFile: true
+          splitStatements: true
+          stripComments: true
+        comment: Create initial schema of database

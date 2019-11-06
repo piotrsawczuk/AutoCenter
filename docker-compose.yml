@@ -1,0 +1,35 @@
+version: '3'
+services:
+
+  database:
+    image: postgres:alpine
+    container_name: auto-center-database
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=AutoCenter
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  backend:
+    build: ./backend
+    container_name: auto-center-backend
+    environment:
+      - DB_SERVER=database
+    ports:
+      - 8080:8080
+    links:
+      - database
+
+  frontend:
+    build: ./frontend
+    container_name: auto-center-frontend
+    ports:
+      - 3000:3000
+    links:
+      - backend
+
+volumes:
+  postgres-data:
