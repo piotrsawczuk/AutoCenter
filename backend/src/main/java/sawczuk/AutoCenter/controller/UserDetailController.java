@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -51,7 +50,7 @@ public class UserDetailController {
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/user-details", method = RequestMethod.PUT)
     public ResponseEntity<UserDetail> editUserDetail(@RequestBody UserDetailDTO userDetailDTO) throws ResourceNotFoundException {
-        UserDetail userDetail = userDetailService.findOneByUserUsernameIgnoreCase(UserUtils.findLoggedInUsername());
+        UserDetail userDetail = userDetailService.findByUserUsernameIgnoreCase(UserUtils.findLoggedInUsername());
         if (userDetail == null) {
             throw new ResourceNotFoundException("User detail", "username", UserUtils.findLoggedInUsername());
         }
@@ -72,7 +71,7 @@ public class UserDetailController {
         if (userId == null) {
             throw new ResourceNotFoundException("User ID", "username", UserUtils.findLoggedInUsername());
         }
-        return new ResponseEntity<>(userDetailService.findOneByUserId(userId), HttpStatus.OK);
+        return new ResponseEntity<>(userDetailService.findByUserId(userId), HttpStatus.OK);
     }
 
 }

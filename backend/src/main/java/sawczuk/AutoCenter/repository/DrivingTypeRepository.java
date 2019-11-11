@@ -6,9 +6,9 @@ import sawczuk.AutoCenter.model.DrivingType;
 import java.util.List;
 
 public interface DrivingTypeRepository extends CrudRepository<DrivingType, Long> {
-    DrivingType findOneByDrivingTypeIgnoreCase(String drivingType);
+    DrivingType findByDrivingTypeIgnoreCase(String drivingType);
 
-    DrivingType findOneByValue(Integer value);
+    DrivingType findByValue(Integer value);
 
     List<DrivingType> findAll();
 }

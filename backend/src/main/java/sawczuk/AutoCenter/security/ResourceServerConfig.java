@@ -1,4 +1,4 @@
-package sawczuk.AutoCenter.config;
+package sawczuk.AutoCenter.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,14 +13,19 @@ import org.springframework.security.oauth2.provider.token.ResourceServerTokenSer
 @Configuration
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
-    @Autowired
-    private ResourceServerTokenServices tokenServices;
 
     @Value("${security.jwt.resource-ids}")
     private String resourceIds;
 
+    private final ResourceServerTokenServices tokenServices;
+
+    @Autowired
+    public ResourceServerConfig(ResourceServerTokenServices tokenServices) {
+        this.tokenServices = tokenServices;
+    }
+
     @Override
-    public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
+    public void configure(ResourceServerSecurityConfigurer resources) {
         resources
                 .resourceId(resourceIds)
                 .tokenServices(tokenServices);
@@ -39,6 +44,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .antMatchers("/driving-types").permitAll()
                 .antMatchers(HttpMethod.GET, "/fuel-economy/avg").permitAll()
                 .antMatchers(HttpMethod.GET, "/repairs/total-cost").permitAll()
-                .antMatchers("/**").authenticated();
+                .antMatchers("/**").authenticated()
+                .anyRequest().authenticated();
     }
 }

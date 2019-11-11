@@ -27,8 +27,8 @@ public class CarDetailServiceImpl implements CarDetailService {
     }
 
     @Override
-    public CarDetail findOneByCarId(Long carId) {
-        return carDetailRepository.findOneByCarId(carId);
+    public CarDetail findByCarId(Long carId) {
+        return carDetailRepository.findByCarId(carId);
     }
 
 }

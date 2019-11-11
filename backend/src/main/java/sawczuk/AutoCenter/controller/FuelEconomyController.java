@@ -49,17 +49,14 @@ public class FuelEconomyController {
         if (carId == null) {
             throw new InvalidRequestParameterException("carId", carId);
         }
-        Car car = carService.findOne(carId);
-        if (car == null) {
-            throw new ResourceNotFoundException("Car", "carId", carId);
-        }
+        Car car = carService.findById(carId).orElseThrow(() -> new ResourceNotFoundException("Car", "id", carId));
 
         FuelEconomy fuelEconomy = new FuelEconomy();
         if (fuelEconomyDTO.getDate() != null)
             fuelEconomy.setDate(fuelEconomyDTO.getDate());
         fuelEconomy.setCar(car);
-        fuelEconomy.setDrivingType(drivingTypeService.findOneByValue(fuelEconomyDTO.getDrivingType()));
-        fuelEconomy.setFuelType(fuelTypeService.findOneByValue(fuelEconomyDTO.getFuelType()));
+        fuelEconomy.setDrivingType(drivingTypeService.findByValue(fuelEconomyDTO.getDrivingType()));
+        fuelEconomy.setFuelType(fuelTypeService.findByValue(fuelEconomyDTO.getFuelType()));
         fuelEconomy.setDistanceDriven(fuelEconomyDTO.getDistanceDriven());
         fuelEconomy.setFuelAmountFilled(fuelEconomyDTO.getFuelAmountFilled());
         fuelEconomy.setPricePerLitre(fuelEconomyDTO.getPricePerLitre());
@@ -83,9 +80,9 @@ public class FuelEconomyController {
         if (fuelEconomyDTO.getDate() != null)
             fuelEconomy.setDate(fuelEconomyDTO.getDate());
         if (fuelEconomyDTO.getDrivingType() != null)
-            fuelEconomy.setDrivingType(drivingTypeService.findOneByValue(fuelEconomyDTO.getDrivingType()));
+            fuelEconomy.setDrivingType(drivingTypeService.findByValue(fuelEconomyDTO.getDrivingType()));
         if (fuelEconomyDTO.getFuelType() != null)
-            fuelEconomy.setFuelType(fuelTypeService.findOneByValue(fuelEconomyDTO.getFuelType()));
+            fuelEconomy.setFuelType(fuelTypeService.findByValue(fuelEconomyDTO.getFuelType()));
         if (fuelEconomyDTO.getDistanceDriven() != null)
             fuelEconomy.setDistanceDriven(fuelEconomyDTO.getDistanceDriven());
         if (fuelEconomyDTO.getFuelAmountFilled() != null)

@@ -21,20 +21,20 @@ public class FuelEconomy {
     private Long id;
     @NotNull
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    @Column(name = "date")
+    @Column(name = "date", columnDefinition = "DATE")
     private LocalDate date;
     @DecimalMin(value = "0.0", message = "The value must be positive")
-    @Column(name = "distance_driven")
+    @Column(name = "distance_driven", columnDefinition = "NUMERIC(7,2)")
     private Double distanceDriven;
     @DecimalMin(value = "0.0", message = "The value must be positive")
-    @Column(name = "fuel_amount_filled")
+    @Column(name = "fuel_amount_filled", columnDefinition = "NUMERIC(5,2)")
     private Double fuelAmountFilled;
     @DecimalMin(value = "0.0", message = "The value must be positive")
-    @Column(name = "price_per_litre")
+    @Column(name = "price_per_litre", columnDefinition = "NUMERIC(4,2)")
     private Double pricePerLitre;
-    @Column(name = "consumption")
+    @Column(name = "consumption", columnDefinition = "NUMERIC(7,2)")
     private Double consumption;
-    @Column(name = "fill_up_cost")
+    @Column(name = "fill_up_cost", columnDefinition = "NUMERIC(7,2)")
     private Double fillUpCost;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "driving_type")

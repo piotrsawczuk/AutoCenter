@@ -7,6 +7,7 @@ import sawczuk.AutoCenter.model.User;
 import sawczuk.AutoCenter.model.dto.UserDTO;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
     void save(User user);
@@ -17,7 +18,7 @@ public interface UserService {
 
     void delete(User user);
 
-    User findOne(Long id);
+    Optional<User> findById(Long id);
 
     User findByUsernameIgnoreCase(String username);
 

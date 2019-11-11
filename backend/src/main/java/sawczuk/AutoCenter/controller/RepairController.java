@@ -47,17 +47,14 @@ public class RepairController {
         if (carId == null) {
             throw new InvalidRequestParameterException("carId", carId);
         }
-        Car car = carService.findOne(carId);
-        if (car == null) {
-            throw new ResourceNotFoundException("Car", "carId", carId);
-        }
+        Car car = carService.findById(carId).orElseThrow(() -> new ResourceNotFoundException("Car", "id", carId));
         Repair repair = new Repair();
         if (repairDTO.getDate() != null)
             repair.setDate(repairDTO.getDate());
         repair.setCar(car);
         repair.setMileage(repairDTO.getMileage());
         repair.setDescription(repairDTO.getDescription());
-        repair.setExploitationType(exploitationTypeService.findOneByValue(repairDTO.getExploitationType()));
+        repair.setExploitationType(exploitationTypeService.findByValue(repairDTO.getExploitationType()));
         repair.setCost(repairDTO.getCost());
         repairService.save(repair);
         return new ResponseEntity<>(repair, HttpStatus.CREATED);
@@ -82,7 +79,7 @@ public class RepairController {
         if (!StringUtils.isEmpty(repairDTO.getDescription()))
             repair.setDescription(repairDTO.getDescription());
         if (repairDTO.getExploitationType() != null)
-            repair.setExploitationType(exploitationTypeService.findOneByValue(repairDTO.getExploitationType()));
+            repair.setExploitationType(exploitationTypeService.findByValue(repairDTO.getExploitationType()));
         if (repairDTO.getCost() != null)
             repair.setCost(repairDTO.getCost());
         repairService.save(repair);

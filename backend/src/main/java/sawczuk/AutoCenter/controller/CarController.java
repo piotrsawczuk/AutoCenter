@@ -56,10 +56,7 @@ public class CarController {
         if (id == null) {
             throw new InvalidRequestParameterException("id", id);
         }
-        Car car = carService.findOne(id);
-        if (car == null) {
-            throw new ResourceNotFoundException("Car", "id", id);
-        }
+        Car car = carService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Car", "id", id));
         if (carDTO.getCarApiId() != null && carDTO.getCarName() != null) {
             car.setCarApiId(carDTO.getCarApiId());
             car.setCarName(carDTO.getCarName());
@@ -82,11 +79,12 @@ public class CarController {
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/cars/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Car> getCar(@PathVariable Long id) throws InvalidRequestParameterException {
+    public ResponseEntity<Car> getCar(@PathVariable Long id) throws InvalidRequestParameterException, ResourceNotFoundException {
         if (id == null) {
             throw new InvalidRequestParameterException("id", id);
         }
-        return new ResponseEntity<>(carService.findOne(id), HttpStatus.OK);
+        Car car = carService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Car", "id", id));
+        return new ResponseEntity<>(car, HttpStatus.OK);
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -95,7 +93,7 @@ public class CarController {
         if (id == null) {
             throw new InvalidRequestParameterException("id", id);
         }
-        carService.delete(id);
+        carService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

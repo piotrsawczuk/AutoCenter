@@ -80,11 +80,12 @@ public class UserController {
 
     @PreAuthorize("hasAuthority('admin')")
     @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
-    public ResponseEntity<User> findAccountById(@PathVariable Long id) throws InvalidRequestParameterException {
+    public ResponseEntity<User> findAccountById(@PathVariable Long id) throws InvalidRequestParameterException, ResourceNotFoundException {
         if (id == null) {
             throw new InvalidRequestParameterException("id", id);
         }
-        return new ResponseEntity<>(userService.findOne(id), HttpStatus.OK);
+        User user = userService.findById(id).orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @PreAuthorize("hasAuthority('admin')")

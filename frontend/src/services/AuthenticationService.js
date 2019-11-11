@@ -3,9 +3,9 @@ import { API_URL, TOKEN_AUTH_USERNAME, TOKEN_AUTH_PASSWORD } from '../utils/Prop
 
 export const login = (data) => new Promise((resolve, reject) => {
     const body = `username=${encodeURIComponent(data.username)}&password=${encodeURIComponent(data.password)}&grant_type=password`;
-    axios.post(`${API_URL}/login`, body, { headers: {
+    axios.post(`${API_URL}/oauth/token`, body, { headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': 'Basic ' + btoa(TOKEN_AUTH_USERNAME + ':' + TOKEN_AUTH_PASSWORD)
+        'Authorization': `Basic ${btoa(`${TOKEN_AUTH_USERNAME}:${TOKEN_AUTH_PASSWORD}`)}`
     } }).then(response => {
         localStorage.setItem('token', `Bearer ${response.data.access_token}`);
         resolve(response.data.access_token);

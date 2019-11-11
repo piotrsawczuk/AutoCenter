@@ -1,12 +1,14 @@
-package sawczuk.AutoCenter.config;
+package sawczuk.AutoCenter.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -17,13 +19,13 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
-import java.util.Arrays;
+import java.time.Duration;
+import java.util.Collections;
 
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
-
-    @Value("${security.signing-key}")
+    @Value("${security.jwt.signing-key}")
     private String signingKey;
 
     @Value("${security.jwt.client-id}")
@@ -32,62 +34,53 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Value("${security.jwt.client-secret}")
     private String clientSecret;
 
-    @Value("${security.jwt.grant-type-password}")
-    private String grantTypePassword;
-
-    @Value("${security.jwt.grant-type-refresh-token}")
-    private String grantTypeRefreshToken;
-
-    @Value("${security.jwt.scope-read}")
-    private String scopeRead;
-
-    @Value("${security.jwt.scope-write}")
-    private String scopeWrite;
-
     @Value("${security.jwt.resource-ids}")
     private String resourceIds;
 
-    @Value("${security.jwt.expire-time}")
-    private int expireTime;
+    @Value("${security.jwt.access-token-expire-time-in-minutes}")
+    private int accessTokenExpireTimeInMinutes;
+
+    @Value("${security.jwt.refresh-token-expire-time-in-minutes}")
+    private int refreshTokenExpireTimeInMinutes;
+
+    private static final String GRANT_TYPE_PASSWORD = "password";
+    private static final String GRANT_TYPE_REFRESH_TOKEN = "refresh_token";
+
+    private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
+    private final UserDetailsService userDetailsService;
 
     @Autowired
-    private TokenStore tokenStore;
-
-    @Autowired
-    private JwtAccessTokenConverter accessTokenConverter;
-
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
-    @Autowired
-    private UserDetailsService userDetailsService;
-
+    public AuthorizationServerConfig(PasswordEncoder passwordEncoder,
+                                     AuthenticationManager authenticationManager,
+                                     @Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService) {
+        this.passwordEncoder = passwordEncoder;
+        this.authenticationManager = authenticationManager;
+        this.userDetailsService = userDetailsService;
+    }
 
     @Override
-    public void configure(ClientDetailsServiceConfigurer configurer) throws Exception {
-        configurer
-                .inMemory()
+    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+        clients.inMemory()
                 .withClient(clientId)
-                .secret(clientSecret)
-                .authorizedGrantTypes(grantTypePassword, grantTypeRefreshToken)
-                .scopes(scopeRead, scopeWrite)
+                .secret(passwordEncoder.encode(clientSecret))
+                .authorizedGrantTypes(GRANT_TYPE_PASSWORD, GRANT_TYPE_REFRESH_TOKEN)
+                .scopes("default")
                 .resourceIds(resourceIds)
-                .accessTokenValiditySeconds(expireTime);
+                .accessTokenValiditySeconds((int) Duration.ofMinutes(accessTokenExpireTimeInMinutes).toSeconds())
+                .refreshTokenValiditySeconds((int) Duration.ofMinutes(refreshTokenExpireTimeInMinutes).toSeconds());
     }
 
     @Override
-    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+    public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
         TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
-        enhancerChain.setTokenEnhancers(Arrays.asList(accessTokenConverter));
+        enhancerChain.setTokenEnhancers(Collections.singletonList(accessTokenConverter()));
         endpoints
-                .pathMapping("/oauth/token", "/login")
-                .tokenStore(tokenStore)
+                .authenticationManager(authenticationManager)
                 .userDetailsService(userDetailsService)
-                .accessTokenConverter(accessTokenConverter)
-                .tokenEnhancer(enhancerChain)
-                .authenticationManager(authenticationManager);
+                .reuseRefreshTokens(false)
+                .tokenEnhancer(enhancerChain);
     }
-
 
     @Bean
     public JwtAccessTokenConverter accessTokenConverter() {
@@ -106,7 +99,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public DefaultTokenServices tokenServices() {
         DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
         defaultTokenServices.setTokenStore(tokenStore());
-        defaultTokenServices.setSupportRefreshToken(true);
         return defaultTokenServices;
     }
 

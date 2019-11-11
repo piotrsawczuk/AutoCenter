@@ -37,10 +37,7 @@ public class CarDetailController {
         if (carId == null) {
             throw new InvalidRequestParameterException("carId", carId);
         }
-        Car car = carService.findOne(carId);
-        if (carId == null) {
-            throw new ResourceNotFoundException("Car", "carId", carId);
-        }
+        Car car = carService.findById(carId).orElseThrow(() -> new ResourceNotFoundException("Car", "id", carId));
         CarDetail carDetail = new CarDetail();
 //        if (VinChecker.validate(carDetailDTO.getVin()))
         carDetail.setVin(carDetailDTO.getVin());
@@ -58,7 +55,7 @@ public class CarDetailController {
         if (carId == null) {
             throw new InvalidRequestParameterException("carId", carId);
         }
-        CarDetail carDetail = carDetailService.findOneByCarId(carId);
+        CarDetail carDetail = carDetailService.findByCarId(carId);
         if (carDetail == null) {
             throw new ResourceNotFoundException("Car detail", "carId", carId);
         }
@@ -81,7 +78,7 @@ public class CarDetailController {
         if (carId == null) {
             throw new InvalidRequestParameterException("carId", carId);
         }
-        return new ResponseEntity<>(carDetailService.findOneByCarId(carId), HttpStatus.OK);
+        return new ResponseEntity<>(carDetailService.findByCarId(carId), HttpStatus.OK);
     }
 }
 //TODO uncomment after tests

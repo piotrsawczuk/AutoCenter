@@ -20,16 +20,16 @@ public class DrivingTypeServiceImpl implements DrivingTypeService {
     }
 
     @Override
-    public DrivingType findOneByDrivingTypeIgnoreCase(String drivingTypeName) throws ResourceNotFoundException {
-        DrivingType drivingType = drivingTypeRepository.findOneByDrivingTypeIgnoreCase(drivingTypeName);
+    public DrivingType findByDrivingTypeIgnoreCase(String drivingTypeName) throws ResourceNotFoundException {
+        DrivingType drivingType = drivingTypeRepository.findByDrivingTypeIgnoreCase(drivingTypeName);
         if (drivingType == null)
             throw new ResourceNotFoundException("Driving type", "drivingTypeName", drivingTypeName);
         return drivingType;
     }
 
     @Override
-    public DrivingType findOneByValue(Integer value) throws ResourceNotFoundException {
-        DrivingType drivingType = drivingTypeRepository.findOneByValue(value);
+    public DrivingType findByValue(Integer value) throws ResourceNotFoundException {
+        DrivingType drivingType = drivingTypeRepository.findByValue(value);
         if (drivingType == null)
             throw new ResourceNotFoundException("Driving type", "value", value);
         return drivingType;

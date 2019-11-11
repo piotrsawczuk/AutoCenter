@@ -1,17 +1,18 @@
-DROP DATABASE "AutoCenter";
-CREATE DATABASE "AutoCenter"
-    WITH 
-    OWNER = postgres
-    ENCODING = 'UTF8'
-    LC_COLLATE = 'Polish_Poland.1250'
-    LC_CTYPE = 'Polish_Poland.1250'
-    TABLESPACE = pg_default
-    CONNECTION LIMIT = -1;
+-- Commented for liquibase purposes. Leaving code there in case of creating database manually.
+-- DROP DATABASE "AutoCenter";
+-- CREATE DATABASE "AutoCenter"
+--     WITH
+--     OWNER = postgres
+--     ENCODING = 'UTF8'
+--     LC_COLLATE = 'Polish_Poland.1250'
+--     LC_CTYPE = 'Polish_Poland.1250'
+--     TABLESPACE = pg_default
+--     CONNECTION LIMIT = -1;
 
-DROP SCHEMA public CASCADE;
-CREATE SCHEMA public;
-GRANT ALL ON SCHEMA public TO postgres;
-GRANT ALL ON SCHEMA public TO public;
+-- DROP SCHEMA public CASCADE;
+-- CREATE SCHEMA public;
+-- GRANT ALL ON SCHEMA public TO postgres;
+-- GRANT ALL ON SCHEMA public TO public;
 
 create sequence app_role_seq;
 create table app_role (
@@ -45,7 +46,7 @@ create table user_role(
 create sequence driving_type_seq;
 create table driving_type(
     id bigint not null primary key default nextval('driving_type_seq'),
-    value bigint,
+    value integer,
     driving_type varchar(10),
     constraint unique_driving_value unique (value),
     constraint unique_driving_type unique (driving_type)
@@ -57,7 +58,7 @@ insert into driving_type (value, driving_type) values (3, 'Mixed');
 create sequence fuel_type_seq;
 create table fuel_type(
     id bigint not null primary key default nextval('fuel_type_seq'),
-    value bigint,
+    value integer,
     fuel_type varchar(10),
     constraint unique_fuel_value unique (value),
     constraint unique_fuel_type unique (fuel_type)
@@ -69,7 +70,7 @@ insert into fuel_type (value, fuel_type) values (3, 'LPG');
 create sequence exploitation_type_seq;
 create table exploitation_type(
     id bigint not null primary key default nextval('exploitation_type_seq'),
-    value bigint,
+    value integer,
     exploitation_type varchar(15),
     constraint unique_exploitation_value unique (value),
     constraint unique_exploitation_type unique (exploitation_type)
@@ -123,7 +124,7 @@ create table repair(
     id bigint not null primary key default nextval('repair_seq'),
     user_car_id bigint,
     date date,
-    mileage bigint,
+    mileage integer,
     description text,
     exploitation_type bigint,
     cost numeric(8,2),
