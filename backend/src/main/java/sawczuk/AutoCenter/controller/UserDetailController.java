@@ -31,10 +31,8 @@ public class UserDetailController {
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/user-details", method = RequestMethod.POST)
     public ResponseEntity<UserDetail> saveUserDetail(@RequestBody UserDetailDTO userDetailDTO) throws ResourceNotFoundException {
-        User user = userService.findByUsernameIgnoreCase(UserUtils.findLoggedInUsername());
-        if (user == null) {
-            throw new ResourceNotFoundException("User", "username", UserUtils.findLoggedInUsername());
-        }
+        User user = userService.findByUsernameIgnoreCase(UserUtils.findLoggedInUsername())
+                .orElseThrow(() -> new ResourceNotFoundException("User", "username", UserUtils.findLoggedInUsername()));
         UserDetail userDetail = new UserDetail();
         userDetail.setFirstname(userDetailDTO.getFirstname());
         userDetail.setSurname(userDetailDTO.getSurname());
@@ -67,11 +65,9 @@ public class UserDetailController {
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/user-details", method = RequestMethod.GET)
     public ResponseEntity<UserDetail> getUserDetail() throws ResourceNotFoundException {
-        Long userId = userService.findByUsernameIgnoreCase(UserUtils.findLoggedInUsername()).getId();
-        if (userId == null) {
-            throw new ResourceNotFoundException("User ID", "username", UserUtils.findLoggedInUsername());
-        }
+        Long userId = userService.findByUsernameIgnoreCase(UserUtils.findLoggedInUsername())
+                .orElseThrow(() -> new ResourceNotFoundException("User ID", "username", UserUtils.findLoggedInUsername()))
+                .getId();
         return new ResponseEntity<>(userDetailService.findByUserId(userId), HttpStatus.OK);
     }
-
 }

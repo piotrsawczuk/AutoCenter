@@ -6,9 +6,10 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import sawczuk.AutoCenter.model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserRepository extends PagingAndSortingRepository<User, Long> {
-    User findByUsernameIgnoreCase(String username);
+    Optional<User> findByUsernameIgnoreCase(String username);
 
     List<User> findAll();
 

@@ -38,10 +38,8 @@ public class CarController {
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/cars", method = RequestMethod.POST)
     public ResponseEntity<Car> saveCar(@RequestBody CarDTO carDTO) throws ResourceNotFoundException {
-        User user = userService.findByUsernameIgnoreCase(UserUtils.findLoggedInUsername());
-        if (user == null) {
-            throw new ResourceNotFoundException("User", "username", UserUtils.findLoggedInUsername());
-        }
+        User user = userService.findByUsernameIgnoreCase(UserUtils.findLoggedInUsername())
+                .orElseThrow(() -> new ResourceNotFoundException("User", "username", UserUtils.findLoggedInUsername()));
         Car car = new Car();
         car.setCarApiId(carDTO.getCarApiId());
         car.setCarName(carDTO.getCarName());
@@ -70,10 +68,9 @@ public class CarController {
     public ResponseEntity<Page<Car>> getAllCars(
             @PageableDefault(page = DEFAULT_PAGE_NUMBER, size = DEFAULT_PAGE_SIZE)
             Pageable pageable) throws ResourceNotFoundException {
-        Long userId = userService.findByUsernameIgnoreCase(UserUtils.findLoggedInUsername()).getId();
-        if (userId == null) {
-            throw new ResourceNotFoundException("User ID", "username", UserUtils.findLoggedInUsername());
-        }
+        Long userId = userService.findByUsernameIgnoreCase(UserUtils.findLoggedInUsername())
+                .orElseThrow(() -> new ResourceNotFoundException("User ID", "username", UserUtils.findLoggedInUsername()))
+                .getId();
         return new ResponseEntity<>(carService.findAllByUserId(userId, pageable), HttpStatus.OK);
     }
 

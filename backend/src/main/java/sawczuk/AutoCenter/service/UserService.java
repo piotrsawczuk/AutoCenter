@@ -20,7 +20,7 @@ public interface UserService {
 
     Optional<User> findById(Long id);
 
-    User findByUsernameIgnoreCase(String username);
+    Optional<User> findByUsernameIgnoreCase(String username);
 
     List<User> findAll();
 
