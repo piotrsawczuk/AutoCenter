@@ -5,7 +5,7 @@ COPY pom.xml /backend
 COPY src /backend/src
 RUN mvn --quiet --file pom.xml clean package
 
-FROM openjdk:11
+FROM openjdk:11-jdk-slim
 COPY --from=build /backend/target/*.jar auto-center-0.0.1.jar
 EXPOSE 8080
 ENTRYPOINT ["java","-jar","auto-center-0.0.1.jar"]

@@ -1,7 +1,6 @@
 TODO List as not using Jira:
 Backend:
   Improvements:
-	- Consider other lightweight docker images
 	- Use optionals where possible
 	- Add sql script to changelog that creates dummy data
 	- Use lombok and remove boilerplate code
