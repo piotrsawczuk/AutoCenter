@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${DB_SERVER}/AutoCenter
+    username: postgres
+    password: postgres
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.yml
+  jpa:
+    hibernate.ddl-auto: validate
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
+server:
+  servlet:
+    context-path: /api
+security:
+  cors:
+    client-app-url: http://localhost:3000
+  jwt:
+    signing-key: 8fc67c3f9527b60c687fa74d5cfcfae0072a957df005db4cc123c6bc020be881
+    client-id: autoCenterClient
+    client-secret: 8ae1c884f76b6371acb51ec7faec4de8c9a4f2b568af2f992a6ca33cd094f1a6
+    resource-ids: autoCenterApi
+    access-token-expire-time-in-minutes: 10
+    refresh-token-expire-time-in-minutes: 30

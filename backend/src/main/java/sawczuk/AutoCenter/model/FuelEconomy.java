@@ -21,7 +21,7 @@ public class FuelEconomy {
     private Long id;
     @NotNull
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    @Column(name = "date")
+    @Column(name = "date", columnDefinition = "DATE")
     private LocalDate date;
     @DecimalMin(value = "0.0", message = "The value must be positive")
     @Column(name = "distance_driven", columnDefinition = "NUMERIC(7,2)")

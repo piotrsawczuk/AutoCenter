@@ -5,13 +5,14 @@ import org.springframework.data.domain.Pageable;
 import sawczuk.AutoCenter.model.Car;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CarService {
     void save(Car car);
 
-    void delete(Long id);
+    void deleteById(Long id);
 
-    Car findOne(Long id);
+    Optional<Car> findById(Long id);
 
     List<Car> findAllByUserId(Long userId);
 

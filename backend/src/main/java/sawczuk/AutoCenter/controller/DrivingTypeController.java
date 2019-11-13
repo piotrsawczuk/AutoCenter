@@ -27,9 +27,9 @@ public class DrivingTypeController {
     public ResponseEntity<?> getDrivingType(@RequestParam(value = "value", required = false) Integer value,
                                             @RequestParam(value = "driving_type", required = false) String drivingType) throws ResourceNotFoundException {
         if (value != null)
-            return new ResponseEntity<>(drivingTypeService.findOneByValue(value), HttpStatus.OK);
+            return new ResponseEntity<>(drivingTypeService.findByValue(value), HttpStatus.OK);
         else if (!StringUtils.isEmpty(drivingType))
-            return new ResponseEntity<>(drivingTypeService.findOneByDrivingTypeIgnoreCase(drivingType), HttpStatus.OK);
+            return new ResponseEntity<>(drivingTypeService.findByDrivingTypeIgnoreCase(drivingType), HttpStatus.OK);
         else
             return new ResponseEntity<>(drivingTypeService.findAll(), HttpStatus.OK);
     }

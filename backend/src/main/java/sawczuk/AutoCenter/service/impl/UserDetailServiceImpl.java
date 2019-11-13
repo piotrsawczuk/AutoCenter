@@ -22,12 +22,12 @@ public class UserDetailServiceImpl implements UserDetailService {
     }
 
     @Override
-    public UserDetail findOneByUserId(Long userId) {
-        return userDetailRepository.findOneByUserId(userId);
+    public UserDetail findByUserId(Long userId) {
+        return userDetailRepository.findByUserId(userId);
     }
 
     @Override
-    public UserDetail findOneByUserUsernameIgnoreCase(String username) {
-        return userDetailRepository.findOneByUserUsernameIgnoreCase(username);
+    public UserDetail findByUserUsernameIgnoreCase(String username) {
+        return userDetailRepository.findByUserUsernameIgnoreCase(username);
     }
 }

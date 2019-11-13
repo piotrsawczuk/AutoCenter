@@ -9,6 +9,7 @@ import sawczuk.AutoCenter.repository.CarRepository;
 import sawczuk.AutoCenter.service.CarService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CarServiceImpl implements CarService {
@@ -26,13 +27,13 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public void delete(Long id) {
-        carRepository.delete(id);
+    public void deleteById(Long id) {
+        carRepository.deleteById(id);
     }
 
     @Override
-    public Car findOne(Long id) {
-        return carRepository.findOne(id);
+    public Optional<Car> findById(Long id) {
+        return carRepository.findById(id);
     }
 
     @Override

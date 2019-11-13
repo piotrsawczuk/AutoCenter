@@ -6,9 +6,9 @@ import sawczuk.AutoCenter.model.FuelType;
 import java.util.List;
 
 public interface FuelTypeRepository extends CrudRepository<FuelType, Long> {
-    FuelType findOneByFuelTypeIgnoreCase(String fuelType);
+    FuelType findByFuelTypeIgnoreCase(String fuelType);
 
-    FuelType findOneByValue(Integer value);
+    FuelType findByValue(Integer value);
 
     List<FuelType> findAll();
 }

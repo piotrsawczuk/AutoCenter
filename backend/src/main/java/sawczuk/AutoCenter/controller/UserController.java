@@ -61,10 +61,8 @@ public class UserController {
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/users", method = RequestMethod.PUT)
     public ResponseEntity<User> updateAccount(@RequestBody UserDTO userDTO) throws PasswordException, ResourceNotFoundException{
-        User user = userService.findByUsernameIgnoreCase(UserUtils.findLoggedInUsername());
-        if (user == null) {
-            throw new ResourceNotFoundException("User", "username", UserUtils.findLoggedInUsername());
-        }
+        User user = userService.findByUsernameIgnoreCase(UserUtils.findLoggedInUsername())
+                .orElseThrow(() -> new ResourceNotFoundException("User", "username", UserUtils.findLoggedInUsername()));
         userService.update(userDTO, user);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
@@ -80,11 +78,12 @@ public class UserController {
 
     @PreAuthorize("hasAuthority('admin')")
     @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
-    public ResponseEntity<User> findAccountById(@PathVariable Long id) throws InvalidRequestParameterException {
+    public ResponseEntity<User> findAccountById(@PathVariable Long id) throws InvalidRequestParameterException, ResourceNotFoundException {
         if (id == null) {
             throw new InvalidRequestParameterException("id", id);
         }
-        return new ResponseEntity<>(userService.findOne(id), HttpStatus.OK);
+        User user = userService.findById(id).orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @PreAuthorize("hasAuthority('admin')")

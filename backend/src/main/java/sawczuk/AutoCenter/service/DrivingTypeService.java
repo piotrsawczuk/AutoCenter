@@ -6,9 +6,9 @@ import sawczuk.AutoCenter.model.DrivingType;
 import java.util.List;
 
 public interface DrivingTypeService {
-    DrivingType findOneByDrivingTypeIgnoreCase(String drivingTypeName) throws ResourceNotFoundException;
+    DrivingType findByDrivingTypeIgnoreCase(String drivingTypeName) throws ResourceNotFoundException;
 
-    DrivingType findOneByValue(Integer value) throws ResourceNotFoundException;
+    DrivingType findByValue(Integer value) throws ResourceNotFoundException;
 
     List<DrivingType> findAll() throws ResourceNotFoundException;
 }

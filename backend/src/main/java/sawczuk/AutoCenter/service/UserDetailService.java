@@ -5,7 +5,7 @@ import sawczuk.AutoCenter.model.UserDetail;
 public interface UserDetailService {
     void save(UserDetail userDetail);
 
-    UserDetail findOneByUserId(Long userId);
+    UserDetail findByUserId(Long userId);
 
-    UserDetail findOneByUserUsernameIgnoreCase(String username);
+    UserDetail findByUserUsernameIgnoreCase(String username);
 }

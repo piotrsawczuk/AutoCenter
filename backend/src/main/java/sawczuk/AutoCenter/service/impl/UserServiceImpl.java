@@ -14,8 +14,10 @@ import sawczuk.AutoCenter.service.RoleService;
 import sawczuk.AutoCenter.service.UserService;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -37,7 +39,7 @@ public class UserServiceImpl implements UserService {
         if (user.isRoleAdmin())
             user.setRoles(new HashSet<>(Arrays.asList(roleService.findByNameIgnoreCase("user"), roleService.findByNameIgnoreCase("admin"))));
         else
-            user.setRoles(new HashSet<>(Arrays.asList(roleService.findByNameIgnoreCase("user"))));
+            user.setRoles(new HashSet<>(Collections.singletonList(roleService.findByNameIgnoreCase("user"))));
         user.setActive(true);
         userRepository.save(user);
     }
@@ -64,7 +66,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delete(Long id) {
-        userRepository.delete(id);
+        userRepository.deleteById(id);
     }
 
     @Override
@@ -73,12 +75,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findOne(Long id) {
-        return userRepository.findOne(id);
+    public Optional<User> findById(Long id) {
+        return userRepository.findById(id);
     }
 
     @Override
-    public User findByUsernameIgnoreCase(String username) {
+    public Optional<User> findByUsernameIgnoreCase(String username) {
         return userRepository.findByUsernameIgnoreCase(username);
     }
 

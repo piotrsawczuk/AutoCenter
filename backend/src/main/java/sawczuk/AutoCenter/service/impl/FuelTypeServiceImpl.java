@@ -20,16 +20,16 @@ public class FuelTypeServiceImpl implements FuelTypeService {
     }
 
     @Override
-    public FuelType findOneByFuelTypeIgnoreCase(String fuelTypeName) throws ResourceNotFoundException {
-        FuelType fuelType = fuelTypeRepository.findOneByFuelTypeIgnoreCase(fuelTypeName);
+    public FuelType findByFuelTypeIgnoreCase(String fuelTypeName) throws ResourceNotFoundException {
+        FuelType fuelType = fuelTypeRepository.findByFuelTypeIgnoreCase(fuelTypeName);
         if (fuelType == null)
             throw new ResourceNotFoundException("Fuel type", "fuelTypeName", fuelTypeName);
         return fuelType;
     }
 
     @Override
-    public FuelType findOneByValue(Integer value) throws ResourceNotFoundException {
-        FuelType fuelType = fuelTypeRepository.findOneByValue(value);
+    public FuelType findByValue(Integer value) throws ResourceNotFoundException {
+        FuelType fuelType = fuelTypeRepository.findByValue(value);
         if (fuelType == null)
             throw new ResourceNotFoundException("Fuel type", "value", value);
         return fuelType;

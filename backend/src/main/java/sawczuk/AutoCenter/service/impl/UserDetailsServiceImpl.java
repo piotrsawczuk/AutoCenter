@@ -7,9 +7,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import sawczuk.AutoCenter.exception.ResourceNotFoundException;
 import sawczuk.AutoCenter.model.Role;
 import sawczuk.AutoCenter.model.User;
 import sawczuk.AutoCenter.repository.UserRepository;
+import sawczuk.AutoCenter.util.UserUtils;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -26,11 +28,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsernameIgnoreCase(username);
-
-        if (user == null) {
-            throw new UsernameNotFoundException(String.format("The username %s doesn't exist", username));
-        }
+        User user = userRepository.findByUsernameIgnoreCase(username)
+                .orElseThrow(() -> new UsernameNotFoundException(String.format("The username %s doesn't exist", username)));
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         for (Role role : user.getRoles()) {
