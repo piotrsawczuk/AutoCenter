@@ -2,11 +2,10 @@ TODO List as not using Jira:
 Backend:
   Improvements:
 	- Use optionals where possible
+    - Use multiple profiles (application.yml)
 	- Add sql script to changelog that creates dummy data
-	- Use lombok and remove boilerplate code
 	- Add swagger to application
 	- Add tests (at least unit tests (Spock))
-	- Use multiple profiles (application.yml)
   Features:
 	- Improve error handling
 	- Use passay for password validator
@@ -15,5 +14,6 @@ Backend:
 Frontend:
   - Add support for refresh token
   - Add routing params in frontend application
+  - Remove Redux where isn't needed
   - Start using React Hooks
-  - Use library which is using Observables (RxJS)
+  - Use library which is using Observables (RxJS, redux-observable)
