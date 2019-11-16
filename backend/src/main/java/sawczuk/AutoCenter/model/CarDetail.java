@@ -2,6 +2,8 @@ package sawczuk.AutoCenter.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
@@ -9,6 +11,8 @@ import javax.validation.constraints.Pattern;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "user_car_detail")
+@Getter
+@Setter
 public class CarDetail {
     @Id
     @Column(name = "id")
@@ -29,52 +33,4 @@ public class CarDetail {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_car_id")
     private Car car;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Car getCar() {
-        return car;
-    }
-
-    public void setCar(Car car) {
-        this.car = car;
-    }
-
-    public String getVin() {
-        return vin;
-    }
-
-    public void setVin(String vin) {
-        this.vin = vin;
-    }
-
-    public String getLicencePlateNumber() {
-        return licencePlateNumber;
-    }
-
-    public void setLicencePlateNumber(String licencePlateNumber) {
-        this.licencePlateNumber = licencePlateNumber;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
 }

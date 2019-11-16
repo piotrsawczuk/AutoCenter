@@ -1,6 +1,6 @@
 package sawczuk.AutoCenter.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -12,17 +12,13 @@ import org.springframework.security.oauth2.provider.token.ResourceServerTokenSer
 
 @Configuration
 @EnableResourceServer
+@RequiredArgsConstructor
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Value("${security.jwt.resource-ids}")
     private String resourceIds;
 
     private final ResourceServerTokenServices tokenServices;
-
-    @Autowired
-    public ResourceServerConfig(ResourceServerTokenServices tokenServices) {
-        this.tokenServices = tokenServices;
-    }
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) {

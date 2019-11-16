@@ -1,13 +1,12 @@
 package sawczuk.AutoCenter.util;
 
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
+@NoArgsConstructor
 public class UserUtils {
-
-    private UserUtils() {
-    }
 
     public static String findLoggedInUsername() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

@@ -1,6 +1,6 @@
 package sawczuk.AutoCenter.carqueryapi.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,15 +17,11 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
+@RequiredArgsConstructor
 @RequestMapping("/car-query-api")
 public class CarQueryController {
 
-    private CarQueryService carQueryService;
-
-    @Autowired
-    public CarQueryController(CarQueryService carQueryService) {
-        this.carQueryService = carQueryService;
-    }
+    private final CarQueryService carQueryService;
 
     @PreAuthorize("permitAll()")
     @RequestMapping(value = "/years", method = RequestMethod.GET)

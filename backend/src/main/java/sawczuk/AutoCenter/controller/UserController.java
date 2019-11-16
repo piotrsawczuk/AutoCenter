@@ -1,6 +1,6 @@
 package sawczuk.AutoCenter.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -9,7 +9,6 @@ import org.springframework.data.web.SortDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,16 +23,12 @@ import sawczuk.AutoCenter.service.UserService;
 import sawczuk.AutoCenter.util.UserUtils;
 
 @Controller
+@RequiredArgsConstructor
 public class UserController {
     private static final int DEFAULT_PAGE_NUMBER = 0;
     private static final int DEFAULT_PAGE_SIZE = 20;
 
-    private UserService userService;
-
-    @Autowired
-    public UserController(UserService userService, BCryptPasswordEncoder passwordEncoder) {
-        this.userService = userService;
-    }
+    private final UserService userService;
 
     @PreAuthorize("permitAll()")
     @RequestMapping(value = {"/register"}, method = RequestMethod.POST)

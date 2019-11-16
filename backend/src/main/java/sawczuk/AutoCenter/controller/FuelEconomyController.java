@@ -1,6 +1,6 @@
 package sawczuk.AutoCenter.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -25,22 +25,15 @@ import sawczuk.AutoCenter.service.FuelTypeService;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class FuelEconomyController {
     private static final int DEFAULT_PAGE_NUMBER = 0;
     private static final int DEFAULT_PAGE_SIZE = 20;
 
-    private FuelEconomyService fuelEconomyService;
-    private CarService carService;
-    private DrivingTypeService drivingTypeService;
-    private FuelTypeService fuelTypeService;
-
-    @Autowired
-    public FuelEconomyController(FuelEconomyService fuelEconomyService, CarService carService, DrivingTypeService drivingTypeService, FuelTypeService fuelTypeService) {
-        this.fuelEconomyService = fuelEconomyService;
-        this.carService = carService;
-        this.drivingTypeService = drivingTypeService;
-        this.fuelTypeService = fuelTypeService;
-    }
+    private final FuelEconomyService fuelEconomyService;
+    private final CarService carService;
+    private final DrivingTypeService drivingTypeService;
+    private final FuelTypeService fuelTypeService;
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "cars/{carId}/fuel-economy", method = RequestMethod.POST)

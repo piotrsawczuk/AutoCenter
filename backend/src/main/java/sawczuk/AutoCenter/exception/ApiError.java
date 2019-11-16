@@ -2,6 +2,8 @@ package sawczuk.AutoCenter.exception;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.internal.engine.path.PathImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
@@ -14,6 +16,8 @@ import java.util.List;
 import java.util.Set;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@Getter
+@Setter
 public class ApiError {
     private Integer code;
     private HttpStatus status;
@@ -25,72 +29,10 @@ public class ApiError {
     private String path;
     private List<ApiSubError> subErrors;
 
-
-    public void setCode(Integer code) {
-        this.code = code;
-    }
-
-    public Integer getCode() {
-        return code;
-    }
-
-    public HttpStatus getStatus() {
-        return status;
-    }
-
     public void setStatus(HttpStatus status) {
         this.status = status;
         this.code = status.value();
     }
-
-    public LocalDateTime getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(LocalDateTime timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public String getException() {
-        return exception;
-    }
-
-    public void setException(String exception) {
-        this.exception = exception;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public String getDebugMessage() {
-        return debugMessage;
-    }
-
-    public void setDebugMessage(String debugMessage) {
-        this.debugMessage = debugMessage;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    public List<ApiSubError> getSubErrors() {
-        return subErrors;
-    }
-
-    public void setSubErrors(List<ApiSubError> subErrors) {
-        this.subErrors = subErrors;
-    }
-
 
     private ApiError() {
         timestamp = LocalDateTime.now();
@@ -199,50 +141,20 @@ public class ApiError {
 
     }
 
+    @Getter
+    @Setter
     class ApiValidationError extends ApiSubError {
         private String object;
         private String field;
         private Object rejectedValue;
         private String message;
 
-        public String getObject() {
-            return object;
-        }
-
-        public void setObject(String object) {
-            this.object = object;
-        }
-
-        public String getField() {
-            return field;
-        }
-
-        public void setField(String field) {
-            this.field = field;
-        }
-
-        public Object getRejectedValue() {
-            return rejectedValue;
-        }
-
-        public void setRejectedValue(Object rejectedValue) {
-            this.rejectedValue = rejectedValue;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-
-        public void setMessage(String message) {
-            this.message = message;
-        }
-
         ApiValidationError(String object, String message) {
             this.object = object;
             this.message = message;
         }
 
-        public ApiValidationError(String object, String field, Object rejectedValue, String message) {
+        ApiValidationError(String object, String field, Object rejectedValue, String message) {
             this.object = object;
             this.field = field;
             this.rejectedValue = rejectedValue;

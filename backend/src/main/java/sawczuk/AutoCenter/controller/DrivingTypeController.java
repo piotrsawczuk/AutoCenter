@@ -1,6 +1,6 @@
 package sawczuk.AutoCenter.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,14 +13,10 @@ import sawczuk.AutoCenter.exception.ResourceNotFoundException;
 import sawczuk.AutoCenter.service.DrivingTypeService;
 
 @Controller
+@RequiredArgsConstructor
 public class DrivingTypeController {
 
-    private DrivingTypeService drivingTypeService;
-
-    @Autowired
-    public DrivingTypeController(DrivingTypeService drivingTypeService) {
-        this.drivingTypeService = drivingTypeService;
-    }
+    private final DrivingTypeService drivingTypeService;
 
     @PreAuthorize("permitAll()")
     @RequestMapping(value = "/driving-types", method = RequestMethod.GET)

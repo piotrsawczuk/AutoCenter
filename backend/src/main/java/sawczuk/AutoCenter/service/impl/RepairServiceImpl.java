@@ -1,6 +1,6 @@
 package sawczuk.AutoCenter.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -14,14 +14,10 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class RepairServiceImpl implements RepairService {
 
-    private RepairRepository repairRepository;
-
-    @Autowired
-    public RepairServiceImpl(RepairRepository repairRepository) {
-        this.repairRepository = repairRepository;
-    }
+    private final RepairRepository repairRepository;
 
     @Override
     public void save(Repair repair) {

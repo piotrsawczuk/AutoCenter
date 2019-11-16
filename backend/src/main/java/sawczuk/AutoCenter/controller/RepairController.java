@@ -1,6 +1,6 @@
 package sawczuk.AutoCenter.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -25,20 +25,14 @@ import sawczuk.AutoCenter.service.RepairService;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class RepairController {
     private static final int DEFAULT_PAGE_NUMBER = 0;
     private static final int DEFAULT_PAGE_SIZE = 20;
 
-    private RepairService repairService;
-    private CarService carService;
-    private ExploitationTypeService exploitationTypeService;
-
-    @Autowired
-    public RepairController(RepairService repairService, CarService carService, ExploitationTypeService exploitationTypeService) {
-        this.repairService = repairService;
-        this.carService = carService;
-        this.exploitationTypeService = exploitationTypeService;
-    }
+    private final RepairService repairService;
+    private final CarService carService;
+    private final ExploitationTypeService exploitationTypeService;
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "cars/{carId}/repairs", method = RequestMethod.POST)

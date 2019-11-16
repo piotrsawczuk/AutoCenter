@@ -1,18 +1,14 @@
 package sawczuk.AutoCenter.carqueryapi.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
+@Getter
+@Setter
 public class Models {
     @JsonProperty("Models")
     private List<Model> modelList;
-
-    public List<Model> getModelList() {
-        return modelList;
-    }
-
-    public void setModelList(List<Model> modelList) {
-        this.modelList = modelList;
-    }
 }

@@ -1,6 +1,6 @@
 package sawczuk.AutoCenter.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import sawczuk.AutoCenter.model.CarDetail;
@@ -8,14 +8,10 @@ import sawczuk.AutoCenter.repository.CarDetailRepository;
 import sawczuk.AutoCenter.service.CarDetailService;
 
 @Service
+@RequiredArgsConstructor
 public class CarDetailServiceImpl implements CarDetailService {
 
-    private CarDetailRepository carDetailRepository;
-
-    @Autowired
-    public CarDetailServiceImpl(CarDetailRepository carDetailRepository) {
-        this.carDetailRepository = carDetailRepository;
-    }
+    private final CarDetailRepository carDetailRepository;
 
     @Override
     public void save(CarDetail carDetail) {

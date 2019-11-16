@@ -1,6 +1,6 @@
 package sawczuk.AutoCenter.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import sawczuk.AutoCenter.exception.ResourceNotFoundException;
 import sawczuk.AutoCenter.model.DrivingType;
@@ -10,14 +10,10 @@ import sawczuk.AutoCenter.service.DrivingTypeService;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class DrivingTypeServiceImpl implements DrivingTypeService {
 
-    private DrivingTypeRepository drivingTypeRepository;
-
-    @Autowired
-    public DrivingTypeServiceImpl(DrivingTypeRepository drivingTypeRepository) {
-        this.drivingTypeRepository = drivingTypeRepository;
-    }
+    private final DrivingTypeRepository drivingTypeRepository;
 
     @Override
     public DrivingType findByDrivingTypeIgnoreCase(String drivingTypeName) throws ResourceNotFoundException {

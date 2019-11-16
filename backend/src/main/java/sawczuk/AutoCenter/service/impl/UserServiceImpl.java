@@ -1,6 +1,6 @@
 package sawczuk.AutoCenter.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -13,25 +13,15 @@ import sawczuk.AutoCenter.repository.UserRepository;
 import sawczuk.AutoCenter.service.RoleService;
 import sawczuk.AutoCenter.service.UserService;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    private UserRepository userRepository;
-    private RoleService roleService;
-    private BCryptPasswordEncoder passwordEncoder;
-
-    @Autowired
-    public UserServiceImpl(UserRepository userRepository, RoleService roleService, BCryptPasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.roleService = roleService;
-        this.passwordEncoder = passwordEncoder;
-    }
+    private final UserRepository userRepository;
+    private final RoleService roleService;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public void save(User user) {

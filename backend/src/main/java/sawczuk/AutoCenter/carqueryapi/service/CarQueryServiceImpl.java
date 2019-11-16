@@ -1,6 +1,6 @@
 package sawczuk.AutoCenter.carqueryapi.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import sawczuk.AutoCenter.carqueryapi.api.CarQueryApi;
@@ -14,14 +14,10 @@ import sawczuk.AutoCenter.exception.ResourceNotFoundException;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class CarQueryServiceImpl implements CarQueryService {
 
-    private CarQueryApi carQueryApi;
-
-    @Autowired
-    public CarQueryServiceImpl(CarQueryApi carQueryApi) {
-        this.carQueryApi = carQueryApi;
-    }
+    private final CarQueryApi carQueryApi;
 
     @Override
     public Year getYears() throws ResourceNotFoundException {

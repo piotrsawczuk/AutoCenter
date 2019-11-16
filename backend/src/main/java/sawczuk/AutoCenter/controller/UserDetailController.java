@@ -1,6 +1,6 @@
 package sawczuk.AutoCenter.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,16 +17,11 @@ import sawczuk.AutoCenter.service.UserService;
 import sawczuk.AutoCenter.util.UserUtils;
 
 @Controller
+@RequiredArgsConstructor
 public class UserDetailController {
 
-    private UserDetailService userDetailService;
-    private UserService userService;
-
-    @Autowired
-    public UserDetailController(UserDetailService userDetailService, UserService userService) {
-        this.userDetailService = userDetailService;
-        this.userService = userService;
-    }
+    private final UserDetailService userDetailService;
+    private final UserService userService;
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/user-details", method = RequestMethod.POST)

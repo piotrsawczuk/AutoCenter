@@ -3,6 +3,8 @@ package sawczuk.AutoCenter.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.Setter;
 import sawczuk.AutoCenter.util.NumberUtils;
 
 import javax.persistence.*;
@@ -13,6 +15,8 @@ import java.time.LocalDate;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "fuel_economy")
+@Getter
+@Setter
 public class FuelEconomy {
     @Id
     @Column(name = "id")
@@ -51,83 +55,24 @@ public class FuelEconomy {
         this.date = LocalDate.now();
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Car getCar() {
-        return car;
-    }
-
-    public void setCar(Car car) {
-        this.car = car;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public DrivingType getDrivingType() {
-        return drivingType;
-    }
-
-    public void setDrivingType(DrivingType drivingType) {
-        this.drivingType = drivingType;
-    }
-
-    public FuelType getFuelType() {
-        return fuelType;
-    }
-
-    public void setFuelType(FuelType fuelType) {
-        this.fuelType = fuelType;
-    }
-
-    public Double getDistanceDriven() {
-        return distanceDriven;
-    }
-
     public void setDistanceDriven(Double distanceDriven) {
         this.distanceDriven = NumberUtils.truncateDouble(distanceDriven);
-    }
-
-    public Double getFuelAmountFilled() {
-        return fuelAmountFilled;
     }
 
     public void setFuelAmountFilled(Double fuelAmountFilled) {
         this.fuelAmountFilled = NumberUtils.truncateDouble(fuelAmountFilled);
     }
 
-    public Double getPricePerLitre() {
-        return pricePerLitre;
-    }
-
     public void setPricePerLitre(Double pricePerLitre) {
         this.pricePerLitre = NumberUtils.truncateDouble(pricePerLitre);
-    }
-
-    public Double getConsumption() {
-        return consumption;
     }
 
     public void setConsumption(Double consumption) {
         this.consumption = NumberUtils.truncateDouble(consumption);
     }
 
-    public Double getFillUpCost() {
-        return fillUpCost;
-    }
-
     public void setFillUpCost(Double fillUpCost) {
         this.fillUpCost = NumberUtils.truncateDouble(fillUpCost);
     }
+
 }

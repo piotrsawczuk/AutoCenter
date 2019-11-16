@@ -1,8 +1,9 @@
 package sawczuk.AutoCenter.exception;
 
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
 public class PasswordException extends Exception {
-    public PasswordException() {
-    }
 
     public PasswordException(String message) {
         super(message);

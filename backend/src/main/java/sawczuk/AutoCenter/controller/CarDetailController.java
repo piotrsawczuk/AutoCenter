@@ -1,11 +1,10 @@
 package sawczuk.AutoCenter.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,17 +18,12 @@ import sawczuk.AutoCenter.service.CarDetailService;
 import sawczuk.AutoCenter.service.CarService;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("cars/{carId}")
 public class CarDetailController {
 
-    private CarDetailService carDetailService;
-    private CarService carService;
-
-    @Autowired
-    public CarDetailController(CarDetailService carDetailService, CarService carService) {
-        this.carDetailService = carDetailService;
-        this.carService = carService;
-    }
+    private final CarDetailService carDetailService;
+    private final CarService carService;
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/details", method = RequestMethod.POST)

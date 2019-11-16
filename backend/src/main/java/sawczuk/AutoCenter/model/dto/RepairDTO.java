@@ -1,31 +1,16 @@
 package sawczuk.AutoCenter.model.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDate;
 
+@Getter
+@Setter
 public class RepairDTO {
     private LocalDate date;
     private Integer mileage;
     private String description;
     private Double cost;
     private Integer exploitationType;
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public Integer getMileage() {
-        return mileage;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public Double getCost() {
-        return cost;
-    }
-
-    public Integer getExploitationType() {
-        return exploitationType;
-    }
 }
