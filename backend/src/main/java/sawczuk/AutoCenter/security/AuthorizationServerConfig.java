@@ -1,5 +1,6 @@
 package sawczuk.AutoCenter.security;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,6 +25,7 @@ import java.util.Collections;
 
 @Configuration
 @EnableAuthorizationServer
+@RequiredArgsConstructor
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
     @Value("${security.jwt.signing-key}")
     private String signingKey;
@@ -49,15 +51,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final UserDetailsService userDetailsService;
-
-    @Autowired
-    public AuthorizationServerConfig(PasswordEncoder passwordEncoder,
-                                     AuthenticationManager authenticationManager,
-                                     @Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService) {
-        this.passwordEncoder = passwordEncoder;
-        this.authenticationManager = authenticationManager;
-        this.userDetailsService = userDetailsService;
-    }
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
