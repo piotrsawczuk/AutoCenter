@@ -1,5 +1,6 @@
 package sawczuk.AutoCenter.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,16 +25,12 @@ import sawczuk.AutoCenter.service.UserService;
 import sawczuk.AutoCenter.util.UserUtils;
 
 @Controller
+@RequiredArgsConstructor
 public class UserController {
     private static final int DEFAULT_PAGE_NUMBER = 0;
     private static final int DEFAULT_PAGE_SIZE = 20;
 
-    private UserService userService;
-
-    @Autowired
-    public UserController(UserService userService, BCryptPasswordEncoder passwordEncoder) {
-        this.userService = userService;
-    }
+    private final UserService userService;
 
     @PreAuthorize("permitAll()")
     @RequestMapping(value = {"/register"}, method = RequestMethod.POST)

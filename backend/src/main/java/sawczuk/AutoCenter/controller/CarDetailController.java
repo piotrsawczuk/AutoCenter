@@ -1,5 +1,6 @@
 package sawczuk.AutoCenter.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,17 +20,12 @@ import sawczuk.AutoCenter.service.CarDetailService;
 import sawczuk.AutoCenter.service.CarService;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("cars/{carId}")
 public class CarDetailController {
 
-    private CarDetailService carDetailService;
-    private CarService carService;
-
-    @Autowired
-    public CarDetailController(CarDetailService carDetailService, CarService carService) {
-        this.carDetailService = carDetailService;
-        this.carService = carService;
-    }
+    private final CarDetailService carDetailService;
+    private final CarService carService;
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/details", method = RequestMethod.POST)

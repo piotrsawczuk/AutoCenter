@@ -1,5 +1,6 @@
 package sawczuk.AutoCenter.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,14 +14,10 @@ import sawczuk.AutoCenter.exception.ResourceNotFoundException;
 import sawczuk.AutoCenter.service.FuelTypeService;
 
 @Controller
+@RequiredArgsConstructor
 public class FuelTypeController {
 
-    private FuelTypeService fuelTypeService;
-
-    @Autowired
-    public FuelTypeController(FuelTypeService fuelTypeService) {
-        this.fuelTypeService = fuelTypeService;
-    }
+    private final FuelTypeService fuelTypeService;
 
     @PreAuthorize("permitAll()")
     @RequestMapping(value = "/fuel-types", method = RequestMethod.GET)

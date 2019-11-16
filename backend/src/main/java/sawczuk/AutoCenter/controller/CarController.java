@@ -1,5 +1,6 @@
 package sawczuk.AutoCenter.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,18 +23,13 @@ import sawczuk.AutoCenter.service.UserService;
 import sawczuk.AutoCenter.util.UserUtils;
 
 @Controller
+@RequiredArgsConstructor
 public class CarController {
     private static final int DEFAULT_PAGE_NUMBER = 0;
     private static final int DEFAULT_PAGE_SIZE = 10;
 
-    private CarService carService;
-    private UserService userService;
-
-    @Autowired
-    public CarController(CarService carService, UserService userService) {
-        this.carService = carService;
-        this.userService = userService;
-    }
+    private final CarService carService;
+    private final UserService userService;
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/cars", method = RequestMethod.POST)
