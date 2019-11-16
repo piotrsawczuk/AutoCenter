@@ -1,5 +1,6 @@
 package sawczuk.AutoCenter.service.impl;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,14 +14,10 @@ import sawczuk.AutoCenter.util.NumberUtils;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class FuelEconomyServiceImpl implements FuelEconomyService {
 
-    private FuelEconomyRepository fuelEconomyRepository;
-
-    @Autowired
-    public FuelEconomyServiceImpl(FuelEconomyRepository fuelEconomyRepository) {
-        this.fuelEconomyRepository = fuelEconomyRepository;
-    }
+    private final FuelEconomyRepository fuelEconomyRepository;
 
     @Override
     public void save(FuelEconomy fuelEconomy) {

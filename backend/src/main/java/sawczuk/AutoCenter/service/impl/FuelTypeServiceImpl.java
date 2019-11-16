@@ -1,5 +1,6 @@
 package sawczuk.AutoCenter.service.impl;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sawczuk.AutoCenter.exception.ResourceNotFoundException;
@@ -10,14 +11,10 @@ import sawczuk.AutoCenter.service.FuelTypeService;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class FuelTypeServiceImpl implements FuelTypeService {
 
-    private FuelTypeRepository fuelTypeRepository;
-
-    @Autowired
-    public FuelTypeServiceImpl(FuelTypeRepository fuelTypeRepository) {
-        this.fuelTypeRepository = fuelTypeRepository;
-    }
+    private final FuelTypeRepository fuelTypeRepository;
 
     @Override
     public FuelType findByFuelTypeIgnoreCase(String fuelTypeName) throws ResourceNotFoundException {

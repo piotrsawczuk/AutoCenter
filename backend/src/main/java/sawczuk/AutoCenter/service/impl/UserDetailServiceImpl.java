@@ -1,5 +1,6 @@
 package sawczuk.AutoCenter.service.impl;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sawczuk.AutoCenter.model.UserDetail;
@@ -7,14 +8,10 @@ import sawczuk.AutoCenter.repository.UserDetailRepository;
 import sawczuk.AutoCenter.service.UserDetailService;
 
 @Service
+@RequiredArgsConstructor
 public class UserDetailServiceImpl implements UserDetailService {
 
-    private UserDetailRepository userDetailRepository;
-
-    @Autowired
-    public UserDetailServiceImpl(UserDetailRepository userDetailRepository) {
-        this.userDetailRepository = userDetailRepository;
-    }
+    private final UserDetailRepository userDetailRepository;
 
     @Override
     public void save(UserDetail userDetail) {
