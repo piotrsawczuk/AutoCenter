@@ -30,6 +30,8 @@ public class Car {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "car")
+    private CarDetail carDetail;
 
     @JsonBackReference
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "car")
@@ -37,7 +39,4 @@ public class Car {
     @JsonBackReference
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "car")
     private List<Repair> repairs;
-//    @JsonBackReference
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "car")
-    private CarDetail carDetail;
 }
