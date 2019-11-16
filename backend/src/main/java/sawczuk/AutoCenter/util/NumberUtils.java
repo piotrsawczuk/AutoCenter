@@ -1,17 +1,16 @@
 package sawczuk.AutoCenter.util;
 
+import lombok.NoArgsConstructor;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+@NoArgsConstructor
 public class NumberUtils {
-
-    private NumberUtils() {
-    }
 
     public static Double truncateDouble(Double number) {
         if (number != null) {
-            Double toBeTruncated = number;
-            return BigDecimal.valueOf(toBeTruncated)
+            return BigDecimal.valueOf(number)
                     .setScale(2, RoundingMode.HALF_UP)
                     .doubleValue();
         }
@@ -20,7 +19,7 @@ public class NumberUtils {
 
     public static Double truncateEngineCc(Integer engineCc) {
         if (engineCc != null) {
-            Double toBeTruncated = engineCc.doubleValue();
+            double toBeTruncated = engineCc.doubleValue();
             return BigDecimal.valueOf(toBeTruncated / 1000)
                     .setScale(1, RoundingMode.HALF_UP)
                     .doubleValue();
@@ -30,7 +29,6 @@ public class NumberUtils {
 
     public static Integer psToHpConverter(Integer ps) {
         if (ps != null) {
-            Integer toBeTruncated = ps;
             return BigDecimal.valueOf(ps * 0.98592325737265)
                     .intValue();
         }
