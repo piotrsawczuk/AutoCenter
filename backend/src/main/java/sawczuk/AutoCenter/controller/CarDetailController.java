@@ -59,15 +59,12 @@ public class CarDetailController {
         if (carDetail == null) {
             throw new ResourceNotFoundException("Car detail", "carId", carId);
         }
-        if (!StringUtils.isEmpty(carDetailDTO.getVin()))
-//            if (VinChecker.validate(carDetailDTO.getVin()))
-            carDetail.setVin(carDetailDTO.getVin());
-        if (!StringUtils.isEmpty(carDetailDTO.getLicencePlateNumber()))
-            carDetail.setLicencePlateNumber(carDetailDTO.getLicencePlateNumber());
-        if (!StringUtils.isEmpty(carDetailDTO.getColor()))
-            carDetail.setColor(carDetailDTO.getColor());
-        if (!StringUtils.isEmpty(carDetailDTO.getImageUrl()))
-            carDetail.setImageUrl(carDetailDTO.getImageUrl());
+
+//      if (carDetailDTO.getVin() == null || VinChecker.validate(carDetailDTO.getVin()))
+        carDetail.setVin(carDetailDTO.getVin());
+        carDetail.setLicencePlateNumber(carDetailDTO.getLicencePlateNumber());
+        carDetail.setColor(carDetailDTO.getColor());
+        carDetail.setImageUrl(carDetailDTO.getImageUrl());
         carDetailService.save(carDetail);
         return new ResponseEntity<>(carDetail, HttpStatus.CREATED);
     }
