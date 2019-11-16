@@ -1,7 +1,6 @@
 package sawczuk.AutoCenter.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -14,11 +13,7 @@ import sawczuk.AutoCenter.repository.UserRepository;
 import sawczuk.AutoCenter.service.RoleService;
 import sawczuk.AutoCenter.service.UserService;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
