@@ -13,6 +13,7 @@ Backend:
 
 Frontend:
   - Add support for refresh token
+  - Add placeholder for images of car
   - Add routing params in frontend application
   - Remove Redux where isn't needed
   - Start using React Hooks
