@@ -2,6 +2,8 @@ package sawczuk.AutoCenter.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -10,6 +12,8 @@ import java.util.List;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "user_car")
+@Getter
+@Setter
 public class Car {
     @Id
     @Column(name = "id")
@@ -36,61 +40,4 @@ public class Car {
 //    @JsonBackReference
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "car")
     private CarDetail carDetail;
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Long getCarApiId() {
-        return carApiId;
-    }
-
-    public void setCarApiId(Long carApiId) {
-        this.carApiId = carApiId;
-    }
-
-    public String getCarName() {
-        return carName;
-    }
-
-    public void setCarName(String carName) {
-        this.carName = carName;
-    }
-
-    public List<FuelEconomy> getFuelEconomies() {
-        return fuelEconomies;
-    }
-
-    public void setFuelEconomies(List<FuelEconomy> fuelEconomies) {
-        this.fuelEconomies = fuelEconomies;
-    }
-
-    public List<Repair> getRepairs() {
-        return repairs;
-    }
-
-    public void setRepairs(List<Repair> repairs) {
-        this.repairs = repairs;
-    }
-
-    public CarDetail getCarDetail() {
-        return carDetail;
-    }
-
-    public void setCarDetail(CarDetail carDetail) {
-        this.carDetail = carDetail;
-    }
 }

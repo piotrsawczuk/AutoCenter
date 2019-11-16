@@ -3,6 +3,8 @@ package sawczuk.AutoCenter.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.Setter;
 import sawczuk.AutoCenter.util.NumberUtils;
 
 import javax.persistence.*;
@@ -13,6 +15,8 @@ import java.time.LocalDate;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "repair")
+@Getter
+@Setter
 public class Repair {
     @Id
     @Column(name = "id")
@@ -41,58 +45,6 @@ public class Repair {
 
     public Repair() {
         this.date = LocalDate.now();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Car getCar() {
-        return car;
-    }
-
-    public void setCar(Car car) {
-        this.car = car;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public Integer getMileage() {
-        return mileage;
-    }
-
-    public void setMileage(Integer mileage) {
-        this.mileage = mileage;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public ExploitationType getExploitationType() {
-        return exploitationType;
-    }
-
-    public void setExploitationType(ExploitationType exploitationType) {
-        this.exploitationType = exploitationType;
-    }
-
-    public Double getCost() {
-        return cost;
     }
 
     public void setCost(Double cost) {

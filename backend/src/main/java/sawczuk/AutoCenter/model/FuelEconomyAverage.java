@@ -1,26 +1,23 @@
 package sawczuk.AutoCenter.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import sawczuk.AutoCenter.util.NumberUtils;
 
+@Getter
+@Setter
+@NoArgsConstructor
 public class FuelEconomyAverage {
     Integer drivingTypeValue;
     Integer fuelTypeValue;
     Double economyAverage;
 
-    public Integer getDrivingTypeValue() {
-        return drivingTypeValue;
-    }
-
-    public void setDrivingTypeValue(Integer drivingTypeValue) {
+    public FuelEconomyAverage(Integer drivingTypeValue, Integer fuelTypeValue, Double economyAverage) {
         this.drivingTypeValue = drivingTypeValue;
-    }
-
-    public Integer getFuelTypeValue() {
-        return fuelTypeValue;
-    }
-
-    public void setFuelTypeValue(Integer fuelTypeValue) {
         this.fuelTypeValue = fuelTypeValue;
+        this.economyAverage = NumberUtils.truncateDouble(economyAverage);
     }
 
     public Double getEconomyAverage() {
@@ -28,16 +25,6 @@ public class FuelEconomyAverage {
     }
 
     public void setEconomyAverage(Double economyAverage) {
-        this.economyAverage = NumberUtils.truncateDouble(economyAverage);
-    }
-
-
-    public FuelEconomyAverage() {
-    }
-
-    public FuelEconomyAverage(Integer drivingTypeValue, Integer fuelTypeValue, Double economyAverage) {
-        this.drivingTypeValue = drivingTypeValue;
-        this.fuelTypeValue = fuelTypeValue;
         this.economyAverage = NumberUtils.truncateDouble(economyAverage);
     }
 }

@@ -2,6 +2,8 @@ package sawczuk.AutoCenter.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -13,6 +15,8 @@ import java.util.Map;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "driving_type")
+@Getter
+@Setter
 public class DrivingType {
     @Id
     @Column(name = "id")
@@ -31,39 +35,13 @@ public class DrivingType {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "drivingType")
     private List<FuelEconomy> fuelEconomyList;
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Integer getValue() {
-        return value;
-    }
-
     public void setValue(DrivingTypeEnum drivingType) {
         this.value = drivingType.getValue();
-    }
-
-    public String getDrivingType() {
-        return drivingType;
     }
 
     public void setDrivingType(DrivingTypeEnum drivingType) {
         this.drivingType = drivingType.name();
     }
-
-    public List<FuelEconomy> getFuelEconomyList() {
-        return fuelEconomyList;
-    }
-
-    public void setFuelEconomyList(List<FuelEconomy> fuelEconomyList) {
-        this.fuelEconomyList = fuelEconomyList;
-    }
-
 
     public enum DrivingTypeEnum {
         City(1),
