@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CarDTO {
+public class CarRequest {
     private Long carApiId;
     private String carName;
 }
