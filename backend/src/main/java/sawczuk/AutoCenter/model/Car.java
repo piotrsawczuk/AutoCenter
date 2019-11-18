@@ -7,10 +7,10 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "user_car")
+@Getter
+@Setter
 public class Car {
     @Id
     @Column(name = "id")
