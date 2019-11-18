@@ -23,6 +23,7 @@ import sawczuk.AutoCenter.service.UserService;
 import sawczuk.AutoCenter.util.UserUtils;
 
 @Controller
+@RequestMapping(value = "/cars")
 @RequiredArgsConstructor
 public class CarController {
     private static final int DEFAULT_PAGE_NUMBER = 0;
@@ -32,7 +33,31 @@ public class CarController {
     private final UserService userService;
 
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = "/cars", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<Page<CarResponse>> getAllCars(
+            @PageableDefault(page = DEFAULT_PAGE_NUMBER, size = DEFAULT_PAGE_SIZE) Pageable pageable)
+            throws ResourceNotFoundException {
+        Long userId = userService.findByUsernameIgnoreCase(UserUtils.findLoggedInUsername())
+                .orElseThrow(() -> new ResourceNotFoundException("User ID", "username", UserUtils.findLoggedInUsername()))
+                .getId();
+        return new ResponseEntity<>(
+                DtoEntityMapper.mapAll(carService.findAllByUserId(userId, pageable), CarResponse.class),
+                HttpStatus.OK);
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<CarResponse> getCar(@PathVariable Long id)
+            throws InvalidRequestParameterException, ResourceNotFoundException {
+        if (id == null) {
+            throw new InvalidRequestParameterException("id", id);
+        }
+        Car car = carService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Car", "id", id));
+        return new ResponseEntity<>(DtoEntityMapper.map(car, CarResponse.class), HttpStatus.OK);
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<CarResponse> saveCar(@RequestBody CarRequest carRequest) throws ResourceNotFoundException {
         User user = userService.findByUsernameIgnoreCase(UserUtils.findLoggedInUsername())
                 .orElseThrow(() -> new ResourceNotFoundException("User", "username", UserUtils.findLoggedInUsername()));
@@ -45,7 +70,7 @@ public class CarController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = "/cars/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<CarResponse> editCar(@PathVariable Long id, @RequestBody CarRequest carRequest)
             throws InvalidRequestParameterException, ResourceNotFoundException {
         if (id == null) {
@@ -60,31 +85,7 @@ public class CarController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = "/cars", method = RequestMethod.GET)
-    public ResponseEntity<Page<CarResponse>> getAllCars(
-            @PageableDefault(page = DEFAULT_PAGE_NUMBER, size = DEFAULT_PAGE_SIZE) Pageable pageable)
-            throws ResourceNotFoundException {
-        Long userId = userService.findByUsernameIgnoreCase(UserUtils.findLoggedInUsername())
-                .orElseThrow(() -> new ResourceNotFoundException("User ID", "username", UserUtils.findLoggedInUsername()))
-                .getId();
-        return new ResponseEntity<>(
-                DtoEntityMapper.mapAll(carService.findAllByUserId(userId, pageable), CarResponse.class),
-                HttpStatus.OK);
-    }
-
-    @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = "/cars/{id}", method = RequestMethod.GET)
-    public ResponseEntity<CarResponse> getCar(@PathVariable Long id)
-            throws InvalidRequestParameterException, ResourceNotFoundException {
-        if (id == null) {
-            throw new InvalidRequestParameterException("id", id);
-        }
-        Car car = carService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Car", "id", id));
-        return new ResponseEntity<>(DtoEntityMapper.map(car, CarResponse.class), HttpStatus.OK);
-    }
-
-    @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = "/cars/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteCar(@PathVariable Long id) throws InvalidRequestParameterException {
         if (id == null) {
             throw new InvalidRequestParameterException("id", id);
