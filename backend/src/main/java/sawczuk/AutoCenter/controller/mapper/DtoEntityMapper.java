@@ -1,4 +1,4 @@
-package sawczuk.AutoCenter.controller;
+package sawczuk.AutoCenter.controller.mapper;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
