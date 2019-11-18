@@ -21,7 +21,7 @@ import sawczuk.AutoCenter.model.dto.CarRequest;
 import sawczuk.AutoCenter.model.dto.CarResponse;
 import sawczuk.AutoCenter.service.CarService;
 import sawczuk.AutoCenter.service.UserService;
-import sawczuk.AutoCenter.util.UserUtils;
+import sawczuk.AutoCenter.security.LoggedInUserProvider;
 
 @Controller
 @RequestMapping(value = "/cars")
@@ -38,8 +38,8 @@ public class CarController {
     public ResponseEntity<Page<CarResponse>> getAllCars(
             @PageableDefault(page = DEFAULT_PAGE_NUMBER, size = DEFAULT_PAGE_SIZE) Pageable pageable)
             throws ResourceNotFoundException {
-        Long userId = userService.findByUsernameIgnoreCase(UserUtils.findLoggedInUsername())
-                .orElseThrow(() -> new ResourceNotFoundException("User ID", "username", UserUtils.findLoggedInUsername()))
+        Long userId = userService.findByUsernameIgnoreCase(LoggedInUserProvider.findLoggedInUsername())
+                .orElseThrow(() -> new ResourceNotFoundException("User ID", "username", LoggedInUserProvider.findLoggedInUsername()))
                 .getId();
         return new ResponseEntity<>(
                 DtoEntityMapper.mapAll(carService.findAllByUserId(userId, pageable), CarResponse.class),
@@ -60,8 +60,8 @@ public class CarController {
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<CarResponse> saveCar(@RequestBody CarRequest carRequest) throws ResourceNotFoundException {
-        User user = userService.findByUsernameIgnoreCase(UserUtils.findLoggedInUsername())
-                .orElseThrow(() -> new ResourceNotFoundException("User", "username", UserUtils.findLoggedInUsername()));
+        User user = userService.findByUsernameIgnoreCase(LoggedInUserProvider.findLoggedInUsername())
+                .orElseThrow(() -> new ResourceNotFoundException("User", "username", LoggedInUserProvider.findLoggedInUsername()));
         Car car = new Car();
         DtoEntityMapper.map(carRequest, car);
         car.setUser(user);

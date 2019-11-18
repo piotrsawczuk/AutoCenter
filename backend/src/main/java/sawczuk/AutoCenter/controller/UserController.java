@@ -20,7 +20,7 @@ import sawczuk.AutoCenter.exception.ResourceNotFoundException;
 import sawczuk.AutoCenter.model.User;
 import sawczuk.AutoCenter.model.dto.UserDTO;
 import sawczuk.AutoCenter.service.UserService;
-import sawczuk.AutoCenter.util.UserUtils;
+import sawczuk.AutoCenter.security.LoggedInUserProvider;
 
 @Controller
 @RequiredArgsConstructor
@@ -56,8 +56,8 @@ public class UserController {
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/users", method = RequestMethod.PUT)
     public ResponseEntity<User> updateAccount(@RequestBody UserDTO userDTO) throws PasswordException, ResourceNotFoundException{
-        User user = userService.findByUsernameIgnoreCase(UserUtils.findLoggedInUsername())
-                .orElseThrow(() -> new ResourceNotFoundException("User", "username", UserUtils.findLoggedInUsername()));
+        User user = userService.findByUsernameIgnoreCase(LoggedInUserProvider.findLoggedInUsername())
+                .orElseThrow(() -> new ResourceNotFoundException("User", "username", LoggedInUserProvider.findLoggedInUsername()));
         userService.update(userDTO, user);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }

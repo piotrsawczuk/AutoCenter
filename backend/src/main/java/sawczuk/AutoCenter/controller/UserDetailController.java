@@ -14,7 +14,7 @@ import sawczuk.AutoCenter.model.UserDetail;
 import sawczuk.AutoCenter.model.dto.UserDetailDTO;
 import sawczuk.AutoCenter.service.UserDetailService;
 import sawczuk.AutoCenter.service.UserService;
-import sawczuk.AutoCenter.util.UserUtils;
+import sawczuk.AutoCenter.security.LoggedInUserProvider;
 
 @Controller
 @RequiredArgsConstructor
@@ -26,8 +26,8 @@ public class UserDetailController {
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/user-details", method = RequestMethod.POST)
     public ResponseEntity<UserDetail> saveUserDetail(@RequestBody UserDetailDTO userDetailDTO) throws ResourceNotFoundException {
-        User user = userService.findByUsernameIgnoreCase(UserUtils.findLoggedInUsername())
-                .orElseThrow(() -> new ResourceNotFoundException("User", "username", UserUtils.findLoggedInUsername()));
+        User user = userService.findByUsernameIgnoreCase(LoggedInUserProvider.findLoggedInUsername())
+                .orElseThrow(() -> new ResourceNotFoundException("User", "username", LoggedInUserProvider.findLoggedInUsername()));
         UserDetail userDetail = new UserDetail();
         userDetail.setFirstname(userDetailDTO.getFirstname());
         userDetail.setSurname(userDetailDTO.getSurname());
@@ -43,9 +43,9 @@ public class UserDetailController {
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/user-details", method = RequestMethod.PUT)
     public ResponseEntity<UserDetail> editUserDetail(@RequestBody UserDetailDTO userDetailDTO) throws ResourceNotFoundException {
-        UserDetail userDetail = userDetailService.findByUserUsernameIgnoreCase(UserUtils.findLoggedInUsername());
+        UserDetail userDetail = userDetailService.findByUserUsernameIgnoreCase(LoggedInUserProvider.findLoggedInUsername());
         if (userDetail == null) {
-            throw new ResourceNotFoundException("User detail", "username", UserUtils.findLoggedInUsername());
+            throw new ResourceNotFoundException("User detail", "username", LoggedInUserProvider.findLoggedInUsername());
         }
         userDetail.setFirstname(userDetailDTO.getFirstname());
         userDetail.setSurname(userDetailDTO.getSurname());
@@ -60,8 +60,8 @@ public class UserDetailController {
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/user-details", method = RequestMethod.GET)
     public ResponseEntity<UserDetail> getUserDetail() throws ResourceNotFoundException {
-        Long userId = userService.findByUsernameIgnoreCase(UserUtils.findLoggedInUsername())
-                .orElseThrow(() -> new ResourceNotFoundException("User ID", "username", UserUtils.findLoggedInUsername()))
+        Long userId = userService.findByUsernameIgnoreCase(LoggedInUserProvider.findLoggedInUsername())
+                .orElseThrow(() -> new ResourceNotFoundException("User ID", "username", LoggedInUserProvider.findLoggedInUsername()))
                 .getId();
         return new ResponseEntity<>(userDetailService.findByUserId(userId), HttpStatus.OK);
     }

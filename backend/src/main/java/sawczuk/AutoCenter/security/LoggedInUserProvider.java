@@ -1,4 +1,4 @@
-package sawczuk.AutoCenter.util;
+package sawczuk.AutoCenter.security;
 
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -6,7 +6,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @NoArgsConstructor
-public class UserUtils {
+public class LoggedInUserProvider {
 
     public static String findLoggedInUsername() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -21,8 +21,9 @@ public class UserUtils {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
             for (GrantedAuthority role : ((UserDetails) principal).getAuthorities()) {
-                if (role.getAuthority().equals("admin"))
+                if (role.getAuthority().equals("admin")) {
                     return true;
+                }
             }
             return false;
         } else {
