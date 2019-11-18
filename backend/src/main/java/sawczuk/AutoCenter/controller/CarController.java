@@ -1,7 +1,6 @@
 package sawczuk.AutoCenter.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -31,46 +30,46 @@ public class CarController {
 
     private final CarService carService;
     private final UserService userService;
-    private final ModelMapper modelMapper;
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/cars", method = RequestMethod.POST)
-    public ResponseEntity<CarResponse> saveCar(@RequestBody CarRequest carDTO) throws ResourceNotFoundException {
+    public ResponseEntity<CarResponse> saveCar(@RequestBody CarRequest carRequest) throws ResourceNotFoundException {
         User user = userService.findByUsernameIgnoreCase(UserUtils.findLoggedInUsername())
                 .orElseThrow(() -> new ResourceNotFoundException("User", "username", UserUtils.findLoggedInUsername()));
         Car car = new Car();
-        car.setCarApiId(carDTO.getCarApiId());
-        car.setCarName(carDTO.getCarName());
+        DtoEntityMapper.map(carRequest, car);
         car.setUser(user);
         carService.save(car);
-        return new ResponseEntity<>(convertToDto(car), HttpStatus.CREATED);
+
+        return new ResponseEntity<>(DtoEntityMapper.map(car, CarResponse.class), HttpStatus.CREATED);
     }
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/cars/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<CarResponse> editCar(@PathVariable Long id, @RequestBody CarRequest carDTO)
+    public ResponseEntity<CarResponse> editCar(@PathVariable Long id, @RequestBody CarRequest carRequest)
             throws InvalidRequestParameterException, ResourceNotFoundException {
         if (id == null) {
             throw new InvalidRequestParameterException("id", id);
         }
         Car car = carService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Car", "id", id));
-        if (carDTO.getCarApiId() != null && carDTO.getCarName() != null) {
-            car.setCarApiId(carDTO.getCarApiId());
-            car.setCarName(carDTO.getCarName());
+        if (carRequest.getCarApiId() != null && carRequest.getCarName() != null) {
+            DtoEntityMapper.map(carRequest, car);
         }
         carService.save(car);
-        return new ResponseEntity<>(convertToDto(car), HttpStatus.CREATED);
+        return new ResponseEntity<>(DtoEntityMapper.map(car, CarResponse.class), HttpStatus.CREATED);
     }
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/cars", method = RequestMethod.GET)
     public ResponseEntity<Page<CarResponse>> getAllCars(
-            @PageableDefault(page = DEFAULT_PAGE_NUMBER, size = DEFAULT_PAGE_SIZE)
-            Pageable pageable) throws ResourceNotFoundException {
+            @PageableDefault(page = DEFAULT_PAGE_NUMBER, size = DEFAULT_PAGE_SIZE) Pageable pageable)
+            throws ResourceNotFoundException {
         Long userId = userService.findByUsernameIgnoreCase(UserUtils.findLoggedInUsername())
                 .orElseThrow(() -> new ResourceNotFoundException("User ID", "username", UserUtils.findLoggedInUsername()))
                 .getId();
-        return new ResponseEntity<>(carService.findAllByUserId(userId, pageable).map(this::convertToDto), HttpStatus.OK);
+        return new ResponseEntity<>(
+                DtoEntityMapper.mapAll(carService.findAllByUserId(userId, pageable), CarResponse.class),
+                HttpStatus.OK);
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -81,7 +80,7 @@ public class CarController {
             throw new InvalidRequestParameterException("id", id);
         }
         Car car = carService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Car", "id", id));
-        return new ResponseEntity<>(convertToDto(car), HttpStatus.OK);
+        return new ResponseEntity<>(DtoEntityMapper.map(car, CarResponse.class), HttpStatus.OK);
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -92,9 +91,5 @@ public class CarController {
         }
         carService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
-    private CarResponse convertToDto(Car car) {
-        return modelMapper.map(car, CarResponse.class);
     }
 }
