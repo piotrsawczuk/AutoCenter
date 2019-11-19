@@ -1,14 +1,48 @@
 {
 	"info": {
-		"_postman_id": "e908cbd6-c95c-ea16-6d4d-6172406cb04f",
+		"_postman_id": "4c90ee0f-37ad-49e1-bed8-30ed9a563983",
 		"name": "AutoCenter",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "users",
-			"description": "",
 			"item": [
+				{
+					"name": "/users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/users",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/users/1",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "users",
 					"request": {
@@ -50,12 +84,11 @@
 							"raw": "{\n  \"password\" : \"qwerty\",\n  \"currentPassword\" : \"22\"\n}"
 						},
 						"url": {
-							"raw": "{{API_URL}}/autocenter/users",
+							"raw": "{{API_URL}}/users",
 							"host": [
 								"{{API_URL}}"
 							],
 							"path": [
-								"autocenter",
 								"users"
 							]
 						}
@@ -91,52 +124,8 @@
 				{
 					"name": "/users",
 					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"username\" : \"piotr\",\n  \"email\" : \"piotr.sawczuk0@gmail.com\",\n  \"password\" : \"piotr\"\n}"
-						},
-						"url": {
-							"raw": "{{API_URL}}/users",
-							"host": [
-								"{{API_URL}}"
-							],
-							"path": [
-								"users"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/users/{id}",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"username\" : \"piotr\",\n  \"email\" : \"piotr.sawczuk0@gmail.com\",\n  \"password\" : \"piotr\"\n}"
-						},
-						"url": {
-							"raw": "{{API_URL}}/users/1",
-							"host": [
-								"{{API_URL}}"
-							],
-							"path": [
-								"users",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/users",
-					"request": {
 						"method": "DELETE",
 						"header": [],
-						"body": {},
 						"url": {
 							"raw": "{{API_URL}}/users/2",
 							"host": [
@@ -150,12 +139,29 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "user-details",
-			"description": "",
 			"item": [
+				{
+					"name": "/user-details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/user-details",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"user-details"
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "/user-details",
 					"request": {
@@ -207,27 +213,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "/user-details",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"username\" : \"piotr\",\n  \"email\" : \"piotr.sawczuk0@gmail.com\",\n  \"password\" : \"piotr\"\n}"
-						},
-						"url": {
-							"raw": "{{API_URL}}/user-details",
-							"host": [
-								"{{API_URL}}"
-							],
-							"path": [
-								"user-details"
-							]
-						}
-					},
-					"response": []
 				}
 			],
 			"event": [
@@ -251,11 +236,11 @@
 						]
 					}
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "fuel-types",
-			"description": "",
 			"item": [
 				{
 					"name": "/fuel-types",
@@ -265,10 +250,6 @@
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"username\" : \"piotr\",\n  \"email\" : \"piotr.sawczuk0@gmail.com\",\n  \"password\" : \"piotr\"\n}"
-						},
 						"url": {
 							"raw": "{{API_URL}}/fuel-types",
 							"host": [
@@ -289,10 +270,6 @@
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"username\" : \"piotr\",\n  \"email\" : \"piotr.sawczuk0@gmail.com\",\n  \"password\" : \"piotr\"\n}"
-						},
 						"url": {
 							"raw": "{{API_URL}}/fuel-types?value=3",
 							"host": [
@@ -319,10 +296,6 @@
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"username\" : \"piotr\",\n  \"email\" : \"piotr.sawczuk0@gmail.com\",\n  \"password\" : \"piotr\"\n}"
-						},
 						"url": {
 							"raw": "{{API_URL}}/fuel-types?fuel_type=LPG",
 							"host": [
@@ -363,21 +336,17 @@
 						]
 					}
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "driving-types",
-			"description": "",
 			"item": [
 				{
 					"name": "/driving-types",
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"username\" : \"piotr\",\n  \"email\" : \"piotr.sawczuk0@gmail.com\",\n  \"password\" : \"piotr\"\n}"
-						},
 						"url": {
 							"raw": "{{API_URL}}/driving-types",
 							"host": [
@@ -398,10 +367,6 @@
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"username\" : \"piotr\",\n  \"email\" : \"piotr.sawczuk0@gmail.com\",\n  \"password\" : \"piotr\"\n}"
-						},
 						"url": {
 							"raw": "{{API_URL}}/driving-types?value=1",
 							"host": [
@@ -428,10 +393,6 @@
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"username\" : \"piotr\",\n  \"email\" : \"piotr.sawczuk0@gmail.com\",\n  \"password\" : \"piotr\"\n}"
-						},
 						"url": {
 							"raw": "{{API_URL}}/driving-types?driving_type=Mixed",
 							"host": [
@@ -472,11 +433,11 @@
 						]
 					}
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "exploitation-types",
-			"description": "",
 			"item": [
 				{
 					"name": "/exploitation-types",
@@ -486,10 +447,6 @@
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"username\" : \"piotr\",\n  \"email\" : \"piotr.sawczuk0@gmail.com\",\n  \"password\" : \"piotr\"\n}"
-						},
 						"url": {
 							"raw": "{{API_URL}}/exploitation-types",
 							"host": [
@@ -510,10 +467,6 @@
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"username\" : \"piotr\",\n  \"email\" : \"piotr.sawczuk0@gmail.com\",\n  \"password\" : \"piotr\"\n}"
-						},
 						"url": {
 							"raw": "{{API_URL}}/exploitation-types?value=1",
 							"host": [
@@ -540,10 +493,6 @@
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"username\" : \"piotr\",\n  \"email\" : \"piotr.sawczuk0@gmail.com\",\n  \"password\" : \"piotr\"\n}"
-						},
 						"url": {
 							"raw": "{{API_URL}}/exploitation-types?exploitation_type=Repair",
 							"host": [
@@ -584,12 +533,53 @@
 						]
 					}
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "cars",
-			"description": "",
 			"item": [
+				{
+					"name": "/cars",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/cars?page=0",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"cars"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/cars/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/cars/1",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"cars",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "/cars",
 					"request": {
@@ -605,12 +595,11 @@
 							"raw": "{\n  \"carApiId\": 28165,\n  \"carName\": \"1998 Nissan Skyline 2.6L, 271HP, Manual transmission\"\n}"
 						},
 						"url": {
-							"raw": "{{API_URL}}/autocenter/cars",
+							"raw": "{{API_URL}}/cars",
 							"host": [
 								"{{API_URL}}"
 							],
 							"path": [
-								"autocenter",
 								"cars"
 							]
 						}
@@ -647,31 +636,8 @@
 				{
 					"name": "/cars/{id}",
 					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"carApiId\" : 17250\n}"
-						},
-						"url": {
-							"raw": "{{API_URL}}/cars/1",
-							"host": [
-								"{{API_URL}}"
-							],
-							"path": [
-								"cars",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/cars/{id}",
-					"request": {
 						"method": "DELETE",
 						"header": [],
-						"body": {},
 						"url": {
 							"raw": "{{API_URL}}/cars/2",
 							"host": [
@@ -684,40 +650,32 @@
 						}
 					},
 					"response": []
-				},
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "cars-details",
+			"item": [
 				{
-					"name": "/cars",
+					"name": "cars/{id}/details",
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"username\" : \"piotr\",\n  \"carApiId\" : 17250\n}"
-						},
 						"url": {
-							"raw": "{{API_URL}}/cars?page=0",
+							"raw": "{{API_URL}}/cars/60/details",
 							"host": [
 								"{{API_URL}}"
 							],
 							"path": [
-								"cars"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "0"
-								}
+								"cars",
+								"60",
+								"details"
 							]
 						}
 					},
 					"response": []
-				}
-			]
-		},
-		{
-			"name": "cars-details",
-			"description": "",
-			"item": [
+				},
 				{
 					"name": "cars/{id}/details",
 					"request": {
@@ -761,30 +719,6 @@
 							"raw": "{\n    \"vin\" : \"WM164STL200129080\",\n    \"licencePlateNumber\" : \"KR 22222\",\n    \"color\" : \"Fiesta Blue Metallic\",\n    \"imageUrl\" : \"https://thumbs.img-sprzedajemy.pl/1000x901c/19/29/9c/toyota-celica-vi-gtfour-komplet-ospoilerowania-wielgolas-brzezinski-378417772.jpg\" \n}"
 						},
 						"url": {
-							"raw": "{{API_URL}}/autocenter/cars/60/details",
-							"host": [
-								"{{API_URL}}"
-							],
-							"path": [
-								"autocenter",
-								"cars",
-								"60",
-								"details"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "cars/{id}/details",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"username\" : \"piotr\",\n  \"email\" : \"piotr.sawczuk0@gmail.com\",\n  \"password\" : \"piotr\"\n}"
-						},
-						"url": {
 							"raw": "{{API_URL}}/cars/60/details",
 							"host": [
 								"{{API_URL}}"
@@ -820,12 +754,95 @@
 						]
 					}
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "fuel-economy",
-			"description": "",
 			"item": [
+				{
+					"name": "fuel-economy/avg",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/fuel-economy/avg?carApiId=40156",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"fuel-economy",
+								"avg"
+							],
+							"query": [
+								{
+									"key": "carApiId",
+									"value": "40156"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cars/{carId}/fuel-economy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/cars/4/fuel-economy",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"cars",
+								"4",
+								"fuel-economy"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cars/{carId}/fuel-economy/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/cars/4/fuel-economy/10",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"cars",
+								"4",
+								"fuel-economy",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cars/{carId}/fuel-economy/avg",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/cars/7/fuel-economy/avg",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"cars",
+								"7",
+								"fuel-economy",
+								"avg"
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "cars/{carId}/fuel-economy",
 					"request": {
@@ -848,29 +865,6 @@
 							"path": [
 								"cars",
 								"7",
-								"fuel-economy"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "cars/{carId}/fuel-economy",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"username\" : \"piotr\",\n  \"email\" : \"piotr.sawczuk0@gmail.com\",\n  \"password\" : \"piotr\"\n}"
-						},
-						"url": {
-							"raw": "{{API_URL}}/cars/4/fuel-economy",
-							"host": [
-								"{{API_URL}}"
-							],
-							"path": [
-								"cars",
-								"4",
 								"fuel-economy"
 							]
 						}
@@ -909,33 +903,8 @@
 				{
 					"name": "cars/{carId}/fuel-economy/{id}",
 					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"vin\" : \"JT164STL200129080\",\n    \"licencePlateNumber\" : \"SG 9966N\",\n    \"color\" : \"Fiesta Blue Metallic\",\n    \"imageUrl\" : \"https://scontent-bru2-1.xx.fbcdn.net/v/t31.0-8/14054470_1100552810013149_7100922695727780717_o.jpg?oh=ca88dadb3bf9a03e4588468e652e2235&oe=5AD7F007\" \n}"
-						},
-						"url": {
-							"raw": "{{API_URL}}/cars/4/fuel-economy/10",
-							"host": [
-								"{{API_URL}}"
-							],
-							"path": [
-								"cars",
-								"4",
-								"fuel-economy",
-								"10"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "cars/{carId}/fuel-economy/{id}",
-					"request": {
 						"method": "DELETE",
 						"header": [],
-						"body": {},
 						"url": {
 							"raw": "{{API_URL}}/cars/4/fuel-economy/2",
 							"host": [
@@ -946,58 +915,6 @@
 								"4",
 								"fuel-economy",
 								"2"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "cars/{carId}/fuel-economy/avg",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"vin\" : \"JT164STL200129080\",\n    \"licencePlateNumber\" : \"SG 9966N\",\n    \"color\" : \"Fiesta Blue Metallic\",\n    \"imageUrl\" : \"https://scontent-bru2-1.xx.fbcdn.net/v/t31.0-8/14054470_1100552810013149_7100922695727780717_o.jpg?oh=ca88dadb3bf9a03e4588468e652e2235&oe=5AD7F007\" \n}"
-						},
-						"url": {
-							"raw": "{{API_URL}}/cars/7/fuel-economy/avg",
-							"host": [
-								"{{API_URL}}"
-							],
-							"path": [
-								"cars",
-								"7",
-								"fuel-economy",
-								"avg"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "fuel-economy/avg",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"vin\" : \"JT164STL200129080\",\n    \"licencePlateNumber\" : \"SG 9966N\",\n    \"color\" : \"Fiesta Blue Metallic\",\n    \"imageUrl\" : \"https://scontent-bru2-1.xx.fbcdn.net/v/t31.0-8/14054470_1100552810013149_7100922695727780717_o.jpg?oh=ca88dadb3bf9a03e4588468e652e2235&oe=5AD7F007\" \n}"
-						},
-						"url": {
-							"raw": "{{API_URL}}/fuel-economy/avg?carApiId=40156",
-							"host": [
-								"{{API_URL}}"
-							],
-							"path": [
-								"fuel-economy",
-								"avg"
-							],
-							"query": [
-								{
-									"key": "carApiId",
-									"value": "40156"
-								}
 							]
 						}
 					},
@@ -1025,12 +942,95 @@
 						]
 					}
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "repairs",
-			"description": "",
 			"item": [
+				{
+					"name": "repairs/total-cost",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/repairs/total-cost?carApiId=40156",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"repairs",
+								"total-cost"
+							],
+							"query": [
+								{
+									"key": "carApiId",
+									"value": "40156"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cars/{carId}/repairs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/cars/1/repairs",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"cars",
+								"1",
+								"repairs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cars/{carId}/repairs/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/car/4/repairs/1",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"car",
+								"4",
+								"repairs",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cars/{carId}/repairs/total-cost",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/cars/4/repairs/total-cost",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"cars",
+								"4",
+								"repairs",
+								"total-cost"
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "cars/{carId}/repairs",
 					"request": {
@@ -1053,29 +1053,6 @@
 							"path": [
 								"cars",
 								"4",
-								"repairs"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "cars/{carId}/repairs",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"username\" : \"piotr\",\n  \"email\" : \"piotr.sawczuk0@gmail.com\",\n  \"password\" : \"piotr\"\n}"
-						},
-						"url": {
-							"raw": "{{API_URL}}/cars/1/repairs",
-							"host": [
-								"{{API_URL}}"
-							],
-							"path": [
-								"cars",
-								"1",
 								"repairs"
 							]
 						}
@@ -1114,33 +1091,8 @@
 				{
 					"name": "cars/{carId}/repairs/{id}",
 					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"vin\" : \"JT164STL200129080\",\n    \"licencePlateNumber\" : \"SG 9966N\",\n    \"color\" : \"Fiesta Blue Metallic\",\n    \"imageUrl\" : \"https://scontent-bru2-1.xx.fbcdn.net/v/t31.0-8/14054470_1100552810013149_7100922695727780717_o.jpg?oh=ca88dadb3bf9a03e4588468e652e2235&oe=5AD7F007\" \n}"
-						},
-						"url": {
-							"raw": "{{API_URL}}/car/4/repairs/1",
-							"host": [
-								"{{API_URL}}"
-							],
-							"path": [
-								"car",
-								"4",
-								"repairs",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "cars/{carId}/repairs/{id}",
-					"request": {
 						"method": "DELETE",
 						"header": [],
-						"body": {},
 						"url": {
 							"raw": "{{API_URL}}/car/4/repairs/2",
 							"host": [
@@ -1151,58 +1103,6 @@
 								"4",
 								"repairs",
 								"2"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "cars/{id}/repairs/total-cost",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"vin\" : \"JT164STL200129080\",\n    \"licencePlateNumber\" : \"SG 9966N\",\n    \"color\" : \"Fiesta Blue Metallic\",\n    \"imageUrl\" : \"https://scontent-bru2-1.xx.fbcdn.net/v/t31.0-8/14054470_1100552810013149_7100922695727780717_o.jpg?oh=ca88dadb3bf9a03e4588468e652e2235&oe=5AD7F007\" \n}"
-						},
-						"url": {
-							"raw": "{{API_URL}}/cars/4/repairs/total-cost",
-							"host": [
-								"{{API_URL}}"
-							],
-							"path": [
-								"cars",
-								"4",
-								"repairs",
-								"total-cost"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "repairs/total-cost",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"vin\" : \"JT164STL200129080\",\n    \"licencePlateNumber\" : \"SG 9966N\",\n    \"color\" : \"Fiesta Blue Metallic\",\n    \"imageUrl\" : \"https://scontent-bru2-1.xx.fbcdn.net/v/t31.0-8/14054470_1100552810013149_7100922695727780717_o.jpg?oh=ca88dadb3bf9a03e4588468e652e2235&oe=5AD7F007\" \n}"
-						},
-						"url": {
-							"raw": "{{API_URL}}/repairs/total-cost?carApiId=40156",
-							"host": [
-								"{{API_URL}}"
-							],
-							"path": [
-								"repairs",
-								"total-cost"
-							],
-							"query": [
-								{
-									"key": "carApiId",
-									"value": "40156"
-								}
 							]
 						}
 					},
@@ -1230,11 +1130,11 @@
 						]
 					}
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "carqueryapi",
-			"description": "",
 			"item": [
 				{
 					"name": "car-query-api/years",
@@ -1244,7 +1144,6 @@
 						},
 						"method": "GET",
 						"header": [],
-						"body": {},
 						"url": {
 							"raw": "{{API_URL}}/car-query-api/years",
 							"host": [
@@ -1266,7 +1165,6 @@
 						},
 						"method": "GET",
 						"header": [],
-						"body": {},
 						"url": {
 							"raw": "{{API_URL}}/car-query-api/makes",
 							"host": [
@@ -1288,12 +1186,8 @@
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"model_year\": 2000\n}"
-						},
 						"url": {
-							"raw": "{{API_URL}}/car-query-api/makes?year= ",
+							"raw": "{{API_URL}}/car-query-api/makes?year=",
 							"host": [
 								"{{API_URL}}"
 							],
@@ -1319,10 +1213,6 @@
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"model_year\": 1995,\n  \"model_make_id\": \"honda\"\n}"
-						},
 						"url": {
 							"raw": "{{API_URL}}/car-query-api/models?make=bmw",
 							"host": [
@@ -1350,10 +1240,6 @@
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"model_year\": 1995,\n  \"model_make_id\": \"honda\"\n}"
-						},
 						"url": {
 							"raw": "{{API_URL}}/car-query-api/models?make=bmw&year=2000",
 							"host": [
@@ -1385,10 +1271,6 @@
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"model_year\": 1995,\n  \"model_make_id\": \"honda\",\n  \"model_name\": \"CRX\"\n}"
-						},
 						"url": {
 							"raw": "{{API_URL}}/car-query-api/trims",
 							"host": [
@@ -1410,10 +1292,6 @@
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"model_year\": 1995,\n  \"model_make_id\": \"honda\",\n  \"model_name\": \"CRX\"\n}"
-						},
 						"url": {
 							"raw": "{{API_URL}}/car-query-api/trims?make=honda",
 							"host": [
@@ -1441,10 +1319,6 @@
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"model_year\": 1995,\n  \"model_make_id\": \"honda\",\n  \"model_name\": \"CRX\"\n}"
-						},
 						"url": {
 							"raw": "{{API_URL}}/car-query-api/trims?make=toyota&model=celica",
 							"host": [
@@ -1476,10 +1350,6 @@
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"model_year\": 1995,\n  \"model_make_id\": \"honda\",\n  \"model_name\": \"CRX\"\n}"
-						},
 						"url": {
 							"raw": "{{API_URL}}/car-query-api/trims?make=toyota&model=celica&year=1998",
 							"host": [
@@ -1515,10 +1385,6 @@
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"model_id\" : 17250\n}"
-						},
 						"url": {
 							"raw": "{{API_URL}}/car-query-api/trims/17250",
 							"host": [
@@ -1533,11 +1399,11 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "login register",
-			"description": "",
 			"item": [
 				{
 					"name": "register",
@@ -1554,15 +1420,14 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"username\" : \"piotr22222\",\n  \"email\" : \"piotr22222@gmail.com\",\n  \"password\" : \"22222\"\n}"
+							"raw": "{\n  \"username\" : \"psawczuk\",\n  \"email\" : \"psawczuk@gmail.com\",\n  \"password\" : \"qwerty\"\n}"
 						},
 						"url": {
-							"raw": "{{API_URL}}/autocenter/register",
+							"raw": "{{API_URL}}/register",
 							"host": [
 								"{{API_URL}}"
 							],
 							"path": [
-								"autocenter",
 								"register"
 							]
 						}
@@ -1570,7 +1435,96 @@
 					"response": []
 				},
 				{
-					"name": "login",
+					"name": "login (form-data)",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YXV0b0NlbnRlckNsaWVudDo4YWUxYzg4NGY3NmI2MzcxYWNiNTFlYzdmYWVjNGRlOGM5YTRmMmI1NjhhZjJmOTkyYTZjYTMzY2QwOTRmMWE2"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "psawczuk",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "qwerty",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}/oauth/token",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"oauth",
+								"token"
+							]
+						},
+						"description": "Generated from a curl request: \ncurl client:XY7kmzoNzl100@localhost:8080/oauth/token -d grant_type=password -d username=piotr -d password=piotr"
+					},
+					"response": []
+				},
+				{
+					"name": "refresh (form-data)",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YXV0b0NlbnRlckNsaWVudDo4YWUxYzg4NGY3NmI2MzcxYWNiNTFlYzdmYWVjNGRlOGM5YTRmMmI1NjhhZjJmOTkyYTZjYTMzY2QwOTRmMWE2"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "grant_type",
+									"value": "refresh_token",
+									"type": "text"
+								},
+								{
+									"key": "refresh_token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiYXV0b2NlbnRlcmp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoicGlvdHIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiYXRpIjoiYjc3NzFjZDYtNTU4ZS00NjI1LWI4MjQtZTljODY4YzY2YzRkIiwiZXhwIjoxNTIyMjUwNzE0LCJhdXRob3JpdGllcyI6WyJ1c2VyIl0sImp0aSI6IjZhMjVhMjhhLWJjODgtNDg5Yy05ODE3LTc1OTM5ZTAzM2RmZCIsImNsaWVudF9pZCI6ImF1dG9jZW50ZXJqd3RjbGllbnRpZCJ9.BpO16wvIE6dxQbhVsXo0K5aRRkDSnMgjiyroFLjX6eU",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}/oauth/token",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"oauth",
+								"token"
+							]
+						},
+						"description": "Generated from a curl request: \ncurl client:XY7kmzoNzl100@localhost:8080/oauth/token -d grant_type=password -d username=piotr -d password=piotr"
+					},
+					"response": []
+				},
+				{
+					"name": "login (url)",
 					"request": {
 						"auth": {
 							"type": "noauth"
@@ -1587,7 +1541,7 @@
 								},
 								{
 									"key": "username",
-									"value": "piotr",
+									"value": "psawczuk",
 									"type": "text"
 								},
 								{
@@ -1598,155 +1552,27 @@
 							]
 						},
 						"url": {
-							"raw": "autocenterjwtclientid:XY7kmzoNzl100@localhost:8080/autocenter/login",
+							"raw": "autoCenterClient:8ae1c884f76b6371acb51ec7faec4de8c9a4f2b568af2f992a6ca33cd094f1a6@localhost:8080/api/oauth/token",
 							"host": [
 								"localhost"
 							],
 							"auth": {
-								"user": "autocenterjwtclientid",
-								"password": "XY7kmzoNzl100"
+								"user": "autoCenterClient",
+								"password": "8ae1c884f76b6371acb51ec7faec4de8c9a4f2b568af2f992a6ca33cd094f1a6"
 							},
 							"port": "8080",
 							"path": [
-								"autocenter",
-								"login"
-							]
-						},
-						"description": "Generated from a curl request: \ncurl client:XY7kmzoNzl100@localhost:8080/oauth/token -d grant_type=password -d username=piotr -d password=piotr"
-					},
-					"response": []
-				},
-				{
-					"name": "login form-data",
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Basic YXV0b2NlbnRlcmp3dGNsaWVudGlkOlhZN2ttem9OemwxMDA="
-							}
-						],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "grant_type",
-									"value": "password",
-									"type": "text"
-								},
-								{
-									"key": "username",
-									"value": "piotr",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "qwerty",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{API_URL}}/login",
-							"host": [
-								"{{API_URL}}"
-							],
-							"path": [
-								"login"
-							]
-						},
-						"description": "Generated from a curl request: \ncurl client:XY7kmzoNzl100@localhost:8080/oauth/token -d grant_type=password -d username=piotr -d password=piotr"
-					},
-					"response": []
-				},
-				{
-					"name": "refresh form-data",
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Basic YXV0b2NlbnRlcmp3dGNsaWVudGlkOlhZN2ttem9OemwxMDA="
-							}
-						],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "grant_type",
-									"value": "refresh_token",
-									"type": "text"
-								},
-								{
-									"key": "refresh_token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiYXV0b2NlbnRlcmp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoicGlvdHIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiYXRpIjoiYjc3NzFjZDYtNTU4ZS00NjI1LWI4MjQtZTljODY4YzY2YzRkIiwiZXhwIjoxNTIyMjUwNzE0LCJhdXRob3JpdGllcyI6WyJ1c2VyIl0sImp0aSI6IjZhMjVhMjhhLWJjODgtNDg5Yy05ODE3LTc1OTM5ZTAzM2RmZCIsImNsaWVudF9pZCI6ImF1dG9jZW50ZXJqd3RjbGllbnRpZCJ9.BpO16wvIE6dxQbhVsXo0K5aRRkDSnMgjiyroFLjX6eU",
-									"description": "",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{API_URL}}/login",
-							"host": [
-								"{{API_URL}}"
-							],
-							"path": [
-								"login"
-							]
-						},
-						"description": "Generated from a curl request: \ncurl client:XY7kmzoNzl100@localhost:8080/oauth/token -d grant_type=password -d username=piotr -d password=piotr"
-					},
-					"response": []
-				},
-				{
-					"name": "revoke form-data",
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Basic YXV0b2NlbnRlcmp3dGNsaWVudGlkOlhZN2ttem9OemwxMDA="
-							}
-						],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "grant_type",
-									"value": "refresh_token",
-									"type": "text"
-								},
-								{
-									"key": "refresh_token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiYXV0b2NlbnRlcmp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoicGlvdHIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiYXRpIjoiYjc3NzFjZDYtNTU4ZS00NjI1LWI4MjQtZTljODY4YzY2YzRkIiwiZXhwIjoxNTIyMjUwNzE0LCJhdXRob3JpdGllcyI6WyJ1c2VyIl0sImp0aSI6IjZhMjVhMjhhLWJjODgtNDg5Yy05ODE3LTc1OTM5ZTAzM2RmZCIsImNsaWVudF9pZCI6ImF1dG9jZW50ZXJqd3RjbGllbnRpZCJ9.BpO16wvIE6dxQbhVsXo0K5aRRkDSnMgjiyroFLjX6eU",
-									"description": "",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{API_URL}}/login",
-							"host": [
-								"{{API_URL}}"
-							],
-							"path": [
-								"login"
+								"api",
+								"oauth",
+								"token"
 							]
 						},
 						"description": "Generated from a curl request: \ncurl client:XY7kmzoNzl100@localhost:8080/oauth/token -d grant_type=password -d username=piotr -d password=piotr"
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"auth": {
@@ -1754,7 +1580,7 @@
 		"oauth2": [
 			{
 				"key": "accessToken",
-				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiYXV0b2NlbnRlcmp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoicGlvdHIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiZXhwIjoxNTQwMTIxNjYzLCJhdXRob3JpdGllcyI6WyJ1c2VyIl0sImp0aSI6ImRmZDM2ZjZiLTQ2OWYtNGVkMC1iNWZhLTQ3MGU1MjRlOTk1MyIsImNsaWVudF9pZCI6ImF1dG9jZW50ZXJqd3RjbGllbnRpZCJ9.k8nwaRGyHrzdR6nFlUMFNVeO3KP3SE1RPZzzEYv_oLU",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiYXV0b0NlbnRlckFwaSJdLCJ1c2VyX25hbWUiOiJwc2F3Y3p1ayIsInNjb3BlIjpbImRlZmF1bHQiXSwiZXhwIjoxNTc0MjE3Njk2LCJhdXRob3JpdGllcyI6WyJ1c2VyIl0sImp0aSI6IjA1OTUzMTc1LTJmMjItNGJlYi05ZjI4LWIzNTRhNGNiY2U4NSIsImNsaWVudF9pZCI6ImF1dG9DZW50ZXJDbGllbnQifQ.sCtJm0APJxKXEV87_9W6JaFcAMrFmlw9r6zl5JpclD0",
 				"type": "string"
 			},
 			{
@@ -1793,11 +1619,11 @@
 	],
 	"variable": [
 		{
-			"id": "54fa4d68-418e-447d-a331-9cc2334983fd",
+			"id": "7d2e6a2f-6559-40cb-b814-07b519fc30ed",
 			"key": "API_URL",
-			"value": "http://localhost:8080/autocenter",
-			"type": "string",
-			"description": ""
+			"value": "http://localhost:8080/api",
+			"type": "string"
 		}
-	]
+	],
+	"protocolProfileBehavior": {}
 }

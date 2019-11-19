@@ -1,14 +1,11 @@
 package sawczuk.AutoCenter.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "user_detail")
 @Getter
@@ -33,7 +30,6 @@ public class UserDetail {
     @Pattern(regexp = "([+]?[0-9 -]+)?", message = "Provided phone number is incorrect")
     @Column(name = "phone_number")
     private String phoneNumber;
-    @JsonBackReference
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;

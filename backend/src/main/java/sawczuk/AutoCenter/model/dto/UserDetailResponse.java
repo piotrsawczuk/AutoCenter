@@ -5,7 +5,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UserDetailDTO {
+public class UserDetailResponse {
+    private Long id;
     private String firstname;
     private String surname;
     private String address;

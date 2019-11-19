@@ -23,8 +23,16 @@ class UserDetailsForm extends Component {
     
     validate = (data) => {
         const errors = {};
-        if (data.zipCode.trim() !== '' && !data.zipCode.match(/^([a-zA-Z0-9 -]+)?$/)) errors.zipCode = 'Zip code is incorrect';
-        if (data.phoneNumber.trim() !== '' && !data.phoneNumber.match(/^([+]?[0-9 -]+)?$/)) errors.phoneNumber = 'Phone number is incorrect';
+        if (data.zipCode
+            && data.zipCode.trim() !== ''
+            && !data.zipCode.match(/^([a-zA-Z0-9 -]+)?$/)) {
+                errors.zipCode = 'Zip code is incorrect';
+            }
+        if (data.phoneNumber
+            && data.phoneNumber.trim() !== ''
+            && !data.phoneNumber.match(/^([+]?[0-9 -]+)?$/)) {
+                errors.phoneNumber = 'Phone number is incorrect';
+            }
         this.setState({errors});
         return Object.keys(errors).length === 0;
     }

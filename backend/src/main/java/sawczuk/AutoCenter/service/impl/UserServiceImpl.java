@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import sawczuk.AutoCenter.exception.PasswordException;
 import sawczuk.AutoCenter.model.User;
-import sawczuk.AutoCenter.model.dto.UserDTO;
+import sawczuk.AutoCenter.model.dto.UserRequest;
 import sawczuk.AutoCenter.repository.UserRepository;
 import sawczuk.AutoCenter.service.RoleService;
 import sawczuk.AutoCenter.service.UserService;
@@ -26,31 +26,38 @@ public class UserServiceImpl implements UserService {
     @Override
     public void save(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        if (user.isRoleAdmin())
+        if (user.isRoleAdmin()) {
             user.setRoles(new HashSet<>(Arrays.asList(roleService.findByNameIgnoreCase("user"), roleService.findByNameIgnoreCase("admin"))));
-        else
+        } else {
             user.setRoles(new HashSet<>(Collections.singletonList(roleService.findByNameIgnoreCase("user"))));
+        }
         user.setActive(true);
         userRepository.save(user);
     }
 
     @Override
-    public void update(UserDTO userDTO, User user) throws PasswordException {
-        if (!StringUtils.isEmpty(userDTO.getUsername()))
-            user.setUsername(userDTO.getUsername());
-        if (!StringUtils.isEmpty(userDTO.getEmail()))
-            user.setEmail(userDTO.getEmail());
-        if (!StringUtils.isEmpty(userDTO.getPassword()))
-            if (!StringUtils.isEmpty(userDTO.getCurrentPassword()))
-                if (passwordEncoder.matches(userDTO.getCurrentPassword(), user.getPassword()))
-                    if (!passwordEncoder.matches(userDTO.getPassword(), user.getPassword()))
-                        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-                    else
+    public void update(UserRequest userRequest, User user) throws PasswordException {
+        if (!StringUtils.isEmpty(userRequest.getUsername())) {
+            user.setUsername(userRequest.getUsername());
+        }
+        if (!StringUtils.isEmpty(userRequest.getEmail())) {
+            user.setEmail(userRequest.getEmail());
+        }
+        if (!StringUtils.isEmpty(userRequest.getPassword())) {
+            if (!StringUtils.isEmpty(userRequest.getCurrentPassword())) {
+                if (passwordEncoder.matches(userRequest.getCurrentPassword(), user.getPassword())) {
+                    if (!passwordEncoder.matches(userRequest.getPassword(), user.getPassword())) {
+                        user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+                    } else {
                         throw new PasswordException("New password is same as current password.");
-                else
+                    }
+                } else {
                     throw new PasswordException("Current password provided is incorrect.");
-            else
+                }
+            } else {
                 throw new PasswordException("Current password not provided.");
+            }
+        }
         userRepository.save(user);
     }
 
