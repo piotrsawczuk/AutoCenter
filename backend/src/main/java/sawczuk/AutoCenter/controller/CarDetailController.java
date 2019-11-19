@@ -9,43 +9,47 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import sawczuk.AutoCenter.controller.mapper.DtoEntityMapper;
 import sawczuk.AutoCenter.exception.InvalidRequestParameterException;
 import sawczuk.AutoCenter.exception.ResourceNotFoundException;
 import sawczuk.AutoCenter.model.Car;
 import sawczuk.AutoCenter.model.CarDetail;
-import sawczuk.AutoCenter.model.dto.CarDetailDTO;
+import sawczuk.AutoCenter.model.dto.CarDetailRequest;
+import sawczuk.AutoCenter.model.dto.CarDetailResponse;
 import sawczuk.AutoCenter.service.CarDetailService;
 import sawczuk.AutoCenter.service.CarService;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("cars/{carId}")
+@RequestMapping("cars/{carId}/details")
 public class CarDetailController {
 
     private final CarDetailService carDetailService;
     private final CarService carService;
 
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = "/details", method = RequestMethod.POST)
-    public ResponseEntity<CarDetail> saveCarDetail(@PathVariable("carId") Long carId, @RequestBody CarDetailDTO carDetailDTO) throws InvalidRequestParameterException, ResourceNotFoundException {
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<CarDetailResponse> saveCarDetail(
+            @PathVariable("carId") Long carId,
+            @RequestBody CarDetailRequest carDetailRequest)
+            throws InvalidRequestParameterException, ResourceNotFoundException {
         if (carId == null) {
             throw new InvalidRequestParameterException("carId", carId);
         }
         Car car = carService.findById(carId).orElseThrow(() -> new ResourceNotFoundException("Car", "id", carId));
         CarDetail carDetail = new CarDetail();
-//        if (VinChecker.validate(carDetailDTO.getVin()))
-        carDetail.setVin(carDetailDTO.getVin());
-        carDetail.setLicencePlateNumber(carDetailDTO.getLicencePlateNumber());
-        carDetail.setColor(carDetailDTO.getColor());
-        carDetail.setImageUrl(carDetailDTO.getImageUrl());
+        DtoEntityMapper.map(carDetailRequest, carDetail);
         carDetail.setCar(car);
         carDetailService.save(carDetail);
-        return new ResponseEntity<>(carDetail, HttpStatus.CREATED);
+        return new ResponseEntity<>(DtoEntityMapper.map(carDetail, CarDetailResponse.class), HttpStatus.CREATED);
     }
 
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = "/details", method = RequestMethod.PUT)
-    public ResponseEntity<CarDetail> editCarDetail(@PathVariable("carId") Long carId, @RequestBody CarDetailDTO carDetailDTO) throws InvalidRequestParameterException, ResourceNotFoundException {
+    @RequestMapping(method = RequestMethod.PUT)
+    public ResponseEntity<CarDetailResponse> editCarDetail(
+            @PathVariable("carId") Long carId,
+            @RequestBody CarDetailRequest carDetailRequest)
+            throws InvalidRequestParameterException, ResourceNotFoundException {
         if (carId == null) {
             throw new InvalidRequestParameterException("carId", carId);
         }
@@ -53,23 +57,21 @@ public class CarDetailController {
         if (carDetail == null) {
             throw new ResourceNotFoundException("Car detail", "carId", carId);
         }
-
-//      if (carDetailDTO.getVin() == null || VinChecker.validate(carDetailDTO.getVin()))
-        carDetail.setVin(carDetailDTO.getVin());
-        carDetail.setLicencePlateNumber(carDetailDTO.getLicencePlateNumber());
-        carDetail.setColor(carDetailDTO.getColor());
-        carDetail.setImageUrl(carDetailDTO.getImageUrl());
+        DtoEntityMapper.map(carDetailRequest, carDetail);
         carDetailService.save(carDetail);
-        return new ResponseEntity<>(carDetail, HttpStatus.CREATED);
+        return new ResponseEntity<>(DtoEntityMapper.map(carDetail, CarDetailResponse.class), HttpStatus.CREATED);
     }
 
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = "/details", method = RequestMethod.GET)
-    public ResponseEntity<CarDetail> getCarDetail(@PathVariable("carId") Long carId) throws InvalidRequestParameterException {
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<CarDetailResponse> getCarDetail(@PathVariable("carId") Long carId)
+            throws InvalidRequestParameterException {
         if (carId == null) {
             throw new InvalidRequestParameterException("carId", carId);
         }
-        return new ResponseEntity<>(carDetailService.findByCarId(carId), HttpStatus.OK);
+        return new ResponseEntity<>(
+                DtoEntityMapper.map(carDetailService.findByCarId(carId), CarDetailResponse.class),
+                HttpStatus.OK);
     }
 }
-//TODO uncomment after tests
+//TODO add condition if (carDetailRequest.getVin() == null || VinChecker.validate(carDetailRequest.getVin()))

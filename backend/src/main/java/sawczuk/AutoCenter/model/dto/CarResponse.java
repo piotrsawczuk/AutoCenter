@@ -9,5 +9,5 @@ public class CarResponse {
     private Long id;
     private Long carApiId;
     private String carName;
-    private CarDetailDTO carDetail;
+    private CarDetailResponse carDetail;
 }

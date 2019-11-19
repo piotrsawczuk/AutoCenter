@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CarDetailDTO {
+public class CarDetailRequest {
     private String vin;
     private String licencePlateNumber;
     private String color;
