@@ -3,7 +3,6 @@ package sawczuk.AutoCenter.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,7 +26,6 @@ public class CarDetailController {
     private final CarDetailService carDetailService;
     private final CarService carService;
 
-    @PreAuthorize("isAuthenticated()")
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<CarDetailResponse> getCarDetail(@PathVariable("carId") Long carId)
             throws InvalidRequestParameterException {
@@ -37,27 +35,25 @@ public class CarDetailController {
         return ResponseEntity.ok(DtoEntityMapper.map(carDetailService.findByCarId(carId), CarDetailResponse.class));
     }
 
-    @PreAuthorize("isAuthenticated()")
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<CarDetailResponse> saveCarDetail(@PathVariable("carId") Long carId,
-                                                           @RequestBody CarDetailRequest carDetailRequest)
-            throws InvalidRequestParameterException, ResourceNotFoundException {
+    public ResponseEntity<CarDetailResponse> saveCarDetail(
+            @PathVariable("carId") Long carId,
+            @RequestBody CarDetailRequest carDetailRequest) throws InvalidRequestParameterException, ResourceNotFoundException {
         if (carId == null) {
             throw new InvalidRequestParameterException("carId", carId);
         }
         Car car = carService.findById(carId).orElseThrow(() -> new ResourceNotFoundException("Car", "id", carId));
         CarDetail carDetail = new CarDetail();
-        DtoEntityMapper.map(carDetailRequest, carDetail);
+        DtoEntityMapper.mapWithNulls(carDetailRequest, carDetail);
         carDetail.setCar(car);
         carDetailService.save(carDetail);
         return ResponseEntity.status(HttpStatus.CREATED).body(DtoEntityMapper.map(carDetail, CarDetailResponse.class));
     }
 
-    @PreAuthorize("isAuthenticated()")
     @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<CarDetailResponse> editCarDetail(@PathVariable("carId") Long carId,
-                                                           @RequestBody CarDetailRequest carDetailRequest)
-            throws InvalidRequestParameterException, ResourceNotFoundException {
+    public ResponseEntity<CarDetailResponse> editCarDetail(
+            @PathVariable("carId") Long carId,
+            @RequestBody CarDetailRequest carDetailRequest) throws InvalidRequestParameterException, ResourceNotFoundException {
         if (carId == null) {
             throw new InvalidRequestParameterException("carId", carId);
         }
@@ -65,7 +61,7 @@ public class CarDetailController {
         if (carDetail == null) {
             throw new ResourceNotFoundException("Car detail", "carId", carId);
         }
-        DtoEntityMapper.map(carDetailRequest, carDetail);
+        DtoEntityMapper.mapWithNulls(carDetailRequest, carDetail);
         carDetailService.save(carDetail);
         return ResponseEntity.status(HttpStatus.CREATED).body(DtoEntityMapper.map(carDetail, CarDetailResponse.class));
     }

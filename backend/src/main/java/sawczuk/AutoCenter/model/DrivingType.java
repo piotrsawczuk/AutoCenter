@@ -1,7 +1,5 @@
 package sawczuk.AutoCenter.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "driving_type")
 @Getter
@@ -30,8 +27,6 @@ public class DrivingType {
     @NotNull
     @Column(name = "driving_type")
     private String drivingType;
-
-    @JsonBackReference
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "drivingType")
     private List<FuelEconomy> fuelEconomyList;
 

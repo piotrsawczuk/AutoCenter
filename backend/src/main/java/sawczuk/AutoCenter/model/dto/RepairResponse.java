@@ -7,10 +7,11 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class RepairDTO {
+public class RepairResponse {
+    private Long id;
     private LocalDate date;
     private Integer mileage;
     private String description;
     private Double cost;
-    private Integer exploitationType;
+    private ExploitationTypeResponse exploitationType;
 }

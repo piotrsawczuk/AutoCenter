@@ -1,8 +1,5 @@
 package sawczuk.AutoCenter.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 import sawczuk.AutoCenter.util.NumberUtils;
@@ -12,7 +9,6 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "repair")
 @Getter
@@ -24,7 +20,6 @@ public class Repair {
     @SequenceGenerator(name = "repair_id_gen", sequenceName = "repair_seq", initialValue = 1, allocationSize = 1)
     private Long id;
     @NotNull
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(name = "date", columnDefinition = "DATE")
     private LocalDate date;
     @DecimalMin(value = "0.0", message = "The value must be positive")
@@ -38,7 +33,6 @@ public class Repair {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "exploitation_type")
     private ExploitationType exploitationType;
-    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_car_id")
     private Car car;

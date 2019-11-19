@@ -1,8 +1,14 @@
 package sawczuk.AutoCenter.controller.mapper;
 
+import org.modelmapper.Condition;
+import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.data.domain.Page;
+import sawczuk.AutoCenter.model.FuelEconomy;
+import sawczuk.AutoCenter.model.Repair;
+import sawczuk.AutoCenter.model.dto.FuelEconomyRequest;
+import sawczuk.AutoCenter.model.dto.RepairRequest;
 
 import java.util.Collection;
 import java.util.List;
@@ -11,9 +17,14 @@ import java.util.stream.Collectors;
 public final class DtoEntityMapper {
 
     private static ModelMapper modelMapper;
+    private static ModelMapper modelMapperAcceptNulls;
 
     static {
         modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        modelMapper.getConfiguration().setPropertyCondition(Conditions.isNotNull());
+
+        modelMapperAcceptNulls = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
     }
 
@@ -26,6 +37,10 @@ public final class DtoEntityMapper {
 
     public static <S, D> void map(final S source, D destination) {
         modelMapper.map(source, destination);
+    }
+
+    public static <S, D> void mapWithNulls(final S source, D destination) {
+        modelMapperAcceptNulls.map(source, destination);
     }
 
     public static <D, T> List<D> mapAll(final Collection<T> entityList, Class<D> outCLass) {
