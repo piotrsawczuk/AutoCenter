@@ -1,94 +1,41 @@
 package sawczuk.AutoCenter.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
-import org.springframework.data.web.SortDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import sawczuk.AutoCenter.exception.InvalidRequestParameterException;
+import sawczuk.AutoCenter.controller.mapper.DtoEntityMapper;
 import sawczuk.AutoCenter.exception.PasswordException;
 import sawczuk.AutoCenter.exception.ResourceNotFoundException;
 import sawczuk.AutoCenter.model.User;
-import sawczuk.AutoCenter.model.dto.UserDTO;
+import sawczuk.AutoCenter.model.dto.UserRequest;
+import sawczuk.AutoCenter.model.dto.UserResponse;
 import sawczuk.AutoCenter.service.UserService;
 import sawczuk.AutoCenter.security.LoggedInUserProvider;
 
 @Controller
 @RequiredArgsConstructor
 public class UserController {
-    private static final int DEFAULT_PAGE_NUMBER = 0;
-    private static final int DEFAULT_PAGE_SIZE = 20;
 
     private final UserService userService;
 
-    @PreAuthorize("permitAll()")
     @RequestMapping(value = {"/register"}, method = RequestMethod.POST)
-    public ResponseEntity<User> createNewAccount(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserResponse> createNewAccount(@RequestBody UserRequest userRequest) {
         User user = new User();
-        user.setUsername(userDTO.getUsername());
-        user.setEmail(userDTO.getEmail());
-        user.setPassword(userDTO.getPassword());
+        DtoEntityMapper.map(userRequest, user);
         userService.save(user);
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body(DtoEntityMapper.map(user, UserResponse.class));
     }
 
-    @PreAuthorize("hasAuthority('admin')")
-    @RequestMapping(value = {"/users"}, method = RequestMethod.POST)
-    public ResponseEntity<User> createNewAdminAccount(@RequestBody UserDTO userDTO) {
-        User user = new User();
-        user.setUsername(userDTO.getUsername());
-        user.setEmail(userDTO.getEmail());
-        user.setPassword(userDTO.getPassword());
-        user.setRoleAdmin(true);
-        userService.save(user);
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
-    }
-
-    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/users", method = RequestMethod.PUT)
-    public ResponseEntity<User> updateAccount(@RequestBody UserDTO userDTO) throws PasswordException, ResourceNotFoundException{
+    public ResponseEntity<UserResponse> updateAccount(@RequestBody UserRequest userRequest)
+            throws PasswordException, ResourceNotFoundException{
         User user = userService.findByUsernameIgnoreCase(LoggedInUserProvider.findLoggedInUsername())
                 .orElseThrow(() -> new ResourceNotFoundException("User", "username", LoggedInUserProvider.findLoggedInUsername()));
-        userService.update(userDTO, user);
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
+        userService.update(userRequest, user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(DtoEntityMapper.map(user, UserResponse.class));
     }
-
-    @PreAuthorize("hasAuthority('admin')")
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public ResponseEntity<Page<User>> findAllAccounts(
-            @PageableDefault(page = DEFAULT_PAGE_NUMBER, size = DEFAULT_PAGE_SIZE)
-            @SortDefault(sort = "username", direction = Sort.Direction.ASC)
-            Pageable pageable) {
-        return new ResponseEntity<>(userService.findAll(pageable), HttpStatus.OK);
-    }
-
-    @PreAuthorize("hasAuthority('admin')")
-    @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
-    public ResponseEntity<User> findAccountById(@PathVariable Long id) throws InvalidRequestParameterException, ResourceNotFoundException {
-        if (id == null) {
-            throw new InvalidRequestParameterException("id", id);
-        }
-        User user = userService.findById(id).orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
-        return new ResponseEntity<>(user, HttpStatus.OK);
-    }
-
-    @PreAuthorize("hasAuthority('admin')")
-    @RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<User> deleteAccount(@PathVariable Long id) throws InvalidRequestParameterException {
-        if (id == null) {
-            throw new InvalidRequestParameterException("id", id);
-        }
-        userService.delete(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
 }

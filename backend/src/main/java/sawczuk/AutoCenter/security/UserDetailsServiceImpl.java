@@ -1,4 +1,4 @@
-package sawczuk.AutoCenter.service.impl;
+package sawczuk.AutoCenter.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;

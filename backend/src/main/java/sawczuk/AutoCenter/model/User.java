@@ -1,8 +1,5 @@
 package sawczuk.AutoCenter.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,7 +10,6 @@ import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.Set;
 
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "app_user")
 @Getter
@@ -30,7 +26,6 @@ public class User {
     private String username;
     @NotNull
     @Size(min = 6, message = "Password must be at least 6 characters long")
-    @JsonIgnore
     @Column(name = "password")
     private String password;
     @NotNull
@@ -39,21 +34,15 @@ public class User {
     private String email;
     @Column(name = "active")
     private Boolean active;
-    @JsonBackReference
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles;
-
-    @JsonBackReference
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
     private List<Car> cars;
-    @JsonBackReference
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
     private UserDetail userDetail;
-
-    @JsonIgnore
     @Transient
     private boolean roleAdmin;
 }

@@ -4,7 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import sawczuk.AutoCenter.exception.PasswordException;
 import sawczuk.AutoCenter.model.User;
-import sawczuk.AutoCenter.model.dto.UserDTO;
+import sawczuk.AutoCenter.model.dto.UserRequest;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface UserService {
     void save(User user);
 
-    void update(UserDTO userDTO, User user) throws PasswordException;
+    void update(UserRequest userRequest, User user) throws PasswordException;
 
     void delete(Long id);
 
