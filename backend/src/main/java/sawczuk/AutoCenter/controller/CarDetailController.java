@@ -34,9 +34,7 @@ public class CarDetailController {
         if (carId == null) {
             throw new InvalidRequestParameterException("carId", carId);
         }
-        return new ResponseEntity<>(
-                DtoEntityMapper.map(carDetailService.findByCarId(carId), CarDetailResponse.class),
-                HttpStatus.OK);
+        return ResponseEntity.ok(DtoEntityMapper.map(carDetailService.findByCarId(carId), CarDetailResponse.class));
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -53,7 +51,7 @@ public class CarDetailController {
         DtoEntityMapper.map(carDetailRequest, carDetail);
         carDetail.setCar(car);
         carDetailService.save(carDetail);
-        return new ResponseEntity<>(DtoEntityMapper.map(carDetail, CarDetailResponse.class), HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body(DtoEntityMapper.map(carDetail, CarDetailResponse.class));
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -71,7 +69,7 @@ public class CarDetailController {
         }
         DtoEntityMapper.map(carDetailRequest, carDetail);
         carDetailService.save(carDetail);
-        return new ResponseEntity<>(DtoEntityMapper.map(carDetail, CarDetailResponse.class), HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body(DtoEntityMapper.map(carDetail, CarDetailResponse.class));
     }
 }
 //TODO add condition if (carDetailRequest.getVin() == null || VinChecker.validate(carDetailRequest.getVin()))

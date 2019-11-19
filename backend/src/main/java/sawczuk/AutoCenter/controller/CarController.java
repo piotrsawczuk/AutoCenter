@@ -41,9 +41,7 @@ public class CarController {
         Long userId = userService.findByUsernameIgnoreCase(LoggedInUserProvider.findLoggedInUsername())
                 .orElseThrow(() -> new ResourceNotFoundException("User ID", "username", LoggedInUserProvider.findLoggedInUsername()))
                 .getId();
-        return new ResponseEntity<>(
-                DtoEntityMapper.mapAll(carService.findAllByUserId(userId, pageable), CarResponse.class),
-                HttpStatus.OK);
+        return ResponseEntity.ok(DtoEntityMapper.mapAll(carService.findAllByUserId(userId, pageable), CarResponse.class));
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -54,7 +52,7 @@ public class CarController {
             throw new InvalidRequestParameterException("id", id);
         }
         Car car = carService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Car", "id", id));
-        return new ResponseEntity<>(DtoEntityMapper.map(car, CarResponse.class), HttpStatus.OK);
+        return ResponseEntity.ok(DtoEntityMapper.map(car, CarResponse.class));
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -66,8 +64,7 @@ public class CarController {
         DtoEntityMapper.map(carRequest, car);
         car.setUser(user);
         carService.save(car);
-
-        return new ResponseEntity<>(DtoEntityMapper.map(car, CarResponse.class), HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body(DtoEntityMapper.map(car, CarResponse.class));
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -82,7 +79,7 @@ public class CarController {
             DtoEntityMapper.map(carRequest, car);
         }
         carService.save(car);
-        return new ResponseEntity<>(DtoEntityMapper.map(car, CarResponse.class), HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body(DtoEntityMapper.map(car, CarResponse.class));
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -92,6 +89,6 @@ public class CarController {
             throw new InvalidRequestParameterException("id", id);
         }
         carService.deleteById(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return ResponseEntity.noContent().build();
     }
 }
