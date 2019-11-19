@@ -28,6 +28,18 @@ public class CarDetailController {
     private final CarService carService;
 
     @PreAuthorize("isAuthenticated()")
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<CarDetailResponse> getCarDetail(@PathVariable("carId") Long carId)
+            throws InvalidRequestParameterException {
+        if (carId == null) {
+            throw new InvalidRequestParameterException("carId", carId);
+        }
+        return new ResponseEntity<>(
+                DtoEntityMapper.map(carDetailService.findByCarId(carId), CarDetailResponse.class),
+                HttpStatus.OK);
+    }
+
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<CarDetailResponse> saveCarDetail(
             @PathVariable("carId") Long carId,
@@ -60,18 +72,6 @@ public class CarDetailController {
         DtoEntityMapper.map(carDetailRequest, carDetail);
         carDetailService.save(carDetail);
         return new ResponseEntity<>(DtoEntityMapper.map(carDetail, CarDetailResponse.class), HttpStatus.CREATED);
-    }
-
-    @PreAuthorize("isAuthenticated()")
-    @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<CarDetailResponse> getCarDetail(@PathVariable("carId") Long carId)
-            throws InvalidRequestParameterException {
-        if (carId == null) {
-            throw new InvalidRequestParameterException("carId", carId);
-        }
-        return new ResponseEntity<>(
-                DtoEntityMapper.map(carDetailService.findByCarId(carId), CarDetailResponse.class),
-                HttpStatus.OK);
     }
 }
 //TODO add condition if (carDetailRequest.getVin() == null || VinChecker.validate(carDetailRequest.getVin()))
