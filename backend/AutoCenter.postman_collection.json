@@ -9,6 +9,41 @@
 			"name": "users",
 			"item": [
 				{
+					"name": "/users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/users",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/users/1",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "users",
 					"request": {
 						"method": "POST",
@@ -89,41 +124,6 @@
 				{
 					"name": "/users",
 					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_URL}}/users",
-							"host": [
-								"{{API_URL}}"
-							],
-							"path": [
-								"users"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/users/{id}",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_URL}}/users/1",
-							"host": [
-								"{{API_URL}}"
-							],
-							"path": [
-								"users",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/users",
-					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
@@ -145,6 +145,23 @@
 		{
 			"name": "user-details",
 			"item": [
+				{
+					"name": "/user-details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/user-details",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"user-details"
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "/user-details",
 					"request": {
@@ -185,23 +202,6 @@
 							"mode": "raw",
 							"raw": "{\n\t\"firstname\" : \"John\",\n\t\"surname\" : \"Smith\",\n\t\"address\" : \"Harvard Road\",\n\t\"city\" : \"Southampton\",\n\t\"zipCode\" : \"SO15 23S\",\n\t\"phoneNumber\" : \"999 999 999\"\n}"
 						},
-						"url": {
-							"raw": "{{API_URL}}/user-details",
-							"host": [
-								"{{API_URL}}"
-							],
-							"path": [
-								"user-details"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/user-details",
-					"request": {
-						"method": "GET",
-						"header": [],
 						"url": {
 							"raw": "{{API_URL}}/user-details",
 							"host": [
@@ -542,6 +542,47 @@
 				{
 					"name": "/cars",
 					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/cars?page=0",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"cars"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/cars/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/cars/1",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"cars",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/cars",
+					"request": {
 						"method": "POST",
 						"header": [
 							{
@@ -595,24 +636,6 @@
 				{
 					"name": "/cars/{id}",
 					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_URL}}/cars/1",
-							"host": [
-								"{{API_URL}}"
-							],
-							"path": [
-								"cars",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/cars/{id}",
-					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
@@ -627,29 +650,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "/cars",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_URL}}/cars?page=0",
-							"host": [
-								"{{API_URL}}"
-							],
-							"path": [
-								"cars"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "0"
-								}
-							]
-						}
-					},
-					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -657,6 +657,25 @@
 		{
 			"name": "cars-details",
 			"item": [
+				{
+					"name": "cars/{id}/details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/cars/60/details",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"cars",
+								"60",
+								"details"
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "cars/{id}/details",
 					"request": {
@@ -712,25 +731,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "cars/{id}/details",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_URL}}/cars/60/details",
-							"host": [
-								"{{API_URL}}"
-							],
-							"path": [
-								"cars",
-								"60",
-								"details"
-							]
-						}
-					},
-					"response": []
 				}
 			],
 			"event": [
@@ -761,6 +761,89 @@
 			"name": "fuel-economy",
 			"item": [
 				{
+					"name": "fuel-economy/avg",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/fuel-economy/avg?carApiId=40156",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"fuel-economy",
+								"avg"
+							],
+							"query": [
+								{
+									"key": "carApiId",
+									"value": "40156"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cars/{carId}/fuel-economy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/cars/4/fuel-economy",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"cars",
+								"4",
+								"fuel-economy"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cars/{carId}/fuel-economy/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/cars/4/fuel-economy/10",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"cars",
+								"4",
+								"fuel-economy",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cars/{carId}/fuel-economy/avg",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/cars/7/fuel-economy/avg",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"cars",
+								"7",
+								"fuel-economy",
+								"avg"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "cars/{carId}/fuel-economy",
 					"request": {
 						"method": "POST",
@@ -782,25 +865,6 @@
 							"path": [
 								"cars",
 								"7",
-								"fuel-economy"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "cars/{carId}/fuel-economy",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_URL}}/cars/4/fuel-economy",
-							"host": [
-								"{{API_URL}}"
-							],
-							"path": [
-								"cars",
-								"4",
 								"fuel-economy"
 							]
 						}
@@ -839,26 +903,6 @@
 				{
 					"name": "cars/{carId}/fuel-economy/{id}",
 					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_URL}}/cars/4/fuel-economy/10",
-							"host": [
-								"{{API_URL}}"
-							],
-							"path": [
-								"cars",
-								"4",
-								"fuel-economy",
-								"10"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "cars/{carId}/fuel-economy/{id}",
-					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
@@ -871,50 +915,6 @@
 								"4",
 								"fuel-economy",
 								"2"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "cars/{carId}/fuel-economy/avg",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_URL}}/cars/7/fuel-economy/avg",
-							"host": [
-								"{{API_URL}}"
-							],
-							"path": [
-								"cars",
-								"7",
-								"fuel-economy",
-								"avg"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "fuel-economy/avg",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_URL}}/fuel-economy/avg?carApiId=40156",
-							"host": [
-								"{{API_URL}}"
-							],
-							"path": [
-								"fuel-economy",
-								"avg"
-							],
-							"query": [
-								{
-									"key": "carApiId",
-									"value": "40156"
-								}
 							]
 						}
 					},
@@ -949,6 +949,89 @@
 			"name": "repairs",
 			"item": [
 				{
+					"name": "repairs/total-cost",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/repairs/total-cost?carApiId=40156",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"repairs",
+								"total-cost"
+							],
+							"query": [
+								{
+									"key": "carApiId",
+									"value": "40156"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cars/{carId}/repairs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/cars/1/repairs",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"cars",
+								"1",
+								"repairs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cars/{carId}/repairs/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/car/4/repairs/1",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"car",
+								"4",
+								"repairs",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cars/{carId}/repairs/total-cost",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/cars/4/repairs/total-cost",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"cars",
+								"4",
+								"repairs",
+								"total-cost"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "cars/{carId}/repairs",
 					"request": {
 						"method": "POST",
@@ -970,25 +1053,6 @@
 							"path": [
 								"cars",
 								"4",
-								"repairs"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "cars/{carId}/repairs",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_URL}}/cars/1/repairs",
-							"host": [
-								"{{API_URL}}"
-							],
-							"path": [
-								"cars",
-								"1",
 								"repairs"
 							]
 						}
@@ -1027,26 +1091,6 @@
 				{
 					"name": "cars/{carId}/repairs/{id}",
 					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_URL}}/car/4/repairs/1",
-							"host": [
-								"{{API_URL}}"
-							],
-							"path": [
-								"car",
-								"4",
-								"repairs",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "cars/{carId}/repairs/{id}",
-					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
@@ -1059,50 +1103,6 @@
 								"4",
 								"repairs",
 								"2"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "cars/{id}/repairs/total-cost",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_URL}}/cars/4/repairs/total-cost",
-							"host": [
-								"{{API_URL}}"
-							],
-							"path": [
-								"cars",
-								"4",
-								"repairs",
-								"total-cost"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "repairs/total-cost",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_URL}}/repairs/total-cost?carApiId=40156",
-							"host": [
-								"{{API_URL}}"
-							],
-							"path": [
-								"repairs",
-								"total-cost"
-							],
-							"query": [
-								{
-									"key": "carApiId",
-									"value": "40156"
-								}
 							]
 						}
 					},
@@ -1435,7 +1435,7 @@
 					"response": []
 				},
 				{
-					"name": "login form-data",
+					"name": "login (form-data)",
 					"request": {
 						"auth": {
 							"type": "noauth"
@@ -1482,7 +1482,7 @@
 					"response": []
 				},
 				{
-					"name": "refresh form-data",
+					"name": "refresh (form-data)",
 					"request": {
 						"auth": {
 							"type": "noauth"
@@ -1524,7 +1524,7 @@
 					"response": []
 				},
 				{
-					"name": "login",
+					"name": "login (url)",
 					"request": {
 						"auth": {
 							"type": "noauth"
@@ -1580,7 +1580,7 @@
 		"oauth2": [
 			{
 				"key": "accessToken",
-				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiYXV0b0NlbnRlckFwaSJdLCJ1c2VyX25hbWUiOiJwc2F3Y3p1ayIsInNjb3BlIjpbImRlZmF1bHQiXSwiZXhwIjoxNTc0MDcyMDE4LCJhdXRob3JpdGllcyI6WyJ1c2VyIl0sImp0aSI6IjNlMTk3ZjBiLTRjYWUtNGY0NC05NDc0LTE3NTU3M2ZkYjMyNCIsImNsaWVudF9pZCI6ImF1dG9DZW50ZXJDbGllbnQifQ.BtoNoN1XGmRXCXMxaOtLkxS40wlXRY167vOpIaqAzaY",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiYXV0b0NlbnRlckFwaSJdLCJ1c2VyX25hbWUiOiJwc2F3Y3p1ayIsInNjb3BlIjpbImRlZmF1bHQiXSwiZXhwIjoxNTc0MjE3Njk2LCJhdXRob3JpdGllcyI6WyJ1c2VyIl0sImp0aSI6IjA1OTUzMTc1LTJmMjItNGJlYi05ZjI4LWIzNTRhNGNiY2U4NSIsImNsaWVudF9pZCI6ImF1dG9DZW50ZXJDbGllbnQifQ.sCtJm0APJxKXEV87_9W6JaFcAMrFmlw9r6zl5JpclD0",
 				"type": "string"
 			},
 			{
@@ -1619,7 +1619,7 @@
 	],
 	"variable": [
 		{
-			"id": "a5065cdb-635b-4cd5-b2cd-5d9d2b274247",
+			"id": "7d2e6a2f-6559-40cb-b814-07b519fc30ed",
 			"key": "API_URL",
 			"value": "http://localhost:8080/api",
 			"type": "string"
