@@ -19,9 +19,9 @@ import sawczuk.AutoCenter.model.Car;
 import sawczuk.AutoCenter.model.User;
 import sawczuk.AutoCenter.model.dto.CarRequest;
 import sawczuk.AutoCenter.model.dto.CarResponse;
+import sawczuk.AutoCenter.security.LoggedInUserProvider;
 import sawczuk.AutoCenter.service.CarService;
 import sawczuk.AutoCenter.service.UserService;
-import sawczuk.AutoCenter.security.LoggedInUserProvider;
 
 @Controller
 @RequestMapping(value = "/cars")
@@ -87,7 +87,7 @@ public class CarController {
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> deleteCar(@PathVariable Long id) throws InvalidRequestParameterException {
+    public ResponseEntity deleteCar(@PathVariable Long id) throws InvalidRequestParameterException {
         if (id == null) {
             throw new InvalidRequestParameterException("id", id);
         }
