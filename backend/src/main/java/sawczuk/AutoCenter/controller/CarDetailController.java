@@ -39,9 +39,8 @@ public class CarDetailController {
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<CarDetailResponse> saveCarDetail(
-            @PathVariable("carId") Long carId,
-            @RequestBody CarDetailRequest carDetailRequest)
+    public ResponseEntity<CarDetailResponse> saveCarDetail(@PathVariable("carId") Long carId,
+                                                           @RequestBody CarDetailRequest carDetailRequest)
             throws InvalidRequestParameterException, ResourceNotFoundException {
         if (carId == null) {
             throw new InvalidRequestParameterException("carId", carId);
@@ -56,9 +55,8 @@ public class CarDetailController {
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<CarDetailResponse> editCarDetail(
-            @PathVariable("carId") Long carId,
-            @RequestBody CarDetailRequest carDetailRequest)
+    public ResponseEntity<CarDetailResponse> editCarDetail(@PathVariable("carId") Long carId,
+                                                           @RequestBody CarDetailRequest carDetailRequest)
             throws InvalidRequestParameterException, ResourceNotFoundException {
         if (carId == null) {
             throw new InvalidRequestParameterException("carId", carId);
