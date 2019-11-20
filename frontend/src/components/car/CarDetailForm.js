@@ -22,8 +22,16 @@ class CarDetailForm extends Component {
 
     validate = (data) => {
         const errors = {};
-		if (data.vin.trim() !== '' && !data.vin.match(/^[a-zA-Z0-9]{17}$/)) errors.vin = 'VIN is not valid. VIN must be 17 characters long and contain only digits and letters';
-        if (data.licencePlateNumber.trim() !== '' && !data.licencePlateNumber.match(/^[a-zA-Z0-9 ]*$/)) errors.licencePlateNumber = 'Licence plate number is not valid';
+        if (data.vin
+            && data.vin.trim() !== ''
+            && !data.vin.match(/^[a-zA-Z0-9]{17}$/)) {
+                errors.vin = 'VIN is not valid. VIN must be 17 characters long and contain only digits and letters';
+            }
+        if (data.licencePlateNumber
+            && data.licencePlateNumber.trim() !== ''
+            && !data.licencePlateNumber.match(/^[a-zA-Z0-9 ]*$/)) {
+                errors.licencePlateNumber = 'Licence plate number is not valid';
+            } 
         this.setState({ errors });
         return Object.keys(errors).length === 0;
     }
