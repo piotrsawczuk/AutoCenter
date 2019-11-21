@@ -34,7 +34,8 @@ public class UserDetailController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<UserDetailResponse> saveUserDetail(@RequestBody UserDetailRequest userDetailRequest) throws ResourceNotFoundException {
+    public ResponseEntity<UserDetailResponse> saveUserDetail(@RequestBody UserDetailRequest userDetailRequest)
+            throws ResourceNotFoundException {
         User user = userService.findByUsernameIgnoreCase(LoggedInUserProvider.findLoggedInUsername())
                 .orElseThrow(() -> new ResourceNotFoundException("User", "username", LoggedInUserProvider.findLoggedInUsername()));
         UserDetail userDetail = new UserDetail();
@@ -45,11 +46,10 @@ public class UserDetailController {
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<UserDetailResponse> editUserDetail(@RequestBody UserDetailRequest userDetailRequest) throws ResourceNotFoundException {
-        UserDetail userDetail = userDetailService.findByUserUsernameIgnoreCase(LoggedInUserProvider.findLoggedInUsername());
-        if (userDetail == null) {
-            throw new ResourceNotFoundException("User detail", "username", LoggedInUserProvider.findLoggedInUsername());
-        }
+    public ResponseEntity<UserDetailResponse> editUserDetail(@RequestBody UserDetailRequest userDetailRequest)
+            throws ResourceNotFoundException {
+        UserDetail userDetail = userDetailService.findByUserUsernameIgnoreCase(LoggedInUserProvider.findLoggedInUsername())
+                .orElseThrow(() -> new ResourceNotFoundException("User detail", "username", LoggedInUserProvider.findLoggedInUsername()));
         DtoEntityMapper.mapWithNulls(userDetailRequest, userDetail);
         userDetailService.save(userDetail);
         return ResponseEntity.status(HttpStatus.CREATED).body(DtoEntityMapper.map(userDetail, UserDetailResponse.class));

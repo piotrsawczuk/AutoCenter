@@ -2,10 +2,12 @@ package sawczuk.AutoCenter.service;
 
 import sawczuk.AutoCenter.model.UserDetail;
 
+import java.util.Optional;
+
 public interface UserDetailService {
     void save(UserDetail userDetail);
 
-    UserDetail findByUserId(Long userId);
+    Optional<UserDetail> findByUserId(Long userId);
 
-    UserDetail findByUserUsernameIgnoreCase(String username);
+    Optional<UserDetail> findByUserUsernameIgnoreCase(String username);
 }
