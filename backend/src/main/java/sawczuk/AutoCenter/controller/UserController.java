@@ -23,7 +23,7 @@ public class UserController {
     private final UserService userService;
 
     @RequestMapping(value = {"/register"}, method = RequestMethod.POST)
-    public ResponseEntity<UserResponse> createNewAccount(@RequestBody UserRequest userRequest) {
+    public ResponseEntity<UserResponse> createNewAccount(@RequestBody UserRequest userRequest) throws ResourceNotFoundException {
         User user = new User();
         DtoEntityMapper.map(userRequest, user);
         userService.save(user);

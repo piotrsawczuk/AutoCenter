@@ -6,6 +6,8 @@ import sawczuk.AutoCenter.model.Role;
 import sawczuk.AutoCenter.repository.RoleRepository;
 import sawczuk.AutoCenter.service.RoleService;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class RoleServiceImpl implements RoleService {
@@ -13,7 +15,7 @@ public class RoleServiceImpl implements RoleService {
     private final RoleRepository roleRepository;
 
     @Override
-    public Role findByNameIgnoreCase(String name) {
+    public Optional<Role> findByNameIgnoreCase(String name) {
         return roleRepository.findByNameIgnoreCase(name);
     }
 }

@@ -51,7 +51,8 @@ public class UserAdminController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<UserResponse> createNewAdminAccount(@RequestBody UserRequest userRequest) {
+    public ResponseEntity<UserResponse> createNewAdminAccount(@RequestBody UserRequest userRequest)
+            throws ResourceNotFoundException {
         User user = new User();
         DtoEntityMapper.map(userRequest, user);
         user.setRoleAdmin(true);

@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import sawczuk.AutoCenter.exception.PasswordException;
+import sawczuk.AutoCenter.exception.ResourceNotFoundException;
 import sawczuk.AutoCenter.model.User;
 import sawczuk.AutoCenter.model.dto.UserRequest;
 import sawczuk.AutoCenter.repository.UserRepository;
@@ -18,18 +19,27 @@ import java.util.*;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
+    private static final String USER_ROLE_NAME = "user";
+    private static final String ADMIN_ROLE_NAME = "admin";
 
     private final UserRepository userRepository;
     private final RoleService roleService;
     private final BCryptPasswordEncoder passwordEncoder;
 
     @Override
-    public void save(User user) {
+    public void save(User user) throws ResourceNotFoundException {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         if (user.isRoleAdmin()) {
-            user.setRoles(new HashSet<>(Arrays.asList(roleService.findByNameIgnoreCase("user"), roleService.findByNameIgnoreCase("admin"))));
+            user.setRoles(new HashSet<>(Arrays.asList(
+                    roleService.findByNameIgnoreCase(USER_ROLE_NAME)
+                            .orElseThrow(() -> new ResourceNotFoundException("Role", "name", USER_ROLE_NAME)),
+                    roleService.findByNameIgnoreCase(ADMIN_ROLE_NAME)
+                            .orElseThrow(() -> new ResourceNotFoundException("Role", "name", ADMIN_ROLE_NAME))
+            )));
         } else {
-            user.setRoles(new HashSet<>(Collections.singletonList(roleService.findByNameIgnoreCase("user"))));
+            user.setRoles(new HashSet<>(Collections.singletonList(
+                    roleService.findByNameIgnoreCase(USER_ROLE_NAME)
+                            .orElseThrow(() -> new ResourceNotFoundException("Role", "name", USER_ROLE_NAME)))));
         }
         user.setActive(true);
         userRepository.save(user);
