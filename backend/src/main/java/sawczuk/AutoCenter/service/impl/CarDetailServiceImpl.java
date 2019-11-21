@@ -7,6 +7,8 @@ import sawczuk.AutoCenter.model.CarDetail;
 import sawczuk.AutoCenter.repository.CarDetailRepository;
 import sawczuk.AutoCenter.service.CarDetailService;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class CarDetailServiceImpl implements CarDetailService {
@@ -23,7 +25,7 @@ public class CarDetailServiceImpl implements CarDetailService {
     }
 
     @Override
-    public CarDetail findByCarId(Long carId) {
+    public Optional<CarDetail> findByCarId(Long carId) {
         return carDetailRepository.findByCarId(carId);
     }
 

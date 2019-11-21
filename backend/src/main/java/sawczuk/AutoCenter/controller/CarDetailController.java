@@ -57,10 +57,8 @@ public class CarDetailController {
         if (carId == null) {
             throw new InvalidRequestParameterException("carId", carId);
         }
-        CarDetail carDetail = carDetailService.findByCarId(carId);
-        if (carDetail == null) {
-            throw new ResourceNotFoundException("Car detail", "carId", carId);
-        }
+        CarDetail carDetail = carDetailService.findByCarId(carId)
+                .orElseThrow(() -> new ResourceNotFoundException("Car detail", "carId", carId));
         DtoEntityMapper.mapWithNulls(carDetailRequest, carDetail);
         carDetailService.save(carDetail);
         return ResponseEntity.status(HttpStatus.CREATED).body(DtoEntityMapper.map(carDetail, CarDetailResponse.class));
