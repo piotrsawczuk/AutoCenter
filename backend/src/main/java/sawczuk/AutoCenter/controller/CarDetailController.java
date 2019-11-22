@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import sawczuk.AutoCenter.controller.mapper.DtoEntityMapper;
+import sawczuk.AutoCenter.service.mapper.DtoEntityMapper;
 import sawczuk.AutoCenter.exception.InvalidRequestParameterException;
 import sawczuk.AutoCenter.exception.ResourceNotFoundException;
 import sawczuk.AutoCenter.model.Car;

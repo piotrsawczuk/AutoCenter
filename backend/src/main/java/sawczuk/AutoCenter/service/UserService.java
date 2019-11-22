@@ -7,7 +7,6 @@ import sawczuk.AutoCenter.exception.ResourceNotFoundException;
 import sawczuk.AutoCenter.model.User;
 import sawczuk.AutoCenter.model.dto.UserRequest;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface UserService {

@@ -1,4 +1,4 @@
-package sawczuk.AutoCenter.controller.mapper;
+package sawczuk.AutoCenter.service.mapper;
 
 import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;

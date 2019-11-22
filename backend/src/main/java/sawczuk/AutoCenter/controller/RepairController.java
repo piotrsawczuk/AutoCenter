@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import sawczuk.AutoCenter.controller.mapper.DtoEntityMapper;
+import sawczuk.AutoCenter.service.mapper.DtoEntityMapper;
 import sawczuk.AutoCenter.exception.InvalidRequestParameterException;
 import sawczuk.AutoCenter.exception.ResourceNotFoundException;
 import sawczuk.AutoCenter.model.Car;

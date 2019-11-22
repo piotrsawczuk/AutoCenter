@@ -1,13 +1,14 @@
 package sawczuk.AutoCenter.service;
 
-import sawczuk.AutoCenter.model.UserDetail;
-
-import java.util.Optional;
+import sawczuk.AutoCenter.exception.ResourceNotFoundException;
+import sawczuk.AutoCenter.model.dto.UserDetailRequest;
+import sawczuk.AutoCenter.model.dto.UserDetailResponse;
 
 public interface UserDetailService {
-    void save(UserDetail userDetail);
 
-    Optional<UserDetail> findByUserId(Long userId);
+    UserDetailResponse save(UserDetailRequest userDetailRequest) throws ResourceNotFoundException;
 
-    Optional<UserDetail> findByUserUsernameIgnoreCase(String username);
+    UserDetailResponse edit(UserDetailRequest userDetailRequest) throws ResourceNotFoundException;
+
+    UserDetailResponse find() throws ResourceNotFoundException;
 }
