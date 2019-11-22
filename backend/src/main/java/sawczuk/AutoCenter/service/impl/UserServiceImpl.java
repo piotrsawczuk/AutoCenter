@@ -77,11 +77,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(User user) {
-        userRepository.delete(user);
-    }
-
-    @Override
     public Optional<User> findById(Long id) {
         return userRepository.findById(id);
     }
@@ -89,11 +84,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> findByUsernameIgnoreCase(String username) {
         return userRepository.findByUsernameIgnoreCase(username);
-    }
-
-    @Override
-    public List<User> findAll() {
-        return userRepository.findAll();
     }
 
     @Override

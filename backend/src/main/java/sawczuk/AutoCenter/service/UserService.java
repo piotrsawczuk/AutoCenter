@@ -17,13 +17,9 @@ public interface UserService {
 
     void delete(Long id);
 
-    void delete(User user);
-
     Optional<User> findById(Long id);
 
     Optional<User> findByUsernameIgnoreCase(String username);
-
-    List<User> findAll();
 
     Page<User> findAll(Pageable pageable);
 }
