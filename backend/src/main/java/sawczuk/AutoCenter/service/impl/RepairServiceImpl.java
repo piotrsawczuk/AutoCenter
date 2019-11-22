@@ -34,7 +34,8 @@ public class RepairServiceImpl implements RepairService {
         Car car = carRepository.findById(carId).orElseThrow(() -> new ResourceNotFoundException("Car", "id", carId));
         Repair repair = new Repair();
         DtoEntityMapper.map(repairRequest, repair);
-        repair.setExploitationType(exploitationTypeRepository.findByValue(repairRequest.getExploitationType()));
+        repair.setExploitationType(exploitationTypeRepository.findByValue(repairRequest.getExploitationType())
+                .orElseThrow(() -> new ResourceNotFoundException("ExploitationType", "value", repairRequest.getExploitationType())));
         repair.setCar(car);
         repairRepository.save(repair);
         return DtoEntityMapper.map(repair, RepairResponse.class);
@@ -49,7 +50,8 @@ public class RepairServiceImpl implements RepairService {
 
         DtoEntityMapper.map(repairRequest, repair);
         if (repairRequest.getExploitationType() != null) {
-            repair.setExploitationType(exploitationTypeRepository.findByValue(repairRequest.getExploitationType()));
+            repair.setExploitationType(exploitationTypeRepository.findByValue(repairRequest.getExploitationType())
+                    .orElseThrow(() -> new ResourceNotFoundException("ExploitationType", "value", repairRequest.getExploitationType())));
         }
         repairRepository.save(repair);
         return DtoEntityMapper.map(repair, RepairResponse.class);

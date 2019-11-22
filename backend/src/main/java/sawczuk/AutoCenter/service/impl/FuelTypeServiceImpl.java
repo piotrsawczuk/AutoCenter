@@ -19,20 +19,18 @@ public class FuelTypeServiceImpl implements FuelTypeService {
 
     @Override
     public FuelTypeResponse findByFuelTypeIgnoreCase(String fuelTypeName) throws ResourceNotFoundException {
-        FuelType fuelType = fuelTypeRepository.findByFuelTypeIgnoreCase(fuelTypeName);
-        if (fuelType == null) {
-            throw new ResourceNotFoundException("Fuel type", "fuelTypeName", fuelTypeName);
-        }
-        return DtoEntityMapper.map(fuelType, FuelTypeResponse.class);
+        return DtoEntityMapper.map(
+                fuelTypeRepository.findByFuelTypeIgnoreCase(fuelTypeName)
+                        .orElseThrow(() -> new ResourceNotFoundException("Fuel type", "fuelTypeName", fuelTypeName)),
+                FuelTypeResponse.class);
     }
 
     @Override
     public FuelTypeResponse findByValue(Integer value) throws ResourceNotFoundException {
-        FuelType fuelType = fuelTypeRepository.findByValue(value);
-        if (fuelType == null) {
-            throw new ResourceNotFoundException("Fuel type", "value", value);
-        }
-        return DtoEntityMapper.map(fuelType, FuelTypeResponse.class);
+        return DtoEntityMapper.map(
+                fuelTypeRepository.findByValue(value)
+                        .orElseThrow(() -> new ResourceNotFoundException("Fuel type", "value", value)),
+                FuelTypeResponse.class);
     }
 
     @Override

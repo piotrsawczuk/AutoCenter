@@ -34,8 +34,10 @@ public class FuelEconomyServiceImpl implements FuelEconomyService {
         Car car = carRepository.findById(carId).orElseThrow(() -> new ResourceNotFoundException("Car", "id", carId));
         FuelEconomy fuelEconomy = new FuelEconomy();
         DtoEntityMapper.map(fuelEconomyRequest, fuelEconomy);
-        fuelEconomy.setDrivingType(drivingTypeRepository.findByValue(fuelEconomyRequest.getDrivingType()));
-        fuelEconomy.setFuelType(fuelTypeRepository.findByValue(fuelEconomyRequest.getFuelType()));
+        fuelEconomy.setDrivingType(drivingTypeRepository.findByValue(fuelEconomyRequest.getDrivingType())
+                .orElseThrow(() -> new ResourceNotFoundException("DrivingType", "value", fuelEconomyRequest.getDrivingType())));
+        fuelEconomy.setFuelType(fuelTypeRepository.findByValue(fuelEconomyRequest.getFuelType())
+                .orElseThrow(() -> new ResourceNotFoundException("FuelType", "value", fuelEconomyRequest.getFuelType())));
         fuelEconomy.setCar(car);
         fuelEconomy.setConsumption(NumberUtils.calculateFuelEconomy(fuelEconomy.getDistanceDriven(), fuelEconomy.getFuelAmountFilled()));
         fuelEconomy.setFillUpCost(NumberUtils.calculateFillUpCost(fuelEconomy.getPricePerLitre(), fuelEconomy.getFuelAmountFilled()));
@@ -52,10 +54,12 @@ public class FuelEconomyServiceImpl implements FuelEconomyService {
 
         DtoEntityMapper.map(fuelEconomyRequest, fuelEconomy);
         if (fuelEconomyRequest.getDrivingType() != null) {
-            fuelEconomy.setDrivingType(drivingTypeRepository.findByValue(fuelEconomyRequest.getDrivingType()));
+            fuelEconomy.setDrivingType(drivingTypeRepository.findByValue(fuelEconomyRequest.getDrivingType())
+                    .orElseThrow(() -> new ResourceNotFoundException("DrivingType", "value", fuelEconomyRequest.getDrivingType())));
         }
         if (fuelEconomyRequest.getFuelType() != null) {
-            fuelEconomy.setFuelType(fuelTypeRepository.findByValue(fuelEconomyRequest.getFuelType()));
+            fuelEconomy.setFuelType(fuelTypeRepository.findByValue(fuelEconomyRequest.getFuelType())
+                    .orElseThrow(() -> new ResourceNotFoundException("FuelType", "value", fuelEconomyRequest.getFuelType())));
         }
 
         fuelEconomyRepository.save(fuelEconomy);

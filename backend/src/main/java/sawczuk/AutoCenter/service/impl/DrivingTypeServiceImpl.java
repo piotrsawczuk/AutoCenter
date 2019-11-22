@@ -19,20 +19,18 @@ public class DrivingTypeServiceImpl implements DrivingTypeService {
 
     @Override
     public DrivingTypeResponse findByDrivingTypeIgnoreCase(String drivingTypeName) throws ResourceNotFoundException {
-        DrivingType drivingType = drivingTypeRepository.findByDrivingTypeIgnoreCase(drivingTypeName);
-        if (drivingType == null) {
-            throw new ResourceNotFoundException("Driving type", "drivingTypeName", drivingTypeName);
-        }
-        return DtoEntityMapper.map(drivingType, DrivingTypeResponse.class);
+        return DtoEntityMapper.map(
+                drivingTypeRepository.findByDrivingTypeIgnoreCase(drivingTypeName)
+                        .orElseThrow(() -> new ResourceNotFoundException("DrivingType", "drivingTypeName", drivingTypeName)),
+                DrivingTypeResponse.class);
     }
 
     @Override
     public DrivingTypeResponse findByValue(Integer value) throws ResourceNotFoundException {
-        DrivingType drivingType = drivingTypeRepository.findByValue(value);
-        if (drivingType == null) {
-            throw new ResourceNotFoundException("Driving type", "value", value);
-        }
-        return DtoEntityMapper.map(drivingType, DrivingTypeResponse.class);
+        return DtoEntityMapper.map(
+                drivingTypeRepository.findByValue(value)
+                        .orElseThrow(() -> new ResourceNotFoundException("Driving type", "value", value)),
+                DrivingTypeResponse.class);
     }
 
     @Override
