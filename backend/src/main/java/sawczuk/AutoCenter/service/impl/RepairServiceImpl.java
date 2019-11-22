@@ -43,11 +43,8 @@ public class RepairServiceImpl implements RepairService {
 
     @Override
     public RepairResponse update(RepairRequest repairRequest, Long id, Long carId) throws ResourceNotFoundException {
-        Repair repair = repairRepository.findByIdAndCarId(id, carId);
-        if (repair == null) {
-            throw new ResourceNotFoundException("Repair", "id", id, "carId", carId);
-        }
-
+        Repair repair = repairRepository.findByIdAndCarId(id, carId)
+                .orElseThrow(() -> new ResourceNotFoundException("Repair", "id", id, "carId", carId));
         DtoEntityMapper.map(repairRequest, repair);
         if (repairRequest.getExploitationType() != null) {
             repair.setExploitationType(exploitationTypeRepository.findByValue(repairRequest.getExploitationType())

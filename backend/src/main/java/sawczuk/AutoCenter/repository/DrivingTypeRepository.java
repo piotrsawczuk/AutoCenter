@@ -3,7 +3,6 @@ package sawczuk.AutoCenter.repository;
 import org.springframework.data.repository.CrudRepository;
 import sawczuk.AutoCenter.model.DrivingType;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 

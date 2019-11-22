@@ -10,9 +10,10 @@ import sawczuk.AutoCenter.model.Repair;
 import sawczuk.AutoCenter.model.RepairTotalCost;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface RepairRepository extends PagingAndSortingRepository<Repair, Long> {
-    Repair findByIdAndCarId(Long id, Long carId);
+    Optional<Repair> findByIdAndCarId(Long id, Long carId);
 
     Page<Repair> findAllByCarId(Long carId, Pageable pageable);
 

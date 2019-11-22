@@ -47,11 +47,8 @@ public class FuelEconomyServiceImpl implements FuelEconomyService {
 
     @Override
     public FuelEconomyResponse update(FuelEconomyRequest fuelEconomyRequest, Long id, Long carId) throws ResourceNotFoundException {
-        FuelEconomy fuelEconomy = fuelEconomyRepository.findByIdAndCarId(id, carId);
-        if (fuelEconomy == null) {
-            throw new ResourceNotFoundException("Fuel economy", "id", id, "carId", carId);
-        }
-
+        FuelEconomy fuelEconomy = fuelEconomyRepository.findByIdAndCarId(id, carId)
+                .orElseThrow(() -> new ResourceNotFoundException("Fuel economy", "id", id, "carId", carId));
         DtoEntityMapper.map(fuelEconomyRequest, fuelEconomy);
         if (fuelEconomyRequest.getDrivingType() != null) {
             fuelEconomy.setDrivingType(drivingTypeRepository.findByValue(fuelEconomyRequest.getDrivingType())

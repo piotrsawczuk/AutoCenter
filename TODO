@@ -1,8 +1,7 @@
 TODO List as not using Jira:
 Backend:
   Improvements:
-	- Use optionals where possible
-    - Use multiple profiles (application.yml)
+  - Use multiple profiles (application.yml)
 	- Add sql script to changelog that creates dummy data
 	- Add swagger to application
 	- Add tests (at least unit tests (Spock))

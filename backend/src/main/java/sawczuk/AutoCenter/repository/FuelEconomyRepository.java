@@ -10,9 +10,10 @@ import sawczuk.AutoCenter.model.FuelEconomy;
 import sawczuk.AutoCenter.model.FuelEconomyAverage;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface FuelEconomyRepository extends PagingAndSortingRepository<FuelEconomy, Long> {
-    FuelEconomy findByIdAndCarId(Long id, Long carId);
+    Optional<FuelEconomy> findByIdAndCarId(Long id, Long carId);
 
     Page<FuelEconomy> findAllByCarId(Long carId, Pageable pageable);
 
