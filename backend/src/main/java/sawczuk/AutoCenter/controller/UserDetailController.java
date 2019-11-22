@@ -30,7 +30,7 @@ public class UserDetailController {
         Long userId = userService.findByUsernameIgnoreCase(LoggedInUserProvider.findLoggedInUsername())
                 .orElseThrow(() -> new ResourceNotFoundException("User ID", "username", LoggedInUserProvider.findLoggedInUsername()))
                 .getId();
-        return ResponseEntity.ok(DtoEntityMapper.map(userDetailService.findByUserId(userId), UserDetailResponse.class));
+        return ResponseEntity.ok(DtoEntityMapper.map(userDetailService.findByUserId(userId).orElse(null), UserDetailResponse.class));
     }
 
     @RequestMapping(method = RequestMethod.POST)

@@ -32,7 +32,7 @@ public class CarDetailController {
         if (carId == null) {
             throw new InvalidRequestParameterException("carId", carId);
         }
-        return ResponseEntity.ok(DtoEntityMapper.map(carDetailService.findByCarId(carId), CarDetailResponse.class));
+        return ResponseEntity.ok(DtoEntityMapper.map(carDetailService.findByCarId(carId).orElse(null), CarDetailResponse.class));
     }
 
     @RequestMapping(method = RequestMethod.POST)
