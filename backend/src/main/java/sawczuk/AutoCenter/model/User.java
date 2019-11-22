@@ -29,7 +29,7 @@ public class User {
     @Column(name = "password")
     private String password;
     @NotNull
-    @Pattern(regexp=".+@.+\\..+", message = "Invalid email address")
+    @Pattern(regexp = ".+@.+\\..+", message = "Invalid email address")
     @Column(name = "email")
     private String email;
     @Column(name = "active")

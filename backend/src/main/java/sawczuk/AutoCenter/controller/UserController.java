@@ -26,7 +26,7 @@ public class UserController {
 
     @RequestMapping(value = "/users", method = RequestMethod.PUT)
     public ResponseEntity<UserResponse> updateAccount(@RequestBody UserRequest userRequest)
-            throws PasswordException, ResourceNotFoundException{
+            throws PasswordException, ResourceNotFoundException {
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.update(userRequest));
     }
 }
