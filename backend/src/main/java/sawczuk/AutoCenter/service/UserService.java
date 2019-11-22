@@ -4,21 +4,19 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import sawczuk.AutoCenter.exception.PasswordException;
 import sawczuk.AutoCenter.exception.ResourceNotFoundException;
-import sawczuk.AutoCenter.model.User;
 import sawczuk.AutoCenter.model.dto.UserRequest;
-
-import java.util.Optional;
+import sawczuk.AutoCenter.model.dto.UserResponse;
 
 public interface UserService {
-    void save(User user) throws ResourceNotFoundException;
+    UserResponse save(UserRequest userRequest) throws ResourceNotFoundException;
 
-    void update(UserRequest userRequest, User user) throws PasswordException;
+    UserResponse save(UserRequest userRequest, boolean isRoleAdmin) throws ResourceNotFoundException;
+
+    UserResponse update(UserRequest userRequest) throws PasswordException, ResourceNotFoundException;
 
     void delete(Long id);
 
-    Optional<User> findById(Long id);
+    UserResponse findById(Long id) throws ResourceNotFoundException;
 
-    Optional<User> findByUsernameIgnoreCase(String username);
-
-    Page<User> findAll(Pageable pageable);
+    Page<UserResponse> findAll(Pageable pageable);
 }

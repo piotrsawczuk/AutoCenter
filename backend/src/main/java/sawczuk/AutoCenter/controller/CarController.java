@@ -13,14 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import sawczuk.AutoCenter.exception.InvalidRequestParameterException;
 import sawczuk.AutoCenter.exception.ResourceNotFoundException;
-import sawczuk.AutoCenter.model.Car;
-import sawczuk.AutoCenter.model.User;
 import sawczuk.AutoCenter.model.dto.CarRequest;
 import sawczuk.AutoCenter.model.dto.CarResponse;
-import sawczuk.AutoCenter.security.LoggedInUserProvider;
 import sawczuk.AutoCenter.service.CarService;
-import sawczuk.AutoCenter.service.UserService;
-import sawczuk.AutoCenter.service.mapper.DtoEntityMapper;
 
 @Controller
 @RequestMapping(value = "/cars")
@@ -30,16 +25,12 @@ public class CarController {
     private static final int DEFAULT_PAGE_SIZE = 10;
 
     private final CarService carService;
-    private final UserService userService;
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Page<CarResponse>> getAllCars(
             @PageableDefault(page = DEFAULT_PAGE_NUMBER, size = DEFAULT_PAGE_SIZE) Pageable pageable)
             throws ResourceNotFoundException {
-        Long userId = userService.findByUsernameIgnoreCase(LoggedInUserProvider.findLoggedInUsername())
-                .orElseThrow(() -> new ResourceNotFoundException("User ID", "username", LoggedInUserProvider.findLoggedInUsername()))
-                .getId();
-        return ResponseEntity.ok(DtoEntityMapper.mapAll(carService.findAllByUserId(userId, pageable), CarResponse.class));
+        return ResponseEntity.ok(carService.findAllByUser(pageable));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -48,19 +39,12 @@ public class CarController {
         if (id == null) {
             throw new InvalidRequestParameterException("id", id);
         }
-        Car car = carService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Car", "id", id));
-        return ResponseEntity.ok(DtoEntityMapper.map(car, CarResponse.class));
+        return ResponseEntity.ok(carService.findById(id));
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<CarResponse> saveCar(@RequestBody CarRequest carRequest) throws ResourceNotFoundException {
-        User user = userService.findByUsernameIgnoreCase(LoggedInUserProvider.findLoggedInUsername())
-                .orElseThrow(() -> new ResourceNotFoundException("User", "username", LoggedInUserProvider.findLoggedInUsername()));
-        Car car = new Car();
-        DtoEntityMapper.map(carRequest, car);
-        car.setUser(user);
-        carService.save(car);
-        return ResponseEntity.status(HttpStatus.CREATED).body(DtoEntityMapper.map(car, CarResponse.class));
+        return ResponseEntity.status(HttpStatus.CREATED).body(carService.save(carRequest));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
@@ -69,10 +53,7 @@ public class CarController {
         if (id == null) {
             throw new InvalidRequestParameterException("id", id);
         }
-        Car car = carService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Car", "id", id));
-        DtoEntityMapper.map(carRequest, car);
-        carService.save(car);
-        return ResponseEntity.status(HttpStatus.CREATED).body(DtoEntityMapper.map(car, CarResponse.class));
+        return ResponseEntity.status(HttpStatus.CREATED).body(carService.update(carRequest, id));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

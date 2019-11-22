@@ -33,6 +33,6 @@ public class UserDetailController {
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity<UserDetailResponse> editUserDetail(@RequestBody UserDetailRequest userDetailRequest)
             throws ResourceNotFoundException {
-        return ResponseEntity.status(HttpStatus.CREATED).body(userDetailService.edit(userDetailRequest));
+        return ResponseEntity.status(HttpStatus.CREATED).body(userDetailService.update(userDetailRequest));
     }
 }

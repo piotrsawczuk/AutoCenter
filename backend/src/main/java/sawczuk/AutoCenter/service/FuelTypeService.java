@@ -1,14 +1,14 @@
 package sawczuk.AutoCenter.service;
 
 import sawczuk.AutoCenter.exception.ResourceNotFoundException;
-import sawczuk.AutoCenter.model.FuelType;
+import sawczuk.AutoCenter.model.dto.FuelTypeResponse;
 
 import java.util.List;
 
 public interface FuelTypeService {
-    FuelType findByFuelTypeIgnoreCase(String fuelTypeName) throws ResourceNotFoundException;
+    FuelTypeResponse findByFuelTypeIgnoreCase(String fuelTypeName) throws ResourceNotFoundException;
 
-    FuelType findByValue(Integer value) throws ResourceNotFoundException;
+    FuelTypeResponse findByValue(Integer value) throws ResourceNotFoundException;
 
-    List<FuelType> findAll() throws ResourceNotFoundException;
+    List<FuelTypeResponse> findAll() throws ResourceNotFoundException;
 }

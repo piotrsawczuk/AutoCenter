@@ -32,7 +32,7 @@ public class UserDetailServiceImpl implements UserDetailService {
     }
 
     @Override
-    public UserDetailResponse edit(UserDetailRequest userDetailRequest) throws ResourceNotFoundException {
+    public UserDetailResponse update(UserDetailRequest userDetailRequest) throws ResourceNotFoundException {
         UserDetail userDetail = userDetailRepository.findByUserUsernameIgnoreCase(LoggedInUserProvider.findLoggedInUsername())
                 .orElseThrow(() -> new ResourceNotFoundException("User detail", "username", LoggedInUserProvider.findLoggedInUsername()));
         DtoEntityMapper.mapWithNulls(userDetailRequest, userDetail);

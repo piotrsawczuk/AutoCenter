@@ -12,15 +12,12 @@ import sawczuk.AutoCenter.model.RepairTotalCost;
 import java.util.List;
 
 public interface RepairRepository extends PagingAndSortingRepository<Repair, Long> {
+    Repair findByIdAndCarId(Long id, Long carId);
+
+    Page<Repair> findAllByCarId(Long carId, Pageable pageable);
 
     @Transactional
     void deleteByIdAndCarId(Long id, Long carId);
-
-    Repair findByIdAndCarId(Long id, Long carId);
-
-    List<Repair> findAllByCarIdOrderByDateDesc(Long carId);
-
-    Page<Repair> findAllByCarId(Long carId, Pageable pageable);
 
     @Query("SELECT new sawczuk.AutoCenter.model.RepairTotalCost(e.value, SUM(r.cost)) " +
             "FROM Repair r " +

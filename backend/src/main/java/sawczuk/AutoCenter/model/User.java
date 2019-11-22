@@ -43,6 +43,4 @@ public class User {
     private List<Car> cars;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
     private UserDetail userDetail;
-    @Transient
-    private boolean roleAdmin;
 }

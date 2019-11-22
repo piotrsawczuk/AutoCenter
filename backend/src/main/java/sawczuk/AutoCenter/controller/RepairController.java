@@ -15,15 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import sawczuk.AutoCenter.exception.InvalidRequestParameterException;
 import sawczuk.AutoCenter.exception.ResourceNotFoundException;
-import sawczuk.AutoCenter.model.Car;
-import sawczuk.AutoCenter.model.Repair;
 import sawczuk.AutoCenter.model.dto.RepairRequest;
 import sawczuk.AutoCenter.model.dto.RepairResponse;
 import sawczuk.AutoCenter.model.dto.RepairTotalCostResponse;
-import sawczuk.AutoCenter.service.CarService;
-import sawczuk.AutoCenter.service.ExploitationTypeService;
 import sawczuk.AutoCenter.service.RepairService;
-import sawczuk.AutoCenter.service.mapper.DtoEntityMapper;
 
 import java.util.List;
 
@@ -35,8 +30,6 @@ public class RepairController {
     private static final int DEFAULT_PAGE_SIZE = 20;
 
     private final RepairService repairService;
-    private final CarService carService;
-    private final ExploitationTypeService exploitationTypeService;
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Page<RepairResponse>> getAllRepairs(
@@ -49,7 +42,7 @@ public class RepairController {
         if (carId == null) {
             throw new InvalidRequestParameterException("carId", carId);
         }
-        return ResponseEntity.ok(DtoEntityMapper.mapAll(repairService.findAllByCarId(carId, pageable), RepairResponse.class));
+        return ResponseEntity.ok(repairService.findAllByCarId(carId, pageable));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -59,7 +52,7 @@ public class RepairController {
         if (id == null) {
             throw new InvalidRequestParameterException("id", id, "carId", carId);
         }
-        return ResponseEntity.ok(DtoEntityMapper.map(repairService.findByIdAndCarId(id, carId), RepairResponse.class));
+        return ResponseEntity.ok(repairService.findByIdAndCarId(id, carId));
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -69,13 +62,7 @@ public class RepairController {
         if (carId == null) {
             throw new InvalidRequestParameterException("carId", carId);
         }
-        Car car = carService.findById(carId).orElseThrow(() -> new ResourceNotFoundException("Car", "id", carId));
-        Repair repair = new Repair();
-        DtoEntityMapper.map(repairRequest, repair);
-        repair.setExploitationType(exploitationTypeService.findByValue(repairRequest.getExploitationType()));
-        repair.setCar(car);
-        repairService.save(repair);
-        return ResponseEntity.status(HttpStatus.CREATED).body(DtoEntityMapper.map(repair, RepairResponse.class));
+        return ResponseEntity.status(HttpStatus.CREATED).body(repairService.save(repairRequest, carId));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
@@ -83,26 +70,17 @@ public class RepairController {
             @PathVariable(value = "id") Long id,
             @PathVariable(value = "carId") Long carId,
             @RequestBody RepairRequest repairRequest) throws InvalidRequestParameterException, ResourceNotFoundException {
-        if (id == null) {
+        if (id == null || carId == null) {
             throw new InvalidRequestParameterException("id", id, "carId", carId);
         }
-        Repair repair = repairService.findByIdAndCarId(id, carId);
-        if (repair == null) {
-            throw new ResourceNotFoundException("Repair", "id", id, "carId", carId);
-        }
-
-        DtoEntityMapper.map(repairRequest, repair);
-        if (repairRequest.getExploitationType() != null) {
-            repair.setExploitationType(exploitationTypeService.findByValue(repairRequest.getExploitationType()));
-        }
-        repairService.save(repair);
-        return ResponseEntity.status(HttpStatus.CREATED).body(DtoEntityMapper.map(repair, RepairResponse.class));
+        return ResponseEntity.status(HttpStatus.CREATED).body(repairService.update(repairRequest, id, carId));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity deleteRepair(@PathVariable(value = "id") Long id, @PathVariable(value = "carId") Long carId)
-            throws InvalidRequestParameterException {
-        if (id == null) {
+    public ResponseEntity deleteRepair(
+            @PathVariable(value = "id") Long id,
+            @PathVariable(value = "carId") Long carId) throws InvalidRequestParameterException {
+        if (id == null || carId == null) {
             throw new InvalidRequestParameterException("id", id, "carId", carId);
         }
         repairService.deleteByIdAndCarId(id, carId);
@@ -115,6 +93,6 @@ public class RepairController {
         if (carId == null) {
             throw new InvalidRequestParameterException("carId", carId);
         }
-        return ResponseEntity.ok(DtoEntityMapper.mapAll(repairService.repairsTotalCostByCarId(carId), RepairTotalCostResponse.class));
+        return ResponseEntity.ok(repairService.repairsTotalCostByCarId(carId));
     }
 }

@@ -5,10 +5,9 @@ import sawczuk.AutoCenter.model.dto.UserDetailRequest;
 import sawczuk.AutoCenter.model.dto.UserDetailResponse;
 
 public interface UserDetailService {
-
     UserDetailResponse save(UserDetailRequest userDetailRequest) throws ResourceNotFoundException;
 
-    UserDetailResponse edit(UserDetailRequest userDetailRequest) throws ResourceNotFoundException;
+    UserDetailResponse update(UserDetailRequest userDetailRequest) throws ResourceNotFoundException;
 
     UserDetailResponse find() throws ResourceNotFoundException;
 }

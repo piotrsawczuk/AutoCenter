@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import sawczuk.AutoCenter.model.dto.FuelEconomyAverageResponse;
 import sawczuk.AutoCenter.service.FuelEconomyService;
-import sawczuk.AutoCenter.service.mapper.DtoEntityMapper;
 
 import java.util.List;
 
@@ -21,8 +20,6 @@ public class FuelEconomyCommonController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<FuelEconomyAverageResponse>> fuelEconomyAveragesByCarApiId(@RequestParam(value = "carApiId") Long carApiId) {
-        return ResponseEntity.ok(DtoEntityMapper.mapAll(
-                fuelEconomyService.fuelEconomyAveragesByCarApiId(carApiId),
-                FuelEconomyAverageResponse.class));
+        return ResponseEntity.ok(fuelEconomyService.fuelEconomyAveragesByCarApiId(carApiId));
     }
 }
