@@ -7,14 +7,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import sawczuk.AutoCenter.service.mapper.DtoEntityMapper;
 import sawczuk.AutoCenter.exception.PasswordException;
 import sawczuk.AutoCenter.exception.ResourceNotFoundException;
 import sawczuk.AutoCenter.model.User;
 import sawczuk.AutoCenter.model.dto.UserRequest;
 import sawczuk.AutoCenter.model.dto.UserResponse;
-import sawczuk.AutoCenter.service.UserService;
 import sawczuk.AutoCenter.security.LoggedInUserProvider;
+import sawczuk.AutoCenter.service.UserService;
+import sawczuk.AutoCenter.service.mapper.DtoEntityMapper;
 
 @Controller
 @RequiredArgsConstructor

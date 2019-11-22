@@ -7,10 +7,10 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import sawczuk.AutoCenter.service.mapper.DtoEntityMapper;
 import sawczuk.AutoCenter.exception.ResourceNotFoundException;
 import sawczuk.AutoCenter.model.dto.FuelTypeResponse;
 import sawczuk.AutoCenter.service.FuelTypeService;
+import sawczuk.AutoCenter.service.mapper.DtoEntityMapper;
 
 @Controller
 @RequestMapping(value = "/fuel-types")
