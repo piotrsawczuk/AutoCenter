@@ -1,7 +1,7 @@
 TODO List as not using Jira:
 Backend:
   Improvements:
-  - Use multiple profiles (application.yml)
+    - Use multiple profiles (application.yml)
 	- Add sql script to changelog that creates dummy data
 	- Add swagger to application
 	- Add tests (at least unit tests (Spock))
@@ -12,7 +12,7 @@ Backend:
 
 Frontend:
   - Add support for refresh token
-  - Add placeholder for images of car
+  - Add drop box for uploading images of car
   - Add routing params in frontend application
   - Remove Redux where isn't needed
   - Start using React Hooks
