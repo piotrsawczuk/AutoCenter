@@ -10,8 +10,8 @@ import sawczuk.AutoCenter.exception.PasswordException;
 import sawczuk.AutoCenter.exception.ResourceNotFoundException;
 import sawczuk.AutoCenter.model.User;
 import sawczuk.AutoCenter.model.dto.UserRequest;
+import sawczuk.AutoCenter.repository.RoleRepository;
 import sawczuk.AutoCenter.repository.UserRepository;
-import sawczuk.AutoCenter.service.RoleService;
 import sawczuk.AutoCenter.service.UserService;
 
 import java.util.Arrays;
@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
     private static final String ADMIN_ROLE_NAME = "admin";
 
     private final UserRepository userRepository;
-    private final RoleService roleService;
+    private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
     @Override
@@ -34,14 +34,14 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         if (user.isRoleAdmin()) {
             user.setRoles(new HashSet<>(Arrays.asList(
-                    roleService.findByNameIgnoreCase(USER_ROLE_NAME)
+                    roleRepository.findByNameIgnoreCase(USER_ROLE_NAME)
                             .orElseThrow(() -> new ResourceNotFoundException("Role", "name", USER_ROLE_NAME)),
-                    roleService.findByNameIgnoreCase(ADMIN_ROLE_NAME)
+                    roleRepository.findByNameIgnoreCase(ADMIN_ROLE_NAME)
                             .orElseThrow(() -> new ResourceNotFoundException("Role", "name", ADMIN_ROLE_NAME))
             )));
         } else {
             user.setRoles(new HashSet<>(Collections.singletonList(
-                    roleService.findByNameIgnoreCase(USER_ROLE_NAME)
+                    roleRepository.findByNameIgnoreCase(USER_ROLE_NAME)
                             .orElseThrow(() -> new ResourceNotFoundException("Role", "name", USER_ROLE_NAME)))));
         }
         user.setActive(true);
