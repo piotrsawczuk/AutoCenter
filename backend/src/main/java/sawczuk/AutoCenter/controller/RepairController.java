@@ -49,7 +49,7 @@ public class RepairController {
     public ResponseEntity<RepairResponse> getRepair(
             @PathVariable(value = "id") Long id,
             @PathVariable(value = "carId") Long carId) throws InvalidRequestParameterException {
-        if (id == null) {
+        if (id == null || carId == null) {
             throw new InvalidRequestParameterException("id", id, "carId", carId);
         }
         return ResponseEntity.ok(repairService.findByIdAndCarId(id, carId));
