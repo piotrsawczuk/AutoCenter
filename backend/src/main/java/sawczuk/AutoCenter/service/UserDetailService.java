@@ -9,5 +9,5 @@ public interface UserDetailService {
 
     UserDetailResponse update(UserDetailRequest userDetailRequest) throws ResourceNotFoundException;
 
-    UserDetailResponse find() throws ResourceNotFoundException;
+    UserDetailResponse findByLoggedInUser() throws ResourceNotFoundException;
 }

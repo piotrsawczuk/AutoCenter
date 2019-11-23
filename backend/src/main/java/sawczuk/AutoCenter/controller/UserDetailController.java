@@ -21,7 +21,7 @@ public class UserDetailController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<UserDetailResponse> getUserDetail() throws ResourceNotFoundException {
-        return ResponseEntity.ok(userDetailService.find());
+        return ResponseEntity.ok(userDetailService.findByLoggedInUser());
     }
 
     @RequestMapping(method = RequestMethod.POST)

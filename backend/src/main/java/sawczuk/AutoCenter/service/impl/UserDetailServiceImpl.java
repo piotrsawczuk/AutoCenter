@@ -41,7 +41,7 @@ public class UserDetailServiceImpl implements UserDetailService {
     }
 
     @Override
-    public UserDetailResponse find() throws ResourceNotFoundException {
+    public UserDetailResponse findByLoggedInUser() throws ResourceNotFoundException {
         Long userId = userRepository.findByUsernameIgnoreCase(LoggedInUserProvider.findLoggedInUsername())
                 .orElseThrow(() -> new ResourceNotFoundException("User ID", "username", LoggedInUserProvider.findLoggedInUsername()))
                 .getId();
