@@ -53,7 +53,7 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public Page<CarResponse> findAllByUser(Pageable pageable) throws ResourceNotFoundException {
+    public Page<CarResponse> findAllByLoggedInUser(Pageable pageable) throws ResourceNotFoundException {
         Long userId = userRepository.findByUsernameIgnoreCase(LoggedInUserProvider.findLoggedInUsername())
                 .orElseThrow(() -> new ResourceNotFoundException("User ID", "username", LoggedInUserProvider.findLoggedInUsername()))
                 .getId();

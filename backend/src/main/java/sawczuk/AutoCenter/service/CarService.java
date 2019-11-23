@@ -15,5 +15,5 @@ public interface CarService {
 
     CarResponse findById(Long id) throws ResourceNotFoundException;
 
-    Page<CarResponse> findAllByUser(Pageable pageable) throws ResourceNotFoundException;
+    Page<CarResponse> findAllByLoggedInUser(Pageable pageable) throws ResourceNotFoundException;
 }

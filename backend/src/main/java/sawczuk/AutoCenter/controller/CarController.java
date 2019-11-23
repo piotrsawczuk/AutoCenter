@@ -30,7 +30,7 @@ public class CarController {
     public ResponseEntity<Page<CarResponse>> getAllCars(
             @PageableDefault(page = DEFAULT_PAGE_NUMBER, size = DEFAULT_PAGE_SIZE) Pageable pageable)
             throws ResourceNotFoundException {
-        return ResponseEntity.ok(carService.findAllByUser(pageable));
+        return ResponseEntity.ok(carService.findAllByLoggedInUser(pageable));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)

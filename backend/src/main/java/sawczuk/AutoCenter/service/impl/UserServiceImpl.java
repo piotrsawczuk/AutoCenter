@@ -56,8 +56,10 @@ public class UserServiceImpl implements UserService {
         if (!StringUtils.isEmpty(userRequest.getEmail())) {
             user.setEmail(userRequest.getEmail());
         }
+        if (!StringUtils.isEmpty(userRequest.getPassword())) {
+            passwordValidator(userRequest, user);
+        }
 
-        passwordValidator(userRequest, user);
         return DtoEntityMapper.map(userRepository.save(user), UserResponse.class);
     }
 
@@ -94,20 +96,16 @@ public class UserServiceImpl implements UserService {
     }
 
     private void passwordValidator(UserRequest userRequest, User user) throws PasswordException {
-        if (!StringUtils.isEmpty(userRequest.getPassword())) {
-            if (!StringUtils.isEmpty(userRequest.getCurrentPassword())) {
-                if (passwordEncoder.matches(userRequest.getCurrentPassword(), user.getPassword())) {
-                    if (!passwordEncoder.matches(userRequest.getPassword(), user.getPassword())) {
-                        user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
-                    } else {
-                        throw new PasswordException("New password is same as current password.");
-                    }
-                } else {
-                    throw new PasswordException("Current password provided is incorrect.");
-                }
-            } else {
-                throw new PasswordException("Current password not provided.");
-            }
+        if (StringUtils.isEmpty(userRequest.getCurrentPassword())) {
+            throw new PasswordException("Current password not provided.");
         }
+        if (!passwordEncoder.matches(userRequest.getCurrentPassword(), user.getPassword())) {
+            throw new PasswordException("Current password provided is incorrect.");
+        }
+        if (passwordEncoder.matches(userRequest.getPassword(), user.getPassword())) {
+            throw new PasswordException("New password is same as current password.");
+        }
+
+        user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
     }
 }
