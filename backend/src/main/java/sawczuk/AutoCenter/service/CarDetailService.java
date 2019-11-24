@@ -1,9 +1,13 @@
 package sawczuk.AutoCenter.service;
 
-import sawczuk.AutoCenter.model.CarDetail;
+import sawczuk.AutoCenter.exception.ResourceNotFoundException;
+import sawczuk.AutoCenter.model.dto.CarDetailRequest;
+import sawczuk.AutoCenter.model.dto.CarDetailResponse;
 
 public interface CarDetailService {
-    void save(CarDetail carDetail);
+    CarDetailResponse findByCarId(Long carId);
 
-    CarDetail findByCarId(Long carId);
+    CarDetailResponse save(CarDetailRequest carDetail, Long carId) throws ResourceNotFoundException;
+
+    CarDetailResponse update(CarDetailRequest carDetail, Long carId) throws ResourceNotFoundException;
 }

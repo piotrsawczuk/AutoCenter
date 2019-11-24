@@ -25,30 +25,23 @@ import java.util.Collections;
 @EnableAuthorizationServer
 @RequiredArgsConstructor
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
-    @Value("${security.jwt.signing-key}")
-    private String signingKey;
-
-    @Value("${security.jwt.client-id}")
-    private String clientId;
-
-    @Value("${security.jwt.client-secret}")
-    private String clientSecret;
-
-    @Value("${security.jwt.resource-ids}")
-    private String resourceIds;
-
-    @Value("${security.jwt.access-token-expire-time-in-minutes}")
-    private int accessTokenExpireTimeInMinutes;
-
-    @Value("${security.jwt.refresh-token-expire-time-in-minutes}")
-    private int refreshTokenExpireTimeInMinutes;
-
     private static final String GRANT_TYPE_PASSWORD = "password";
     private static final String GRANT_TYPE_REFRESH_TOKEN = "refresh_token";
-
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final UserDetailsService userDetailsService;
+    @Value("${security.jwt.signing-key}")
+    private String signingKey;
+    @Value("${security.jwt.client-id}")
+    private String clientId;
+    @Value("${security.jwt.client-secret}")
+    private String clientSecret;
+    @Value("${security.jwt.resource-ids}")
+    private String resourceIds;
+    @Value("${security.jwt.access-token-expire-time-in-minutes}")
+    private int accessTokenExpireTimeInMinutes;
+    @Value("${security.jwt.refresh-token-expire-time-in-minutes}")
+    private int refreshTokenExpireTimeInMinutes;
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {

@@ -14,13 +14,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import sawczuk.AutoCenter.controller.mapper.DtoEntityMapper;
 import sawczuk.AutoCenter.exception.InvalidRequestParameterException;
 import sawczuk.AutoCenter.exception.ResourceNotFoundException;
-import sawczuk.AutoCenter.model.User;
 import sawczuk.AutoCenter.model.dto.UserRequest;
 import sawczuk.AutoCenter.model.dto.UserResponse;
 import sawczuk.AutoCenter.service.UserService;
+import sawczuk.AutoCenter.service.mapper.DtoEntityMapper;
 
 @Controller
 @RequestMapping(value = "/users")
@@ -35,8 +34,7 @@ public class UserAdminController {
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Page<UserResponse>> findAllAccounts(
             @PageableDefault(page = DEFAULT_PAGE_NUMBER, size = DEFAULT_PAGE_SIZE)
-            @SortDefault(sort = "username", direction = Sort.Direction.ASC)
-                    Pageable pageable) {
+            @SortDefault(sort = "username", direction = Sort.Direction.ASC) Pageable pageable) {
         return ResponseEntity.ok(DtoEntityMapper.mapAll(userService.findAll(pageable), UserResponse.class));
     }
 
@@ -46,17 +44,13 @@ public class UserAdminController {
         if (id == null) {
             throw new InvalidRequestParameterException("id", id);
         }
-        User user = userService.findById(id).orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
-        return ResponseEntity.ok(DtoEntityMapper.map(user, UserResponse.class));
+        return ResponseEntity.ok(userService.findById(id));
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<UserResponse> createNewAdminAccount(@RequestBody UserRequest userRequest) {
-        User user = new User();
-        DtoEntityMapper.map(userRequest, user);
-        user.setRoleAdmin(true);
-        userService.save(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(DtoEntityMapper.map(user, UserResponse.class));
+    public ResponseEntity<UserResponse> createNewAdminAccount(@RequestBody UserRequest userRequest)
+            throws ResourceNotFoundException {
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(userRequest, true));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

@@ -2,23 +2,25 @@ package sawczuk.AutoCenter.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import sawczuk.AutoCenter.model.FuelEconomy;
-import sawczuk.AutoCenter.model.FuelEconomyAverage;
+import sawczuk.AutoCenter.exception.ResourceNotFoundException;
+import sawczuk.AutoCenter.model.dto.FuelEconomyAverageResponse;
+import sawczuk.AutoCenter.model.dto.FuelEconomyRequest;
+import sawczuk.AutoCenter.model.dto.FuelEconomyResponse;
 
 import java.util.List;
 
 public interface FuelEconomyService {
-    void save(FuelEconomy fuelEconomy);
+    FuelEconomyResponse findByIdAndCarId(Long id, Long carId);
+
+    Page<FuelEconomyResponse> findAllByCarId(Long carId, Pageable pageable);
+
+    FuelEconomyResponse save(FuelEconomyRequest fuelEconomy, Long carId) throws ResourceNotFoundException;
+
+    FuelEconomyResponse update(FuelEconomyRequest fuelEconomy, Long id, Long carId) throws ResourceNotFoundException;
 
     void deleteByIdAndCarId(Long id, Long carId);
 
-    FuelEconomy findByIdAndCarId(Long id, Long carId);
+    List<FuelEconomyAverageResponse> fuelEconomyAveragesByCarId(Long carId);
 
-    List<FuelEconomy> findAllByCarId(Long carId);
-
-    Page<FuelEconomy> findAllByCarId(Long carId, Pageable pageable);
-
-    List<FuelEconomyAverage> fuelEconomyAveragesByCarId(Long carId);
-
-    List<FuelEconomyAverage> fuelEconomyAveragesByCarApiId(Long carApiId);
+    List<FuelEconomyAverageResponse> fuelEconomyAveragesByCarApiId(Long carApiId);
 }

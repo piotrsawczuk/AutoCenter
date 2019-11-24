@@ -4,8 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import sawczuk.AutoCenter.exception.ResourceNotFoundException;
 import sawczuk.AutoCenter.model.DrivingType;
+import sawczuk.AutoCenter.model.dto.DrivingTypeResponse;
 import sawczuk.AutoCenter.repository.DrivingTypeRepository;
 import sawczuk.AutoCenter.service.DrivingTypeService;
+import sawczuk.AutoCenter.service.mapper.DtoEntityMapper;
 
 import java.util.List;
 
@@ -16,26 +18,27 @@ public class DrivingTypeServiceImpl implements DrivingTypeService {
     private final DrivingTypeRepository drivingTypeRepository;
 
     @Override
-    public DrivingType findByDrivingTypeIgnoreCase(String drivingTypeName) throws ResourceNotFoundException {
-        DrivingType drivingType = drivingTypeRepository.findByDrivingTypeIgnoreCase(drivingTypeName);
-        if (drivingType == null)
-            throw new ResourceNotFoundException("Driving type", "drivingTypeName", drivingTypeName);
-        return drivingType;
+    public DrivingTypeResponse findByDrivingTypeIgnoreCase(String drivingTypeName) throws ResourceNotFoundException {
+        return DtoEntityMapper.map(
+                drivingTypeRepository.findByDrivingTypeIgnoreCase(drivingTypeName)
+                        .orElseThrow(() -> new ResourceNotFoundException("DrivingType", "drivingTypeName", drivingTypeName)),
+                DrivingTypeResponse.class);
     }
 
     @Override
-    public DrivingType findByValue(Integer value) throws ResourceNotFoundException {
-        DrivingType drivingType = drivingTypeRepository.findByValue(value);
-        if (drivingType == null)
-            throw new ResourceNotFoundException("Driving type", "value", value);
-        return drivingType;
+    public DrivingTypeResponse findByValue(Integer value) throws ResourceNotFoundException {
+        return DtoEntityMapper.map(
+                drivingTypeRepository.findByValue(value)
+                        .orElseThrow(() -> new ResourceNotFoundException("Driving type", "value", value)),
+                DrivingTypeResponse.class);
     }
 
     @Override
-    public List<DrivingType> findAll() throws ResourceNotFoundException {
+    public List<DrivingTypeResponse> findAll() throws ResourceNotFoundException {
         List<DrivingType> drivingTypeList = drivingTypeRepository.findAll();
-        if (drivingTypeList == null || drivingTypeList.isEmpty())
+        if (drivingTypeList == null || drivingTypeList.isEmpty()) {
             throw new ResourceNotFoundException("Driving type list");
-        return drivingTypeList;
+        }
+        return DtoEntityMapper.mapAll(drivingTypeList, DrivingTypeResponse.class);
     }
 }

@@ -1,14 +1,9 @@
-package sawczuk.AutoCenter.controller.mapper;
+package sawczuk.AutoCenter.service.mapper;
 
-import org.modelmapper.Condition;
 import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.data.domain.Page;
-import sawczuk.AutoCenter.model.FuelEconomy;
-import sawczuk.AutoCenter.model.Repair;
-import sawczuk.AutoCenter.model.dto.FuelEconomyRequest;
-import sawczuk.AutoCenter.model.dto.RepairRequest;
 
 import java.util.Collection;
 import java.util.List;

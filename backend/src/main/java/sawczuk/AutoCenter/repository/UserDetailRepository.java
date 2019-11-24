@@ -3,8 +3,10 @@ package sawczuk.AutoCenter.repository;
 import org.springframework.data.repository.CrudRepository;
 import sawczuk.AutoCenter.model.UserDetail;
 
-public interface UserDetailRepository extends CrudRepository<UserDetail, Long> {
-    UserDetail findByUserId(Long userId);
+import java.util.Optional;
 
-    UserDetail findByUserUsernameIgnoreCase(String username);
+public interface UserDetailRepository extends CrudRepository<UserDetail, Long> {
+    Optional<UserDetail> findByUserId(Long userId);
+
+    Optional<UserDetail> findByUserUsernameIgnoreCase(String username);
 }

@@ -1,14 +1,14 @@
 package sawczuk.AutoCenter.service;
 
 import sawczuk.AutoCenter.exception.ResourceNotFoundException;
-import sawczuk.AutoCenter.model.DrivingType;
+import sawczuk.AutoCenter.model.dto.DrivingTypeResponse;
 
 import java.util.List;
 
 public interface DrivingTypeService {
-    DrivingType findByDrivingTypeIgnoreCase(String drivingTypeName) throws ResourceNotFoundException;
+    DrivingTypeResponse findByDrivingTypeIgnoreCase(String drivingTypeName) throws ResourceNotFoundException;
 
-    DrivingType findByValue(Integer value) throws ResourceNotFoundException;
+    DrivingTypeResponse findByValue(Integer value) throws ResourceNotFoundException;
 
-    List<DrivingType> findAll() throws ResourceNotFoundException;
+    List<DrivingTypeResponse> findAll() throws ResourceNotFoundException;
 }

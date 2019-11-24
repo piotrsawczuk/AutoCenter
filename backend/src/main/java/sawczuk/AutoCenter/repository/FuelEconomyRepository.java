@@ -10,17 +10,15 @@ import sawczuk.AutoCenter.model.FuelEconomy;
 import sawczuk.AutoCenter.model.FuelEconomyAverage;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface FuelEconomyRepository extends PagingAndSortingRepository<FuelEconomy, Long> {
+    Optional<FuelEconomy> findByIdAndCarId(Long id, Long carId);
+
+    Page<FuelEconomy> findAllByCarId(Long carId, Pageable pageable);
 
     @Transactional
     void deleteByIdAndCarId(Long id, Long carId);
-
-    FuelEconomy findByIdAndCarId(Long id, Long carId);
-
-    List<FuelEconomy> findAllByCarIdOrderByDateDesc(Long carId);
-
-    Page<FuelEconomy> findAllByCarId(Long carId, Pageable pageable);
 
     @Query("SELECT new sawczuk.AutoCenter.model.FuelEconomyAverage(d.value, f.value, AVG(e.consumption)) " +
             "FROM FuelEconomy e " +
@@ -39,5 +37,4 @@ public interface FuelEconomyRepository extends PagingAndSortingRepository<FuelEc
             "WHERE c.carApiId = :carApiId " +
             "GROUP BY d.value, f.value")
     List<FuelEconomyAverage> fuelEconomyAveragesByCarApiId(@Param("carApiId") Long carApiId);
-
 }
