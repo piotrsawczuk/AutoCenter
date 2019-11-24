@@ -10,14 +10,14 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "fuel_economy")
+@Table(name = "fuel_consumption")
 @Getter
 @Setter
-public class FuelEconomy {
+public class FuelConsumption {
     @Id
     @Column(name = "id")
-    @GeneratedValue(generator = "fuel_economy_id_gen", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "fuel_economy_id_gen", sequenceName = "fuel_economy_seq", initialValue = 1, allocationSize = 1)
+    @GeneratedValue(generator = "fuel_consumption_id_gen", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "fuel_consumption_id_gen", sequenceName = "fuel_consumption_seq", initialValue = 1, allocationSize = 1)
     private Long id;
     @NotNull
     @Column(name = "date", columnDefinition = "DATE")
@@ -45,7 +45,7 @@ public class FuelEconomy {
     @JoinColumn(name = "user_car_id")
     private Car car;
 
-    public FuelEconomy() {
+    public FuelConsumption() {
         this.date = LocalDate.now();
     }
 

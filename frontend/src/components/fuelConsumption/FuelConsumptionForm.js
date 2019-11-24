@@ -11,7 +11,7 @@ import '../../assets/styles/datepicker.css';
 import { findAll as findAllDrivingTypes} from '../../actions/drivingTypes';
 import { findAll as findAllFuelTypes} from '../../actions/fuelTypes';
 
-class FuelEconomyForm extends Component {
+class FuelConsumptionForm extends Component {
     
     componentDidMount = () => {
         this.props.findAllDrivingTypes();
@@ -136,4 +136,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { findAllDrivingTypes, findAllFuelTypes }) (FuelEconomyForm);
+export default connect(mapStateToProps, { findAllDrivingTypes, findAllFuelTypes }) (FuelConsumptionForm);

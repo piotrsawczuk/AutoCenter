@@ -6,35 +6,35 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
-import sawczuk.AutoCenter.model.FuelEconomy;
-import sawczuk.AutoCenter.model.FuelEconomyAverage;
+import sawczuk.AutoCenter.model.FuelConsumption;
+import sawczuk.AutoCenter.model.FuelConsumptionAverage;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface FuelEconomyRepository extends PagingAndSortingRepository<FuelEconomy, Long> {
-    Optional<FuelEconomy> findByIdAndCarId(Long id, Long carId);
+public interface FuelConsumptionRepository extends PagingAndSortingRepository<FuelConsumption, Long> {
+    Optional<FuelConsumption> findByIdAndCarId(Long id, Long carId);
 
-    Page<FuelEconomy> findAllByCarId(Long carId, Pageable pageable);
+    Page<FuelConsumption> findAllByCarId(Long carId, Pageable pageable);
 
     @Transactional
     void deleteByIdAndCarId(Long id, Long carId);
 
-    @Query("SELECT new sawczuk.AutoCenter.model.FuelEconomyAverage(d.value, f.value, AVG(e.consumption)) " +
-            "FROM FuelEconomy e " +
+    @Query("SELECT new sawczuk.AutoCenter.model.FuelConsumptionAverage(d.value, f.value, AVG(e.consumption)) " +
+            "FROM FuelConsumption e " +
             "JOIN e.car c " +
             "JOIN e.drivingType d " +
             "JOIN e.fuelType f " +
             "WHERE c.id = :carId " +
             "GROUP BY d.value, f.value")
-    List<FuelEconomyAverage> fuelEconomyAveragesByCarId(@Param("carId") Long carId);
+    List<FuelConsumptionAverage> fuelConsumptionAveragesByCarId(@Param("carId") Long carId);
 
-    @Query("SELECT new sawczuk.AutoCenter.model.FuelEconomyAverage(d.value, f.value, AVG(e.consumption)) " +
-            "FROM FuelEconomy e " +
+    @Query("SELECT new sawczuk.AutoCenter.model.FuelConsumptionAverage(d.value, f.value, AVG(e.consumption)) " +
+            "FROM FuelConsumption e " +
             "JOIN e.car c " +
             "JOIN e.drivingType d " +
             "JOIN e.fuelType f " +
             "WHERE c.carApiId = :carApiId " +
             "GROUP BY d.value, f.value")
-    List<FuelEconomyAverage> fuelEconomyAveragesByCarApiId(@Param("carApiId") Long carApiId);
+    List<FuelConsumptionAverage> fuelConsumptionAveragesByCarApiId(@Param("carApiId") Long carApiId);
 }

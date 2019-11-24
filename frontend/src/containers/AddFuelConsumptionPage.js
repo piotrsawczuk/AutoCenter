@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 import { Breadcrumb } from 'semantic-ui-react';
-import FuelEconomyForm from '../components/fuelEconomy/FuelEconomyForm';
-import { save as addFuelEconomy } from '../actions/fuelEconomy';
+import FuelConsumptionForm from '../components/fuelConsumption/FuelConsumptionForm';
+import { save as addFuelConsumption } from '../actions/fuelConsumption';
 
-class AddFuelEconomyPage extends Component {
+class AddFuelConsumptionPage extends Component {
 
     onSubmit = (data) => {
-        this.props.addFuelEconomy(this.props.match.params.carId, data);
-        this.props.history.push(`/cars/${this.props.match.params.carId}/fuelEconomy`);
+        this.props.addFuelConsumption(this.props.match.params.carId, data);
+        this.props.history.push(`/cars/${this.props.match.params.carId}/fuelConsumption`);
     }
 
     render() {
@@ -23,13 +23,13 @@ class AddFuelEconomyPage extends Component {
                 <div>
                     <div style={{marginBottom: '30px'}}>
                         <Breadcrumb size='big'>
-                            <Breadcrumb.Section><Link to={`/cars/${this.props.match.params.carId}/fuelEconomy`}>Back to fuel economy</Link></Breadcrumb.Section>
+                            <Breadcrumb.Section><Link to={`/cars/${this.props.match.params.carId}/fuelConsumption`}>Back to fuel consumption</Link></Breadcrumb.Section>
                             <Breadcrumb.Divider icon='right chevron' />
                             <Breadcrumb.Section active>Add fuel consumption report</Breadcrumb.Section>
                         </Breadcrumb>
                     </div>
                     <div>
-                        <FuelEconomyForm onSubmit = {this.onSubmit.bind(this)} />
+                        <FuelConsumptionForm onSubmit = {this.onSubmit.bind(this)} />
                     </div>
                 </div>
         );
@@ -39,8 +39,8 @@ class AddFuelEconomyPage extends Component {
 const mapStateToProps = (state) => {
     return {
         isAuthenticated: state.authReducer.isAuthenticated,
-        fuelEconomy: state.fuelEconomyReducer.fuelEconomy
+        fuelConsumption: state.fuelConsumptionReducer.fuelConsumption
     }
 }
 
-export default connect(mapStateToProps, { addFuelEconomy }) (AddFuelEconomyPage);
+export default connect(mapStateToProps, { addFuelConsumption }) (AddFuelConsumptionPage);

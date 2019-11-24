@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import { Table } from 'semantic-ui-react';
 import PaginationComponent from '../PaginationComponent';
-import FuelEconomy from './FuelEconomy';
+import FuelConsumption from './FuelConsumption';
 
-class FuelEconomyTable extends Component {
+class FuelConsumptionTable extends Component {
     
     render() {
         return (
@@ -24,16 +24,16 @@ class FuelEconomyTable extends Component {
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        {this.props.fuelEconomyList && this.props.fuelEconomyList.content && this.props.fuelEconomyList.content.map(fuelEconomy => (<FuelEconomy key = {fuelEconomy.id} fuelEconomy = {fuelEconomy} page = {this.props.fuelEconomyList.number}/>))}
+                        {this.props.fuelConsumptionList && this.props.fuelConsumptionList.content && this.props.fuelConsumptionList.content.map(fuelConsumption => (<FuelConsumption key = {fuelConsumption.id} fuelConsumption = {fuelConsumption} page = {this.props.fuelConsumptionList.number}/>))}
                     </Table.Body>
                 </Table>
-                <Link className="ui large primary left floated button" to={`/cars/${this.props.carId}/fuelEconomy/add`}>Add fuel consumption report</Link>
+                <Link className="ui large primary left floated button" to={`/cars/${this.props.carId}/fuelConsumption/add`}>Add fuel consumption report</Link>
                 <div style = {{float:'right'}}>
-                    {this.props.fuelEconomyList && <PaginationComponent pagination = {this.props.fuelEconomyList} onPageChange = {this.props.onPageChange}/>}
+                    {this.props.fuelConsumptionList && <PaginationComponent pagination = {this.props.fuelConsumptionList} onPageChange = {this.props.onPageChange}/>}
                 </div>
             </div>
         );
     }
 }
 
-export default FuelEconomyTable;
+export default FuelConsumptionTable;

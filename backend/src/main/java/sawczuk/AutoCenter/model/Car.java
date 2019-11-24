@@ -29,7 +29,7 @@ public class Car {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "car")
     private CarDetail carDetail;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "car")
-    private List<FuelEconomy> fuelEconomies;
+    private List<FuelConsumption> fuelEconomies;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "car")
     private List<Repair> repairs;
 }

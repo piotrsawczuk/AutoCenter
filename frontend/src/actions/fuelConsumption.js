@@ -1,24 +1,24 @@
 import axios from 'axios';
 import { API_URL, FUEL_ECONOMY_PAGE_SIZE as PAGE_SIZE } from '../utils/Properties';
 
-const setFuelEconomyList = (fuelEconomyList) => {
+const setFuelConsumptionList = (fuelConsumptionList) => {
     return {
         type: SET_FUEL_ECONOMY_LIST,
-        fuelEconomyList
+        fuelConsumptionList
     }
 }
 
-const setFuelEconomyAvgs = (fuelEconomyAvgs) => {
+const setFuelConsumptionAvgs = (fuelConsumptionAvgs) => {
     return {
         type: SET_FUEL_ECONOMY_AVGS,
-        fuelEconomyAvgs
+        fuelConsumptionAvgs
     }
 }
 
-const addFuelEconomy = (fuelEconomy) => {
+const addFuelConsumption = (fuelConsumption) => {
     return {
         type: ADD_FUEL_ECONOMY,
-        fuelEconomy
+        fuelConsumption
     }
 }
 
@@ -37,12 +37,12 @@ export const SET_ERROR = 'SET_ERROR';
 export const findAll = (carId, page) => {
     if (!page) page = 1;
     return dispatch => {
-        axios.get(`${API_URL}/cars/${carId}/fuel-economy?page=${page-1}&size=${PAGE_SIZE}`, { headers: {
+        axios.get(`${API_URL}/cars/${carId}/fuel-consumption?page=${page-1}&size=${PAGE_SIZE}`, { headers: {
             'Authorization': localStorage.getItem('token')
         } }).then(response => {
             if (response.data.numberOfElements < 1 && page > 1)
                 dispatch(findAll(carId, page-1));
-            dispatch(setFuelEconomyList(response.data));
+            dispatch(setFuelConsumptionList(response.data));
         }).catch(error => {
             dispatch(setError(error.response.data))
         });
@@ -51,10 +51,10 @@ export const findAll = (carId, page) => {
 
 export const findAllAvgs = (carId) => {
     return dispatch => {
-        axios.get(`${API_URL}/cars/${carId}/fuel-economy/avg`, { headers: {
+        axios.get(`${API_URL}/cars/${carId}/fuel-consumption/avg`, { headers: {
             'Authorization': localStorage.getItem('token')
         } }).then(response => {
-            dispatch(setFuelEconomyAvgs(response.data));
+            dispatch(setFuelConsumptionAvgs(response.data));
         }).catch(error => {
             dispatch(setError(error.response.data))
         });
@@ -63,21 +63,21 @@ export const findAllAvgs = (carId) => {
 
 export const findAllAvgsByCarApiId = (modelId) => {
     return dispatch => {
-        axios.get(`${API_URL}/fuel-economy/avg?carApiId=${modelId}`)
+        axios.get(`${API_URL}/fuel-consumption/avg?carApiId=${modelId}`)
         .then(response => {
-            dispatch(setFuelEconomyAvgs(response.data));
+            dispatch(setFuelConsumptionAvgs(response.data));
         }).catch(error => {
             dispatch(setError(error.response.data))
         })
     }
 };
 
-export const save = (carId, fuelEconomy) => {
+export const save = (carId, fuelConsumption) => {
     return dispatch => {
-        axios.post(`${API_URL}/cars/${carId}/fuel-economy`, fuelEconomy, { headers: {
+        axios.post(`${API_URL}/cars/${carId}/fuel-consumption`, fuelConsumption, { headers: {
             'Authorization': localStorage.getItem('token')
         }}).then(response => {
-            dispatch(addFuelEconomy(response.data));
+            dispatch(addFuelConsumption(response.data));
             dispatch(findAllAvgs(carId));
             dispatch(findAll(carId));
         }).catch(error => {
@@ -86,9 +86,9 @@ export const save = (carId, fuelEconomy) => {
     }
 }
 
-export const deleteFuelEconomy = (carId, id, page) => {
+export const deleteFuelConsumption = (carId, id, page) => {
     return dispatch => {
-        axios.delete(`${API_URL}/cars/${carId}/fuel-economy/${id}`, { headers: {
+        axios.delete(`${API_URL}/cars/${carId}/fuel-consumption/${id}`, { headers: {
             'Authorization': localStorage.getItem('token')
         }}).then(response => {
             dispatch(findAllAvgs(carId));

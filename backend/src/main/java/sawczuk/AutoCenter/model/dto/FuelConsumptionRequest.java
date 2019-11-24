@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class FuelEconomyRequest {
+public class FuelConsumptionRequest {
     private LocalDate date;
     private Integer drivingType;
     private Integer fuelType;
