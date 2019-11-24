@@ -7,8 +7,8 @@ import LogoutPage from './containers/LogoutPage';
 import SignUpPage from './containers/SignUpPage';
 import CarsPage from './containers/CarsPage';
 import AddCarPage from './containers/AddCarPage';
-import FuelEconomyPage from './containers/FuelEconomyPage';
-import AddFuelEconomyPage from './containers/AddFuelEconomyPage';
+import FuelConsumptionPage from './containers/FuelConsumptionPage';
+import AddFuelConsumptionPage from './containers/AddFuelConsumptionPage';
 import RepairsPage from './containers/RepairsPage';
 import AddRepairPage from './containers/AddRepairPage';
 import UserDetailsPage from './containers/UserDetailsPage';
@@ -28,8 +28,8 @@ class App extends Component {
             <Route exact path = '/cars' component = {CarsPage}/>
             <Route exact path = '/cars/add' component = {AddCarPage}/>
             <Route exact path = '/cars/:carId/edit' component = {EditCarDetailPage}/>
-            <Route exact path = '/cars/:carId/fuelEconomy' component = {FuelEconomyPage}/>
-            <Route exact path = '/cars/:carId/fuelEconomy/add' component = {AddFuelEconomyPage}/>
+            <Route exact path = '/cars/:carId/fuelConsumption' component = {FuelConsumptionPage}/>
+            <Route exact path = '/cars/:carId/fuelConsumption/add' component = {AddFuelConsumptionPage}/>
             <Route exact path = '/cars/:carId/repairs' component = {RepairsPage}/>
             <Route exact path = '/cars/:carId/repairs/add' component = {AddRepairPage}/>
             <Route exact path = '/accountDetails' component = {UserDetailsPage}/>

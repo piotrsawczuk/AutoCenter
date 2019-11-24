@@ -4,19 +4,19 @@ import { Table } from 'semantic-ui-react';
 import { findAll as findAllDrivingTypes} from '../../actions/drivingTypes';
 import { findAll as findAllFuelTypes} from '../../actions/fuelTypes';
 
-class FuelEconomyAvgsTable extends Component {
+class FuelConsumptionAvgsTable extends Component {
 
     componentDidMount = () => {
         this.props.findAllDrivingTypes();
         this.props.findAllFuelTypes();
     }
 
-    getFuelEconomyAvgValue = (avgsCollection, drivingTypeValue, fuelTypeValue) => {
+    getFuelConsumptionAvgValue = (avgsCollection, drivingTypeValue, fuelTypeValue) => {
         if (!avgsCollection || avgsCollection.length <= 0) 
             return '-';
         for (var i=0; i < avgsCollection.length; i++) {
             if (avgsCollection[i].drivingTypeValue === drivingTypeValue && avgsCollection[i].fuelTypeValue === fuelTypeValue) {
-                return avgsCollection[i].economyAverage;
+                return avgsCollection[i].consumptionAverage;
             }
         }
         return '-';
@@ -41,21 +41,21 @@ class FuelEconomyAvgsTable extends Component {
                     <Table.Body>
                         <Table.Row>
                             <Table.Cell>{this.props.fuelTypes[0].fuelType}</Table.Cell>
-                            <Table.Cell>{this.getFuelEconomyAvgValue(this.props.fuelEconomyAvgs, this.props.drivingTypes[0].value, this.props.fuelTypes[0].value)}</Table.Cell>
-                            <Table.Cell>{this.getFuelEconomyAvgValue(this.props.fuelEconomyAvgs, this.props.drivingTypes[1].value, this.props.fuelTypes[0].value)}</Table.Cell>
-                            <Table.Cell>{this.getFuelEconomyAvgValue(this.props.fuelEconomyAvgs, this.props.drivingTypes[2].value, this.props.fuelTypes[0].value)}</Table.Cell>
+                            <Table.Cell>{this.getFuelConsumptionAvgValue(this.props.fuelConsumptionAvgs, this.props.drivingTypes[0].value, this.props.fuelTypes[0].value)}</Table.Cell>
+                            <Table.Cell>{this.getFuelConsumptionAvgValue(this.props.fuelConsumptionAvgs, this.props.drivingTypes[1].value, this.props.fuelTypes[0].value)}</Table.Cell>
+                            <Table.Cell>{this.getFuelConsumptionAvgValue(this.props.fuelConsumptionAvgs, this.props.drivingTypes[2].value, this.props.fuelTypes[0].value)}</Table.Cell>
                         </Table.Row>
                         <Table.Row>
                             <Table.Cell>{this.props.fuelTypes[1].fuelType}</Table.Cell>
-                            <Table.Cell>{this.getFuelEconomyAvgValue(this.props.fuelEconomyAvgs, this.props.drivingTypes[0].value, this.props.fuelTypes[1].value)}</Table.Cell>
-                            <Table.Cell>{this.getFuelEconomyAvgValue(this.props.fuelEconomyAvgs, this.props.drivingTypes[1].value, this.props.fuelTypes[1].value)}</Table.Cell>
-                            <Table.Cell>{this.getFuelEconomyAvgValue(this.props.fuelEconomyAvgs, this.props.drivingTypes[2].value, this.props.fuelTypes[1].value)}</Table.Cell>
+                            <Table.Cell>{this.getFuelConsumptionAvgValue(this.props.fuelConsumptionAvgs, this.props.drivingTypes[0].value, this.props.fuelTypes[1].value)}</Table.Cell>
+                            <Table.Cell>{this.getFuelConsumptionAvgValue(this.props.fuelConsumptionAvgs, this.props.drivingTypes[1].value, this.props.fuelTypes[1].value)}</Table.Cell>
+                            <Table.Cell>{this.getFuelConsumptionAvgValue(this.props.fuelConsumptionAvgs, this.props.drivingTypes[2].value, this.props.fuelTypes[1].value)}</Table.Cell>
                         </Table.Row>
                         <Table.Row>
                             <Table.Cell>{this.props.fuelTypes[2].fuelType}</Table.Cell>
-                            <Table.Cell>{this.getFuelEconomyAvgValue(this.props.fuelEconomyAvgs, this.props.drivingTypes[0].value, this.props.fuelTypes[2].value)}</Table.Cell>
-                            <Table.Cell>{this.getFuelEconomyAvgValue(this.props.fuelEconomyAvgs, this.props.drivingTypes[1].value, this.props.fuelTypes[2].value)}</Table.Cell>
-                            <Table.Cell>{this.getFuelEconomyAvgValue(this.props.fuelEconomyAvgs, this.props.drivingTypes[2].value, this.props.fuelTypes[2].value)}</Table.Cell>
+                            <Table.Cell>{this.getFuelConsumptionAvgValue(this.props.fuelConsumptionAvgs, this.props.drivingTypes[0].value, this.props.fuelTypes[2].value)}</Table.Cell>
+                            <Table.Cell>{this.getFuelConsumptionAvgValue(this.props.fuelConsumptionAvgs, this.props.drivingTypes[1].value, this.props.fuelTypes[2].value)}</Table.Cell>
+                            <Table.Cell>{this.getFuelConsumptionAvgValue(this.props.fuelConsumptionAvgs, this.props.drivingTypes[2].value, this.props.fuelTypes[2].value)}</Table.Cell>
                         </Table.Row>
                     </Table.Body>
                 </Table>
@@ -73,4 +73,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { findAllDrivingTypes, findAllFuelTypes }) (FuelEconomyAvgsTable);
+export default connect(mapStateToProps, { findAllDrivingTypes, findAllFuelTypes }) (FuelConsumptionAvgsTable);

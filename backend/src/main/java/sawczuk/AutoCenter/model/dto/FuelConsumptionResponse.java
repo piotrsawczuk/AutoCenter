@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class FuelEconomyResponse {
+public class FuelConsumptionResponse {
     private Long id;
     private LocalDate date;
     private Double distanceDriven;

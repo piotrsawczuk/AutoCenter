@@ -3,21 +3,21 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 import { Breadcrumb } from 'semantic-ui-react';
-import FuelEconomyTable from '../components/fuelEconomy/FuelEconomyTable';
-import FuelEconomyAvgsTable from '../components/fuelEconomy/FuelEconomyAvgsTable';
-import { findAll as findFuelEconomyList, findAllAvgs as findFuelEconomyAvgs } from '../actions/fuelEconomy';
+import FuelConsumptionTable from '../components/fuelConsumption/FuelConsumptionTable';
+import FuelConsumptionAvgsTable from '../components/fuelConsumption/FuelConsumptionAvgsTable';
+import { findAll as findFuelConsumptionList, findAllAvgs as findFuelConsumptionAvgs } from '../actions/fuelConsumption';
 import { findOne as findUserCar } from '../actions/cars';
 
-class FuelEconomyPage extends Component {
+class FuelConsumptionPage extends Component {
     
     componentDidMount = () => {
         this.props.findUserCar(this.props.match.params.carId);
-        this.props.findFuelEconomyAvgs(this.props.match.params.carId);
-        this.props.findFuelEconomyList(this.props.match.params.carId);
+        this.props.findFuelConsumptionAvgs(this.props.match.params.carId);
+        this.props.findFuelConsumptionList(this.props.match.params.carId);
     }
 
     handlePaginationChange = (e, page) => {
-        this.props.findFuelEconomyList(this.props.match.params.carId, page.activePage);
+        this.props.findFuelConsumptionList(this.props.match.params.carId, page.activePage);
     }
 
     render() {
@@ -36,9 +36,9 @@ class FuelEconomyPage extends Component {
                         </Breadcrumb>
                     </div>
                     <h3>Fuel consumption average</h3>
-                    <FuelEconomyAvgsTable fuelEconomyAvgs = {this.props.fuelEconomyAvgs} />
+                    <FuelConsumptionAvgsTable fuelConsumptionAvgs = {this.props.fuelConsumptionAvgs} />
                     <h3>Fuel consumption reports</h3>
-                    <FuelEconomyTable fuelEconomyList = {this.props.fuelEconomyList} carId = {this.props.match.params.carId} onPageChange = {this.handlePaginationChange}/>
+                    <FuelConsumptionTable fuelConsumptionList = {this.props.fuelConsumptionList} carId = {this.props.match.params.carId} onPageChange = {this.handlePaginationChange}/>
                 </div>
         );
     }
@@ -47,10 +47,10 @@ class FuelEconomyPage extends Component {
 const mapStateToProps = (state) => {
     return {
         isAuthenticated: state.authReducer.isAuthenticated,
-        fuelEconomyList: state.fuelEconomyReducer.fuelEconomyList,
-        fuelEconomyAvgs: state.fuelEconomyReducer.fuelEconomyAvgs,
+        fuelConsumptionList: state.fuelConsumptionReducer.fuelConsumptionList,
+        fuelConsumptionAvgs: state.fuelConsumptionReducer.fuelConsumptionAvgs,
         car: state.carsReducer.car
     }
 }
 
-export default connect(mapStateToProps, { findFuelEconomyList, findFuelEconomyAvgs, findUserCar }) (FuelEconomyPage);
+export default connect(mapStateToProps, { findFuelConsumptionList, findFuelConsumptionAvgs, findUserCar }) (FuelConsumptionPage);

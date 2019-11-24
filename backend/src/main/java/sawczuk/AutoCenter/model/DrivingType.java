@@ -28,7 +28,7 @@ public class DrivingType {
     @Column(name = "driving_type")
     private String drivingType;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "drivingType")
-    private List<FuelEconomy> fuelEconomyList;
+    private List<FuelConsumption> fuelConsumptionList;
 
     public void setValue(DrivingTypeEnum drivingType) {
         this.value = drivingType.getValue();

@@ -42,7 +42,7 @@ public class NumberUtils {
             return null;
     }
 
-    public static Double calculateFuelEconomy(Double distanceDriven, Double fuelAmountFilled) {
+    public static Double calculateFuelConsumption(Double distanceDriven, Double fuelAmountFilled) {
         if (distanceDriven != null && distanceDriven > 0 && fuelAmountFilled != null && fuelAmountFilled > 0)
             return truncateDouble(fuelAmountFilled * 100 / distanceDriven);
         else

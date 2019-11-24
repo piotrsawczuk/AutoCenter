@@ -37,7 +37,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .antMatchers("/fuel-types").permitAll()
                 .antMatchers("/exploitation-types").permitAll()
                 .antMatchers("/driving-types").permitAll()
-                .antMatchers(HttpMethod.GET, "/fuel-economy/avg").permitAll()
+                .antMatchers(HttpMethod.GET, "/fuel-consumption/avg").permitAll()
                 .antMatchers(HttpMethod.GET, "/repairs/total-cost").permitAll()
                 .antMatchers("/**").authenticated()
                 .anyRequest().authenticated();

@@ -100,9 +100,9 @@ create table user_car_detail(
     constraint unique_user_car_id unique (user_car_id)
 );
 
-create sequence fuel_economy_seq;
-create table fuel_economy(
-    id bigint not null primary key default nextval('fuel_economy_seq'),
+create sequence fuel_consumption_seq;
+create table fuel_consumption(
+    id bigint not null primary key default nextval('fuel_consumption_seq'),
     user_car_id bigint,
     date date,
     driving_type bigint,

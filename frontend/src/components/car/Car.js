@@ -58,7 +58,7 @@ class Car extends Component {
                 <Grid.Column width={4}>
                     <Button.Group vertical compact floated={'right'}>
                         <Button className="ui large primary left floated button" onClick={this.showCarData}>{this.state.visibleDataTable && trim && trim.model_id === car.carApiId ? 'Hide car data' : 'Show car data'}</Button>
-                        <Link className="ui large primary left floated button" to={`/cars/${car.id}/fuelEconomy`}>Fuel economy</Link>
+                        <Link className="ui large primary left floated button" to={`/cars/${car.id}/fuelConsumption`}>Fuel consumption</Link>
                         <Link className="ui large primary left floated button" to={`/cars/${car.id}/repairs`}>Repairs</Link>
                         <Link className="ui large primary left floated button" to={`/cars/${car.id}/edit`}>Edit car</Link>
                         <Button className="ui large primary left floated button" onClick={this.deleteCar}>Delete car</Button>

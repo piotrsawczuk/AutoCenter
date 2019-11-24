@@ -5,14 +5,14 @@ import MakeSelection from '../components/car/MakeSelection';
 import ModelSelection from '../components/car/ModelSelection';
 import TrimSelection from '../components/car/TrimSelection';
 import CarDataTable from '../components/car/CarDataTable';
-import FuelEconomyAvgsTable from '../components/fuelEconomy/FuelEconomyAvgsTable';
+import FuelConsumptionAvgsTable from '../components/fuelConsumption/FuelConsumptionAvgsTable';
 import RepairsTotalCostsTable from '../components/repair/RepairsTotalCostsTable';
 import { findOne as findYears } from '../actions/years';
 import { findAll as findAllMakes } from '../actions/makes';
 import { findAll as findAllModels } from '../actions/models';
 import { findAll as findAllTrims } from '../actions/trims';
 import { findOne as findTrim } from '../actions/trim';
-import { findAllAvgsByCarApiId as findFuelEconomyAvgs } from '../actions/fuelEconomy';
+import { findAllAvgsByCarApiId as findFuelConsumptionAvgs } from '../actions/fuelConsumption';
 import { findTotalCostsByCarApiId as findRepairsTotalCosts } from '../actions/repairs';
 
 
@@ -71,7 +71,7 @@ class MainPage extends Component {
     onChangeTrimSelection = (e, trim) => {
         if (trim.value) {
             this.props.findTrim(trim.value);
-            this.props.findFuelEconomyAvgs(trim.value);
+            this.props.findFuelConsumptionAvgs(trim.value);
             this.props.findRepairsTotalCosts(trim.value);
             this.setState({ visibleTables: true });
         }
@@ -96,8 +96,8 @@ class MainPage extends Component {
                     </div>
                 </div>
                 <div style={{marginBottom: '50px'}}>
-                    {this.state.visibleTables &&  <h3>Fuel economy average</h3>}
-                    {this.state.visibleTables &&  <FuelEconomyAvgsTable fuelEconomyAvgs = {this.props.fuelEconomyAvgs} />}
+                    {this.state.visibleTables &&  <h3>Fuel consumption average</h3>}
+                    {this.state.visibleTables &&  <FuelConsumptionAvgsTable fuelConsumptionAvgs = {this.props.fuelConsumptionAvgs} />}
                 </div>
                 <div style={{marginBottom: '50px'}}>
                     {this.state.visibleTables && <h3>Total average repairs cost</h3>}
@@ -119,7 +119,7 @@ const mapStateToProps = (state) => {
         models: state.modelsReducer.models,
         trims: state.trimsReducer.trims,
         trim: state.trimReducer.trim,
-        fuelEconomyAvgs: state.fuelEconomyReducer.fuelEconomyAvgs,
+        fuelConsumptionAvgs: state.fuelConsumptionReducer.fuelConsumptionAvgs,
         repairsTotalCosts: state.repairsReducer.repairsTotalCosts
     }
 }
@@ -131,7 +131,7 @@ export default connect(mapStateToProps,
         findAllModels,
         findAllTrims,
         findTrim,
-        findFuelEconomyAvgs,
+        findFuelConsumptionAvgs,
         findRepairsTotalCosts
     }
 ) (MainPage);

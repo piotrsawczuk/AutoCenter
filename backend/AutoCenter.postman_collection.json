@@ -758,20 +758,20 @@
 			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "fuel-economy",
+			"name": "fuel-consumption",
 			"item": [
 				{
-					"name": "fuel-economy/avg",
+					"name": "fuel-consumption/avg",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL}}/fuel-economy/avg?carApiId=40156",
+							"raw": "{{API_URL}}/fuel-consumption/avg?carApiId=40156",
 							"host": [
 								"{{API_URL}}"
 							],
 							"path": [
-								"fuel-economy",
+								"fuel-consumption",
 								"avg"
 							],
 							"query": [
@@ -785,38 +785,38 @@
 					"response": []
 				},
 				{
-					"name": "cars/{carId}/fuel-economy",
+					"name": "cars/{carId}/fuel-consumption",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL}}/cars/4/fuel-economy",
+							"raw": "{{API_URL}}/cars/4/fuel-consumption",
 							"host": [
 								"{{API_URL}}"
 							],
 							"path": [
 								"cars",
 								"4",
-								"fuel-economy"
+								"fuel-consumption"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "cars/{carId}/fuel-economy/{id}",
+					"name": "cars/{carId}/fuel-consumption/{id}",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL}}/cars/4/fuel-economy/10",
+							"raw": "{{API_URL}}/cars/4/fuel-consumption/10",
 							"host": [
 								"{{API_URL}}"
 							],
 							"path": [
 								"cars",
 								"4",
-								"fuel-economy",
+								"fuel-consumption",
 								"10"
 							]
 						}
@@ -824,19 +824,19 @@
 					"response": []
 				},
 				{
-					"name": "cars/{carId}/fuel-economy/avg",
+					"name": "cars/{carId}/fuel-consumption/avg",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL}}/cars/7/fuel-economy/avg",
+							"raw": "{{API_URL}}/cars/7/fuel-consumption/avg",
 							"host": [
 								"{{API_URL}}"
 							],
 							"path": [
 								"cars",
 								"7",
-								"fuel-economy",
+								"fuel-consumption",
 								"avg"
 							]
 						}
@@ -844,7 +844,7 @@
 					"response": []
 				},
 				{
-					"name": "cars/{carId}/fuel-economy",
+					"name": "cars/{carId}/fuel-consumption",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -858,21 +858,21 @@
 							"raw": "{\n  \"date\" : \"2018-02-13\",\n    \"drivingType\" : 1,\n    \"fuelType\" : 1,\n    \"distanceDriven\" : 550,\n    \"fuelAmountFilled\" : 55,\n    \"pricePerLitre\" : 4.64\n}"
 						},
 						"url": {
-							"raw": "{{API_URL}}/cars/7/fuel-economy",
+							"raw": "{{API_URL}}/cars/7/fuel-consumption",
 							"host": [
 								"{{API_URL}}"
 							],
 							"path": [
 								"cars",
 								"7",
-								"fuel-economy"
+								"fuel-consumption"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "cars/{carId}/fuel-economy/{id}",
+					"name": "cars/{carId}/fuel-consumption/{id}",
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -886,14 +886,14 @@
 							"raw": "{\n\t\"date\" : \"2018-02-14\",\n    \"drivingType\" : 2,\n    \"fuelType\" : 1,\n    \"distanceDriven\" : 550.50,\n    \"fuelAmountFilled\" : 50.9,\n    \"pricePerLitre\" : 4.65\n}"
 						},
 						"url": {
-							"raw": "{{API_URL}}/cars/4/fuel-economy/1",
+							"raw": "{{API_URL}}/cars/4/fuel-consumption/1",
 							"host": [
 								"{{API_URL}}"
 							],
 							"path": [
 								"cars",
 								"4",
-								"fuel-economy",
+								"fuel-consumption",
 								"1"
 							]
 						}
@@ -901,19 +901,19 @@
 					"response": []
 				},
 				{
-					"name": "cars/{carId}/fuel-economy/{id}",
+					"name": "cars/{carId}/fuel-consumption/{id}",
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL}}/cars/4/fuel-economy/2",
+							"raw": "{{API_URL}}/cars/4/fuel-consumption/2",
 							"host": [
 								"{{API_URL}}"
 							],
 							"path": [
 								"cars",
 								"4",
-								"fuel-economy",
+								"fuel-consumption",
 								"2"
 							]
 						}

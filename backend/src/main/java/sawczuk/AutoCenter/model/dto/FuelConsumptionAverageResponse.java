@@ -5,8 +5,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class FuelEconomyAverageResponse {
+public class FuelConsumptionAverageResponse {
     Integer drivingTypeValue;
     Integer fuelTypeValue;
-    Double economyAverage;
+    Double consumptionAverage;
 }

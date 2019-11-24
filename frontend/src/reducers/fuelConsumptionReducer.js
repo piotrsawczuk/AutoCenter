@@ -1,24 +1,24 @@
-import { SET_FUEL_ECONOMY_LIST, SET_FUEL_ECONOMY_AVGS, ADD_FUEL_ECONOMY, SET_ERROR } from "../actions/fuelEconomy";
+import { SET_FUEL_ECONOMY_LIST, SET_FUEL_ECONOMY_AVGS, ADD_FUEL_ECONOMY, SET_ERROR } from "../actions/fuelConsumption";
 
-const fuelEconomyReducer = (state = { fuelEconomyList: {}, fuelEconomyAvgs: {}, fuelEconomy: {}, status: 0 }, action = {}) => {
+const fuelConsumptionReducer = (state = { fuelConsumptionList: {}, fuelConsumptionAvgs: {}, fuelConsumption: {}, status: 0 }, action = {}) => {
     switch (action.type) {
 
         case SET_FUEL_ECONOMY_LIST : 
             return {
                 ...state,
-                fuelEconomyList: action.fuelEconomyList
+                fuelConsumptionList: action.fuelConsumptionList
             };
 
         case SET_FUEL_ECONOMY_AVGS : 
             return {
                 ...state,
-                fuelEconomyAvgs: action.fuelEconomyAvgs
+                fuelConsumptionAvgs: action.fuelConsumptionAvgs
             };
 
         case ADD_FUEL_ECONOMY : 
             return {
                 ...state,
-                fuelEconomy: action.fuelEconomy
+                fuelConsumption: action.fuelConsumption
             };
 
         case SET_ERROR :
@@ -31,4 +31,4 @@ const fuelEconomyReducer = (state = { fuelEconomyList: {}, fuelEconomyAvgs: {}, 
     }
 }
 
-export default fuelEconomyReducer;
+export default fuelConsumptionReducer;
